@@ -1,0 +1,35 @@
+/* src/components/GameOutput.css */
+.game-output {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25%;       /* 1/4 of the width */
+    height: 75vh;     /* 3/4 of the viewport height */
+    background-color: #f9f9f9; /* Optional background color */
+    padding: 10px;
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    box-sizing: border-box; /* Include padding in width and height */
+    border-right: 1px solid #ccc; /* Optional border */
+  }
+
+  /* src/components/GameOutput.css */
+.game-output {
+    /* Existing styles */
+    font-family: 'Courier New', Courier, monospace; /* Classic text-based game font */
+    white-space: pre-wrap; /* Preserve whitespace and line breaks */
+    border-bottom: 1px solid #ccc; /* Optional border */
+  }
+
+  .message {
+    margin-bottom: 10px;
+  }
+  
+  .message.user {
+    color: blue;
+    text-align: right;
+  }
+
+  .message.game {
+    color: black;
+    text-align: left;
+  }

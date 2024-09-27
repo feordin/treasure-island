@@ -1,0 +1,33 @@
+/* src/components/GameInput.css */
+.game-input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 25%;      /* 1/4 of the width */
+    height: 25vh;    /* 1/4 of the viewport height */
+    background-color: #eaeaea;
+    padding: 10px;
+    box-sizing: border-box;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+  }
+  
+  .game-input form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .game-input input {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .game-input button {
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
