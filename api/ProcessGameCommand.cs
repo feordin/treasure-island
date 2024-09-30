@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Cosmos;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Drawing;
 
 namespace Erwin.Games.TreasureIsland
 {
@@ -30,19 +33,25 @@ namespace Erwin.Games.TreasureIsland
         [Function("ProcessGameCommand")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
         {
-            _logger.LogInformation("C# HTTP trigger function processed a request.");
-            var uri = Environment.GetEnvironmentVariable("CosmosDBEndpoint");
-            var key = Environment.GetEnvironmentVariable("CosmosDBKey");
+            // Read the body of the POST request
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            JObject data = JsonConvert.DeserializeObject<JObject>(requestBody);
 
-            _logger.LogInformation($"CosmosDBEndpoint: {uri}");
-            _logger.LogInformation($"CosmosDBKey: {key}");
+            // Example: Access a property from the JSON body
+            string command = data["command"].ToString();
 
+            _logger.LogInformation("Processing game command: {0}", command);
+           
+            return new OkObjectResult(string.Format("Processed game command: {0}", command));
+        }
+
+        private async Task<string> GetStartingLocationDescription()
+        {
             var container = _cosmosClient.GetContainer(_databaseId, _containerId);
             var response = await container.ReadItemAsync<dynamic>("startinglocationdescription", new PartitionKey("startinglocationdescription"));
             var document = response.Resource;
             var returnValue = ((Newtonsoft.Json.Linq.JObject)document).Value<string>("description");
-            
-            return new OkObjectResult(returnValue);
+            return returnValue;
         }
     }
 }
