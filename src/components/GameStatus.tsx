@@ -28,7 +28,7 @@ const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, dat
     <div className="game-status">
       <h2>Game Status</h2>
       <div className="status-item">
-        <strong>Player:</strong> {user?.userDetails}
+        <strong>Player:</strong> {user?.userId}
       </div>
       <div className="status-item">
         <strong>Score:</strong> {score}
