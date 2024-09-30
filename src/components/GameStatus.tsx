@@ -1,5 +1,7 @@
 import React from 'react';
 import './GameStatus.css';
+import { getUserInfo, User } from '../services/userService';
+
 
 interface GameStatusProps {
   inventory: string[];
@@ -12,11 +14,21 @@ interface GameStatusProps {
 }
 
 const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, date, time, player, currentLocationDescription }) => {
+    const [user, setUser] = React.useState<User | null>(null);
+
+    React.useEffect(() => {
+        const fetchUserInfo = async () => {
+            const userInfo = await getUserInfo();
+            setUser(userInfo);
+        };
+        fetchUserInfo();
+    }, []);
+
   return (
     <div className="game-status">
       <h2>Game Status</h2>
       <div className="status-item">
-        <strong>Player:</strong> {player}
+        <strong>Player:</strong> {user?.userDetails}
       </div>
       <div className="status-item">
         <strong>Score:</strong> {score}
