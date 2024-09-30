@@ -19,21 +19,7 @@ namespace Erwin.Games.TreasureIsland
         {
             // Perform any initialization here
             var uri = Environment.GetEnvironmentVariable("CosmosDBEndpoint");
-            var isLocal = Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT") == "Development";
-            string? key = null;
-
-            if (isLocal)
-            {
-                key = Environment.GetEnvironmentVariable("CosmosDBEmulatorKey");
-            }
-            else
-            {
-                var keyVaultUri = Environment.GetEnvironmentVariable("KeyVaultUri");
-                var secretClient = new Azure.Security.KeyVault.Secrets.SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
-                var secret = secretClient.GetSecret("CosmosDBKey");
-                key = secret.Value.Value;
-            }
-
+            var key = Environment.GetEnvironmentVariable("CosmosDBKey");
             return new CosmosClient(uri, key);
         }
 
