@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Cosmos;
-using Azure.Identity;
 
 namespace Erwin.Games.TreasureIsland
 {
@@ -32,6 +31,11 @@ namespace Erwin.Games.TreasureIsland
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
+            var uri = Environment.GetEnvironmentVariable("CosmosDBEndpoint");
+            var key = Environment.GetEnvironmentVariable("CosmosDBKey");
+
+            _logger.LogInformation($"CosmosDBEndpoint: {uri}");
+            _logger.LogInformation($"CosmosDBKey: {key}");
 
             var container = _cosmosClient.GetContainer(_databaseId, _containerId);
             var response = await container.ReadItemAsync<dynamic>("startinglocationdescription", new PartitionKey("startinglocationdescription"));
