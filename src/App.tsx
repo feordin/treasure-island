@@ -1,11 +1,12 @@
 // src/App.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './App.css';
 import GameOutput from './components/GameOutput';
 import GameInput from './components/GameInput';
 import LocationImage from './components/LocationImage';
 import GameStatus from './components/GameStatus';
 import { ProcessCommandResponse, CommandRequest, SaveGameData } from './modules/ProcessCommandResponse';
+import { invokeAzureFunction } from './services/invokeApi';
 
 
 interface Message {
@@ -21,13 +22,15 @@ var time = new Date().toLocaleTimeString();
 var currentLocationDescription = 'Starting location';
 
 function App() {
+  
   const [messages, setMessages] = useState<Message[]>([
     { sender: 'game', text: 'Welcome to your adventure!' },
   ]);
 
+  const initRef = useRef(false); // Ref to track initialization
   const [currentLocationImage, setCurrentLocationImage] = useState<string>('images/hilltop.png'); // Initial image
 
-  var currentGame: SaveGameData | undefined = {
+  const currentGameRef = useRef<SaveGameData | undefined>({
     player: "Test",
     score: 0,
     currentLocation: "Foo",
@@ -36,14 +39,29 @@ function App() {
     health: 0,
     history: undefined,
     locationChanges: []
-  };
+  });
 
-  const handleCommandSubmit = async (command: string) => {
+  const handleCommandSubmit = useCallback(async (command: string) => {
     // Add user's command to messages
     setMessages((prevMessages) => [
       ...prevMessages,
       { sender: 'user', text: command },
     ]);
+
+    const processCommand = async (command: string): Promise<{ response: string; newImage?: string }> => {
+      const commandRequest: CommandRequest = {
+        command: command,
+        saveGameData: currentGameRef.current
+      }
+      const azureResponse = await invokeAzureFunction(commandRequest);
+      console.log('Azure response:', azureResponse);
+      const parsedResponse: ProcessCommandResponse = typeof azureResponse === 'string' ? JSON.parse(azureResponse) : azureResponse;
+      currentGameRef.current = parsedResponse.saveGameData;
+      return {
+        response: parsedResponse.message || 'No response from server',
+        newImage: parsedResponse.image
+      };
+    };
 
     // Implement game logic here
     const { response, newImage } = await processCommand(command);
@@ -61,68 +79,30 @@ function App() {
     }
 
     // update the game status
-    if (currentGame) {
-      if (currentGame.currentLocation && location !== currentGame.currentLocation) {
-        location = currentGame.currentLocation;
+    if (currentGameRef.current) {
+      if (currentGameRef.current.currentLocation && location !== currentGameRef.current.currentLocation) {
+        location = currentGameRef.current.currentLocation;
         currentLocationDescription = response;
       }
-      if (currentGame.currentDateTime) {
-        date = new Date(currentGame.currentDateTime).toLocaleDateString();
-        time = new Date(currentGame.currentDateTime).toLocaleTimeString();
+      if (currentGameRef.current.currentDateTime) {
+        date = new Date(currentGameRef.current.currentDateTime).toLocaleDateString();
+        time = new Date(currentGameRef.current.currentDateTime).toLocaleTimeString();
       }
-      if (currentGame.inventory) {
-        inventory = currentGame.inventory;
+      if (currentGameRef.current.inventory) {
+        inventory = currentGameRef.current.inventory;
       }
-      if (currentGame.score) {
-        score = currentGame.score;
+      if (currentGameRef.current.score) {
+        score = currentGameRef.current.score;
       }
     }
-  };
-
-  // invoke the azure function here
-  const invokeAzureFunction = async (command: CommandRequest) => {
-    try {
-    const response = await fetch(process.env.REACT_APP_API_URL + '/api/ProcessGameCommand', {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(command),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.text();
-    return data;
-    } catch (error) {
-      console.error('Error invoking Azure function:', error);
-      return { response: 'There was an error processing your command.', newImage: undefined };
-    }
-  };
-
-  // Example game logic function
-  const processCommand = async (command: string): Promise<{ response: string; newImage?: string }> => {
-    
-    const commandRequest: CommandRequest = {
-      command: command,
-      saveGameData: currentGame
-    }
-
-    const azureResponse = await invokeAzureFunction(commandRequest);
-    console.log('Azure response:', azureResponse);
-    const parsedResponse: ProcessCommandResponse = typeof azureResponse === 'string' ? JSON.parse(azureResponse) : azureResponse;
-    currentGame = parsedResponse.saveGameData;
-    return {
-      response: parsedResponse.message || 'No response from server',
-      newImage: parsedResponse.image
-    };
-  };
+  }, [currentLocationImage]);
 
   useEffect(() => {
-    handleCommandSubmit("init");
-  }, []); // Empty de
+    if (!initRef.current) {
+      handleCommandSubmit("init");
+      initRef.current = true; // Set the ref to true after the first run
+    }
+  }, [handleCommandSubmit]); // Include handleCommandSubmit in the dependency array
 
   return (
     <div className="App">
