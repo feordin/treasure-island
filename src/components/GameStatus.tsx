@@ -9,11 +9,10 @@ interface GameStatusProps {
   location: string;
   date: string;
   time: string;
-  player: string;
   currentLocationDescription: string;
 }
 
-const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, date, time, player, currentLocationDescription }) => {
+const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, date, time, currentLocationDescription }) => {
     const [user, setUser] = React.useState<User | null>(null);
 
     React.useEffect(() => {
@@ -28,13 +27,10 @@ const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, dat
     <div className="game-status">
       <h2>Game Status</h2>
       <div className="status-item">
-        <strong>Player:</strong> {user?.userId}
+        <strong>Player:</strong> {user?.userDetails}
       </div>
       <div className="status-item">
         <strong>Score:</strong> {score}
-      </div>
-      <div className="status-item">
-        <strong>Location:</strong> {location}
       </div>
       <div className="status-item">
         <strong>Date:</strong> {date}
@@ -51,6 +47,9 @@ const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, dat
                 ))}
             </ul>
         </div>
+      </div>
+      <div className="status-item">
+        <strong>Location:</strong> {location}
       </div>
       <div className="status-item">
         <strong>Location Description:</strong> {currentLocationDescription} {/* New text block */}

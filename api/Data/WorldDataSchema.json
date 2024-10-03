@@ -1,0 +1,90 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "WorldData",
+    "type": "object",
+    "properties": {
+      "Locations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Location"
+        },
+        "nullable": true
+      },
+      "GlobalCommands": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "nullable": true
+      }
+    },
+    "definitions": {
+      "Location": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Description": {
+            "type": "string",
+            "nullable": true
+          },
+          "Items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Image": {
+            "type": "string",
+            "nullable": true
+          },
+          "AllowedMovements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Movement"
+            },
+            "nullable": true
+          },
+          "Actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "AllowedCommands": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "required": []
+      },
+      "Movement": {
+        "type": "object",
+        "properties": {
+          "Direction": {
+            "type": "string",
+            "nullable": true
+          },
+          "Destination": {
+            "type": "string",
+            "nullable": true
+          },
+          "TimeToMove": {
+            "type": "string",
+            "format": "duration",
+            "nullable": true
+          }
+        },
+        "required": []
+      }
+    },
+    "required": []
+  }
+  

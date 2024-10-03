@@ -1,0 +1,16 @@
+{
+    "$schema": "./saveGameDataSchema.json",
+    "id": "start_0",
+    "Player": "Jim Hawkins",
+    "Score": 0,
+    "CurrentLocation": "Hilltop",
+    "CurrentDateTime": "1789-10-01T12:00:00Z",
+    "Inventory": ["Map", "Compass"],
+    "Health": 100,
+    "History": {
+      "Command": [],
+      "Response": []
+    },
+    "LocationChanges": [
+    ]
+  }

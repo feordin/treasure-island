@@ -2,56 +2,53 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Drawing;
+using Erwin.Games.TreasureIsland.Models;
+using Erwin.Games.TreasureIsland.Commands;
+using Erwin.Games.TreasureIsland.Persistence;
 
 namespace Erwin.Games.TreasureIsland
 {
     public class ProcessGameCommand
     {
         private readonly ILogger<ProcessGameCommand> _logger;
-        private static Lazy<CosmosClient> _lazyClient = new Lazy<CosmosClient>(InitializeCosmosClient);
-        private static CosmosClient _cosmosClient => _lazyClient.Value;
-        private static readonly string _databaseId = "treasureisland";
-        private static readonly string _containerId = "gamedata";
+        private readonly IGameDataRepository _gameDataRepository;
 
-        private static CosmosClient InitializeCosmosClient()
-        {
-            // Perform any initialization here
-            var uri = Environment.GetEnvironmentVariable("CosmosDBEndpoint");
-            var key = Environment.GetEnvironmentVariable("CosmosDBKey");
-            return new CosmosClient(uri, key);
-        }
-
-        public ProcessGameCommand(ILogger<ProcessGameCommand> logger)
+        public ProcessGameCommand(ILogger<ProcessGameCommand> logger, IGameDataRepository gameDataRepository)
         {
             _logger = logger;
+            _gameDataRepository = gameDataRepository;
         }
 
         [Function("ProcessGameCommand")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")] HttpRequest req)
         {
+            ClientPrincipal.Instance = ClientPrincipal.Parse(req);
+            _logger.LogInformation("ClientPrincipal: {0}", ClientPrincipal.Instance);
+
             // Read the body of the POST request
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            JObject data = JsonConvert.DeserializeObject<JObject>(requestBody);
+            var data = JsonConvert.DeserializeObject<CommandRequest>(requestBody);
 
             // Example: Access a property from the JSON body
-            string command = data["command"].ToString();
+            string? command = data.command;
 
             _logger.LogInformation("Processing game command: {0}", command);
-           
-            return new OkObjectResult(string.Format("Processed game command: {0}", command));
-        }
 
-        private async Task<string> GetStartingLocationDescription()
-        {
-            var container = _cosmosClient.GetContainer(_databaseId, _containerId);
-            var response = await container.ReadItemAsync<dynamic>("startinglocationdescription", new PartitionKey("startinglocationdescription"));
-            var document = response.Resource;
-            var returnValue = ((Newtonsoft.Json.Linq.JObject)document).Value<string>("description");
-            return returnValue;
+            // Here we analyze the input, perhaps with an LLM
+            // Then the cleaned up command is fed to a factory to create a command object
+            // Then we execute the command object
+            // as the final part of each command, we update the game state
+            // 1) update the player's location
+            // 2) update the player's inventory
+            // 3) update the player's score
+            // 4) update the player's health
+            // 5) update the game date/time
+            ICommand cmd = CommandFactory.CreateCommand(command, data.saveGameData, _gameDataRepository);
+
+            var result = await cmd.Execute();
+           
+            return new OkObjectResult(result);
         }
     }
 }

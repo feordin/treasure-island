@@ -1,10 +1,11 @@
 // src/App.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import GameOutput from './components/GameOutput';
 import GameInput from './components/GameInput';
 import LocationImage from './components/LocationImage';
 import GameStatus from './components/GameStatus';
+import { ProcessCommandResponse, CommandRequest, SaveGameData } from './modules/ProcessCommandResponse';
 
 
 interface Message {
@@ -12,19 +13,30 @@ interface Message {
   text: string;
 }
 
-const inventory = ['Sword', 'Shield', 'Potion', 'donuts', 'map', 'key', 'candle'];
-const score = 100;
-const location = 'Castle';
-const date = new Date().toLocaleDateString();
-const time = new Date().toLocaleTimeString();
-const player = 'Player1';
+var inventory: string[] = [];
+var score = 100;
+var location = 'Foo';
+var date = new Date().toLocaleDateString();
+var time = new Date().toLocaleTimeString();
+var currentLocationDescription = 'Starting location';
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([
     { sender: 'game', text: 'Welcome to your adventure!' },
   ]);
 
-  const [currentLocationImage, setCurrentLocationImage] = useState<string>('images/start-point.png'); // Initial image
+  const [currentLocationImage, setCurrentLocationImage] = useState<string>('images/hilltop.png'); // Initial image
+
+  var currentGame: SaveGameData | undefined = {
+    player: "Test",
+    score: 0,
+    currentLocation: "Foo",
+    currentDateTime: "1978-01-01",
+    inventory: [],
+    health: 0,
+    history: undefined,
+    locationChanges: []
+  };
 
   const handleCommandSubmit = async (command: string) => {
     // Add user's command to messages
@@ -43,21 +55,39 @@ function App() {
     ]);
 
     // Update the location image if it has changed
-    if (newImage) {
+    if (newImage && newImage !== currentLocationImage && newImage !== '' && newImage !== undefined) {
       console.log('Update image:', newImage);
       setCurrentLocationImage(newImage);
+    }
+
+    // update the game status
+    if (currentGame) {
+      if (currentGame.currentLocation && location !== currentGame.currentLocation) {
+        location = currentGame.currentLocation;
+        currentLocationDescription = response;
+      }
+      if (currentGame.currentDateTime) {
+        date = new Date(currentGame.currentDateTime).toLocaleDateString();
+        time = new Date(currentGame.currentDateTime).toLocaleTimeString();
+      }
+      if (currentGame.inventory) {
+        inventory = currentGame.inventory;
+      }
+      if (currentGame.score) {
+        score = currentGame.score;
+      }
     }
   };
 
   // invoke the azure function here
-  const invokeAzureFunction = async (command: string) => {
+  const invokeAzureFunction = async (command: CommandRequest) => {
     try {
     const response = await fetch(process.env.REACT_APP_API_URL + '/api/ProcessGameCommand', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ command }),
+      body: JSON.stringify(command),
     });
 
     if (!response.ok) {
@@ -74,28 +104,32 @@ function App() {
 
   // Example game logic function
   const processCommand = async (command: string): Promise<{ response: string; newImage?: string }> => {
-    // Your game logic here
-    // For demonstration, let's simulate moving to a new location when the user types "go north"
-    const azureResponse = await invokeAzureFunction(command);
-    console.log('Azure response:', azureResponse);
-
-    if (command.toLowerCase() === 'go north') {
-      return {
-        response: 'You head north into the dark forest.',
-        newImage: 'images/forest-location.png',
-      };
+    
+    const commandRequest: CommandRequest = {
+      command: command,
+      saveGameData: currentGame
     }
 
-    // Default response
-    return { response: `You performed the action: ${command} + ` +  azureResponse};
+    const azureResponse = await invokeAzureFunction(commandRequest);
+    console.log('Azure response:', azureResponse);
+    const parsedResponse: ProcessCommandResponse = typeof azureResponse === 'string' ? JSON.parse(azureResponse) : azureResponse;
+    currentGame = parsedResponse.saveGameData;
+    return {
+      response: parsedResponse.message || 'No response from server',
+      newImage: parsedResponse.image
+    };
   };
+
+  useEffect(() => {
+    handleCommandSubmit("init");
+  }, []); // Empty de
 
   return (
     <div className="App">
       <GameOutput messages={messages} />
       <GameInput onCommandSubmit={handleCommandSubmit} />
       <LocationImage imageSrc={currentLocationImage} />
-      <GameStatus inventory={inventory} score={score} location={location} date={date} time={time} player={player} currentLocationDescription="Starting location" />
+      <GameStatus inventory={inventory} score={score} location={location} date={date} time={time} currentLocationDescription={currentLocationDescription} />
     </div>
   );
 }

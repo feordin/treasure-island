@@ -1,0 +1,22 @@
+{
+    "id": "treasure-island",
+    "Locations": [
+      {
+        "Name": "Hilltop",
+        "Description": "You are standing on a hilltop. You can see a quaint village down the hill to the east.",
+        "Items": [],
+        "image": "hilltop.jpg",
+        "Movement": [
+          {
+            "Direction": "East",
+            "Destination": "Village",
+            "TimeToMove": {
+                "minutes": 5
+            }
+          }
+        ]
+      }
+    ],
+    "GlobalCommands": ["look", "move", "inventory", "go", "open", "close", "take", "say", "north", "south", "east", "west", "up", "down", "help", "eat", "drop",
+                        "save game", "load game", "delete game", "new game", "sleep", "pick up", "give", "unlock"]   
+  }
