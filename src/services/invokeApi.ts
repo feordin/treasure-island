@@ -3,6 +3,7 @@ import { CommandRequest } from '../modules/ProcessCommandResponse';
 // invoke the azure function here
 export const invokeAzureFunction = async (command: CommandRequest) => {
     try {
+        console.log('Invoking Azure function at url: ', process.env.REACT_APP_API_URL + '/api/ProcessGameCommand');
         const response = await fetch(process.env.REACT_APP_API_URL + '/api/ProcessGameCommand', {
             method: 'POST',
             headers: {

@@ -23,3 +23,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .vs/*
+.vs/treasure-island/v17/DocumentLayout.backup.json
+.vs/treasure-island/v17/DocumentLayout.json
