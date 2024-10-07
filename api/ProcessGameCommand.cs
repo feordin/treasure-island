@@ -13,11 +13,13 @@ namespace Erwin.Games.TreasureIsland
     {
         private readonly ILogger<ProcessGameCommand> _logger;
         private readonly IGameDataRepository _gameDataRepository;
+        private readonly IAIClient _aiClient;
 
-        public ProcessGameCommand(ILogger<ProcessGameCommand> logger, IGameDataRepository gameDataRepository)
+        public ProcessGameCommand(ILogger<ProcessGameCommand> logger, IGameDataRepository gameDataRepository, IAIClient aiClient)
         {
             _logger = logger;
             _gameDataRepository = gameDataRepository;
+            _aiClient = aiClient;
         }
 
         [Function("ProcessGameCommand")]
@@ -25,6 +27,11 @@ namespace Erwin.Games.TreasureIsland
         {
             ClientPrincipal.Instance = ClientPrincipal.Parse(req);
             _logger.LogInformation("ClientPrincipal: {0}", ClientPrincipal.Instance);
+
+            if (WorldData.Instance == null)
+            {
+                WorldData.Instance = await _gameDataRepository.LoadWorldDataAsync();
+            }
 
             // Read the body of the POST request
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -35,6 +42,10 @@ namespace Erwin.Games.TreasureIsland
 
             _logger.LogInformation("Processing game command: {0}", command);
 
+            var parsedCommand = await _aiClient.ParsePlayerInput(command);
+
+            _logger.LogInformation("Parsed game command: {0}", parsedCommand);
+
             // Here we analyze the input, perhaps with an LLM
             // Then the cleaned up command is fed to a factory to create a command object
             // Then we execute the command object
@@ -44,7 +55,7 @@ namespace Erwin.Games.TreasureIsland
             // 3) update the player's score
             // 4) update the player's health
             // 5) update the game date/time
-            ICommand cmd = CommandFactory.CreateCommand(command, data.saveGameData, _gameDataRepository);
+            ICommand cmd = CommandFactory.CreateCommand(parsedCommand, data.saveGameData, _gameDataRepository);
 
             var result = await cmd.Execute();
            

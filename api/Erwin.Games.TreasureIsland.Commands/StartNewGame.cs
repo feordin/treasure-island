@@ -6,11 +6,11 @@ namespace Erwin.Games.TreasureIsland.Commands
 {
     // Command Interface
     // It declares a method for executing a command
-    public class InitializeCommand : ICommand
+    public class StartNewGame : ICommand
     {
         private SaveGameData? _saveGameData;
         private IGameDataRepository _gameDataRepository;
-        public InitializeCommand(SaveGameData? saveGameData, IGameDataRepository gameDataRepository)
+        public StartNewGame(SaveGameData? saveGameData, IGameDataRepository gameDataRepository, string? param = null)
         {
             _saveGameData = saveGameData;
             _gameDataRepository = gameDataRepository;
@@ -18,8 +18,10 @@ namespace Erwin.Games.TreasureIsland.Commands
         public async Task<ProcessCommandResponse?> Execute()
         {
             _saveGameData = await _gameDataRepository.LoadGameAsync("start", 0);
-            WorldData.Instance = await _gameDataRepository.LoadWorldDataAsync();
-            _saveGameData.Player = ClientPrincipal.Instance?.UserDetails;
+            
+            if (_saveGameData != null)
+                _saveGameData.Player = ClientPrincipal.Instance?.UserDetails;
+
             return new ProcessCommandResponse(
                 WorldData.Instance?.Locations?.FirstOrDefault()?.Description,
                 _saveGameData,

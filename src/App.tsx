@@ -99,7 +99,7 @@ function App() {
 
   useEffect(() => {
     if (!initRef.current) {
-      handleCommandSubmit("init");
+      handleCommandSubmit("startup");
       initRef.current = true; // Set the ref to true after the first run
     }
   }, [handleCommandSubmit]); // Include handleCommandSubmit in the dependency array

@@ -17,6 +17,29 @@
         ]
       }
     ],
-    "GlobalCommands": ["look", "move", "inventory", "go", "open", "close", "take", "say", "north", "south", "east", "west", "up", "down", "help", "eat", "drop",
-                        "save game", "load game", "delete game", "new game", "sleep", "pick up", "give", "unlock"]   
+    "GlobalCommands": [
+      "startup",
+      "look",
+      "inventory",
+      "open",
+      "close",
+      "take",
+      "say",
+      "north",
+      "south",
+      "east",
+      "west",
+      "up",
+      "down",
+      "help",
+      "eat",
+      "drop",
+      "save",
+      "load",
+      "delete",
+      "new",
+      "sleep",
+      "unlock",
+      "lock"
+  ]
   }

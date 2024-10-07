@@ -7,10 +7,14 @@ namespace Erwin.Games.TreasureIsland.Commands
     {
         public static ICommand CreateCommand(string? commandName, SaveGameData? saveGameData, IGameDataRepository repository)
         {
+            commandName = commandName?.Trim().ToLower();
+
             switch (commandName)
             {
-                case "init":
-                    return new InitializeCommand(saveGameData, repository);
+                case "startup":
+                    return new StartupGameEngineCommand(saveGameData, repository);
+                case "new":
+                    return new StartNewGame(saveGameData, repository);
                 default:
                     return new UnknownCommand(saveGameData, repository);
             }

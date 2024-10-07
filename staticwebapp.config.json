@@ -10,5 +10,9 @@
       "statusCode": 302,
       "redirect": "/.auth/login/aad"
     }
+  },
+  "globalHeaders": {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, OPTIONS"
   }
 }

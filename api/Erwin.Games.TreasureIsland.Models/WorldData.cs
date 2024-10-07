@@ -10,5 +10,10 @@ namespace Erwin.Games.TreasureIsland.Models
         public List<string>? GlobalCommands { get; set; }
 
         public static WorldData? Instance {get; set;}
+
+        public Location? GetLocation(string? locationName)
+        {
+            return Locations?.Find(l => l.Name == locationName);
+        }
     }
 }
