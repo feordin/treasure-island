@@ -5,6 +5,7 @@ import GameOutput from './components/GameOutput';
 import GameInput from './components/GameInput';
 import LocationImage from './components/LocationImage';
 import GameStatus from './components/GameStatus';
+import SavedGamesList from './components/SavedGamesList'; // Import the new component
 import { ProcessCommandResponse, CommandRequest, SaveGameData } from './modules/ProcessCommandResponse';
 import { invokeAzureFunction } from './services/invokeApi';
 
@@ -19,7 +20,7 @@ var score: number | undefined = 100;
 var location = 'Foo';
 var date = new Date().toLocaleDateString();
 var time = new Date().toLocaleTimeString();
-var currentLocationDescription = 'Starting location';
+var currentLocationDescription: string | undefined = 'Starting location';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
 
   const initRef = useRef(false); // Ref to track initialization
   const [currentLocationImage, setCurrentLocationImage] = useState<string>('images/foo.png'); // Initial image
+  const [savedGames, setSavedGames] = useState<SaveGameData[]>([]); // State for saved games
 
   const currentGameRef = useRef<SaveGameData | undefined>({
     player: "Test",
@@ -48,7 +50,7 @@ function App() {
       { sender: 'user', text: command },
     ]);
 
-    const processCommand = async (command: string): Promise<{ response: string; newImage?: string }> => {
+    const processCommand = async (command: string): Promise<{ response: ProcessCommandResponse;}> => {
       const commandRequest: CommandRequest = {
         command: command,
         saveGameData: currentGameRef.current
@@ -58,26 +60,27 @@ function App() {
       const parsedResponse: ProcessCommandResponse = typeof azureResponse === 'string' ? JSON.parse(azureResponse) : azureResponse;
       currentGameRef.current = parsedResponse.saveGameData;
       return {
-        response: parsedResponse.message || 'No response from server',
-        newImage: parsedResponse.imageFilename
+        response: parsedResponse || 'No response from server'
       };
     };
 
     // Implement game logic here
-    var { response, newImage } = await processCommand(command);
+    var { response } = await processCommand(command);
 
     // Add game response to messages
     setMessages((prevMessages) => [
       ...prevMessages,
-      { sender: 'game', text: response },
+      { sender: 'game', text: response.message || 'No response from server' },
     ]);
 
-    newImage = "images/" + newImage;
+    if (response.imageFilename !== undefined && response.imageFilename !== '') {
 
-    // Update the location image if it has changed
-    if (newImage && newImage !== currentLocationImage && newImage !== '' && newImage !== undefined) {
-      console.log('Update image:', newImage);
-      setCurrentLocationImage(newImage);
+      var newImage = "images/" + response.imageFilename;
+      // Update the location image if it has changed
+      if (newImage !== currentLocationImage) {
+        console.log('Update image:', newImage);
+        setCurrentLocationImage(newImage);
+      }
     }
 
     console.log('Current game:', currentGameRef.current);
@@ -85,7 +88,7 @@ function App() {
     if (currentGameRef.current) {
       if (currentGameRef.current.currentLocation && location !== currentGameRef.current.currentLocation) {
         location = currentGameRef.current.currentLocation;
-        currentLocationDescription = response;
+        currentLocationDescription = response.locationDescription;
       }
       if (currentGameRef.current.currentDateTime) {
         date = new Date(currentGameRef.current.currentDateTime).toLocaleDateString();
@@ -96,6 +99,9 @@ function App() {
       }
       if (currentGameRef.current) {
         score = currentGameRef.current.score;
+      }
+      if (response.savedGames) {
+        setSavedGames(response.savedGames);
       }
     }
 
@@ -123,6 +129,7 @@ function App() {
           currentLocationDescription={currentLocationDescription}
         />
       )}
+      <SavedGamesList savedGames={savedGames} /> {/* Add the SavedGamesList component */}
     </div>
   );
 }

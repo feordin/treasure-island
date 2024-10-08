@@ -29,6 +29,8 @@ export interface ProcessCommandResponse {
     message?: string;
     saveGameData?: SaveGameData;
     imageFilename?: string;
+    locationDescription?: string;
+    savedGames?: SaveGameData[];
 }
 
 export interface CommandRequest {

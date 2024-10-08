@@ -15,11 +15,16 @@ namespace Erwin.Games.TreasureIsland.Commands
             _saveGameData = saveGameData;
             _gameDataRepository = gameDataRepository;
         }
-        public async Task<ProcessCommandResponse?> Execute()
+        public Task<ProcessCommandResponse?> Execute()
         {
-            var saveGameData = await _gameDataRepository.LoadGameAsync("start", 0);
-            WorldData.Instance = await _gameDataRepository.LoadWorldDataAsync();
-            return new ProcessCommandResponse("I am afraid I don't understand that command.", _saveGameData, null);
+            var currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
+            return Task.FromResult<ProcessCommandResponse?>(
+                new ProcessCommandResponse(
+                    "I am afraid I don't understand that command.",
+                    _saveGameData,
+                    currentLocation?.Image,
+                    currentLocation?.Description,
+                    null));
         }
     }
 }

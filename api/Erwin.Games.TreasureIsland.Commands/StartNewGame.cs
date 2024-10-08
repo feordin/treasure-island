@@ -22,10 +22,14 @@ namespace Erwin.Games.TreasureIsland.Commands
             if (_saveGameData != null)
                 _saveGameData.Player = ClientPrincipal.Instance?.UserDetails;
 
+            var currentLocation = WorldData.Instance?.Locations?.FirstOrDefault();
+
             return new ProcessCommandResponse(
-                WorldData.Instance?.Locations?.FirstOrDefault()?.Description,
+                currentLocation?.Description,
                 _saveGameData,
-                WorldData.Instance?.Locations?.FirstOrDefault()?.Image);
+                currentLocation?.Image,
+                currentLocation?.Description,
+                null);
         }
     }
 }

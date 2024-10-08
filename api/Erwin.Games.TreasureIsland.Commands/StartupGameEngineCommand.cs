@@ -29,7 +29,9 @@ namespace Erwin.Games.TreasureIsland.Commands
                 return new ProcessCommandResponse(
                     currentLocation?.Description,
                     _saveGameData,
-                    currentLocation?.Image);
+                    currentLocation?.Image,
+                    currentLocation?.Description,
+                    null);
             }
 
             if (ClientPrincipal.Instance?.UserDetails != null)
@@ -45,7 +47,9 @@ namespace Erwin.Games.TreasureIsland.Commands
             return new ProcessCommandResponse(
                 WorldData.Instance?.Locations?.FirstOrDefault()?.Description,
                 _saveGameData,
-                WorldData.Instance?.Locations?.FirstOrDefault()?.Image);
+                WorldData.Instance?.Locations?.FirstOrDefault()?.Image,
+                WorldData.Instance?.Locations?.FirstOrDefault()?.Description,
+                null);
         }
     }
 }
