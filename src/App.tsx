@@ -73,7 +73,7 @@ function App() {
       { sender: 'game', text: response.message || 'No response from server' },
     ]);
 
-    if (response.imageFilename !== undefined && response.imageFilename !== '') {
+    if (response.imageFilename) {
 
       var newImage = "images/" + response.imageFilename;
       // Update the location image if it has changed

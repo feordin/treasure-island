@@ -10,7 +10,7 @@ interface SavedGamesListProps {
 const SavedGamesList: React.FC<SavedGamesListProps> = ({ savedGames }) => {
   return (
     <div className="saved-games-list">
-      <h3>Saved Games</h3>
+      <h2>Saved Games</h2>
       <ul>
         {savedGames.map((game, index) => (
           <li key={index}>

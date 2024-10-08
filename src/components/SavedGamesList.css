@@ -2,12 +2,11 @@
 .saved-games-list {
     position: absolute;
     bottom: 0;
-    left: 0;
+    right: 0;
     width: 25%;
     height: 30%;
     overflow-y: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    background-color: #f0f0f0;
     padding: 10px;
     box-sizing: border-box;
   }

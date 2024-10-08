@@ -15,6 +15,8 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new StartupGameEngineCommand(saveGameData, repository);
                 case "new":
                     return new StartNewGame(saveGameData, repository);
+                case "look":
+                    return new LookCommand(saveGameData);
                 default:
                     return new UnknownCommand(saveGameData, repository);
             }

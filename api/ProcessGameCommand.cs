@@ -49,16 +49,17 @@ namespace Erwin.Games.TreasureIsland
             // Here we analyze the input, perhaps with an LLM
             // Then the cleaned up command is fed to a factory to create a command object
             // Then we execute the command object
+            ICommand cmd = CommandFactory.CreateCommand(parsedCommand, data.saveGameData, _gameDataRepository);
+
+            var result = await cmd.Execute();
+
             // as the final part of each command, we update the game state
             // 1) update the player's location
             // 2) update the player's inventory
             // 3) update the player's score
             // 4) update the player's health
             // 5) update the game date/time
-            ICommand cmd = CommandFactory.CreateCommand(parsedCommand, data.saveGameData, _gameDataRepository);
 
-            var result = await cmd.Execute();
-           
             return new OkObjectResult(result);
         }
     }
