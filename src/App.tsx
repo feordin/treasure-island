@@ -99,7 +99,7 @@ function App() {
       }
     }
 
-  }, []);
+  }, [currentLocationImage]);
 
   useEffect(() => {
     if (!initRef.current) {
