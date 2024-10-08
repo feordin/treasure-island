@@ -36,7 +36,10 @@ namespace Erwin.Games.TreasureIsland.Commands
             {
                 _saveGameData = await _gameDataRepository.LoadGameAsync("start", 0);
                 if (_saveGameData != null)
+                {
+                    System.Diagnostics.Debug.WriteLine("Current identified user is: " + ClientPrincipal.Instance?.UserDetails);
                     _saveGameData.Player = ClientPrincipal.Instance?.UserDetails;
+                }
             }
 
             return new ProcessCommandResponse(

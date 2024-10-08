@@ -28,7 +28,7 @@ export interface LocationChange {
 export interface ProcessCommandResponse {
     message?: string;
     saveGameData?: SaveGameData;
-    image?: string;
+    imageFilename?: string;
 }
 
 export interface CommandRequest {

@@ -4,12 +4,12 @@ import { getUserInfo, User } from '../services/userService';
 
 
 interface GameStatusProps {
-  inventory: string[];
-  score: number;
-  location: string;
-  date: string;
-  time: string;
-  currentLocationDescription: string;
+  inventory: string[] | undefined;
+  score: number | undefined;
+  location: string | undefined;
+  date: string | undefined;
+  time: string | undefined;
+  currentLocationDescription: string | undefined;
 }
 
 const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, date, time, currentLocationDescription }) => {
@@ -42,7 +42,7 @@ const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, dat
         <strong>Inventory:</strong>
         <div className="inventory-list-container">
             <ul>
-                {inventory.map((item, index) => (
+                {(inventory || []).map((item, index) => (
                 <li key={index}>{item}</li>
                 ))}
             </ul>
