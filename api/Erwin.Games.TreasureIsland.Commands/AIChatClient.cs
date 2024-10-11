@@ -30,16 +30,21 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             _client = httpClientFactory.CreateClient();
 
-            _systemPromptText = @"You are an assistant to a text-based adventure game engine.  The player's commands are sent to you, and you should determine if the command matches on the allowed commands in the game.  Following is the list of allowed commands:
-                                ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""help"", ""eat"",""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock""
+            _systemPromptText = @"You are an assistant to a text-based adventure game engine.  The player's commands are sent to you, and you should determine if the command matches on the allowed commands in the game. Your goal is to
+                                determine the player's intent.  They may not enter the exact command, but may enter something which indicates a similar intent.
+                                Following is the complete list of allowed commands:
+                                ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""help"", ""eat"",""drink"", ""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock""
                                         
                                 The following subset of commands should also be followed by the next word:
-                                ""look"",""open"",""close"",""take"",""say"",""eat"",""drop"",""unlock"",""lock""
+                                ""look"",""open"",""close"",""take"",""say"",""eat"",""drink"", ""drop"",""unlock"",""lock""
                                 For example:  ""take shovel"" or ""open door"".The game needs to know which item is being acted upon.
 
                                 The following commands relate to starting, saving, loading or deleting games:
                                 ""new"",""save"",""load"",""delete""
                                 Except for the ""new"" command, these should indicate which number that should be saved, loaded or deleted.The output should be: ""save 1"" or ""delete 1"".If no number is identified, acceptable output is simply the single command word.For example: ""save""
+                                
+                                The following subset of commands: ""north"", ""south"", ""east"", ""west"", ""up"", and ""down""
+                                are related to moving.  These should be the output if the user mentions something that indicates they want to move or go somewhere.
 
                                 Any input similar to ""start a new game"" or ""start over"" should return ""new"".
 

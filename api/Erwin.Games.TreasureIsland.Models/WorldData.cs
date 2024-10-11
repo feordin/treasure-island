@@ -8,8 +8,9 @@ namespace Erwin.Games.TreasureIsland.Models
         public string? id { get; set; }
         public List<Location>? Locations { get; set; }
         public List<string>? GlobalCommands { get; set; }
+        public string? IntroText { get; set; }
 
-        public static WorldData? Instance {get; set;}
+    public static WorldData? Instance { get; set; }
 
         public Location? GetLocation(string? locationName)
         {

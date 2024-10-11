@@ -25,7 +25,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             var currentLocation = WorldData.Instance?.Locations?.FirstOrDefault();
 
             return new ProcessCommandResponse(
-                currentLocation?.Description,
+                WorldData.Instance?.IntroText + "\n\n" + currentLocation?.Description,
                 _saveGameData,
                 currentLocation?.Image,
                 currentLocation?.Description,

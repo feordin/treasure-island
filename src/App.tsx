@@ -91,8 +91,8 @@ function App() {
         currentLocationDescription = response.locationDescription;
       }
       if (currentGameRef.current.currentDateTime) {
-        date = new Date(currentGameRef.current.currentDateTime).toLocaleDateString();
-        time = new Date(currentGameRef.current.currentDateTime).toLocaleTimeString();
+        date = new Date(currentGameRef.current.currentDateTime).toLocaleDateString('en-US', { timeZone: 'UTC', });
+        time = new Date(currentGameRef.current.currentDateTime).toLocaleTimeString('en-US', { timeZone: 'UTC', });
       }
       if (currentGameRef.current.inventory) {
         inventory = currentGameRef.current.inventory;
