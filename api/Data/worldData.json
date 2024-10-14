@@ -56,7 +56,7 @@
                       "south"
                   ],
                   "Destination": "Northend",
-                  "TimeToMove": 5
+                  "TimeToMove": 2
               },
               {
                   "Direction": [
@@ -75,14 +75,67 @@
           "image": "northend.png",
           "help": "no",
           "AllowedMovements": [
-              {
-                  "Direction": [
-                      "north"
-                  ],
-                  "Destination": "TownEntrance",
-                  "TimeToMove": 5
-              }
+            {
+                "Direction": [
+                    "north"
+                ],
+                "Destination": "TownEntrance",
+                "TimeToMove": 2
+            },
+            {
+                "Direction": [
+                    "east"
+                ],
+                "Destination": "Bank",
+                "TimeToMove": 1
+            },
+            {
+                "Direction": [
+                    "west"
+                ],
+                "Destination": "PostOffice",
+                "TimeToMove": 1
+            },
+            {
+                "Direction": [
+                    "south"
+                ],
+                "Destination": "MainStreet",
+                "TimeToMove": 2
+            }
           ]
+      },
+      {
+        "Name": "PostOffice",
+        "Description": "The building itself is a simple, single-story structure constructed from coral stone, its whitewashed walls reflecting the harsh Caribbean sunlight. A small, shaded porch offers respite from the heat, where patrons can wait their turn. Inside, the air is cool and dim, the only light filtering through the open doorway and a few small, barred windows. The postmaster, a stern-faced man in a sweat-stained linen shirt, presides over a cluttered desk piled high with letters, parcels, and official documents. He meticulously sorts through the mail, his quill scratching across a ledger as he records each item.  The scent of sealing wax and parchment hangs heavy in the air. A motley crew of customers fills the small space. A wealthy plantation owner waits impatiently to send news of his sugar crop to London. A sailor, fresh off a voyage from Jamaica, eagerly collects a letter from his sweetheart. A nervous young clerk delivers a packet of official dispatches from the Governor's mansion. The walls are adorned with a jumble of notices and proclamations. A tattered map of the Caribbean hangs beside a list of postal rates to far-flung destinations like Boston and Bristol. A royal decree announces the latest regulations on trade and shipping. Despite its humble appearance, the post office is a hub of activity, a vital artery in the flow of information and commerce that binds the colony to the mother country. Here, news of wars and peace, fortunes made and lost, births and deaths, all pass through the hands of the postmaster, connecting lives across vast distances.  There is a letter waiting for you here.",
+        "Items": [],
+        "image": "postoffice.jpeg",
+        "help": "no",
+        "AllowedMovements": [
+          {
+              "Direction": [
+                  "west"
+              ],
+              "Destination": "Northend",
+              "TimeToMove": 1
+          }
+        ]
+      },
+      {
+        "Name": "Bank",
+        "Description": "The air hangs heavy with the scent of salt, spices, and the ever-present rum.  Amidst the raucous taverns and bustling merchant stalls lining the harbor, stands a sturdy, imposing building of coral stone, its facade bleached white by the relentless sun. This is the Exchange and Deposit Bank, a bastion of wealth and security in this rough and tumble port city. Iron bars guard the windows, and a heavy oak door, reinforced with iron bands, marks the entrance. Stepping inside, one is struck by the cool, dim interior. Thick walls keep out the heat, and sunlight struggles to penetrate the small, high windows. The air is heavy with the scent of ink, parchment, and beeswax. Dominating the room is a long, polished mahogany counter, behind which clerks with meticulously penned ledgers attend to their business.  Scales and strongboxes rest atop the counter, ready to weigh coins and store valuables.  Behind the counter, a massive iron door, secured by multiple locks, hints at the treasures within the vault. A diverse clientele populates the bank.  A rough-hewn buccaneer, fresh from a raid on a Spanish galleon, deposits a sack overflowing with gold doubloons.  A finely dressed sugar planter negotiates a loan to expand his estate. A nervous widow, clutching a small purse, seeks to withdraw funds for her passage back to England. The walls are adorned with notices of exchange rates for various currencies – Spanish reales, Portuguese escudos, English pounds.  Proclamations from the Governor warn against counterfeiting and announce new regulations on trade and finance. Despite the air of stability and order, an undercurrent of tension permeates the bank. This is a world where fortunes are made and lost overnight, where pirates and privateers roam the seas, and where the threat of invasion or natural disaster always looms. Yet, the bank stands as a symbol of enduring prosperity and a testament to the growing economic power of the Caribbean colonies.  There is a surpsing amount of money within reach.",
+        "Items": ["money"],
+        "image": "bank.jpeg",
+        "help": "Stealing money might not be a good idea.  You could get caught and thrown in jail.  Perhaps there is another way to get some money if you keep exploring.",
+        "AllowedMovements": [
+          {
+              "Direction": [
+                  "east"
+              ],
+              "Destination": "Northend",
+              "TimeToMove": 1
+          }
+        ]
       }
   ],
   "GlobalCommands": [

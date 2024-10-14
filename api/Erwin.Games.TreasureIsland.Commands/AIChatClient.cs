@@ -33,10 +33,10 @@ namespace Erwin.Games.TreasureIsland.Commands
             _systemPromptText = @"You are an assistant to a text-based adventure game engine.  The player's commands are sent to you, and you should determine if the command matches on the allowed commands in the game. Your goal is to
                                 determine the player's intent.  They may not enter the exact command, but may enter something which indicates a similar intent.  If the user does enter an exact command, you should return that command.
                                 Following is the complete list of allowed commands:
-                                ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""help"", ""eat"",""drink"", ""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock""
+                                ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""help"", ""eat"",""drink"", ""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock"",""steal"",""borrow""
                                         
                                 The following subset of commands should also be followed by the next word:
-                                ""look"",""open"",""close"",""take"",""say"",""eat"",""drink"", ""drop"",""unlock"",""lock""
+                                ""look"",""open"",""close"",""take"",""say"",""eat"",""drink"", ""drop"",""unlock"",""lock"",""steal"",""borrow""
                                 For example:  ""take shovel"" or ""open door"".The game needs to know which item is being acted upon.
 
                                 The following commands relate to starting, saving, loading or deleting games:
@@ -51,7 +51,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                                 The output should be only the matched command, for example:  ""north""  or the matched command with additional word, for example:  ""drop matches"".  The consumer of the ouput is the game engine,
                                 so the output should be in a format that the game engine can understand, which is the matched command text without any additional explanation.
 
-                                If you cannot match the input to one of the commands respond with: unknown_command"
+                                If you cannot match the input to one of the commands respond with: unknown_command, and then add some helpful hints to the player about what commands might be available.  Along with a fun description story or quote to brighten their day."
             ;
         }
 

@@ -41,7 +41,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                     _saveGameData.CurrentDateTime = _saveGameData.CurrentDateTime + new TimeSpan(0, movement.TimeToMove.Value, 0);
 
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "You go " + _direction + ".\n\n" + newLocation?.Description,
+                    "You go " + _direction + ".\n\n" + newLocation?.GetDescription(_saveGameData),
                     _saveGameData,
                     newLocation?.Image,
                     newLocation?.Description,

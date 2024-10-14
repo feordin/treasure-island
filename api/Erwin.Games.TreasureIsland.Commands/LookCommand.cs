@@ -19,7 +19,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             var currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
 
             return Task.FromResult<ProcessCommandResponse?>(
-                new ProcessCommandResponse("You look around and see: " + currentLocation?.Description, _saveGameData,null, null, null));
+                new ProcessCommandResponse("You look around and see: " + currentLocation?.GetDescription(_saveGameData), _saveGameData,null, null, null));
         }
     }
 }

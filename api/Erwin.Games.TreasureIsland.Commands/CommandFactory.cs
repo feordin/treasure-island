@@ -32,6 +32,11 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new SaveGameCommand(saveGameData, repository, commandParam);
                 case "load":
                     return new LoadGameCommand(saveGameData, repository, commandParam);
+                case "steal":
+                case "borrow":
+                    return new BankCommand(saveGameData, repository, commandName, commandParam);
+                case "take":
+                    return new TakeCommand(saveGameData, repository, commandName, commandParam);
                 default:
                     return new UnknownCommand(saveGameData, repository);
             }

@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Azure;
+
 namespace Erwin.Games.TreasureIsland.Models
 {
     public class Location
@@ -15,5 +17,47 @@ namespace Erwin.Games.TreasureIsland.Models
         /// This is the list of custom commands that are allowed in this location
         /// </summary>
         public List<string>? AllowedCommands { get; set; }
+
+        /// <summary>
+        /// This returns a description of the location along with any items that are in the location
+        /// and optionally any items dropped here by the player
+        /// </summary>
+        /// <returns>string description</returns>
+        public string? GetDescription(SaveGameData? saveGame = null)
+        {
+            var description = Description;
+
+            var finalItemsHashSet = GetCurrentItems(saveGame);          
+
+            if (finalItemsHashSet != null && finalItemsHashSet.Count > 0)
+            {
+                description += "\n\nYou see the following items:\n\n";
+                foreach (var item in finalItemsHashSet)
+                {
+                    description += item + "\n";
+                }
+            }
+
+            // what would be cool is to use the AI Client to generate a description of the location
+            // which is accurate, but also has a bit of a twist to it or flavor
+
+            return description;
+        }
+
+        public HashSet<string> GetCurrentItems(SaveGameData? saveGame)
+        {
+            // build a current set of items at this location
+            // start with default set of items
+            // remove any items that have been removed by player
+            // add any items droped by user
+            var locationChange = saveGame?.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+            var defaultItemsHashSet = new HashSet<string>(Items ?? new List<string>());
+            var locationRemovedHashSet = new HashSet<string>(locationChange?.ItemsRemoved ?? new List<string>());
+            var finalItemsHashSet = defaultItemsHashSet.Except(locationRemovedHashSet).ToHashSet();
+            var addedItemsHashSet = new HashSet<string>(locationChange?.ItemsAdded ?? new List<string>());
+            finalItemsHashSet.UnionWith(addedItemsHashSet);
+
+            return finalItemsHashSet;
+        }
     }
 }
