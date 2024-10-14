@@ -6,14 +6,21 @@ namespace Erwin.Games.TreasureIsland.Models
     {
         public List<string>? Command { get; set; }
         public List<string>? Response { get; set; }
+        public string id { get; set; } = string.Empty;
 
-        public void AddHistory(string command, string response)
+        public void AddHistory(string? command, string? response)
         {
-            if (Command != null && Response != null)
+            if (Command == null && Response == null)
             {
-                Command.Add(command);
-                Response.Add(response);
+                Command = new List<string>();
+                Response = new List<string>();
             }
+
+            if (command != null && Command != null)
+                Command.Add(command);
+
+            if (response != null && Response != null)
+                Response.Add(response);
         }
     }
 }

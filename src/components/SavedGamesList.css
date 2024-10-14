@@ -10,16 +10,26 @@
     padding: 10px;
     box-sizing: border-box;
   }
-  
-  .saved-games-list h3 {
+  .saved-games-list h2 {
     margin-top: 0;
   }
   
-  .saved-games-list ul {
-    list-style-type: none;
-    padding: 0;
+  .saved-games-list table {
+    width: 100%;
+    border-collapse: collapse;
   }
   
-  .saved-games-list li {
-    margin-bottom: 10px;
+  .saved-games-list th, .saved-games-list td {
+    border: 1px solid white;
+    padding: 8px;
+  }
+  
+  .saved-games-list th {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .saved-games-list td:nth-child(2),
+  .saved-games-list td:nth-child(3),
+  .saved-games-list td:nth-child(4) {
+    text-align: right;
   }

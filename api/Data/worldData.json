@@ -1,24 +1,91 @@
 {
-    "id": "treasure-island",
-    "Locations": [
+  "id": "treasure-island",
+  "IntroText": "Welcome to the text based adventure game, Treasure Island! To play this game you enter commands below to indicate what you want to do.  While the game will try and understand any command you type in, you are only allowed to do certain things.  You can move around by going north, south, east, west, up or down.  You can pick up or drop things, which will add or remove them from your inventory.  Sometimes you can also interact with objects, like lighting a match or drinking water.  You'll have to discover those as you go.  if  you need it, you can ask for help, but it may not always be available and if it is, will count against your score.\n\nYou have walked from the farm to town because you are worried about Uncle Herman.  You haven't heard from him since he let treasure hunting some months ago.  You are standing on a hilltop overlooking town.",
+  "Locations": [
       {
-        "Name": "Hilltop",
-        "Description": "You are standing on a hilltop. You can see a quaint village down the hill to the east.",
-        "Items": [],
-        "image": "hilltop.jpg",
-        "Movement": [
-          {
-            "Direction": "East",
-            "Destination": "Village",
-            "TimeToMove": {
-                "minutes": 5
-            }
-          }
-        ]
+          "Name": "Hilltop",
+          "Description": "You are standing on a hilltop. You can see a quaint village down the hill to the south.",
+          "Items": [],
+          "image": "hilltop.png",
+          "Help": "no",
+          "AllowedMovements": [
+              {
+                  "Direction": [
+                      "south",
+                      "down"
+                  ],
+                  "Destination": "Road",
+                  "TimeToMove": 5
+              }
+          ]
+      },
+      {
+          "Name": "Road",
+          "Description": "You are on the road which leads down to the village at the bottom of the hill.",
+          "Items": [],
+          "image": "road.png",
+          "help": "no",
+          "AllowedMovements": [
+              {
+                  "Direction": [
+                      "south",
+                      "down"
+                  ],
+                  "Destination": "TownEntrance",
+                  "TimeToMove": 5
+              },
+              {
+                  "Direction": [
+                      "north",
+                      "up"
+                  ],
+                  "Destination": "Hilltop",
+                  "TimeToMove": 5
+              }
+          ]
+      },
+      {
+          "Name": "TownEntrance",
+          "Description": "You are at the end of the road at the bottom of the hill, just ouside of town.",
+          "Items": [],
+          "image": "road2.png",
+          "help": "no",
+          "AllowedMovements": [
+              {
+                  "Direction": [
+                      "south"
+                  ],
+                  "Destination": "Northend",
+                  "TimeToMove": 5
+              },
+              {
+                  "Direction": [
+                      "north",
+                      "up"
+                  ],
+                  "Destination": "Road",
+                  "TimeToMove": 5
+              }
+          ]
+      },
+      {
+          "Name": "Northend",
+          "Description": "You are at the north end of town.  To your right is the bank.  To your left is the post office.  Ahead is the main street that leads to a pier at the edge of the ocean.  A boat is tied up at the pier and there is a ticket booth there.",
+          "Items": [],
+          "image": "northend.png",
+          "help": "no",
+          "AllowedMovements": [
+              {
+                  "Direction": [
+                      "north"
+                  ],
+                  "Destination": "TownEntrance",
+                  "TimeToMove": 5
+              }
+          ]
       }
-    ],
-    "GlobalCommands": [
-      "startup",
+  ],
+  "GlobalCommands": [
       "look",
       "inventory",
       "open",
@@ -34,12 +101,14 @@
       "help",
       "eat",
       "drop",
-      "save",
-      "load",
-      "delete",
-      "new",
+      "light",
+      "drink",
+      "save game",
+      "load game",
+      "delete game",
+      "new game",
       "sleep",
       "unlock",
       "lock"
   ]
-  }
+}

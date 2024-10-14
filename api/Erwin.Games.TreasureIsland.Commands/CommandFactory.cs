@@ -7,7 +7,8 @@ namespace Erwin.Games.TreasureIsland.Commands
     {
         public static ICommand CreateCommand(string? commandName, SaveGameData? saveGameData, IGameDataRepository repository)
         {
-            commandName = commandName?.Trim().ToLower();
+
+            commandName = commandName?.Replace("\"", "").Replace("\\", "").Trim().ToLower();
             var commandTokens = commandName?.Split(' ');
             commandName = commandTokens?[0];
             var commandParam = commandTokens?.Length > 1 ? commandTokens[1] : null;
@@ -27,6 +28,10 @@ namespace Erwin.Games.TreasureIsland.Commands
                 case "up":
                 case "down":
                     return new MoveCommand(saveGameData, repository, commandName, commandParam);
+                case "save":
+                    return new SaveGameCommand(saveGameData, repository, commandParam);
+                case "load":
+                    return new LoadGameCommand(saveGameData, repository, commandParam);
                 default:
                     return new UnknownCommand(saveGameData, repository);
             }

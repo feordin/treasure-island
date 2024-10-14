@@ -25,13 +25,22 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             if (_saveGameData != null)
             {
+                var history = await _gameDataRepository.LoadCommandHistoryAsync(ClientPrincipal.Instance?.UserDetails, 0);
                 var currentLocation = WorldData.Instance?.GetLocation(_saveGameData.CurrentLocation);
+                List<SaveGameData>? savedGamesList = null;
+                var savedGames = await _gameDataRepository.GetAllSavedGamesAsync(ClientPrincipal.Instance?.UserDetails);
+                if (savedGames != null)
+                {
+                    savedGamesList = savedGames.ToList();
+                }
+                
                 return new ProcessCommandResponse(
                     currentLocation?.Description,
                     _saveGameData,
                     currentLocation?.Image,
                     currentLocation?.Description,
-                    null);
+                    history,
+                    savedGamesList);
             }
 
             if (ClientPrincipal.Instance?.UserDetails != null)
@@ -45,7 +54,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
 
             return new ProcessCommandResponse(
-                WorldData.Instance?.Locations?.FirstOrDefault()?.Description,
+                WorldData.Instance?.IntroText + "\n\n" + WorldData.Instance?.Locations?.FirstOrDefault()?.Description,
                 _saveGameData,
                 WorldData.Instance?.Locations?.FirstOrDefault()?.Image,
                 WorldData.Instance?.Locations?.FirstOrDefault()?.Description,

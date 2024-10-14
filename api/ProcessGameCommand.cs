@@ -39,26 +39,37 @@ namespace Erwin.Games.TreasureIsland
 
             // Example: Access a property from the JSON body
             string? command = data.command;
-
             _logger.LogInformation("Processing game command: {0}", command);
+            string? parsedCommand = command;
 
-            var parsedCommand = await _aiClient.ParsePlayerInput(command);
+            if (command != "startup")
+            {
+                // Here we analyze the input, perhaps with an LLM
+                // Then the cleaned up command is fed to a factory to create a command object
+                // Then we execute the command object
+                parsedCommand = await _aiClient.ParsePlayerInput(command);
+                _logger.LogInformation("Parsed game command: {0}", parsedCommand);
+            }
 
-            _logger.LogInformation("Parsed game command: {0}", parsedCommand);
-
-            // Here we analyze the input, perhaps with an LLM
-            // Then the cleaned up command is fed to a factory to create a command object
-            // Then we execute the command object
             ICommand cmd = CommandFactory.CreateCommand(parsedCommand, data.saveGameData, _gameDataRepository);
 
             var result = await cmd.Execute();
 
-            // as the final part of each command, we update the game state
-            // 1) update the player's location
-            // 2) update the player's inventory
-            // 3) update the player's score
-            // 4) update the player's health
-            // 5) update the game date/time
+            // update the history
+            await _gameDataRepository.AddToGameHistory(command, result?.Message, result?.saveGameData?.Player, 0);
+
+            // update the autosave game
+            await _gameDataRepository.SaveGameAsync(result?.saveGameData, 0);
+
+            // if there is nothing populated in savedGame list yet, add the autosave
+            if (result?.saveGameData != null && result?.SavedGames?.Count == 0)
+            {
+                var saveGameList = await _gameDataRepository.GetAllSavedGamesAsync(ClientPrincipal.Instance?.UserDetails);
+                if (saveGameList == null && result?.saveGameData != null){
+                    saveGameList = new List<SaveGameData>() { result?.saveGameData };
+                }
+                result?.SavedGames?.AddRange(saveGameList);
+            }
 
             return new OkObjectResult(result);
         }

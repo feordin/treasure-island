@@ -12,7 +12,6 @@ namespace Erwin.Games.TreasureIsland.Models
         public DateTime CurrentDateTime { get; set; }
         public List<string>? Inventory { get; set; }
         public int Health { get; set; }
-        public CommandHistory? History { get; set; }
         public List<LocationChange>? LocationChanges { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             _client = httpClientFactory.CreateClient();
 
             _systemPromptText = @"You are an assistant to a text-based adventure game engine.  The player's commands are sent to you, and you should determine if the command matches on the allowed commands in the game. Your goal is to
-                                determine the player's intent.  They may not enter the exact command, but may enter something which indicates a similar intent.
+                                determine the player's intent.  They may not enter the exact command, but may enter something which indicates a similar intent.  If the user does enter an exact command, you should return that command.
                                 Following is the complete list of allowed commands:
                                 ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""help"", ""eat"",""drink"", ""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock""
                                         
