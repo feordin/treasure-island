@@ -72,7 +72,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             else
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "The " + _param + "is not here.",
+                    "The " + _param + " is not here.",
                     _saveGameData,
                     null,
                     null,

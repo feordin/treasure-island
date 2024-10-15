@@ -9,9 +9,10 @@ namespace Erwin.Games.TreasureIsland.Commands
         {
 
             commandName = commandName?.Replace("\"", "").Replace("\\", "").Trim().ToLower();
-            var commandTokens = commandName?.Split(' ');
+            var commandTokens = commandName?.Split(new[] { ' ', '\n', '.' }, StringSplitOptions.RemoveEmptyEntries);
             commandName = commandTokens?[0];
             var commandParam = commandTokens?.Length > 1 ? commandTokens[1] : null;
+            var commandRemainder = commandName?.Replace("unknown_command", "");
 
             switch (commandName)
             {
@@ -40,7 +41,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 case "take":
                     return new TakeCommand(saveGameData, repository, commandName, commandParam);
                 default:
-                    return new UnknownCommand(saveGameData, repository);
+                    return new UnknownCommand(saveGameData, repository, commandRemainder);
             }
         }
     }

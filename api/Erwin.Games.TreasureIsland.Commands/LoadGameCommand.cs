@@ -24,17 +24,25 @@ namespace Erwin.Games.TreasureIsland.Commands
             {
                 if (int.TryParse(_param, out var newGameNumber))
                 {
-                    var loadedGameData = await _gameDataRepository.LoadGameAsync(ClientPrincipal.Instance?.UserDetails, newGameNumber);
-                    if (loadedGameData != null){
-                        var commandHistory = await _gameDataRepository.LoadCommandHistoryAsync(ClientPrincipal.Instance?.UserDetails, newGameNumber);
-                        var currentLocation = WorldData.Instance?.GetLocation(loadedGameData.CurrentLocation);
-                        return new ProcessCommandResponse(
-                            "Game " + _param + " loaded.",
-                            _saveGameData,
-                            currentLocation?.Image,
-                            currentLocation?.Description,
-                            commandHistory,
-                            null);
+                    var savedGames = await _gameDataRepository.GetAllSavedGamesAsync(ClientPrincipal.Instance?.UserDetails);
+                    var gameId = savedGames?.ElementAt(newGameNumber).id;
+                    if (gameId != null)
+                    {
+                        var loadedGameData = await _gameDataRepository.LoadGameAsync(gameId);
+                        if (loadedGameData != null)
+                        {
+                            var gameIdTokens = gameId.Split('_');
+                            var commandHistoryId = gameIdTokens[0] + "_history_" + gameIdTokens[1];
+                            var commandHistory = await _gameDataRepository.LoadCommandHistoryAsync(commandHistoryId);
+                            var currentLocation = WorldData.Instance?.GetLocation(loadedGameData.CurrentLocation);
+                            return new ProcessCommandResponse(
+                                "Game " + _param + " loaded.",
+                                _saveGameData,
+                                currentLocation?.Image,
+                                currentLocation?.Description,
+                                commandHistory,
+                                null);
+                        }
                     }
                 }
             }

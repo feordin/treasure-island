@@ -70,28 +70,34 @@ namespace Erwin.Games.TreasureIsland.Commands
                         gameNumber = savedGames?.Count ?? 0;
                     }
 
-                    if (await _gameDataRepository.SaveGameAsync(_saveGameData, gameNumber) &&
-                        await _gameDataRepository.SaveCommandHistoryAsync(history, null, gameNumber))
+                    var gameId = savedGames?.ElementAt(gameNumber).id;
+                    if (gameId != null)
                     {
-                        var newSavedGamesList = new List<SaveGameData>(savedGames ?? Enumerable.Empty<SaveGameData>());
-                        newSavedGamesList.Add(_saveGameData);
-                        return new ProcessCommandResponse(
-                            "Game " + _param + " saved.",
-                            _saveGameData,
-                            null,
-                            null,
-                            null,
-                            newSavedGamesList);
+                        var gameIdTokens = gameId.Split('_');
+                        var commandHistoryId = gameIdTokens[0] + "_history_" + gameIdTokens[1];
+
+                        if (await _gameDataRepository.SaveGameAsync(_saveGameData, gameId) &&
+                            await _gameDataRepository.SaveCommandHistoryAsync(history, commandHistoryId))
+                        {
+                            var newSavedGamesList = new List<SaveGameData>(savedGames ?? Enumerable.Empty<SaveGameData>());
+                            newSavedGamesList.Add(_saveGameData);
+                            return new ProcessCommandResponse(
+                                "Game " + _param + " saved.",
+                                _saveGameData,
+                                null,
+                                null,
+                                null,
+                                newSavedGamesList);
+                        }
                     }
-                    else
-                    {
-                        return new ProcessCommandResponse(
-                        "Error saving game " + _param + ".",
-                        _saveGameData,
-                        null,
-                        null,
-                        null);
-                    }
+
+                    return new ProcessCommandResponse(
+                    "Error saving game " + _param + ".",
+                    _saveGameData,
+                    null,
+                    null,
+                    null);
+
                 }
                 else
                 {

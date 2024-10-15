@@ -25,18 +25,22 @@ namespace Erwin.Games.TreasureIsland.Commands
                 var savedGames = await _gameDataRepository.GetAllSavedGamesAsync(ClientPrincipal.Instance?.UserDetails);
 
                 if (int.TryParse(_param, out var newGameNumber) && newGameNumber > 0
-                    && newGameNumber <= savedGames?.Count &&
-                    await _gameDataRepository.DeleteGameAsync(newGameNumber))
+                    && newGameNumber <= savedGames?.Count)
                 {
-                    var newSavedGamesList = new List<SaveGameData>(savedGames ?? Enumerable.Empty<SaveGameData>());
-                    newSavedGamesList.RemoveAt(newGameNumber);
-                    return new ProcessCommandResponse(
-                        "Game " + _param + " deleted.",
-                        _saveGameData,
-                        null,
-                        null,
-                        null,
-                        newSavedGamesList);
+                    var gameId = savedGames.ElementAt(newGameNumber).id;
+                    if (gameId != null)
+                    {
+                        await _gameDataRepository.DeleteGameAsync(gameId);
+                        var newSavedGamesList = new List<SaveGameData>(savedGames ?? Enumerable.Empty<SaveGameData>());
+                        newSavedGamesList.RemoveAt(newGameNumber);
+                        return new ProcessCommandResponse(
+                            "Game " + _param + " deleted.",
+                            _saveGameData,
+                            null,
+                            null,
+                            null,
+                            newSavedGamesList);
+                    }
                 }
             }
 

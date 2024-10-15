@@ -114,7 +114,7 @@
         "AllowedMovements": [
           {
               "Direction": [
-                  "west"
+                  "east"
               ],
               "Destination": "Northend",
               "TimeToMove": 1
@@ -130,7 +130,7 @@
         "AllowedMovements": [
           {
               "Direction": [
-                  "east"
+                  "west"
               ],
               "Destination": "Northend",
               "TimeToMove": 1
