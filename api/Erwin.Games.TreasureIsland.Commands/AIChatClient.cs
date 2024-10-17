@@ -16,6 +16,7 @@ namespace Erwin.Games.TreasureIsland.Commands
         private readonly string? _apiKey = Environment.GetEnvironmentVariable("AzureAIStudioApiKey");
         private readonly string? _endpoint = Environment.GetEnvironmentVariable("AzureAIStudioEndpoint");
         private readonly string _systemPromptText;
+        private readonly string _systemLocationText;
         private readonly HttpClient _client;
         private readonly ILogger<AIChatClient> _logger;
 
@@ -53,6 +54,30 @@ namespace Erwin.Games.TreasureIsland.Commands
 
                                 If you cannot match the input to one of the commands respond with: unknown_command, and then add some helpful hints to the player about what commands might be available.  Along with a fun description story or quote to brighten their day."
             ;
+
+            _systemLocationText = @"You are an AI assistant that helps generate interesting game location descriptions given a base starting point.  Keep important details like relative locations to other elements the same, but make the description more detailed and fun.
+                                    Keep in mind the theme of the game.  It is a text based adventure game called treasure island.  Set in the 17th century Caribbean.
+                                    The input may contain a list of items.  If so, try and incorporate the list of items into the description, the list is important to the player so make sure they are included.";
+        }
+
+        public async Task<string?> GetEmbelleshedLocationDescription(string? description)
+        {
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+
+            var payload = new
+            {
+                messages = new object[]
+                {
+                  new { role = "system", content = new object[] { new { type = "text", text = _systemLocationText } } },
+                  new { role = "user", content = new object[] { new { type = "text", text = description } } }
+                },
+                temperature = 0.8,
+                top_p = 0.95,
+                max_tokens = 16384,
+                stream = false
+            };
+
+            return await GetResponse(payload);
         }
 
         public async Task<string?> ParsePlayerInput(string? input)
@@ -72,6 +97,12 @@ namespace Erwin.Games.TreasureIsland.Commands
                 stream = false
             };
 
+            return await GetResponse(payload);
+
+        }
+
+        private async Task<string?> GetResponse(dynamic payload)
+        {
             var response = await _client.PostAsync(_endpoint, new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json"));
             
             if (response.IsSuccessStatusCode)

@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Azure;
+using Erwin.Games.TreasureIsland.Commands;
 
 namespace Erwin.Games.TreasureIsland.Models
 {
@@ -18,12 +18,19 @@ namespace Erwin.Games.TreasureIsland.Models
         /// </summary>
         public List<string>? AllowedCommands { get; set; }
 
+        private IAIClient _aiClient;
+
+        public Location(IAIClient aiClient)
+        {
+            _aiClient = aiClient;
+        }
+
         /// <summary>
         /// This returns a description of the location along with any items that are in the location
         /// and optionally any items dropped here by the player
         /// </summary>
         /// <returns>string description</returns>
-        public string? GetDescription(SaveGameData? saveGame = null)
+        public async Task<string?> GetDescription(SaveGameData? saveGame = null)
         {
             var description = Description;
 
@@ -41,7 +48,7 @@ namespace Erwin.Games.TreasureIsland.Models
             // what would be cool is to use the AI Client to generate a description of the location
             // which is accurate, but also has a bit of a twist to it or flavor
 
-            return description;
+            return await _aiClient.GetEmbelleshedLocationDescription(description);
         }
 
         public HashSet<string> GetCurrentItems(SaveGameData? saveGame)

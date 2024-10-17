@@ -36,6 +36,11 @@ namespace Erwin.Games.TreasureIsland.Commands
             _thread = _assistantsClient.CreateThread();
         }
 
+        public Task<string?> GetEmbelleshedLocationDescription(string? description)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<string?> ParsePlayerInput(string? input)
         {
             /* 

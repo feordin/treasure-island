@@ -14,12 +14,12 @@ namespace Erwin.Games.TreasureIsland.Commands
         {
             _saveGameData = saveGameData;
         }
-        public Task<ProcessCommandResponse?> Execute()
+        public async Task<ProcessCommandResponse?> Execute()
         {
             var currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
 
-            return Task.FromResult<ProcessCommandResponse?>(
-                new ProcessCommandResponse("You look around and see: " + currentLocation?.GetDescription(_saveGameData), _saveGameData,null, null, null));
+            return new ProcessCommandResponse(
+                "You look around and see: " + (currentLocation != null ? await currentLocation.GetDescription(_saveGameData) : "nothing"), _saveGameData, null, null, null);
         }
     }
 }

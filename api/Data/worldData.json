@@ -84,14 +84,14 @@
                 },
                 {
                     "Direction": [
-                        "east"
+                        "west"
                     ],
                     "Destination": "Bank",
                     "TimeToMove": 1
                 },
                 {
                     "Direction": [
-                        "west"
+                        "east"
                     ],
                     "Destination": "PostOffice",
                     "TimeToMove": 1
@@ -116,7 +116,7 @@
             "AllowedMovements": [
                 {
                     "Direction": [
-                        "east"
+                        "west"
                     ],
                     "Destination": "Northend",
                     "TimeToMove": 1
@@ -134,11 +134,339 @@
             "AllowedMovements": [
                 {
                     "Direction": [
-                        "west"
+                        "east"
                     ],
                     "Destination": "Northend",
                     "TimeToMove": 1
                 }
+            ]
+        },
+        {
+            "Name": "MainStreet",
+            "Description": "You are near the center of town.  To your right is an alley between the bank and the jail.  To your left is the bakery. Ahead is another city block, which eventually ends up at the wharf.",
+            "Items": [],
+            "image": "northend.png",
+            "help": "no",
+            "AllowedMovements": [
+                {
+                    "Direction": [
+                        "north"
+                    ],
+                    "Destination": "Northend",
+                    "TimeToMove": 2
+                },
+                {
+                    "Direction": [
+                        "west"
+                    ],
+                    "Destination": "BankAlley",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "east"
+                    ],
+                    "Destination": "Bakery",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "south"
+                    ],
+                    "Destination": "CenterStreet",
+                    "TimeToMove": 2
+                }
+            ]
+        },
+        {
+            "Name": "BankAlley",
+            "Description": "You are in an alley between the bank and the jail. To your right is the south wall of the bank.  To your left is the north wall of the jail.  Ahead of you is more of this alley.",
+            "Items": [],
+            "image": "northend.png",
+            "help": "no",
+            "AllowedMovements": [
+                {
+                    "Direction": [
+                        "west"
+                    ],
+                    "Destination": "AlleyEnd",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "east"
+                    ],
+                    "Destination": "MainStreet",
+                    "TimeToMove": 1
+                }
+            ]
+        },
+        {
+            "Name": "CenterStreet",
+            "Description": "You are at the center of town.  To your right is the jail.  To your left is the church. Ahead is another city block, which eventually ends up at the wharf.",
+            "Items": [],
+            "image": "northend.png",
+            "help": "no",
+            "AllowedMovements": [
+                {
+                    "Direction": [
+                        "north"
+                    ],
+                    "Destination": "MainStreet",
+                    "TimeToMove": 2
+                },
+                {
+                    "Direction": [
+                        "west"
+                    ],
+                    "Destination": "Jail",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "east"
+                    ],
+                    "Destination": "Church",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "south"
+                    ],
+                    "Destination": "KingStreet",
+                    "TimeToMove": 2
+                }
+            ]
+        },
+        {
+            "Name": "KingStreet",
+            "Description": "You are close to the center of town.  To your right is the police station.  To your left is the pawn shop. Ahead is another city block, which eventually ends up at the wharf.",
+            "Items": [],
+            "image": "northend.png",
+            "help": "no",
+            "AllowedMovements": [
+                {
+                    "Direction": [
+                        "north"
+                    ],
+                    "Destination": "CenterStreet",
+                    "TimeToMove": 2
+                },
+                {
+                    "Direction": [
+                        "west"
+                    ],
+                    "Destination": "PolicStation",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "east"
+                    ],
+                    "Destination": "PawnShop",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "south"
+                    ],
+                    "Destination": "CrossStreet",
+                    "TimeToMove": 2
+                }
+            ]
+        },
+        {
+            "Name": "CrossStreet",
+            "Description": "You are south of the center of town.  To your right is the Stage Coach depot.  To your left is the fortune teller. Ahead is another city block, which eventually ends up at the wharf.",
+            "Items": [],
+            "image": "northend.png",
+            "help": "no",
+            "AllowedMovements": [
+                {
+                    "Direction": [
+                        "north"
+                    ],
+                    "Destination": "KingStreet",
+                    "TimeToMove": 2
+                },
+                {
+                    "Direction": [
+                        "west"
+                    ],
+                    "Destination": "StageCoachDepot",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "east"
+                    ],
+                    "Destination": "FortuneTeller",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "south"
+                    ],
+                    "Destination": "QueensAve",
+                    "TimeToMove": 2
+                }
+            ]
+        },
+        {
+            "Name": "QueensAve",
+            "Description": "You are south of the center of town.  To your right is a building with no name.  To your left is a law office. Ahead is another city block, which is close to the wharf.",
+            "Items": [],
+            "image": "northend.png",
+            "help": "no",
+            "AllowedMovements": [
+                {
+                    "Direction": [
+                        "north"
+                    ],
+                    "Destination": "CrossStreet",
+                    "TimeToMove": 2
+                },
+                {
+                    "Direction": [
+                        "west"
+                    ],
+                    "Destination": "UknownBuilding",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "east"
+                    ],
+                    "Destination": "LawOffice",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "south"
+                    ],
+                    "Destination": "Southend",
+                    "TimeToMove": 2
+                }
+            ]
+        },
+        {
+            "Name": "Southend",
+            "Description": "You are at the south end of town.  To your right is the city dump.  To your left is a path to the airport, where you can go in a hot air balloon. Ahead is a path to the wharf.",
+            "Items": [],
+            "image": "northend.png",
+            "help": "no",
+            "AllowedMovements": [
+                {
+                    "Direction": [
+                        "north"
+                    ],
+                    "Destination": "Southend",
+                    "TimeToMove": 2
+                },
+                {
+                    "Direction": [
+                        "west"
+                    ],
+                    "Destination": "CityDump",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "east"
+                    ],
+                    "Destination": "Airport",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "south"
+                    ],
+                    "Destination": "WharfRoad",
+                    "TimeToMove": 2
+                }
+            ]
+        },
+        {
+            "Name": "WharfRoad",
+            "Description": "You are at the sound end of town. To your right is the beach. To your left is the ocean. Ahead to the south is the dock of the wharf.",
+            "Items": [],
+            "image": "wharfroad.png",
+            "help": "no",
+            "AllowedMovements": [
+                {
+                    "Direction": [
+                        "north"
+                    ],
+                    "Destination": "Southend",
+                    "TimeToMove": 2
+                },
+                {
+                    "Direction": [
+                        "west"
+                    ],
+                    "Destination": "Beach",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "east"
+                    ],
+                    "Destination": "Ocean",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "south"
+                    ],
+                    "Destination": "Wharf",
+                    "TimeToMove": 2
+                }
+            ]
+        },
+        {
+            "Name": "Wharf",
+            "Description": "You are standing on the dock at the wharf.  The water is a bit rough and the waves are crashing against the pilings.  The air is heavy with the smell of salt and the sound of the ocean.  To the south the ocean stretches out before you.  To your left is the ticket booth.  To your right is the beach.",
+            "Items": [],
+            "image": "wharf.png",
+            "help": "no",
+            "AllowedMovements": [
+                {
+                    "Direction": [
+                        "north"
+                    ],
+                    "Destination": "WharfRoad",
+                    "TimeToMove": 2
+                },
+                {
+                    "Direction": [
+                        "west"
+                    ],
+                    "Destination": "Beach",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "east"
+                    ],
+                    "Destination": "TicketBooth",
+                    "TimeToMove": 1
+                },
+                {
+                    "Direction": [
+                        "south"
+                    ],
+                    "Destination": "SharkBay",
+                    "TimeToMove": 60
+                }
+            ]
+        },
+        {
+            "Name": "SharkBay",
+            "Description": "You are committed to the idea that swimming to find Uncle Herman is right course of action.  You dive into the water and start swimming.  The water is cold and the waves are rough.  You are not a strong swimmer and you are quickly exhausted.  Just when you think it would be a good idea to turn back you see the shark fin.  You are eaten by a great white shark and die.  Game Over.",
+            "Items": [],
+            "image": "sharkbay.png",
+            "help": "no",
+            "AllowedMovements": [
             ]
         }
     ],

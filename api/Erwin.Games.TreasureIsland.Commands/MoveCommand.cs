@@ -17,16 +17,16 @@ namespace Erwin.Games.TreasureIsland.Commands
             _gameDataRepository = gameDataRepository;
             _direction = direction;
         }
-        public Task<ProcessCommandResponse?> Execute()
+        public async Task<ProcessCommandResponse?> Execute()
         {
             if (_saveGameData == null || WorldData.Instance == null)
             {
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                return new ProcessCommandResponse(
                     "Unable to get the current game state or world data.",
                     _saveGameData,
                     null,
                     null,
-                    null));
+                    null);
             }
 
             // check the current location
@@ -40,21 +40,21 @@ namespace Erwin.Games.TreasureIsland.Commands
                 if (movement.TimeToMove != null)
                     _saveGameData.CurrentDateTime = _saveGameData.CurrentDateTime + new TimeSpan(0, movement.TimeToMove.Value, 0);
 
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "You go " + _direction + ".\n\n" + newLocation?.GetDescription(_saveGameData),
+                return new ProcessCommandResponse(
+                    "You go " + _direction + ".\n\n" + (newLocation != null ? await newLocation.GetDescription(_saveGameData) : string.Empty),
                     _saveGameData,
                     newLocation?.Image,
                     newLocation?.Description,
-                    null));
+                    null);
             }
             else
             {
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                return new ProcessCommandResponse(
                     "You try to go " + _direction + ".\n\n" + "but can't and end up in the same place.",
                     _saveGameData,
                     newLocation?.Image,
                     newLocation?.Description,
-                    null));
+                    null);
             }
         }
     }

@@ -56,9 +56,12 @@ namespace Erwin.Games.TreasureIsland.Commands
                 _saveGameData?.Inventory?.Add(_param);
                 var locationChange = new LocationChange(currentLocation.Name, _param, false, _saveGameData?.CurrentDateTime);
                 
-                if (_saveGameData != null && _saveGameData?.LocationChanges == null)
+                if (_saveGameData != null)
                 {
-                    _saveGameData.LocationChanges = new List<LocationChange>();
+                    if (_saveGameData.LocationChanges == null)
+                    {
+                        _saveGameData.LocationChanges = new List<LocationChange>();
+                    }
                 }
                 _saveGameData?.LocationChanges?.Add(locationChange);
 

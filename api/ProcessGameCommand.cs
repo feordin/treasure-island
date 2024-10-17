@@ -65,10 +65,15 @@ namespace Erwin.Games.TreasureIsland
             if (result?.saveGameData != null && result?.SavedGames?.Count == 0)
             {
                 var saveGameList = await _gameDataRepository.GetAllSavedGamesAsync(ClientPrincipal.Instance?.UserDetails);
-                if (saveGameList == null && result?.saveGameData != null){
-                    saveGameList = new List<SaveGameData>() { result?.saveGameData };
+                if (saveGameList == null && result?.saveGameData != null)
+                {
+                    saveGameList = new List<SaveGameData>() { result.saveGameData };
                 }
-                result?.SavedGames?.AddRange(saveGameList);
+                
+                if (saveGameList != null)
+                {
+                    result?.SavedGames?.AddRange(saveGameList);
+                }
             }
 
             return new OkObjectResult(result);
