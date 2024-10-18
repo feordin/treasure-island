@@ -10,6 +10,14 @@ namespace Erwin.Games.TreasureIsland.Models
         public List<string>? ThingsClosed { get; set; }
         public DateTime? ChangeTime { get; set; }
 
+        public LocationChange()
+        {
+            ItemsRemoved = new List<string>();
+            ItemsAdded = new List<string>();
+            ThingsClosed = new List<string>();
+            ThingsOpened = new List<string>();
+        }
+
         public LocationChange(string name, DateTime? changeTime)
         {
             Name = name;
