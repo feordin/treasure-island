@@ -9,6 +9,7 @@ export interface SaveGameData {
     health?: number;
     history?: CommandHistory;
     locationChanges?: LocationChange[];
+    aiEmbelleshedDescriptions: boolean;
 }
 
 export interface CommandHistory {

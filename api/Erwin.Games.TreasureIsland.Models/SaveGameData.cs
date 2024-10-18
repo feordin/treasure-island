@@ -13,5 +13,6 @@ namespace Erwin.Games.TreasureIsland.Models
         public List<string>? Inventory { get; set; }
         public int Health { get; set; }
         public List<LocationChange>? LocationChanges { get; set; }
+        public bool AiEmbelleshedDescriptions { get; set; } = false;
     }
 }

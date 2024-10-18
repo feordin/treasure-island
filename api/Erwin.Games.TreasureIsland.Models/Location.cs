@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Erwin.Games.TreasureIsland.Commands;
 
 namespace Erwin.Games.TreasureIsland.Models
@@ -18,12 +19,8 @@ namespace Erwin.Games.TreasureIsland.Models
         /// </summary>
         public List<string>? AllowedCommands { get; set; }
 
-        private IAIClient _aiClient;
-
-        public Location(IAIClient aiClient)
-        {
-            _aiClient = aiClient;
-        }
+        [JsonIgnore]
+        public IAIClient? AiClient { get; set;}
 
         /// <summary>
         /// This returns a description of the location along with any items that are in the location
@@ -48,7 +45,11 @@ namespace Erwin.Games.TreasureIsland.Models
             // what would be cool is to use the AI Client to generate a description of the location
             // which is accurate, but also has a bit of a twist to it or flavor
 
-            return await _aiClient.GetEmbelleshedLocationDescription(description);
+            if (AiClient != null && saveGame?.AiEmbelleshedDescriptions == true)
+            {
+                return await AiClient.GetEmbelleshedLocationDescription(description) ?? description;
+            }
+            return description;
         }
 
         public HashSet<string> GetCurrentItems(SaveGameData? saveGame)

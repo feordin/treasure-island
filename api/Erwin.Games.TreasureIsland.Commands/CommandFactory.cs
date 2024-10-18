@@ -40,6 +40,8 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new BankCommand(saveGameData, repository, commandName, commandParam);
                 case "take":
                     return new TakeCommand(saveGameData, repository, commandName, commandParam);
+                case "embellish":
+                    return new EmbellishCommand(saveGameData);
                 default:
                     return new UnknownCommand(saveGameData, repository, commandRemainder);
             }

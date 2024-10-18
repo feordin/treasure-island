@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Erwin.Games.TreasureIsland.Persistence;
 using Erwin.Games.TreasureIsland.Commands;
+using Erwin.Games.TreasureIsland.Models;
 
 
 var host = new HostBuilder()

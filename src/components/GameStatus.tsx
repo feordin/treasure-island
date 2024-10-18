@@ -10,9 +10,10 @@ interface GameStatusProps {
   date: string | undefined;
   time: string | undefined;
   currentLocationDescription: string | undefined;
+  AiEmbelleshedDescriptions: boolean;
 }
 
-const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, date, time, currentLocationDescription }) => {
+const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, date, time, currentLocationDescription, AiEmbelleshedDescriptions }) => {
     const [user, setUser] = React.useState<User | null>(null);
 
     React.useEffect(() => {
@@ -37,6 +38,9 @@ const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, dat
       </div>
       <div className="status-item">
         <strong>Time:</strong> {time}
+      </div>
+      <div className="status-item">
+        <strong>Use AI to embellish the location descriptions:</strong> {AiEmbelleshedDescriptions ? "True" : "False"}
       </div>
       <div className="inventory">
         <strong>Inventory:</strong>

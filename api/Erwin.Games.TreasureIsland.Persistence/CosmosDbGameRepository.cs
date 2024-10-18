@@ -4,31 +4,30 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
 using Erwin.Games.TreasureIsland.Models;
 using Microsoft.Extensions.Logging;
+using Erwin.Games.TreasureIsland.Commands;
 
 namespace Erwin.Games.TreasureIsland.Persistence
 {
     public class CosmosDbGameRepository : IGameDataRepository
     {
-        private static Lazy<CosmosClient> _lazyClient = new Lazy<CosmosClient>(InitializeCosmosClient);
-        private static CosmosClient _cosmosClient => _lazyClient.Value;
         private static readonly string _databaseId = "treasureisland";
         private static readonly string _containerId = "gamedata";
+        private CosmosClient _cosmosClient;
         private readonly ILogger<CosmosDbGameRepository> _logger;
         private Container _container;
-
-        private static CosmosClient InitializeCosmosClient()
-        {
-            // Perform any initialization here
-            var uri = Environment.GetEnvironmentVariable("CosmosDBEndpoint");
-            var key = Environment.GetEnvironmentVariable("CosmosDBKey");
-            return new CosmosClient(uri, key);
-        }
+        private IAIClient _aiClient;
 
 
-        public CosmosDbGameRepository(ILogger<CosmosDbGameRepository> logger)
+        public CosmosDbGameRepository(ILogger<CosmosDbGameRepository> logger, IHttpClientFactory httpClientFactory, IAIClient aiClient)
         {
             _logger = logger;
+            
+            var uri = Environment.GetEnvironmentVariable("CosmosDBEndpoint");
+            var key = Environment.GetEnvironmentVariable("CosmosDBKey");
+
+            _cosmosClient = new CosmosClient(uri, key, new CosmosClientOptions() { HttpClientFactory = httpClientFactory.CreateClient });
             _container = _cosmosClient.GetContainer(_databaseId, _containerId);
+            _aiClient = aiClient;
         }
 
         public async Task<SaveGameData?> LoadGameAsync(string? user = null, int id = 0)
@@ -129,6 +128,10 @@ namespace Erwin.Games.TreasureIsland.Persistence
             try
             {
                 ItemResponse<WorldData?> response = await _container.ReadItemAsync<WorldData?>("treasure-island", new PartitionKey("treasure-island"));
+                foreach(var location in response.Resource?.Locations ?? new List<Location>())
+                {
+                    location.AiClient = _aiClient;
+                }
                 return response.Resource;
             }
             catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
