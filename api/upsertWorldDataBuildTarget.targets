@@ -1,0 +1,9 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Target Name="UpsertWorldData" AfterTargets="Build">
+		<!-- Ensure the project is built before running the script -->
+		<Exec Command="dotnet build $(ProjectDir)..\UpsertWorldData\UpsertWorldData.csproj" />
+
+		<!-- Run the C# script -->
+		<Exec Command="dotnet run --project $(ProjectDir)..\UpsertWorldData\UpsertWorldData.csproj -- $(ProjectDir)Data\worldData.json" />
+	</Target>
+</Project>

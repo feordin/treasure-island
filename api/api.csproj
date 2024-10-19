@@ -33,4 +33,6 @@
   <ItemGroup>
     <Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />
   </ItemGroup>
+
+  <Import Project="upsertWorldDataBuildTarget.targets" />
 </Project>

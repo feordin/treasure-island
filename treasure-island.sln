@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api", "api\api.csproj", "{A1C3B118-2517-45FC-827B-92211986C06C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpsertWorldData", "UpsertWorldData\UpsertWorldData.csproj", "{A4F8A026-D9B4-4B72-AEE4-743D3FBE0D8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A1C3B118-2517-45FC-827B-92211986C06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1C3B118-2517-45FC-827B-92211986C06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1C3B118-2517-45FC-827B-92211986C06C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4F8A026-D9B4-4B72-AEE4-743D3FBE0D8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4F8A026-D9B4-4B72-AEE4-743D3FBE0D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4F8A026-D9B4-4B72-AEE4-743D3FBE0D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4F8A026-D9B4-4B72-AEE4-743D3FBE0D8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
