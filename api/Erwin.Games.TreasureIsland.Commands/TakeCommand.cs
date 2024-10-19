@@ -51,20 +51,15 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
 
-            if (currentItems?.Contains(_param) == true && currentLocation?.Name != null)
+            // we need another check here to make sure the is actually possible to take
+            if (currentItems?.Contains(_param) == true && 
+                currentLocation?.Name != null &&
+                _param != "bushes") // for now bushes is the only special case.  We might need to change later.
             {
                 _saveGameData?.Inventory?.Add(_param);
-                var locationChange = new LocationChange(currentLocation.Name, _param, false, _saveGameData?.CurrentDateTime);
+                // check if the saved game already has any changes to this location
+                currentLocation.RemoveItemFromLocation(_saveGameData, _param);
                 
-                if (_saveGameData != null)
-                {
-                    if (_saveGameData.LocationChanges == null)
-                    {
-                        _saveGameData.LocationChanges = new List<LocationChange>();
-                    }
-                }
-                _saveGameData?.LocationChanges?.Add(locationChange);
-
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                     "You take the " + _param + ".",
                     _saveGameData,
@@ -75,7 +70,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             else
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "The " + _param + " is not here.",
+                    "The " + _param + " is not here, or you can't take it.",
                     _saveGameData,
                     null,
                     null,

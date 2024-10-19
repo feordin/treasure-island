@@ -145,7 +145,7 @@
       "Name": "MainStreet",
       "Description": "You are near the center of town.  To your right is an alley between the bank and the jail.  To your left is the bakery. Ahead is another city block, which eventually ends up at the wharf.",
       "Items": [],
-      "image": "northend.png",
+      "image": "mainstreet.png",
       "help": "no",
       "AllowedMovements": [
         {
@@ -182,7 +182,7 @@
       "Name": "BankAlley",
       "Description": "You are in an alley between the bank and the jail. To your right is the south wall of the bank.  To your left is the north wall of the jail.  Ahead of you is more of this alley.",
       "Items": [],
-      "image": "northend.png",
+      "image": "bankalley.png",
       "help": "no",
       "AllowedMovements": [
         {
@@ -202,10 +202,26 @@
       ]
     },
     {
+      "Name": "AlleyEnd",
+      "Description": "You are farther into an alley between the bank and the jail.  To your right is the bank, and to the left is the jail.  Ahead of you is a wall.  There are some bushes growing on the side of the alley, and you think you can see something under them.",
+      "Items": [ "bushes" ],
+      "image": "bankalley.png",
+      "help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "BankAlley",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
       "Name": "CenterStreet",
       "Description": "You are at the center of town.  To your right is the jail.  To your left is the church. Ahead is another city block, which eventually ends up at the wharf.",
       "Items": [],
-      "image": "northend.png",
+      "image": "centerstreet.png",
       "help": "no",
       "AllowedMovements": [
         {
@@ -236,6 +252,15 @@
           "Destination": "KingStreet",
           "TimeToMove": 2
         }
+      ]
+    },
+    {
+      "Name": "Jail",
+      "Description": "You look around is dismay.  You are in small room with bars on the window and wall of bars on the other side.  How will you ever help Uncle Herman now?",
+      "Items": [],
+      "image": "jail.png",
+      "help": "Unfortunately, there is not much to do now.  In future versions of the game we might add a jail escape!",
+      "AllowedMovements": [
       ]
     },
     {
@@ -473,11 +498,15 @@
   "Items": [
     {
       "Name": "letter",
-      "Description": "This is a letter from your uncle:\" Please help me!  I am being held captive on treasure island by a tribe of cannibals and they are planning to eat me!  You can save if you come quickly.  There is also treasure!  Plenty for both of us.  Uncle Herman\""
+      "Description": "This is a letter from your uncle:\n\"Please help me!  I am being held captive on treasure island by a tribe of cannibals and they are planning to eat me!  You can save if you come quickly.  There is also treasure!  Plenty for both of us.  Uncle Herman\""
     },
     {
       "Name": "money",
       "Description": "This is a lot of money.  You could use it to buy a ticket to a boat and go to treasure island to find your uncle."
+    },
+    {
+      "Name": "wallet",
+      "Description": "This wallet has a letter of identification and several gold coins."
     }
   ],
     "GlobalCommands": [

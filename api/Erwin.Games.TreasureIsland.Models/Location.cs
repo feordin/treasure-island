@@ -67,5 +67,71 @@ namespace Erwin.Games.TreasureIsland.Models
 
             return finalItemsHashSet;
         }
+
+        public bool AddItemToLocation(SaveGameData? saveGame, string? item)
+        {
+            if (saveGame == null || item == null)
+            {
+                return false;
+            }
+
+            var locationChange = saveGame.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+            if (locationChange == null)
+            {
+                if (Name == null)
+                {
+                    return false;
+                }
+                locationChange = new LocationChange(Name, item, true, saveGame.CurrentDateTime);
+                saveGame.LocationChanges?.Add(locationChange);
+            }
+            else
+            {
+                if (locationChange.ItemsAdded?.Contains(item) == true)
+                {
+                    return false;
+                }
+                locationChange.ItemsAdded?.Add(item);
+            }
+
+            return true;
+        }
+
+        public bool RemoveItemFromLocation(SaveGameData? saveGame, string? item)
+        {
+            if (saveGame == null || item == null)
+            {
+                return false;
+            }
+
+            var locationChange = saveGame.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+            if (locationChange == null)
+            {
+                if (Name == null)
+                {
+                    return false;
+                }
+                locationChange = new LocationChange(Name, item, false, saveGame.CurrentDateTime);
+                saveGame.LocationChanges?.Add(locationChange);
+            }
+            else
+            {
+                if (locationChange.ItemsRemoved?.Contains(item) == true)
+                {
+                    return false;
+                }
+                
+                if (locationChange.ItemsAdded?.Contains(item) == true)
+                {
+                    locationChange.ItemsAdded?.Remove(item);
+                }
+                else
+                {
+                    locationChange.ItemsRemoved?.Add(item);
+                }
+            }
+
+            return true;
+        }
     }
 }

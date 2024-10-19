@@ -34,11 +34,11 @@ namespace Erwin.Games.TreasureIsland.Commands
             _systemPromptText = @"You are an assistant to a text-based adventure game engine.  The player's commands are sent to you, and you should determine if the command matches on the allowed commands in the game. Your goal is to
                                 determine the player's intent.  They may not enter the exact command, but may enter something which indicates a similar intent.  If the user does enter an exact command, you should return that command.
                                 Following is the complete list of allowed commands:
-                                ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""help"", ""eat"",""drink"", ""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock"",""steal"",""borrow"",""embellish""
+                                ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""help"", ""eat"",""drink"", ""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock"",""steal"",""borrow"",""embellish"", ""examine"", ""read""
                                         
-                                The following subset of commands should also be followed by the next word:
-                                ""look"",""open"",""close"",""take"",""say"",""eat"",""drink"", ""drop"",""unlock"",""lock"",""steal"",""borrow""
-                                For example:  ""take shovel"" or ""open door"".The game needs to know which item is being acted upon.
+                                The following subset of commands should also be followed by the next word, or the word associate with the command:
+                                ""look"",""open"",""close"",""take"",""say"",""eat"",""drink"", ""drop"",""unlock"",""lock"",""steal"",""borrow"", ""examine"", ""read""
+                                For example:  if the user input is: ""I want to pick up the shovel"", then your response would be: ""take shovel"". The game needs to know which item is being acted upon.
 
                                 The following commands relate to starting, saving, loading or deleting games:
                                 ""new"",""save"",""load"",""delete""

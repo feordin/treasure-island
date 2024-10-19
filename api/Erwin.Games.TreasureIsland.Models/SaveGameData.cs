@@ -14,5 +14,33 @@ namespace Erwin.Games.TreasureIsland.Models
         public int Health { get; set; }
         public List<LocationChange>? LocationChanges { get; set; }
         public bool AiEmbelleshedDescriptions { get; set; } = false;
+        public List<Event>? Events { get; set; }
+
+        public Event? GetEvent(string? eventName)
+        {
+            return Events?.Find(e => e.Name == eventName);
+        }
+
+        public bool AddEvent(string? eventName, string? eventDescription, DateTime? eventDate)
+        {
+            if (Events == null)
+            {
+                Events = new List<Event>();
+            }
+
+            if (Events.Exists(e => e.Name == eventName))
+            {
+                return false;
+            }
+
+            Events.Add(new Event
+            {
+                Name = eventName,
+                Description = eventDescription,
+                EventDate = eventDate
+            });
+
+            return true;
+        }
     }
 }
