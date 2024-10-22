@@ -10,11 +10,22 @@ namespace Erwin.Games.TreasureIsland.Models
 
         public bool? Takeable { get; set; }
 
+        public bool? MustBuy { get; set; }
+        public int? Cost { get; set; }
+
         public bool IsTakeable
         {
             get
             {
                 return Takeable == null ? true : Takeable.Value;
+            }
+        }
+
+        public bool IsMustBuy
+        {
+            get
+            {
+                return MustBuy == null ? false : MustBuy.Value;
             }
         }
     }

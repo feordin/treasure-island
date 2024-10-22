@@ -20,16 +20,16 @@ namespace Erwin.Games.TreasureIsland.Commands
             _command = command;
             _param = param;
         }
-        public Task<ProcessCommandResponse?> Execute()
+        public async Task<ProcessCommandResponse?> Execute()
         {
             if (_saveGameData == null || WorldData.Instance == null)
             {
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                return new ProcessCommandResponse(
                     "Unable to get the current game state or world data.",
                     _saveGameData,
                     null,
                     null,
-                    null));
+                    null);
             }
 
             // check the current location, if it's the bank, then we process this as a steal or rob command
@@ -37,44 +37,61 @@ namespace Erwin.Games.TreasureIsland.Commands
             if (currentLocation?.Name == "Bank")
             {
                 var bankCommand = new BankCommand(_saveGameData, _gameDataRepository, _command, _param);
-                return bankCommand.Execute();
+                return await bankCommand.Execute();
             }
             
             if (_param == null){
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                return new ProcessCommandResponse(
                     "What do you want to take?",
                     _saveGameData,
                     null,
                     null,
-                    null));
+                    null);
             }
 
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
+            var itemDetails = WorldData.Instance?.GetItem(_param);
+
+            if (itemDetails?.IsMustBuy == true && _saveGameData.Money < itemDetails?.Cost)
+            {
+                return new ProcessCommandResponse(
+                    "You try take the " + _param + " without having enough to money to pay.  Sorry, but the watch have a careful eye!  You stop before you end up in jail.",
+                    _saveGameData,
+                    null,
+                    null,
+                    null);
+            }
+
+            if (itemDetails?.IsMustBuy == true && _saveGameData.Money < itemDetails?.Cost)
+            {
+                var buyCommand = new BuyCommand(_saveGameData, _gameDataRepository, _command, _param);
+                return await buyCommand.Execute();
+            }
 
             // we need another check here to make sure the is actually possible to take
             if (currentItems?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true && 
                 currentLocation?.Name != null &&
-                _param != "bushes") // for now bushes is the only special case.  We might need to change later.
+                (itemDetails == null || itemDetails.IsTakeable == true))
             {
                 _saveGameData?.Inventory?.Add(_param);
                 // check if the saved game already has any changes to this location
                 currentLocation.RemoveItemFromLocation(_saveGameData, _param);
                 
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                return new ProcessCommandResponse(
                     "You take the " + _param + ".",
                     _saveGameData,
                     null,
                     null,
-                    null));
+                    null);
             }
             else
             {
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                return new ProcessCommandResponse(
                     "The " + _param + " is not here, or you can't take it.",
                     _saveGameData,
                     null,
                     null,
-                    null));
+                    null);
             }
         }
     }

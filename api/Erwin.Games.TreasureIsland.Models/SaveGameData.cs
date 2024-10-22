@@ -15,10 +15,11 @@ namespace Erwin.Games.TreasureIsland.Models
         public List<LocationChange>? LocationChanges { get; set; }
         public bool AiEmbelleshedDescriptions { get; set; } = false;
         public List<Event>? Events { get; set; }
+        public int? Money { get; set; }
 
         public Event? GetEvent(string? eventName)
         {
-            return Events?.Find(e => e.Name == eventName);
+            return Events?.Find(e => string.Equals(e.Name, eventName, StringComparison.OrdinalIgnoreCase) == true));
         }
 
         public bool AddEvent(string? eventName, string? eventDescription, DateTime? eventDate)
@@ -28,7 +29,7 @@ namespace Erwin.Games.TreasureIsland.Models
                 Events = new List<Event>();
             }
 
-            if (Events.Exists(e => e.Name == eventName))
+            if (Events.Exists(e => string.Equals(e.Name, eventName, StringComparison.OrdinalIgnoreCase) == true))
             {
                 return false;
             }
@@ -41,6 +42,18 @@ namespace Erwin.Games.TreasureIsland.Models
             });
 
             return true;
+        }
+
+        public bool RemoveEvent(string? eventName)
+        {
+            if (Events == null)
+            {
+                return false;
+            }
+
+            int removedCount = Events.RemoveAll(e => string.Equals(e.Name, eventName, StringComparison.OrdinalIgnoreCase));
+
+            return removedCount > 0;
         }
     }
 }

@@ -179,6 +179,22 @@
       ]
     },
     {
+      "Name": "Bakery",
+      "Description": "You are at the town bakery, Marguerite smiles as she offers you her wares.",
+      "Items": [ "danish", "donuts", "coffee"],
+      "image": "bakery.png",
+      "help": "Those donuts might come in handy.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Bakery",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
       "Name": "BankAlley",
       "Description": "You are in an alley between the bank and the jail. To your right is the south wall of the bank.  To your left is the north wall of the jail.  Ahead of you is more of this alley.",
       "Items": [],
@@ -378,7 +394,7 @@
       "Name": "Southend",
       "Description": "You are at the south end of town.  To your right is the town trash pit.  To your left is a path to the airport, where you can go in a hot air balloon. Ahead is a path to the wharf.",
       "Items": [],
-      "image": "northend.png",
+      "image": "southend.png",
       "help": "no",
       "AllowedMovements": [
         {
@@ -504,7 +520,7 @@
     {
       "Name": "TicketBooth",
       "Description": "You are standing on the dock at the ticket booth.  Th old sailor behind the counter speaks, and you think it might be words, but you can't be sure.  Luckily the sign indicates that a ticket for the boat is 5 gold.",
-      "Items": [],
+      "Items": [ "ticket" ],
       "image": "ticketbooth.png",
       "help": "no",
       "AllowedMovements": [
@@ -543,12 +559,36 @@
     },
     {
       "Name": "wallet",
-      "Description": "This wallet has a letter of identification and several gold coins."
+      "Description": "This wallet has a letter of identification and several gold coins.  Be careful using money from a wallet that is not yours."
     },
     {
       "Name": "chest",
       "Description": "It is old and broken, but seems it was once of good quality.  You think you see something inside.",
       "Takeable" : false
+    },
+    {
+      "Name": "danish",
+      "Description": "A tasty cream tart with berries.",
+      "MustBuy": true,
+      "Cost":1
+    },
+    {
+      "Name": "donuts",
+      "Description": "Nature's perfect food.",
+      "MustBuy": true,
+      "Cost":1
+    },
+    {
+      "Name": "coffee",
+      "Description": "Nothing fresher than this.",
+      "MustBuy": true,
+      "Cost": 1
+    },
+    {
+      "Name": "ticket",
+      "Description": "This will get you on the boat so you can go searching for Uncle Herman and treasure.",
+      "MustBuy": true,
+      "Cost": 5
     }
   ],
     "GlobalCommands": [
