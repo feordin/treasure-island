@@ -19,7 +19,7 @@ namespace Erwin.Games.TreasureIsland.Models
 
         public Event? GetEvent(string? eventName)
         {
-            return Events?.Find(e => string.Equals(e.Name, eventName, StringComparison.OrdinalIgnoreCase) == true));
+            return Events?.Find(e => string.Equals(e.Name, eventName, StringComparison.OrdinalIgnoreCase) == true);
         }
 
         public bool AddEvent(string? eventName, string? eventDescription, DateTime? eventDate)
