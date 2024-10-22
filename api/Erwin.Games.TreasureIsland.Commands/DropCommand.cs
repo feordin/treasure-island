@@ -7,13 +7,13 @@ namespace Erwin.Games.TreasureIsland.Commands
 {
     // Command Interface
     // It declares a method for executing a command
-    public class TakeCommand : ICommand
+    public class DropCommand : ICommand
     {
         private SaveGameData? _saveGameData;
         private IGameDataRepository _gameDataRepository;
         private string _command;
         private string? _param;
-        public TakeCommand(SaveGameData? saveGameData, IGameDataRepository gameDataRepository, string command, string? param = null)
+        public DropCommand(SaveGameData? saveGameData, IGameDataRepository gameDataRepository, string command, string? param = null)
         {
             _saveGameData = saveGameData;
             _gameDataRepository = gameDataRepository;
@@ -34,15 +34,10 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             // check the current location, if it's the bank, then we process this as a steal or rob command
             var currentLocation = WorldData.Instance.GetLocation(_saveGameData.CurrentLocation);
-            if (currentLocation?.Name == "Bank")
-            {
-                var bankCommand = new BankCommand(_saveGameData, _gameDataRepository, _command, _param);
-                return bankCommand.Execute();
-            }
             
             if (_param == null){
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "What do you want to take?",
+                    "What do you want to drop?",
                     _saveGameData,
                     null,
                     null,
@@ -50,18 +45,18 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
 
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
+            var itemDetails = WorldData.Instance?.GetItem(_param);
 
             // we need another check here to make sure the is actually possible to take
-            if (currentItems?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true && 
-                currentLocation?.Name != null &&
-                _param != "bushes") // for now bushes is the only special case.  We might need to change later.
+            if(_saveGameData?.Inventory?.Contains(_param, StringComparer.OrdinalIgnoreCase) == false && 
+                currentLocation?.Name != null)
             {
-                _saveGameData?.Inventory?.Add(_param);
+                _saveGameData?.Inventory?.RemoveAt(_saveGameData.Inventory.FindIndex(n => n.Equals(_param, StringComparison.OrdinalIgnoreCase)));
                 // check if the saved game already has any changes to this location
                 currentLocation.RemoveItemFromLocation(_saveGameData, _param);
                 
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "You take the " + _param + ".",
+                    "You drop the " + _param + ".",
                     _saveGameData,
                     null,
                     null,

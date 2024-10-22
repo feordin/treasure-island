@@ -17,78 +17,90 @@ namespace Erwin.Games.TreasureIsland.Commands
             _gameDataRepository = gameDataRepository;
             _command = command;
         }
-        public Task<ProcessCommandResponse?> Execute()
+        public async Task<ProcessCommandResponse?> Execute()
         {
             if (_saveGameData == null || WorldData.Instance == null)
             {
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                return new ProcessCommandResponse(
                     "Unable to get the current game state or world data.",
                     _saveGameData,
                     null,
                     null,
-                    null));
+                    null);
             }
 
             // check the current location
             var currentLocation = WorldData.Instance.GetLocation(_saveGameData.CurrentLocation);
             if (currentLocation == null || currentLocation.Name != "Bank")
             {
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                return new ProcessCommandResponse(
                     "These commands are only available at the bank.",
                     _saveGameData,
                     null,
                     null,
                     null,
-                    null));
+                    null);
             }
             
             if (_command == "borrow")
             {
-                if (_saveGameData?.Inventory?.Contains("collateral") == true)
+                if (_saveGameData.GetEvent("BankLoan") != null)
                 {
-                    _saveGameData.Inventory.Remove("collateral");
+                    return new ProcessCommandResponse(
+                        "The bank manager says, 'I'm sorry, but you already have a loan from the bank.'",
+                        _saveGameData,
+                        null,
+                        null,
+                        null,
+                        null);
+                }
+                if (_saveGameData?.Inventory?.Contains("TheRepublic", StringComparer.OrdinalIgnoreCase) == true)
+                {
+                    _saveGameData.Inventory.Remove("TheRepublic");
                     _saveGameData.Inventory.Add("10 gold coins");
                     _saveGameData.Inventory.Add("Promissory note");
-                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    _saveGameData.AddEvent("BankLoan", "You borrowed 10 gold from the bank.", _saveGameData.CurrentDateTime);
+                    return new ProcessCommandResponse(
                         "The bank manager smiles as he accepts your collateral and gives you a loan.",
                         _saveGameData,
                         null,
                         null,
                         null,
-                        null));
+                        null);
                 }
                 else
                 {
-                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    return new ProcessCommandResponse(
                         "The bank manager says, 'I'm sorry, but I can't give you a loan without collateral.'",
                         _saveGameData,
                         null,
                         null,
                         null,
-                        null));
+                        null);
                 }
             }
             else if (_command == "steal" || _command == "rob" || _command == "take")
             {
                 _saveGameData.CurrentLocation = "Jail";
-                _saveGameData.CurrentDateTime.Add(new TimeSpan(0, 30, 0));
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
+                _saveGameData?.CurrentDateTime.Add(new TimeSpan(0, 30, 0));
+                return new ProcessCommandResponse(
                     "The small pile of coins looks too tempting, and you grab them when the bank manager isn't looking.\nUnfortunately, the armed watch you didn't notice catches you and you end up in jail.",
                     _saveGameData,
+                    currentLocation?.Image,
+                    currentLocation != null ? await currentLocation.GetDescription(_saveGameData) : null,
                     null,
-                    null,
-                    null,
-                    null));
+                    null);
             }
             else
             {
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                return new ProcessCommandResponse(
                     "I'm sorry, this bank doesn't allow that.",
                     _saveGameData,
                     null,
                     null,
                     null,
-                    null));
+                    null);
             }
         }
     }

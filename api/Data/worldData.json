@@ -265,9 +265,9 @@
     },
     {
       "Name": "KingStreet",
-      "Description": "You are close to the center of town.  To your right is the police station.  To your left is the pawn shop. Ahead is another city block, which eventually ends up at the wharf.",
+      "Description": "You are close to the center of town.  To your right is the constables office.  To your left is the pawn shop. Ahead is another city block, which eventually ends up at the wharf.",
       "Items": [],
-      "image": "northend.png",
+      "image": "kingstreet.png",
       "help": "no",
       "AllowedMovements": [
         {
@@ -304,7 +304,7 @@
       "Name": "CrossStreet",
       "Description": "You are south of the center of town.  To your right is the Stage Coach depot.  To your left is the fortune teller. Ahead is another city block, which eventually ends up at the wharf.",
       "Items": [],
-      "image": "northend.png",
+      "image": "crossStreet.png",
       "help": "no",
       "AllowedMovements": [
         {
@@ -341,7 +341,7 @@
       "Name": "QueensAve",
       "Description": "You are south of the center of town.  To your right is a building with no name.  To your left is a law office. Ahead is another city block, which is close to the wharf.",
       "Items": [],
-      "image": "northend.png",
+      "image": "QueensAve.png",
       "help": "no",
       "AllowedMovements": [
         {
@@ -376,7 +376,7 @@
     },
     {
       "Name": "Southend",
-      "Description": "You are at the south end of town.  To your right is the city dump.  To your left is a path to the airport, where you can go in a hot air balloon. Ahead is a path to the wharf.",
+      "Description": "You are at the south end of town.  To your right is the town trash pit.  To your left is a path to the airport, where you can go in a hot air balloon. Ahead is a path to the wharf.",
       "Items": [],
       "image": "northend.png",
       "help": "no",
@@ -385,14 +385,14 @@
           "Direction": [
             "north"
           ],
-          "Destination": "Southend",
+          "Destination": "QueensAve",
           "TimeToMove": 2
         },
         {
           "Direction": [
             "west"
           ],
-          "Destination": "CityDump",
+          "Destination": "TrashPit",
           "TimeToMove": 1
         },
         {
@@ -412,10 +412,26 @@
       ]
     },
     {
+      "Name": "TrashPit",
+      "Description": "You are standing in the town trash pit.  The smell of decaying fish is overwhelming.  You are wondering why you can here, when you think you see something inside the reamins of a broken old sea chest.",
+      "Items": [ "chest" ],
+      "image": "trashpit.png",
+      "help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Southend",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
       "Name": "WharfRoad",
       "Description": "You are at the sound end of town. To your right is the beach. To your left is the ocean. Ahead to the south is the dock of the wharf.",
       "Items": [],
-      "image": "wharfroad.png",
+      "image": "wharfRoad.png",
       "help": "no",
       "AllowedMovements": [
         {
@@ -486,6 +502,22 @@
       ]
     },
     {
+      "Name": "TicketBooth",
+      "Description": "You are standing on the dock at the ticket booth.  Th old sailor behind the counter speaks, and you think it might be words, but you can't be sure.  Luckily the sign indicates that a ticket for the boat is 5 gold.",
+      "Items": [],
+      "image": "ticketbooth.png",
+      "help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "Wharf",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
       "Name": "SharkBay",
       "Description": "You are committed to the idea that swimming to find Uncle Herman is right course of action.  You dive into the water and start swimming.  The water is cold and the waves are rough.  You are not a strong swimmer and you are quickly exhausted.  Just when you think it would be a good idea to turn back you see the shark fin.  You are eaten by a great white shark and die.  Game Over.",
       "Items": [],
@@ -497,6 +529,11 @@
   ],
   "Items": [
     {
+      "Name": "bushes",
+      "Description": "A clump of bushes is growing in the alley.  You think you see something under them.",
+      "Takeable": false
+    },
+    {
       "Name": "letter",
       "Description": "This is a letter from your uncle:\n\"Please help me!  I am being held captive on treasure island by a tribe of cannibals and they are planning to eat me!  You can save if you come quickly.  There is also treasure!  Plenty for both of us.  Uncle Herman\""
     },
@@ -507,6 +544,11 @@
     {
       "Name": "wallet",
       "Description": "This wallet has a letter of identification and several gold coins."
+    },
+    {
+      "Name": "chest",
+      "Description": "It is old and broken, but seems it was once of good quality.  You think you see something inside.",
+      "Takeable" : false
     }
   ],
     "GlobalCommands": [

@@ -87,7 +87,7 @@ namespace Erwin.Games.TreasureIsland.Models
             }
             else
             {
-                if (locationChange.ItemsAdded?.Contains(item) == true)
+                if (locationChange.ItemsAdded?.Contains(item, StringComparer.OrdinalIgnoreCase) == true)
                 {
                     return false;
                 }
@@ -116,14 +116,14 @@ namespace Erwin.Games.TreasureIsland.Models
             }
             else
             {
-                if (locationChange.ItemsRemoved?.Contains(item) == true)
+                if (locationChange.ItemsRemoved?.Contains(item, StringComparer.OrdinalIgnoreCase) == true)
                 {
                     return false;
                 }
                 
-                if (locationChange.ItemsAdded?.Contains(item) == true)
+                if (locationChange.ItemsAdded?.Contains(item, StringComparer.OrdinalIgnoreCase) == true)
                 {
-                    locationChange.ItemsAdded?.Remove(item);
+                    locationChange.ItemsAdded?.RemoveAt(locationChange.ItemsAdded.FindIndex(n => n.Equals(item, StringComparison.OrdinalIgnoreCase)));
                 }
                 else
                 {

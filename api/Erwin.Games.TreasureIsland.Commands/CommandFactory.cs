@@ -1,5 +1,6 @@
 using Erwin.Games.TreasureIsland.Models;
 using Erwin.Games.TreasureIsland.Persistence;
+using Microsoft.Extensions.Caching.Memory;
 using System.Runtime;
 
 namespace Erwin.Games.TreasureIsland.Commands
@@ -46,6 +47,8 @@ namespace Erwin.Games.TreasureIsland.Commands
                 case "read":
                 case "examine":
                     return new ExamineCommand(saveGameData, repository, commandName, commandParam);
+                case "drop":
+                    return new DropCommand(saveGameData, repository, commandName, commandParam);
                 default:
                     return new UnknownCommand(saveGameData, repository, commandRemainder);
             }
