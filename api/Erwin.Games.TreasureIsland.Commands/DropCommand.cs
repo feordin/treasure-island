@@ -54,6 +54,17 @@ namespace Erwin.Games.TreasureIsland.Commands
                 _saveGameData?.Inventory?.RemoveAt(_saveGameData.Inventory.FindIndex(n => n.Equals(_param, StringComparison.OrdinalIgnoreCase)));
                 // check if the saved game already has any changes to this location
                 currentLocation.RemoveItemFromLocation(_saveGameData, _param);
+
+                if (_param == "wallet" && _saveGameData != null)
+                {
+                    _saveGameData.Money += 10;
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    "The constable looks surprised, but praises you for your honesty.  He begrudgingly hands over the reward of 10 gold.",
+                    _saveGameData,
+                    null,
+                    null,
+                    null));
+                }
                 
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                     "You drop the " + _param + ".",

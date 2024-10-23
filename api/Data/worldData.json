@@ -221,8 +221,8 @@
       "Name": "AlleyEnd",
       "Description": "You are farther into an alley between the bank and the jail.  To your right is the bank, and to the left is the jail.  Ahead of you is a wall.  There are some bushes growing on the side of the alley, and you think you can see something under them.",
       "Items": [ "bushes" ],
-      "image": "bankalley.png",
-      "Help": "no",
+      "image": "alleyend.png",
+      "Help": "Try examining the bushes.",
       "AllowedMovements": [
         {
           "Direction": [
@@ -297,7 +297,7 @@
           "Direction": [
             "west"
           ],
-          "Destination": "PolicStation",
+          "Destination": "ConstablesOffice",
           "TimeToMove": 1
         },
         {
@@ -313,6 +313,22 @@
           ],
           "Destination": "CrossStreet",
           "TimeToMove": 2
+        }
+      ]
+    },
+    {
+      "Name": "ConstablesOffice",
+      "Description": "A rather self important looking man who is clearly the law in town looks you over.  He finally says, 'At your service.'  There are several notices of wanted posters and rewards.",
+      "Items": [ "notices" ],
+      "image": "constablesoffice.png",
+      "Help": "Perhaps take a closer look at the notices on the wall.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "KingStreet",
+          "TimeToMove": 1
         }
       ]
     },
@@ -589,6 +605,11 @@
       "Description": "This will get you on the boat so you can go searching for Uncle Herman and treasure.",
       "MustBuy": true,
       "Cost": 5
+    },
+    {
+      "Name": "notices",
+      "Description": "One notice in particular catches you eye.  There is a reward offered for a lost wallet.",
+      "Takeable" : false
     }
   ],
     "GlobalCommands": [
