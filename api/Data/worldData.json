@@ -24,7 +24,7 @@
       "Description": "You are on the road which leads down to the village at the bottom of the hill.",
       "Items": [],
       "image": "road.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -49,7 +49,7 @@
       "Description": "You are at the end of the road at the bottom of the hill, just ouside of town.",
       "Items": [],
       "image": "road2.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -73,7 +73,7 @@
       "Description": "You are at the north end of town.  To your right is the bank.  To your left is the post office.  Ahead is the main street that leads to a pier at the edge of the ocean.  A boat is tied up at the pier and there is a ticket booth there.",
       "Items": [],
       "image": "northend.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -112,7 +112,7 @@
         "letter"
       ],
       "image": "postoffice.jpeg",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -130,7 +130,7 @@
         "money"
       ],
       "image": "bank.jpeg",
-      "help": "Stealing money might not be a good idea.  You could get caught and thrown in jail.  Perhaps there is another way to get some money if you keep exploring.",
+      "Help": "Stealing money might not be a good idea.  You could get caught and thrown in jail.  Perhaps there is another way to get some money if you keep exploring.",
       "AllowedMovements": [
         {
           "Direction": [
@@ -146,7 +146,7 @@
       "Description": "You are near the center of town.  To your right is an alley between the bank and the jail.  To your left is the bakery. Ahead is another city block, which eventually ends up at the wharf.",
       "Items": [],
       "image": "mainstreet.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -183,13 +183,13 @@
       "Description": "You are at the town bakery, Marguerite smiles as she offers you her wares.",
       "Items": [ "danish", "donuts", "coffee"],
       "image": "bakery.png",
-      "help": "Those donuts might come in handy.",
+      "Help": "Those donuts might come in handy.",
       "AllowedMovements": [
         {
           "Direction": [
-            "east"
+            "west"
           ],
-          "Destination": "Bakery",
+          "Destination": "MainStreet",
           "TimeToMove": 1
         }
       ]
@@ -199,7 +199,7 @@
       "Description": "You are in an alley between the bank and the jail. To your right is the south wall of the bank.  To your left is the north wall of the jail.  Ahead of you is more of this alley.",
       "Items": [],
       "image": "bankalley.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -222,7 +222,7 @@
       "Description": "You are farther into an alley between the bank and the jail.  To your right is the bank, and to the left is the jail.  Ahead of you is a wall.  There are some bushes growing on the side of the alley, and you think you can see something under them.",
       "Items": [ "bushes" ],
       "image": "bankalley.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -238,7 +238,7 @@
       "Description": "You are at the center of town.  To your right is the jail.  To your left is the church. Ahead is another city block, which eventually ends up at the wharf.",
       "Items": [],
       "image": "centerstreet.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -275,7 +275,7 @@
       "Description": "You look around is dismay.  You are in small room with bars on the window and wall of bars on the other side.  How will you ever help Uncle Herman now?",
       "Items": [],
       "image": "jail.png",
-      "help": "Unfortunately, there is not much to do now.  In future versions of the game we might add a jail escape!",
+      "Help": "Unfortunately, there is not much to do now.  In future versions of the game we might add a jail escape!",
       "AllowedMovements": [
       ]
     },
@@ -284,7 +284,7 @@
       "Description": "You are close to the center of town.  To your right is the constables office.  To your left is the pawn shop. Ahead is another city block, which eventually ends up at the wharf.",
       "Items": [],
       "image": "kingstreet.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -321,7 +321,7 @@
       "Description": "You are south of the center of town.  To your right is the Stage Coach depot.  To your left is the fortune teller. Ahead is another city block, which eventually ends up at the wharf.",
       "Items": [],
       "image": "crossStreet.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -358,7 +358,7 @@
       "Description": "You are south of the center of town.  To your right is a building with no name.  To your left is a law office. Ahead is another city block, which is close to the wharf.",
       "Items": [],
       "image": "QueensAve.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -395,7 +395,7 @@
       "Description": "You are at the south end of town.  To your right is the town trash pit.  To your left is a path to the airport, where you can go in a hot air balloon. Ahead is a path to the wharf.",
       "Items": [],
       "image": "southend.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -432,7 +432,7 @@
       "Description": "You are standing in the town trash pit.  The smell of decaying fish is overwhelming.  You are wondering why you can here, when you think you see something inside the reamins of a broken old sea chest.",
       "Items": [ "chest" ],
       "image": "trashpit.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -447,8 +447,8 @@
       "Name": "WharfRoad",
       "Description": "You are at the sound end of town. To your right is the beach. To your left is the ocean. Ahead to the south is the dock of the wharf.",
       "Items": [],
-      "image": "wharfRoad.png",
-      "help": "no",
+      "image": "WharfRoad.png",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -485,7 +485,7 @@
       "Description": "You are standing on the dock at the wharf.  The water is a bit rough and the waves are crashing against the pilings.  The air is heavy with the smell of salt and the sound of the ocean.  To the south the ocean stretches out before you.  To your left is the ticket booth.  To your right is the beach.",
       "Items": [],
       "image": "wharf.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -522,7 +522,7 @@
       "Description": "You are standing on the dock at the ticket booth.  Th old sailor behind the counter speaks, and you think it might be words, but you can't be sure.  Luckily the sign indicates that a ticket for the boat is 5 gold.",
       "Items": [ "ticket" ],
       "image": "ticketbooth.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
@@ -538,7 +538,7 @@
       "Description": "You are committed to the idea that swimming to find Uncle Herman is right course of action.  You dive into the water and start swimming.  The water is cold and the waves are rough.  You are not a strong swimmer and you are quickly exhausted.  Just when you think it would be a good idea to turn back you see the shark fin.  You are eaten by a great white shark and die.  Game Over.",
       "Items": [],
       "image": "sharkbay.png",
-      "help": "no",
+      "Help": "no",
       "AllowedMovements": [
       ]
     }

@@ -22,6 +22,8 @@ namespace Erwin.Games.TreasureIsland.Models
         [JsonIgnore]
         public IAIClient? AiClient { get; set;}
 
+        public string? Help {get; set;}
+
         /// <summary>
         /// This returns a description of the location along with any items that are in the location
         /// and optionally any items dropped here by the player

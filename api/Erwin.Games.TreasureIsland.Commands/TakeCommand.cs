@@ -62,7 +62,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null);
             }
 
-            if (itemDetails?.IsMustBuy == true && _saveGameData.Money < itemDetails?.Cost)
+            if (itemDetails?.IsMustBuy == true && _saveGameData.Money >= itemDetails?.Cost)
             {
                 var buyCommand = new BuyCommand(_saveGameData, _gameDataRepository, _command, _param);
                 return await buyCommand.Execute();

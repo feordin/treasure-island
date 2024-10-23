@@ -49,6 +49,10 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new ExamineCommand(saveGameData, repository, commandName, commandParam);
                 case "drop":
                     return new DropCommand(saveGameData, repository, commandName, commandParam);
+                case "buy":
+                    return new BuyCommand(saveGameData, repository, commandName, commandParam);
+                case "help":
+                    return new HelpCommand(saveGameData);
                 default:
                     return new UnknownCommand(saveGameData, repository, commandRemainder);
             }

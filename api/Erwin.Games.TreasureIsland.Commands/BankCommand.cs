@@ -56,7 +56,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 }
                 if (_saveGameData?.Inventory?.Contains("TheRepublic", StringComparer.OrdinalIgnoreCase) == true)
                 {
-                    _saveGameData.Inventory.Remove("TheRepublic");
+                    _saveGameData.Inventory.Remove("therepublic");
                     _saveGameData.Money += 10;
                     _saveGameData.Inventory.Add("Promissory note");
                     _saveGameData.AddEvent("BankLoan", "You borrowed 10 gold from the bank.", _saveGameData.CurrentDateTime);
