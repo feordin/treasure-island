@@ -535,7 +535,7 @@
     },
     {
       "Name": "TicketBooth",
-      "Description": "You are standing on the dock at the ticket booth.  Th old sailor behind the counter speaks, and you think it might be words, but you can't be sure.  Luckily the sign indicates that a ticket for the boat is 5 gold.",
+      "Description": "You are standing on the dock at the ticket booth.  Th old sailor behind the counter speaks, and you think it might be words, but you can't be sure.  Luckily the sign indicates that a ticket for the boat is 5 gold.  North of you the boat lies docked.",
       "Items": [ "ticket" ],
       "image": "ticketbooth.png",
       "Help": "no",
@@ -545,6 +545,29 @@
             "west"
           ],
           "Destination": "Wharf",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "Boat",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "Boat",
+      "Description": "You are standing on the dock at the ticket booth.  Th old sailor behind the counter speaks, and you think it might be words, but you can't be sure.  Luckily the sign indicates that a ticket for the boat is 5 gold.  North of you the boat lies docked.",
+      "Items": [  ],
+      "image": "boat.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "TicketBooth",
           "TimeToMove": 1
         }
       ]
