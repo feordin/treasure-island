@@ -713,7 +713,7 @@
     },
     {
       "Name": "notices",
-      "Description": "One notice in particular catches you eye.  There is a reward offered for a lost wallet.",
+      "Description": "One notice in particular catches your eye.  There is a reward offered for a lost wallet.",
       "Takeable" : false
     },
     {

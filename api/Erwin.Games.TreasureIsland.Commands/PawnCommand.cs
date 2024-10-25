@@ -1,19 +1,18 @@
 using Erwin.Games.TreasureIsland.Models;
 
 using Erwin.Games.TreasureIsland.Persistence;
-using Microsoft.Azure.Functions.Worker.Extensions.Abstractions;
 
 namespace Erwin.Games.TreasureIsland.Commands
 {
     // Command Interface
     // It declares a method for executing a command
-    public class Pawn : ICommand
+    public class PawnCommand : ICommand
     {
         private SaveGameData? _saveGameData;
         private IGameDataRepository _gameDataRepository;
         private string _command;
         private string? _param;
-        public Pawn(SaveGameData? saveGameData, IGameDataRepository gameDataRepository, string command, string? param = null)
+        public PawnCommand(SaveGameData? saveGameData, IGameDataRepository gameDataRepository, string command, string? param = null)
         {
             _saveGameData = saveGameData;
             _gameDataRepository = gameDataRepository;

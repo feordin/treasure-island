@@ -44,6 +44,12 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null));
             }
 
+            if (currentLocation?.Name == "PawnShop")
+            {
+                var pawnCommand = new PawnCommand(_saveGameData, _gameDataRepository, _command, _param);
+                return pawnCommand.Execute();
+            }
+
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
             var itemDetails = WorldData.Instance?.GetItem(_param);
 
