@@ -46,6 +46,11 @@ namespace Erwin.Games.TreasureIsland.Commands
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
             var itemDetails = WorldData.Instance?.GetItem(_param);
 
+            if (itemDetails == null && _param.Contains("pawned"))
+            {
+                itemDetails = new Item() { Cost = 2, Description = "You pawned this off, but you can buy it back.", MustBuy = true, Name = _param };
+            }
+
             // we need another check here to make sure the is actually possible to take
             if (currentItems?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true &&
                 currentLocation?.Name != null &&
@@ -68,6 +73,23 @@ namespace Erwin.Games.TreasureIsland.Commands
                 }
                 else if (_saveGameData.Inventory?.Contains("wallet") == true)
                 {
+                    var walletEvent = _saveGameData.GetEvent("wallet");
+                    
+                    // you get one warning trying to use the wallet
+                    if (walletEvent == null)
+                    {
+                        _saveGameData.AddEvent("wallet", "You try to use the wallet you found in the bushes, but remember it has a name in it, and the watch has it's eye on you.", _saveGameData.CurrentDateTime);
+                        return new ProcessCommandResponse(
+                            "You try to use the wallet you found in the bushes.  The watchman looks at you suspiciously.",
+                            _saveGameData,
+                            null,
+                            null,
+                            null);
+                    }
+
+                    // you get caught trying to use the wallet
+                    _saveGameData.AddEvent("walletJail", "Unfortunately, the armed watch you didn't notice realizes that you are using money from a wallet that is not yours.  They take you jail.", _saveGameData.CurrentDateTime);
+                    _saveGameData.RemoveEvent("wallet");
                     _saveGameData.CurrentLocation = "Jail";
                     currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
                     _saveGameData?.CurrentDateTime.Add(new TimeSpan(0, 30, 0));

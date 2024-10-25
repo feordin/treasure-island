@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Erwin.Games.TreasureIsland.Models;
 using Erwin.Games.TreasureIsland.Commands;
 using Erwin.Games.TreasureIsland.Persistence;
+using Erwin.Games.TreasureIsland.Actions;
 
 namespace Erwin.Games.TreasureIsland
 {
@@ -54,6 +55,20 @@ namespace Erwin.Games.TreasureIsland
             ICommand cmd = CommandFactory.CreateCommand(parsedCommand, data.saveGameData, _gameDataRepository);
 
             var result = await cmd.Execute();
+
+            // now check any required actions based on our current location
+            var actions = WorldData.Instance?.GetLocation(result?.saveGameData?.CurrentLocation)?.Actions;
+            if (actions != null && result != null)
+            {
+                foreach (var action in actions)
+                {
+                    var actionObject = ActionFactory.CreateAction(action, result);
+                    if (actionObject != null)
+                    {
+                        actionObject.Execute();
+                    }
+                }
+            }
 
             // update the history
             await _gameDataRepository.AddToGameHistory(command, result?.Message, result?.saveGameData?.Player, 0);

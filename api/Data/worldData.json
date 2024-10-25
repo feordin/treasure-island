@@ -271,6 +271,22 @@
       ]
     },
     {
+      "Name": "Church",
+      "Description": "A small but well cared for church is the spiritual center of town.",
+      "Items": [],
+      "image": "church.png",
+      "Help": "Praying is alaways a good idea.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "CenterStreet",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
       "Name": "Jail",
       "Description": "You look around is dismay.  You are in small room with bars on the window and wall of bars on the other side.  How will you ever help Uncle Herman now?",
       "Items": [],
@@ -313,6 +329,22 @@
           ],
           "Destination": "CrossStreet",
           "TimeToMove": 2
+        }
+      ]
+    },
+    {
+      "Name": "PawnShop",
+      "Description": "The pawn shop is packed full of various odds and ends.  The owner, a rather small, dark haired fellow, eyes you suspiciously.",
+      "Items": [],
+      "image": "pawnshop.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "KingStreet",
+          "TimeToMove": 1
         }
       ]
     },
@@ -534,6 +566,29 @@
       ]
     },
     {
+      "Name": "Beach",
+      "Description": "A gorgeous expanse of ocean is to your south, and you wonder in that vast ocean is Uncle Herman.  Back to the east is the wharf, and the boat.",
+      "Items": [],
+      "image": "beach.png",
+      "Help": "Is that a shark in the water?",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Wharf",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "SharkBay",
+          "TimeToMove": 60
+        }
+      ]
+    },
+    {
       "Name": "TicketBooth",
       "Description": "You are standing on the dock at the ticket booth.  Th old sailor behind the counter speaks, and you think it might be words, but you can't be sure.  Luckily the sign indicates that a ticket for the boat is 5 gold.  North of you the boat lies docked.",
       "Items": [ "ticket" ],
@@ -558,10 +613,11 @@
     },
     {
       "Name": "Boat",
-      "Description": "You are standing on the dock at the ticket booth.  Th old sailor behind the counter speaks, and you think it might be words, but you can't be sure.  Luckily the sign indicates that a ticket for the boat is 5 gold.  North of you the boat lies docked.",
+      "Description": "You walk up the gangplank to the HMS Erwin.  It is a fine ship with a fine crew, and you wonder where it may take you.  Hopefully to Uncle Herman and treasure.  You can go below decks to your cabin.",
       "Items": [  ],
       "image": "boat.png",
       "Help": "no",
+      "Actions":[ "CheckTicket" ],
       "AllowedMovements": [
         {
           "Direction": [
@@ -569,7 +625,33 @@
           ],
           "Destination": "TicketBooth",
           "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "down"
+          ],
+          "Destination": "BoatCabin",
+          "TimeToMove": 3
         }
+      ]
+    },
+    {
+      "Name": "BoatCabin",
+      "Description": "What is stil surprising is how low the ceiling is, and how small the cabin is.  But at least you have your own hammock.",
+      "Items": [  ],
+      "image": "boatcabin.png",
+      "Help": "no",
+      "Actions": [ "ShipWreck" ],
+      "AllowedMovements": [
+      ]
+    },
+    {
+      "Name": "SharkBay",
+      "Description": "You are committed to the idea that swimming to find Uncle Herman is right course of action.  You dive into the water and start swimming.  The water is cold and the waves are rough.  You are not a strong swimmer and you are quickly exhausted.  Just when you think it would be a good idea to turn back you see the shark fin.  You are eaten by a great white shark and die.  Game Over.",
+      "Items": [],
+      "image": "sharkbay.png",
+      "Help": "no",
+      "AllowedMovements": [
       ]
     },
     {
@@ -633,6 +715,12 @@
       "Name": "notices",
       "Description": "One notice in particular catches you eye.  There is a reward offered for a lost wallet.",
       "Takeable" : false
+    },
+    {
+      "Name": "therepublic pawned",
+      "Description": "You pawned this off, but can buy it back.",
+      "MustBuy" : true,
+      "Cost": 10
     }
   ],
     "GlobalCommands": [

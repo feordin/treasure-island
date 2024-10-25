@@ -7,13 +7,13 @@ namespace Erwin.Games.TreasureIsland.Commands
 {
     // Command Interface
     // It declares a method for executing a command
-    public class DropCommand : ICommand
+    public class Pawn : ICommand
     {
         private SaveGameData? _saveGameData;
         private IGameDataRepository _gameDataRepository;
         private string _command;
         private string? _param;
-        public DropCommand(SaveGameData? saveGameData, IGameDataRepository gameDataRepository, string command, string? param = null)
+        public Pawn(SaveGameData? saveGameData, IGameDataRepository gameDataRepository, string command, string? param = null)
         {
             _saveGameData = saveGameData;
             _gameDataRepository = gameDataRepository;
@@ -52,26 +52,29 @@ namespace Erwin.Games.TreasureIsland.Commands
                 currentLocation?.Name != null)
             {
                 _saveGameData?.Inventory?.RemoveAt(_saveGameData.Inventory.FindIndex(n => n.Equals(_param, StringComparison.OrdinalIgnoreCase)));
+                currentLocation.AddItemToLocation(_saveGameData, _param + " pawned");
 
-                if (_param == "wallet" && _saveGameData != null)
+                if (_param == "therepublic" && _saveGameData != null)
                 {
-                    _saveGameData.Money += 10;
+                    _saveGameData.Money += 5;
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "The constable looks surprised, but praises you for your honesty.  He begrudgingly hands over the reward of 10 gold.",
+                    "The owner gives a grunt.  He hands over 5 gold.",
                     _saveGameData,
                     null,
                     null,
                     null));
                 }
-
-                currentLocation.AddItemToLocation(_saveGameData, _param);
-                
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "You drop the " + _param + ".",
+                else
+                {
+                    if (_saveGameData != null)
+                        _saveGameData.Money += 1;
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    "The owner gives a grunt.  He hands over 1 gold.",
                     _saveGameData,
                     null,
                     null,
                     null));
+                }
             }
             else
             {
