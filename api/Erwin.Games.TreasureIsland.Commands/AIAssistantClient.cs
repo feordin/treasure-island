@@ -41,6 +41,11 @@ namespace Erwin.Games.TreasureIsland.Commands
             throw new NotImplementedException();
         }
 
+        public Task<string?> GetFortune()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<string?> ParsePlayerInput(string? input)
         {
             /* 

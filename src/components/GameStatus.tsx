@@ -12,9 +12,10 @@ interface GameStatusProps {
   currentLocationDescription: string | undefined;
   AiEmbelleshedDescriptions: boolean;
   money: number | undefined;
+  facing: string | undefined
 }
 
-const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, date, time, currentLocationDescription, AiEmbelleshedDescriptions, money }) => {
+const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, date, time, currentLocationDescription, AiEmbelleshedDescriptions, money, facing }) => {
     const [user, setUser] = React.useState<User | null>(null);
 
     React.useEffect(() => {
@@ -39,6 +40,9 @@ const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, dat
       </div>
       <div className="status-item">
         <strong>Time:</strong> {time}
+      </div>
+      <div className="status-item">
+        <strong>Currently facing:</strong> {facing}
       </div>
       <div className="status-item">
         <strong>Money:</strong> {money}

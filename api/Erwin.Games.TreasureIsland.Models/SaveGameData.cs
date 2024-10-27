@@ -16,6 +16,7 @@ namespace Erwin.Games.TreasureIsland.Models
         public bool AiEmbelleshedDescriptions { get; set; } = false;
         public List<Event>? Events { get; set; }
         public int? Money { get; set; } = 0;
+        public string? Facing { get; set; } = "south";
 
         public Event? GetEvent(string? eventName)
         {

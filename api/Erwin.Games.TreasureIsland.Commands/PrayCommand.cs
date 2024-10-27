@@ -4,9 +4,9 @@ namespace Erwin.Games.TreasureIsland.Commands
 {
     public class PrayCommand : ICommand
     {
-        private readonly SaveGameData _saveGameData;
+        private readonly SaveGameData? _saveGameData;
 
-        public PrayCommand(SaveGameData saveGameData)
+        public PrayCommand(SaveGameData? saveGameData)
         {
             _saveGameData = saveGameData;
         }
@@ -14,7 +14,7 @@ namespace Erwin.Games.TreasureIsland.Commands
         public Task<ProcessCommandResponse?> Execute()
         {
             ProcessCommandResponse? response;
-            
+
             if (_saveGameData?.CurrentLocation?.Equals("church", StringComparison.OrdinalIgnoreCase) == true)
             {
                 response = new ProcessCommandResponse(

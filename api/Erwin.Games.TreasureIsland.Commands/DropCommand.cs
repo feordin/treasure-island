@@ -53,8 +53,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
             var itemDetails = WorldData.Instance?.GetItem(_param);
 
-            // we need another check here to make sure the is actually possible to take
-            if(_saveGameData?.Inventory?.Contains(_param, StringComparer.OrdinalIgnoreCase) == false && 
+            if(_saveGameData?.Inventory?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true && 
                 currentLocation?.Name != null)
             {
                 _saveGameData?.Inventory?.RemoveAt(_saveGameData.Inventory.FindIndex(n => n.Equals(_param, StringComparison.OrdinalIgnoreCase)));

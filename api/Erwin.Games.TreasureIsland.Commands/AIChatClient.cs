@@ -17,6 +17,7 @@ namespace Erwin.Games.TreasureIsland.Commands
         private readonly string? _endpoint = Environment.GetEnvironmentVariable("AzureAIStudioEndpoint");
         private readonly string _systemPromptText;
         private readonly string _systemLocationText;
+        private readonly string _systemFortuneText;
         private readonly HttpClient _client;
         private readonly ILogger<AIChatClient> _logger;
 
@@ -34,7 +35,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             _systemPromptText = @"You are an assistant to a text-based adventure game engine.  The player's commands are sent to you, and you should determine if the command matches on the allowed commands in the game. Your goal is to
                                 determine the player's intent.  They may not enter the exact command, but may enter something which indicates a similar intent.  If the user does enter an exact command, you should return that command.
                                 Following is the complete list of allowed commands:
-                                ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""help"", ""eat"",""drink"", ""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock"",""steal"",""borrow"",""embellish"", ""examine"", ""read"", ""buy"", ""pray"", ""pawn""
+                                ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""ahead"",""behind"", ""left"", ""right"", ""help"", ""eat"",""drink"", ""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock"",""steal"",""borrow"",""embellish"", ""examine"", ""read"", ""buy"", ""pray"", ""pawn"", ""fortune""
                                         
                                 The following subset of commands should also be followed by the next word, or the word associate with the command:
                                 ""look"",""open"",""close"",""take"",""say"",""eat"",""drink"", ""drop"",""unlock"",""lock"",""steal"",""borrow"", ""examine"", ""read"", ""buy"", ""pawn""
@@ -44,10 +45,16 @@ namespace Erwin.Games.TreasureIsland.Commands
                                 ""new"",""save"",""load"",""delete""
                                 Except for the ""new"" command, these should indicate which number that should be saved, loaded or deleted.The output should be: ""save 1"" or ""delete 1"".If no number is identified, acceptable output is simply the single command word.For example: ""save""
                                 
-                                The following subset of commands: ""north"", ""south"", ""east"", ""west"", ""up"", and ""down""
-                                are related to moving.  These should be the output if the user mentions something that indicates they want to move or go somewhere.
+                                The following subset of commands: ""north"", ""south"", ""east"", ""west"", ""up"", ""down"", ""left"", ""right"", ""ahead"", and ""behind""
+                                are related to moving.  These should be the output if the user mentions something that indicates they want to move or go somewhere. 
+                                if the user indicates going forward or onward,  return ""ahead""
+                                If the user indicates going back or returning, return ""behaind""
 
                                 Any input similar to ""start a new game"" or ""start over"" should return ""new"".
+
+                                If the user asks to have their fortune read.  return ""fortune""
+
+                                To distinguish between ""look"" and ""examine"" if the user is trying to get look at or in a specific object, return ""examine"" followed by the word for the object.  If they are just looking around, return ""look""
 
                                 The output should be only the matched command, for example:  ""north""  or the matched command with additional word, for example:  ""drop matches"".  The consumer of the ouput is the game engine,
                                 so the output should be in a format that the game engine can understand, which is the matched command text without any additional explanation.
@@ -59,9 +66,52 @@ namespace Erwin.Games.TreasureIsland.Commands
                                     Keep in mind the theme of the game.  It is a text based adventure game called treasure island, set in the 17th century Caribbean. Also, keep the description brief.
                                     If the input conainst the following phrase: 'You see the following items:' Use that list of items incorporated into your response.
                                     If the input does not conaint the phrase 'You see the following items:', do not mention any items.";
+
+            _systemFortuneText = @"You are an AI assistant that helps generate interesting fortunes for the player.  Keep the fortune brief and fun.  The player is looking for a little bit of fun and a little bit of insight.  Keep the fortune light and positive.
+                                   Some things useful for the player to learn: it is possible to die in a hot air balloon, donuts are useful on Treasure Island, the trash pit has something valuable, there is a pearl in a lagoon, and a genie in a lamp.  Don't make any of that information too obvious.";
         }
 
         public async Task<string?> GetEmbelleshedLocationDescription(string? description)
+        {
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+
+            var payload = new
+            {
+                messages = new object[]
+                {
+                  new { role = "system", content = new object[] { new { type = "text", text = _systemLocationText } } },
+                  new { role = "user", content = new object[] { new { type = "text", text = description } } }
+                },
+                temperature = 0.8,
+                top_p = 0.95,
+                max_tokens = 16384,
+                stream = false
+            };
+
+            return await GetResponse(payload);
+        }
+
+        public async Task<string?> GetFortune()
+        {
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+
+            var payload = new
+            {
+                messages = new object[]
+                {
+                  new { role = "system", content = new object[] { new { type = "text", text = _systemFortuneText } } },
+                  new { role = "user", content = new object[] { new { type = "text", text = "Tell me my fortune!" } } }
+                },
+                temperature = 0.6,
+                top_p = 0.95,
+                max_tokens = 16384,
+                stream = false
+            };
+
+            return await GetResponse(payload);
+        }
+
+        public async Task<string?> GetPlayerFortune(string? description)
         {
             _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
 

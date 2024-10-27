@@ -19,6 +19,7 @@ namespace Erwin.Games.TreasureIsland.Commands
 
         public Task<ProcessCommandResponse?> Execute()
         {
+            var item = WorldData.Instance?.GetItem(_param);
             if (string.IsNullOrEmpty(_param))
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("What would you like to examine?", _saveGameData, null, null, null));
@@ -35,7 +36,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a look at the bushes and find a wallet.", _saveGameData, null, null, null));
                 }
             }
-            else if (_param == "chest" && _saveGameData != null)
+            else if (_param == "bookshelf" && _saveGameData != null)
             {
                                 // check to see if the wallet was previously found
                 var walletEvent = _saveGameData.GetEvent("book");
@@ -47,7 +48,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("Amazingly, wrapped in oil cloth, an old and valuable book of greek philosophy has survived.  This might be something the bank would consider collateral for a loan.", _saveGameData, null, null, null));
                 }
             }
-            else if(_saveGameData?.Inventory?.Contains(_param, StringComparer.OrdinalIgnoreCase) == false)
+            else if(_saveGameData?.Inventory?.Contains(_param, StringComparer.OrdinalIgnoreCase) == false && item?.IsTakeable == true)
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You don't have a " + _param + " to examine.", _saveGameData, null, null, null));
             }

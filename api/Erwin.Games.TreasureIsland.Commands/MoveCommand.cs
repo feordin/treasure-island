@@ -10,7 +10,7 @@ namespace Erwin.Games.TreasureIsland.Commands
     {
         private SaveGameData? _saveGameData;
         private IGameDataRepository _gameDataRepository;
-        private string _direction;
+        private string? _direction;
         public MoveCommand(SaveGameData? saveGameData, IGameDataRepository gameDataRepository, string direction, string? param = null)
         {
             _saveGameData = saveGameData;
@@ -29,10 +29,14 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null);
             }
 
+            _direction = Location.SimpleToCardinalDirection(_saveGameData.Facing, _direction);
+
             // check the current location
-            var currentLocation = WorldData.Instance.GetLocation(_saveGameData.CurrentLocation);
+            var currentLocation = WorldData.Instance.GetLocation(_saveGameData?.CurrentLocation);
             var movement = currentLocation?.AllowedMovements?.FirstOrDefault(m => m.Direction?.Contains(_direction) == true);
             var newLocation = WorldData.Instance.GetLocation(movement?.Destination);
+
+            _saveGameData.Facing = _direction;
 
             if (movement != null &&  newLocation != null)
             {
@@ -50,7 +54,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             else
             {
                 return new ProcessCommandResponse(
-                    "You try to go " + _direction + ".\n\n" + "but can't and end up in the same place.",
+                    "You try to go " + _direction + ", " + "but can't and end up in the same place.\n\n" + (currentLocation != null ? await currentLocation.GetDescription(_saveGameData) : string.Empty),
                     _saveGameData,
                     newLocation?.Image,
                     newLocation?.Description,

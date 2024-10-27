@@ -21,7 +21,7 @@ namespace Erwin.Games.TreasureIsland.Models
 
         public Item? GetItem(string? itemName)
         {
-            return Items?.Find(i => i.Name == itemName);
+            return Items?.Find(i => i.Name?.Equals(itemName, StringComparison.OrdinalIgnoreCase) == true);
         }
     }
 }

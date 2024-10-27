@@ -46,14 +46,22 @@ namespace Erwin.Games.TreasureIsland.Commands
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
             var itemDetails = WorldData.Instance?.GetItem(_param);
 
-            if (itemDetails == null && _param.Contains("pawned"))
+            if (currentItems?.Contains(_param + " pawned", StringComparer.OrdinalIgnoreCase) != null)
             {
-                itemDetails = new Item() { Cost = 2, Description = "You pawned this off, but you can buy it back.", MustBuy = true, Name = _param };
+                itemDetails = new Item() { Cost = 2, Description = "You pawned this off, but you can buy it back.", MustBuy = true, Name = _param + " pawned" };
+            }
+            else if (currentItems?.Contains(_param, StringComparer.OrdinalIgnoreCase) == false)
+            {
+                return new ProcessCommandResponse(
+                    "The " + _param + " is not here.",
+                    _saveGameData,
+                    null,
+                    null,
+                    null);
             }
 
             // we need another check here to make sure the is actually possible to take
-            if (currentItems?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true &&
-                currentLocation?.Name != null &&
+            if (currentLocation?.Name != null &&
                 _saveGameData != null &&
                 itemDetails != null && itemDetails.MustBuy == true)
             {
@@ -62,7 +70,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                     _saveGameData.Inventory?.Add(_param);
                     _saveGameData.Money -= itemDetails.Cost;
                     // check if the saved game already has any changes to this location
-                    currentLocation.RemoveItemFromLocation(_saveGameData, _param);
+                    currentLocation.RemoveItemFromLocation(_saveGameData, itemDetails.Name);
 
                     return new ProcessCommandResponse(
                         "You buy the " + _param + ".",
@@ -114,7 +122,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             else
             {
                 return new ProcessCommandResponse(
-                    "The " + _param + " is not here, or you can't buy it.",
+                    "The " + itemDetails?.Name + "isn't for sale.",
                     _saveGameData,
                     null,
                     null,

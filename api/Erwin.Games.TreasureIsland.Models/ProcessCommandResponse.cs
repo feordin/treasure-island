@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Erwin.Games.TreasureIsland.Models
 {
     public record ProcessCommandResponse(
-        string message,
+        [property: JsonIgnore] string message,
         SaveGameData? saveGameData,
         string? imageFilename,
         string? locationDescription,

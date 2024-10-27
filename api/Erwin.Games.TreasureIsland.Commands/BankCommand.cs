@@ -81,7 +81,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
             else if (_command == "steal" || _command == "rob" || _command == "take")
             {
-                _saveGameData.CurrentLocation = "Jail";
+                _saveGameData.CurrentLocation = "JailCell";
                 currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
                 _saveGameData?.CurrentDateTime.Add(new TimeSpan(0, 30, 0));
                 return new ProcessCommandResponse(

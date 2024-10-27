@@ -25,7 +25,7 @@ namespace Erwin.Games.TreasureIsland.Actions
             else if (_response?.saveGameData != null)
             {
                 // Relocate the user to the ticket booth
-                _response.saveGameData.CurrentLocation = "ticketbooth";
+                _response.saveGameData.CurrentLocation = "TicketBooth";
 
                 // Add a message to the response
                 _response.Message += "\n\nNo free passage!. You have been escorted to the ticket booth.";

@@ -1,3 +1,5 @@
+using System.Drawing;
+using System.Text;
 using System.Text.Json.Serialization;
 using Erwin.Games.TreasureIsland.Commands;
 
@@ -20,9 +22,120 @@ namespace Erwin.Games.TreasureIsland.Models
         public List<string>? AllowedCommands { get; set; }
 
         [JsonIgnore]
-        public IAIClient? AiClient { get; set;}
+        public IAIClient? AiClient { get; set; }
 
-        public string? Help {get; set;}
+        public string? Help { get; set; }
+
+        public static string? CardinalDirectionToSimple(string? facing, string? cardinalDirection)
+        {
+            facing = facing?.ToLower();
+            var direction = cardinalDirection?.ToLower();
+
+            if (facing == "north")
+            {
+                return direction switch
+                {
+                    "north" => "ahead",
+                    "south" => "behind",
+                    "east" => "right",
+                    "west" => "left",
+                    _ => direction
+                };
+            }
+            else if (facing == "south")
+            {
+                return direction switch
+                {
+                    "north" => "behind",
+                    "south" => "ahead",
+                    "east" => "left",
+                    "west" => "right",
+                    _ => direction
+                };
+            }
+            else if (facing == "east")
+            {
+                return direction switch
+                {
+                    "north" => "left",
+                    "south" => "right",
+                    "east" => "ahead",
+                    "west" => "behind",
+                    _ => direction
+                };
+            }
+            else if (facing == "west")
+            {
+                return direction switch
+                {
+                    "north" => "right",
+                    "south" => "left",
+                    "east" => "behind",
+                    "west" => "ahead",
+                    _ => direction
+                };
+            }
+
+            return direction;
+        }
+
+        public static string? SimpleToCardinalDirection(string? facing, string? simpleDirection)
+        {
+            if (string.IsNullOrEmpty(facing) || string.IsNullOrEmpty(simpleDirection))
+            {
+                return simpleDirection;
+            }
+
+            facing = facing.ToLower();
+            simpleDirection = simpleDirection.ToLower();
+
+            if (facing == "north")
+            {
+                return simpleDirection switch
+                {
+                    "ahead" => "north",
+                    "behind" => "south",
+                    "right" => "east",
+                    "left" => "west",
+                    _ => simpleDirection
+                };
+            }
+            else if (facing == "south")
+            {
+                return simpleDirection switch
+                {
+                    "ahead" => "south",
+                    "behind" => "north",
+                    "right" => "west",
+                    "left" => "east",
+                    _ => simpleDirection
+                };
+            }
+            else if (facing == "east")
+            {
+                return simpleDirection switch
+                {
+                    "ahead" => "east",
+                    "behind" => "west",
+                    "right" => "south",
+                    "left" => "north",
+                    _ => simpleDirection
+                };
+            }
+            else if (facing == "west")
+            {
+                return simpleDirection switch
+                {
+                    "ahead" => "west",
+                    "behind" => "east",
+                    "right" => "north",
+                    "left" => "south",
+                    _ => simpleDirection
+                };
+            }
+
+            return simpleDirection;
+        }
 
         /// <summary>
         /// This returns a description of the location along with any items that are in the location
@@ -33,7 +146,23 @@ namespace Erwin.Games.TreasureIsland.Models
         {
             var description = Description;
 
-            var finalItemsHashSet = GetCurrentItems(saveGame);          
+            // Add direction information from allowed movements property
+            if (AllowedMovements != null && AllowedMovements.Count > 0)
+            {
+                foreach (var movement in AllowedMovements)
+                {
+                    var translatedDirection = Location.CardinalDirectionToSimple(saveGame?.Facing, movement?.Direction?[0]);
+                    if (translatedDirection == "right" || translatedDirection == "left")
+                        description += $"\nOn the {translatedDirection} ({movement?.Direction?[0]}) is the {movement?.Destination}.";
+                    else if (translatedDirection == "ahead")
+                        description += $"\nAhead of you ({saveGame?.Facing}) is the {movement?.Destination}.";
+                    else
+                        description += $"\nBehind you is the {movement?.Destination}.";
+                }
+            }
+
+
+            var finalItemsHashSet = GetCurrentItems(saveGame);
 
             if (finalItemsHashSet != null && finalItemsHashSet.Count > 0)
             {
@@ -60,11 +189,13 @@ namespace Erwin.Games.TreasureIsland.Models
             // start with default set of items
             // remove any items that have been removed by player
             // add any items droped by user
+            var stringComparer = StringComparer.OrdinalIgnoreCase;
+
             var locationChange = saveGame?.LocationChanges?.FirstOrDefault(l => l.Name == Name);
-            var defaultItemsHashSet = new HashSet<string>(Items ?? new List<string>());
-            var locationRemovedHashSet = new HashSet<string>(locationChange?.ItemsRemoved ?? new List<string>());
+            var defaultItemsHashSet = new HashSet<string>(Items ?? new List<string>(), stringComparer);
+            var locationRemovedHashSet = new HashSet<string>(locationChange?.ItemsRemoved ?? new List<string>(), stringComparer);
             var finalItemsHashSet = defaultItemsHashSet.Except(locationRemovedHashSet).ToHashSet();
-            var addedItemsHashSet = new HashSet<string>(locationChange?.ItemsAdded ?? new List<string>());
+            var addedItemsHashSet = new HashSet<string>(locationChange?.ItemsAdded ?? new List<string>(), stringComparer);
             finalItemsHashSet.UnionWith(addedItemsHashSet);
 
             return finalItemsHashSet;
@@ -122,7 +253,7 @@ namespace Erwin.Games.TreasureIsland.Models
                 {
                     return false;
                 }
-                
+
                 if (locationChange.ItemsAdded?.Contains(item, StringComparer.OrdinalIgnoreCase) == true)
                 {
                     locationChange.ItemsAdded?.RemoveAt(locationChange.ItemsAdded.FindIndex(n => n.Equals(item, StringComparison.OrdinalIgnoreCase)));
@@ -134,6 +265,14 @@ namespace Erwin.Games.TreasureIsland.Models
             }
 
             return true;
+        }
+
+        public async Task<string?> GetFortune()
+        {
+            if (AiClient != null)
+                return await AiClient.GetFortune();
+            else
+                return "You see a crystal ball, but no one is here to read your fortune.";
         }
     }
 }

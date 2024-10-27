@@ -23,6 +23,8 @@ var time = new Date().toLocaleTimeString();
 var currentLocationDescription: string | undefined = 'Starting location';
 var aiEmbelleshedDescriptions: boolean = false;
 var money: number | undefined = 0;
+var facing: string | undefined = 'south';
+
 
 function App() {
 
@@ -44,7 +46,8 @@ function App() {
     history: undefined,
     locationChanges: [],
     aiEmbelleshedDescriptions: false,
-    money: 0
+    money: 0,
+    facing: "south"
   });
 
   const handleCommandSubmit = useCallback(async (command: string) => {
@@ -107,6 +110,9 @@ function App() {
       if (currentGameRef.current) {
         money = currentGameRef.current.money;
       }
+      if (currentGameRef.current) {
+        facing = currentGameRef.current.facing;
+      }
       if (response.savedGames) {
         setSavedGames(response.savedGames);
       }
@@ -137,6 +143,7 @@ function App() {
           currentLocationDescription={currentLocationDescription}
           AiEmbelleshedDescriptions={aiEmbelleshedDescriptions}
           money={money}
+          facing={facing}
         />
       )}
       <SavedGamesList savedGames={savedGames} /> {/* Add the SavedGamesList component */}

@@ -70,7 +70,7 @@
     },
     {
       "Name": "Northend",
-      "Description": "You are at the north end of town.  To your right is the bank.  To your left is the post office.  Ahead is the main street that leads to a pier at the edge of the ocean.  A boat is tied up at the pier and there is a ticket booth there.",
+      "Description": "You are at the north end of town.  The main street stretches south that eventually leads to a pier at the edge of the ocean. A boat is tied up at the pier and there is a ticket booth there.  On the way to the wharf are several shops and cross streets.",
       "Items": [],
       "image": "northend.png",
       "Help": "no",
@@ -143,7 +143,7 @@
     },
     {
       "Name": "MainStreet",
-      "Description": "You are near the center of town.  To your right is an alley between the bank and the jail.  To your left is the bakery. Ahead is another city block, which eventually ends up at the wharf.",
+      "Description": "You are near the center of town.  On one side an alley between the bank and the jail on the other side you smell delicious donuts wafting your way from the bakery. Toward the ocean is another city block, which eventually ends up at the wharf.",
       "Items": [],
       "image": "mainstreet.png",
       "Help": "no",
@@ -196,7 +196,7 @@
     },
     {
       "Name": "BankAlley",
-      "Description": "You are in an alley between the bank and the jail. To your right is the south wall of the bank.  To your left is the north wall of the jail.  Ahead of you is more of this alley.",
+      "Description": "You are in an alley between the bank and the jail. On one side the south wall of the bank, the other is the north wall of the jail.  The alley stretches a bit further.",
       "Items": [],
       "image": "bankalley.png",
       "Help": "no",
@@ -219,7 +219,7 @@
     },
     {
       "Name": "AlleyEnd",
-      "Description": "You are farther into an alley between the bank and the jail.  To your right is the bank, and to the left is the jail.  Ahead of you is a wall.  There are some bushes growing on the side of the alley, and you think you can see something under them.",
+      "Description": "You are farther into an alley between the bank and the jail.  On one side is the south wall of the bank, the other is the north wall of the jail.  The alley ends in a wall here.  There are some bushes growing on the side of the alley, and you think you can see something under them.",
       "Items": [ "bushes" ],
       "image": "alleyend.png",
       "Help": "Try examining the bushes.",
@@ -235,7 +235,7 @@
     },
     {
       "Name": "CenterStreet",
-      "Description": "You are at the center of town.  To your right is the jail.  To your left is the church. Ahead is another city block, which eventually ends up at the wharf.",
+      "Description": "You are at the center of town.  On one side is the jail, and the other is the church. The street stretches in both directions.  Toward the ocean is another city block, which eventually ends up at the wharf.",
       "Items": [],
       "image": "centerstreet.png",
       "Help": "no",
@@ -251,7 +251,7 @@
           "Direction": [
             "west"
           ],
-          "Destination": "Jail",
+          "Destination": "JailVisitor",
           "TimeToMove": 1
         },
         {
@@ -287,7 +287,23 @@
       ]
     },
     {
-      "Name": "Jail",
+      "Name": "JailVisitor",
+      "Description": "Currently there are no prisoners in the jail.  You pity the poor sole condemed to this small cage.  It looks like there would be no escape.",
+      "Items": [],
+      "image": "jailvisitor.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "CenterStreet",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "JailCell",
       "Description": "You look around is dismay.  You are in small room with bars on the window and wall of bars on the other side.  How will you ever help Uncle Herman now?",
       "Items": [],
       "image": "jail.png",
@@ -297,7 +313,7 @@
     },
     {
       "Name": "KingStreet",
-      "Description": "You are close to the center of town.  To your right is the constables office.  To your left is the pawn shop. Ahead is another city block, which eventually ends up at the wharf.",
+      "Description": "You are close to the center of town.  On one side is the constables office, the other, the pawn shop. The street stretches in both directions.",
       "Items": [],
       "image": "kingstreet.png",
       "Help": "no",
@@ -366,7 +382,7 @@
     },
     {
       "Name": "CrossStreet",
-      "Description": "You are south of the center of town.  To your right is the Stage Coach depot.  To your left is the fortune teller. Ahead is another city block, which eventually ends up at the wharf.",
+      "Description": "You are south of the center of town.  On one side is the  Stage Coach depot, and the other is the fortune teller. You can head up to the road out of town, or towards the ocean.",
       "Items": [],
       "image": "crossStreet.png",
       "Help": "no",
@@ -402,8 +418,57 @@
       ]
     },
     {
+      "Name": "FortuneTeller",
+      "Description": "The structure is a modest wooden shack with weathered, deep blue paint and a thatched roof. Tattered curtains of rich crimson and indigo drape over the entrance, and faint, wafting smoke from incense and herbs gives it a mystical air. Inside, the dim room is lined with shelves bearing worn leather-bound books, jars filled with strange roots and powders, and crystal orbs that shimmer in the candlelight. A small, round table at the center, covered with a velvet cloth, holds an array of tarot cards, runes, and an intricate brass pendulum. The fortune teller, draped in layered shawls and adorned with charms and amulets, greets visitors with a knowing smile, offering glimpses into fates entwined with the seas, storms, and secrets of the Caribbean.",
+      "Items": [ "monkeysPaw" ],
+      "image": "fortuneteller.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "CrossStreet",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "StageCoachDepot",
+      "Description": "You didn't realize that there was a stage coach in town!  But, when you look into the destinations, it seems to stop at the various farm communities in the interior of the island.  Looks like you could've ridden the coach into town instead of walking.  Nice to know, but it won't help you now.  Unless you wish to go home and abandon Uncle Herman.  There is a friendly clerk willing to sell you a ticket.  The actual coach itself is further to the west.",
+      "Items": [ "StageTicket" ],
+      "image": "stagecoachdepot.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "KingStreet",
+          "TimeToMove": 2
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "StageCoach",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "StageCoach",
+      "Description": "You've never ridden a coach before, and the interior looks comfortable.",
+      "Items": [  ],
+      "image": "stagecoach.png",
+      "Help": "no",
+      "AllowedMovements": [
+      ],
+      "Actions":[ "CheckStageTicket" ]
+    },
+    {
       "Name": "QueensAve",
-      "Description": "You are south of the center of town.  To your right is a building with no name.  To your left is a law office. Ahead is another city block, which is close to the wharf.",
+      "Description": "You are south of the center of town.  On one side is a building with no name, and on the other is the law office. You can head up to the road out of town, or towards the ocean.",
       "Items": [],
       "image": "QueensAve.png",
       "Help": "no",
@@ -439,8 +504,24 @@
       ]
     },
     {
+      "Name": "LawOffice",
+      "Description": "You are in a fine, but stuffy office.  There is an old distinguished gentlemen behind a large desk.  He looks sternly down at you, and says: 'A serendipitous meeting!  I needed to get a message to your father. The farm is behind on it's mortgage.  Unless you pay soon, the bank has ordered me to foreclose.'\n\nIt seems you have nother reason to hurry to treasure island.",
+      "Items": [],
+      "image": "lawoffice.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "QueensAve",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
       "Name": "Southend",
-      "Description": "You are at the south end of town.  To your right is the town trash pit.  To your left is a path to the airport, where you can go in a hot air balloon. Ahead is a path to the wharf.",
+      "Description": "You are at the south end of town.  On one side is the trash pit.  The other side leads to the airport, where you can go in a hot air balloon.",
       "Items": [],
       "image": "southend.png",
       "Help": "no",
@@ -476,9 +557,62 @@
       ]
     },
     {
+      "Name": "Airport",
+      "Description": "Growing up on the farm you never imaged that people could fly!  It seems an amazing adventure!  Could you fly to Uncle Herman?.  The balloon is just to the east.",
+      "Items": [ "BalloonTicket"],
+      "image": "airport.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "Southend",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Balloon",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "Balloon",
+      "Description": "You step up the basket at the bottom of the balloon, wondering if you are ready to fly!",
+      "Items": [ ],
+      "image": "airport.png",
+      "Help": "no",
+      "AllowedMovements": [
+      ],
+      "Actions":[ "CheckBalloonTicket" ]
+    },
+    {
+      "Name": "Flying",
+      "Description": "At first terror grips you as you see the ground fall away from you.  After a few moments, a sense of awe and wonder fills your sould as you experience the world as the birds do.  You should look around and enjoy the view.",
+      "Items": [],
+      "image": "flying.png",
+      "Help": "no",
+      "AllowedMovements": [
+      ],
+      "Actions":[ "CheckCrashed" ]
+    },
+    {
+      "Name": "Crashed",
+      "Description": "The pilot screams the scream of the dying!  A huge tear has opened in the side of the balloon and you plummet to the ground.  Your last thought is: 'At least this is a good death.'  Game Over.",
+      "Items": [ ],
+      "image": "crashed.png",
+      "Help": "no",
+      "AllowedMovements": [
+      ],
+      "Actions":[ "CheckCrashed" ]
+    },
+    {
       "Name": "TrashPit",
-      "Description": "You are standing in the town trash pit.  The smell of decaying fish is overwhelming.  You are wondering why you can here, when you think you see something inside the reamins of a broken old sea chest.",
-      "Items": [ "chest" ],
+      "Description": "You are standing in the town trash pit.  The smell of decaying fish is overwhelming.  You are wondering why you can here, when you think you see something inside the reamins of a broken old bookshelf.",
+      "Items": [ "bookshelf" ],
       "image": "trashpit.png",
       "Help": "no",
       "AllowedMovements": [
@@ -493,7 +627,7 @@
     },
     {
       "Name": "WharfRoad",
-      "Description": "You are at the sound end of town. To your right is the beach. To your left is the ocean. Ahead to the south is the dock of the wharf.",
+      "Description": "You are at the sound end of town. On one side is the and the other is the ocean. To the south is the dock of the wharf, and north heads into town.",
       "Items": [],
       "image": "WharfRoad.png",
       "Help": "no",
@@ -530,7 +664,7 @@
     },
     {
       "Name": "Wharf",
-      "Description": "You are standing on the dock at the wharf.  The water is a bit rough and the waves are crashing against the pilings.  The air is heavy with the smell of salt and the sound of the ocean.  To the south the ocean stretches out before you.  To your left is the ticket booth.  To your right is the beach.",
+      "Description": "You are standing on the dock at the wharf.  The water is a bit rough and the waves are crashing against the pilings.  The air is heavy with the smell of salt and the sound of the ocean.  To the south the ocean stretches out before you.  On one side is the ticket booth, and the other is the beach.",
       "Items": [],
       "image": "wharf.png",
       "Help": "no",
@@ -567,7 +701,7 @@
     },
     {
       "Name": "Beach",
-      "Description": "A gorgeous expanse of ocean is to your south, and you wonder in that vast ocean is Uncle Herman.  Back to the east is the wharf, and the boat.",
+      "Description": "A gorgeous expanse of ocean is to your south, and you wonder where in that vast ocean is Uncle Herman.  Back to the east is the wharf, and the boat.",
       "Items": [],
       "image": "beach.png",
       "Help": "Is that a shark in the water?",
@@ -637,20 +771,11 @@
     },
     {
       "Name": "BoatCabin",
-      "Description": "What is stil surprising is how low the ceiling is, and how small the cabin is.  But at least you have your own hammock.",
+      "Description": "What is surprising is how low the ceiling is, and how small the cabin is.  But at least you have your own hammock.",
       "Items": [  ],
       "image": "boatcabin.png",
       "Help": "no",
       "Actions": [ "ShipWreck" ],
-      "AllowedMovements": [
-      ]
-    },
-    {
-      "Name": "SharkBay",
-      "Description": "You are committed to the idea that swimming to find Uncle Herman is right course of action.  You dive into the water and start swimming.  The water is cold and the waves are rough.  You are not a strong swimmer and you are quickly exhausted.  Just when you think it would be a good idea to turn back you see the shark fin.  You are eaten by a great white shark and die.  Game Over.",
-      "Items": [],
-      "image": "sharkbay.png",
-      "Help": "no",
       "AllowedMovements": [
       ]
     },
@@ -712,6 +837,13 @@
       "Cost": 5
     },
     {
+      "Name": "StageTicket",
+      "Description": "This will get you on the stage coach to the interior of the island.",
+      "MustBuy": true,
+      "Cost": 5
+
+    },
+    {
       "Name": "notices",
       "Description": "One notice in particular catches your eye.  There is a reward offered for a lost wallet.",
       "Takeable" : false
@@ -721,6 +853,11 @@
       "Description": "You pawned this off, but can buy it back.",
       "MustBuy" : true,
       "Cost": 10
+    },
+    {
+      "Name": "monkeysPaw",
+      "Description": "You pawned this off, but can buy it back.",
+      "MustBuy" : false
     }
   ],
     "GlobalCommands": [

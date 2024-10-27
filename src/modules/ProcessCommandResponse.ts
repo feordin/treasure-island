@@ -10,7 +10,9 @@ export interface SaveGameData {
     history?: CommandHistory;
     locationChanges?: LocationChange[];
     aiEmbelleshedDescriptions: boolean;
+    events?: Event[];
     money?: number;
+    facing?: string;
 }
 
 export interface CommandHistory {
@@ -38,4 +40,10 @@ export interface ProcessCommandResponse {
 export interface CommandRequest {
     command?: string;
     saveGameData?: SaveGameData;
+}
+
+export interface Event {
+    name?: string;
+    description?: string;
+    eventDate?: string;
 }

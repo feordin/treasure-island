@@ -46,15 +46,15 @@ namespace Erwin.Games.TreasureIsland.Commands
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
             var itemDetails = WorldData.Instance?.GetItem(_param);
 
-            // we need another check here to make sure the is actually possible to take
-            if(_saveGameData?.Inventory?.Contains(_param, StringComparer.OrdinalIgnoreCase) == false && 
+            // we need another check here to make sure you have item in your inventory
+            if(_saveGameData?.Inventory?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true && 
                 currentLocation?.Name != null)
             {
                 _saveGameData?.Inventory?.RemoveAt(_saveGameData.Inventory.FindIndex(n => n.Equals(_param, StringComparison.OrdinalIgnoreCase)));
-                currentLocation.AddItemToLocation(_saveGameData, _param + " pawned");
 
                 if (_param == "therepublic" && _saveGameData != null)
                 {
+                    currentLocation.AddItemToLocation(_saveGameData, _param + " pawned");
                     _saveGameData.Money += 5;
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                     "The owner gives a grunt.  He hands over 5 gold.",
@@ -63,8 +63,19 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null,
                     null));
                 }
+                else if (_param == "monkeysPaw" && _saveGameData != null)
+                {
+                    _saveGameData.Money += 8;
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    "He smiles with delight.  He hands over 8 gold.",
+                    _saveGameData,
+                    null,
+                    null,
+                    null));
+                }
                 else
                 {
+                    currentLocation.AddItemToLocation(_saveGameData, _param + " pawned");
                     if (_saveGameData != null)
                         _saveGameData.Money += 1;
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
@@ -78,7 +89,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             else
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "You don't have a " + _param + " in your inventory.",
+                    "You don't have " + _param + " in your inventory.",
                     _saveGameData,
                     null,
                     null,
