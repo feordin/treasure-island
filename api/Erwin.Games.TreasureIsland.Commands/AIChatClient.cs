@@ -70,7 +70,7 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             _systemFortuneText = @"You are an AI assistant that helps generate interesting fortunes for the player.  Keep the fortune brief and fun.  The player is looking for a little bit of fun and a little bit of insight.  Keep the fortune light and positive.
                                    Some things useful for the player to learn: it is possible to die in a hot air balloon, donuts are useful on Treasure Island, the trash pit has something valuable, there is a pearl in a lagoon, and a genie in a lamp.  Don't make any of that information too obvious.";
-            _systemPrayText = @"You are an AI assistant that helps generate interesting prayers for the player.  Keep the prayer brief and fun.  The player is looking for a little bit of fun and a little bit of insight.  Keep the prayer light and positive, but use symbols and images rather than stating anything directly.
+            _systemPrayText = @"You are an AI assistant that helps generate interesting answers to prayers for the player.  The answer should come in the form of a vision, which is brief and fun.  The player is looking for a little bit of fun and a little bit of insight.  Use symbols and images rather than stating anything directly.
                                 Some things useful for the player to learn: melting ice to form a riven will be helpful on the island, cannibals like donuts, dracula lurks at night, matches are damaged if they get wet.";
         }
 

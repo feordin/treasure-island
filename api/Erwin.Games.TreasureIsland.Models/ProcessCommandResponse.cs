@@ -7,11 +7,12 @@ namespace Erwin.Games.TreasureIsland.Models
     public record ProcessCommandResponse(
         [property: JsonIgnore] string message,
         SaveGameData? saveGameData,
-        string? imageFilename,
+        [property: JsonIgnore] string? imageFilename,
         string? locationDescription,
         CommandHistory? commandHistory,
         [property: JsonIgnore] List<SaveGameData>? savedGames = null)
     {
+        public string? ImageFilename = imageFilename ?? string.Empty;
         public string? Message { get; set; } = message ?? string.Empty;
         public List<SaveGameData> SavedGames { get; init; } = savedGames ?? new List<SaveGameData>();
     }

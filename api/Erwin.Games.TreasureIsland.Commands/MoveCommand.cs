@@ -36,7 +36,9 @@ namespace Erwin.Games.TreasureIsland.Commands
             var movement = currentLocation?.AllowedMovements?.FirstOrDefault(m => m.Direction?.Contains(_direction) == true);
             var newLocation = WorldData.Instance.GetLocation(movement?.Destination);
 
-            if (_direction != null && _saveGameData != null)
+            var cardinalDirections = new string[] {"north","south", "east", "west"};
+
+            if (_saveGameData != null && cardinalDirections.Contains(_direction))
             {
                 _saveGameData.Facing = _direction;
             }

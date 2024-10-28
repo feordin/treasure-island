@@ -46,7 +46,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
             var itemDetails = WorldData.Instance?.GetItem(_param);
 
-            if (currentItems?.Contains(_param + " pawned", StringComparer.OrdinalIgnoreCase) != null)
+            if (currentItems?.Contains(_param + " pawned", StringComparer.OrdinalIgnoreCase) == true)
             {
                 itemDetails = new Item() { Cost = 2, Description = "You pawned this off, but you can buy it back.", MustBuy = true, Name = _param + " pawned" };
             }
@@ -70,7 +70,8 @@ namespace Erwin.Games.TreasureIsland.Commands
                     _saveGameData.Inventory?.Add(_param);
                     _saveGameData.Money -= itemDetails.Cost;
                     // check if the saved game already has any changes to this location
-                    currentLocation.RemoveItemFromLocation(_saveGameData, itemDetails.Name);
+                    if (itemDetails.Name?.Contains("ticket", StringComparison.OrdinalIgnoreCase) == false)
+                        currentLocation.RemoveItemFromLocation(_saveGameData, itemDetails.Name);
 
                     return new ProcessCommandResponse(
                         "You buy the " + _param + ".",

@@ -58,7 +58,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 {
                     _saveGameData.Inventory.Remove("therepublic");
                     _saveGameData.Money += 10;
-                    _saveGameData.Inventory.Add("Promissory note");
+                    _saveGameData.Inventory.Add("PromissorNote");
                     _saveGameData.AddEvent("BankLoan", "You borrowed 10 gold from the bank.", _saveGameData.CurrentDateTime);
                     return new ProcessCommandResponse(
                         "The bank manager smiles as he accepts your collateral and gives you a loan.",

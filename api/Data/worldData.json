@@ -504,6 +504,22 @@
       ]
     },
     {
+      "Name": "UknownBuilding",
+      "Description": "This a small, simple house standing humbly in front of you. It’s built mostly from wood and materials gathered from around the island, with a roof made from woven palm leaves or wooden shingles that offer some shade from the bright, hot sun and the frequent rains. The walls are plain, not solid like stone or brick, but formed from wooden slats or panels made from cane, allowing a little air to flow through. If you ran your hand along the wall, you’d feel the roughness of the wood, weathered from the salt air. Now, if you reach out to where the windows would be, you won’t feel glass. Instead, you’ll find simple shutters made from wood. They can swing open to let in the cool breeze, but they close tightly to keep out the rain. Underfoot, the floor inside is either the packed earth of the island or rough wooden planks that might feel uneven beneath your feet. Inside, it’s a single open space, very plain and functional. The few pieces of furniture are made from local wood—a table with sturdy benches or stools for sitting, and perhaps a few shelves for storing essentials. You might feel the hammock hanging in a corner, which serves as a bed, or a cot that can be folded away. If you step back outside, you’d notice a small area nearby, like an open shed, where cooking happens. There’s a small fire pit, with pots for cooking meals and a place to gather, sparing the house from the heat and smoke.  Nothing here it seems.",
+      "Items": [],
+      "image": "unknownbuilding.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "QueensAve",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
       "Name": "LawOffice",
       "Description": "You are in a fine, but stuffy office.  There is an old distinguished gentlemen behind a large desk.  He looks sternly down at you, and says: 'A serendipitous meeting!  I needed to get a message to your father. The farm is behind on it's mortgage.  Unless you pay soon, the bank has ordered me to foreclose.'\n\nIt seems you have nother reason to hurry to treasure island.",
       "Items": [],
@@ -581,11 +597,18 @@
     },
     {
       "Name": "Balloon",
-      "Description": "You step up the basket at the bottom of the balloon, wondering if you are ready to fly!",
+      "Description": "You step up the basket at the bottom of the balloon, wondering if you are ready to fly!  Just tell the pilot to go up when are ready.",
       "Items": [ ],
-      "image": "airport.png",
+      "image": "balloon.png",
       "Help": "no",
       "AllowedMovements": [
+        {
+          "Direction": [
+            "up"
+          ],
+          "Destination": "Flying",
+          "TimeToMove": 120
+        }
       ],
       "Actions":[ "CheckBalloonTicket" ]
     },
@@ -857,6 +880,17 @@
     {
       "Name": "monkeysPaw",
       "Description": "You pawned this off, but can buy it back.",
+      "MustBuy" : false
+    },
+    {
+      "Name": "BalloonTicket",
+      "Description": "You need this to fly.",
+      "MustBuy" : true,
+      "Cost":4
+    },
+    {
+      "Name": "PromissoryNote",
+      "Description": "You have to pay back a loan to the bank.  Once you get back from treasure island, they may take a bit of treasure.",
       "MustBuy" : false
     }
   ],

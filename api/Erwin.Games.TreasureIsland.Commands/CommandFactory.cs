@@ -14,7 +14,9 @@ namespace Erwin.Games.TreasureIsland.Commands
             var commandTokens = commandName?.Split(new[] { ' ', '\n', '.' }, StringSplitOptions.RemoveEmptyEntries);
             commandName = commandTokens?[0];
             var commandParam = commandTokens?.Length > 1 ? commandTokens[1] : null;
-            commandParam = commandParam?.ToLower();
+            var nextParam = commandTokens?.Length > 2 ? commandTokens[2] : null;
+            if (nextParam != null && nextParam.Equals("ticket", StringComparison.OrdinalIgnoreCase))
+                commandParam += nextParam;
             var commandRemainder = commandName?.Replace("unknown_command", "");
 
             switch (commandName)
