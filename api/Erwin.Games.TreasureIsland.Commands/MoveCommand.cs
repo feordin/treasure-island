@@ -36,9 +36,12 @@ namespace Erwin.Games.TreasureIsland.Commands
             var movement = currentLocation?.AllowedMovements?.FirstOrDefault(m => m.Direction?.Contains(_direction) == true);
             var newLocation = WorldData.Instance.GetLocation(movement?.Destination);
 
-            _saveGameData.Facing = _direction;
+            if (_direction != null && _saveGameData != null)
+            {
+                _saveGameData.Facing = _direction;
+            }
 
-            if (movement != null &&  newLocation != null)
+            if (movement != null &&  newLocation != null && _saveGameData != null)
             {
                 _saveGameData.CurrentLocation = movement.Destination;
                 if (movement.TimeToMove != null)

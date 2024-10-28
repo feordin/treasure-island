@@ -18,6 +18,7 @@ namespace Erwin.Games.TreasureIsland.Commands
         private readonly string _systemPromptText;
         private readonly string _systemLocationText;
         private readonly string _systemFortuneText;
+        private readonly string _systemPrayText;
         private readonly HttpClient _client;
         private readonly ILogger<AIChatClient> _logger;
 
@@ -69,6 +70,8 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             _systemFortuneText = @"You are an AI assistant that helps generate interesting fortunes for the player.  Keep the fortune brief and fun.  The player is looking for a little bit of fun and a little bit of insight.  Keep the fortune light and positive.
                                    Some things useful for the player to learn: it is possible to die in a hot air balloon, donuts are useful on Treasure Island, the trash pit has something valuable, there is a pearl in a lagoon, and a genie in a lamp.  Don't make any of that information too obvious.";
+            _systemPrayText = @"You are an AI assistant that helps generate interesting prayers for the player.  Keep the prayer brief and fun.  The player is looking for a little bit of fun and a little bit of insight.  Keep the prayer light and positive, but use symbols and images rather than stating anything directly.
+                                Some things useful for the player to learn: melting ice to form a riven will be helpful on the island, cannibals like donuts, dracula lurks at night, matches are damaged if they get wet.";
         }
 
         public async Task<string?> GetEmbelleshedLocationDescription(string? description)
@@ -101,6 +104,26 @@ namespace Erwin.Games.TreasureIsland.Commands
                 {
                   new { role = "system", content = new object[] { new { type = "text", text = _systemFortuneText } } },
                   new { role = "user", content = new object[] { new { type = "text", text = "Tell me my fortune!" } } }
+                },
+                temperature = 0.6,
+                top_p = 0.95,
+                max_tokens = 16384,
+                stream = false
+            };
+
+            return await GetResponse(payload);
+        }
+
+        public async Task<string?> Pray()
+        {
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiKey);
+
+            var payload = new
+            {
+                messages = new object[]
+                {
+                  new { role = "system", content = new object[] { new { type = "text", text = _systemPrayText } } },
+                  new { role = "user", content = new object[] { new { type = "text", text = "I bow my head and pray for guidance." } } }
                 },
                 temperature = 0.6,
                 top_p = 0.95,

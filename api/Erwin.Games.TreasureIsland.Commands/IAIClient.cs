@@ -7,5 +7,7 @@ namespace Erwin.Games.TreasureIsland.Commands
         Task<string?> ParsePlayerInput(string? input);
         Task<string?> GetEmbelleshedLocationDescription(string? description);
         Task<string?> GetFortune();
+
+        Task<string?> Pray();
     }
 }

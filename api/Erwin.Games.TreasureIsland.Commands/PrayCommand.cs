@@ -11,14 +11,26 @@ namespace Erwin.Games.TreasureIsland.Commands
             _saveGameData = saveGameData;
         }
 
-        public Task<ProcessCommandResponse?> Execute()
+        public async Task<ProcessCommandResponse?> Execute()
         {
             ProcessCommandResponse? response;
 
+            var currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
+
             if (_saveGameData?.CurrentLocation?.Equals("church", StringComparison.OrdinalIgnoreCase) == true)
             {
+                string prayer = "You receive a vision about Uncle Herman trapped on Treasure Island. You see a hidden wallet in some bushes which will help.";
+
+                if (currentLocation != null)
+                {
+                    string? aiPrayer = await currentLocation.Pray();
+                    if (!string.IsNullOrEmpty(aiPrayer))
+                    {
+                        prayer = aiPrayer;
+                    }
+                }
                 response = new ProcessCommandResponse(
-                    message: "You receive a vision about Uncle Herman trapped on Treasure Island. You see a hidden wallet in some bushes which will help.",
+                    message: prayer,
                     saveGameData: _saveGameData,
                     imageFilename: null,
                     locationDescription: null,
@@ -35,9 +47,9 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null
                 );
             }
-            
 
-            return Task.FromResult<ProcessCommandResponse?>(response);
+
+            return response;
         }
     }
 }

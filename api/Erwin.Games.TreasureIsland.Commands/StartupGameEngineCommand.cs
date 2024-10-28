@@ -35,7 +35,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 }
                 
                 return new ProcessCommandResponse(
-                    currentLocation?.Description,
+                    currentLocation?.Description ?? string.Empty,
                     _saveGameData,
                     currentLocation?.Image,
                     currentLocation?.Description,

@@ -274,5 +274,13 @@ namespace Erwin.Games.TreasureIsland.Models
             else
                 return "You see a crystal ball, but no one is here to read your fortune.";
         }
+
+        public async Task<string?> Pray()
+        {
+            if (AiClient != null)
+                return await AiClient.Pray();
+            else
+                return "The heavens seem closed at the moment.  God answers prayers in his own time.";
+        }
     }
 }

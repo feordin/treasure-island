@@ -98,5 +98,10 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             return "I didn't get that.  Please try again.";
         }
+
+        public Task<string?> Pray()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
