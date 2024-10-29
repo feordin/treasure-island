@@ -99,11 +99,11 @@ namespace Erwin.Games.TreasureIsland.Commands
                     // you get caught trying to use the wallet
                     _saveGameData.AddEvent("walletJail", "Unfortunately, the armed watch you didn't notice realizes that you are using money from a wallet that is not yours.  They take you jail.", _saveGameData.CurrentDateTime);
                     _saveGameData.RemoveEvent("wallet");
-                    _saveGameData.CurrentLocation = "Jail";
+                    _saveGameData.CurrentLocation = "JailCell";
                     currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
                     _saveGameData?.CurrentDateTime.Add(new TimeSpan(0, 30, 0));
                     return new ProcessCommandResponse(
-                        "Unfortunately, the armed watch you didn't notice realizes that you are using money from a wallet that is not yours.  They take you jail.",
+                        "Unfortunately, the armed watch you didn't notice realizes that you are using money from a wallet that is not yours.  They take you jail.\n\n" + currentLocation?.Description,
                         _saveGameData,
                         currentLocation?.Image,
                         currentLocation != null ? await currentLocation.GetDescription(_saveGameData) : null,

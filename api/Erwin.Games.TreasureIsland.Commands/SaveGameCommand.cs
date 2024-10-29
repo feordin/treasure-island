@@ -70,7 +70,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                         gameNumber = savedGames?.Count ?? 0;
                     }
 
-                    var gameId = savedGames?.ElementAt(gameNumber).id;
+                    var gameId = savedGames?.ElementAtOrDefault(gameNumber)?.id;
                     if (gameId != null)
                     {
                         var gameIdTokens = gameId.Split('_');
@@ -89,6 +89,23 @@ namespace Erwin.Games.TreasureIsland.Commands
                                 null,
                                 newSavedGamesList);
                         }
+                    }
+
+                    // assume a new game to save
+                    // first get the list of saved games
+                    var newGameNumber = savedGames?.Count ?? 0;
+                    if (await _gameDataRepository.SaveGameAsync(_saveGameData, newGameNumber) &&
+                        await _gameDataRepository.SaveCommandHistoryAsync(history, null, newGameNumber))
+                    {
+                        var newSavedGamesList = new List<SaveGameData>(savedGames ?? Enumerable.Empty<SaveGameData>());
+                        newSavedGamesList.Add(_saveGameData);
+                        return new ProcessCommandResponse(
+                            "Game " + _param + " saved.",
+                            _saveGameData,
+                            null,
+                            null,
+                            null,
+                            newSavedGamesList);
                     }
 
                     return new ProcessCommandResponse(

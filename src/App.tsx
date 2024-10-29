@@ -43,7 +43,7 @@ function App() {
     currentDateTime: "1978-01-01",
     inventory: [],
     health: 0,
-    history: undefined,
+    commandHistory: undefined,
     locationChanges: [],
     aiEmbelleshedDescriptions: false,
     money: 0,

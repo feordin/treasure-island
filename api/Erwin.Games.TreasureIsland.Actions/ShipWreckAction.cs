@@ -14,21 +14,21 @@ namespace Erwin.Games.TreasureIsland.Actions
 
         public void Execute()
         {
-            if (_response?.saveGameData?.Inventory != null && _response.saveGameData.Inventory.Contains("ticket", StringComparer.OrdinalIgnoreCase))
+            if (_response?.saveGameData?.GetEvent("boat") == null)
             {
-                // Remove the ticket from the inventory
-                _response.saveGameData.Inventory.Remove("ticket");
-
-                // Add a message to the response
-                _response.Message += "\n\nYour ticket has been checked and removed from your inventory.";
+                _response?.saveGameData?.AddEvent("boat", "ShipWreck", _response.saveGameData.CurrentDateTime);
             }
-            else if (_response?.saveGameData != null)
+            else
             {
                 // Relocate the user to the ticket booth
-                _response.saveGameData.CurrentLocation = "TicketBooth";
+                _response.saveGameData.CurrentLocation = "ShipWreckBeach";
+                var currentLocation = WorldData.Instance?.GetLocation(_response.saveGameData.CurrentLocation);
 
-                // Add a message to the response
-                _response.Message += "\n\nNo free passage!. You have been escorted to the ticket booth.";
+                
+                _response.saveGameData.CurrentDateTime += new TimeSpan(0, 2880, 0);
+
+                _response.Message += "\n\nSuddenly, you hear the captain scream, 'Thar she blows!'.  You have a terrible feeling that the captain is on his own personal quest, pursuing the white whale.  The men harpoon the beast, but it alsmost seems the whale wanted that outcome as it pulls the ship into a terrible storm.  After what seems hours of waves, thunder and lightning, you finally black out.\n\n" + currentLocation?.Description;
+                _response.ImageFilename = currentLocation?.Image;
             }
         }
     }

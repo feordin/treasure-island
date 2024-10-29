@@ -26,6 +26,8 @@ namespace Erwin.Games.TreasureIsland.Actions
                 return;
             }
 
+            _response?.saveGameData?.RemoveEvent("Flhing");
+
             if (_response != null && _response?.saveGameData != null)
             {
                 var random = new Random();
@@ -45,6 +47,7 @@ namespace Erwin.Games.TreasureIsland.Actions
                     _response.saveGameData.CurrentLocation = "Airport";
                     var currentLocation = WorldData.Instance?.GetLocation(_response.saveGameData.CurrentLocation);
                     _response.Message += "\n\nThe flight was amazing and the wind carries you back safely to where you launched.\n\n" + currentLocation?.Description;
+                    _response.ImageFilename = currentLocation?.Image;
                     return;
                 }
             }

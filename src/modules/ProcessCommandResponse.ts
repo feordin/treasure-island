@@ -7,7 +7,7 @@ export interface SaveGameData {
     currentDateTime?: string; // ISO 8601 date string
     inventory?: string[];
     health?: number;
-    history?: CommandHistory;
+    commandHistory?: CommandHistory;
     locationChanges?: LocationChange[];
     aiEmbelleshedDescriptions: boolean;
     events?: Event[];

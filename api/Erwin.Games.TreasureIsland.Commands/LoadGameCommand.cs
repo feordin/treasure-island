@@ -25,7 +25,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 if (int.TryParse(_param, out var newGameNumber))
                 {
                     var savedGames = await _gameDataRepository.GetAllSavedGamesAsync(ClientPrincipal.Instance?.UserDetails);
-                    var gameId = savedGames?.ElementAt(newGameNumber).id;
+                    var gameId = savedGames?.ElementAtOrDefault(newGameNumber)?.id;
                     if (gameId != null)
                     {
                         var loadedGameData = await _gameDataRepository.LoadGameAsync(gameId);
@@ -37,7 +37,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                             var currentLocation = WorldData.Instance?.GetLocation(loadedGameData.CurrentLocation);
                             return new ProcessCommandResponse(
                                 "Game " + _param + " loaded.",
-                                _saveGameData,
+                                loadedGameData,
                                 currentLocation?.Image,
                                 currentLocation?.Description,
                                 commandHistory,
