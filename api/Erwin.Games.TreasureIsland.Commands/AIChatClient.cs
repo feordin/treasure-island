@@ -85,6 +85,13 @@ namespace Erwin.Games.TreasureIsland.Commands
                   new { role = "system", content = new object[] { new { type = "text", text = _systemLocationText } } },
                   new { role = "user", content = new object[] { new { type = "text", text = description } } }
                 },
+                examples = new object[]
+                {
+                    new {
+                        input = "You are at the post office.  The only movement you can make is back to way you came to the west.  You see the following items: letter",
+                        output = "The building itself is a simple, single-story structure constructed from coral stone, its whitewashed walls reflecting the harsh Caribbean sunlight. A small, shaded porch offers respite from the heat, where patrons can wait their turn. Inside, the air is cool and dim, the only light filtering through the open doorway and a few small, barred windows. The postmaster, a stern-faced man in a sweat-stained linen shirt, presides over a cluttered desk piled high with letters, parcels, and official documents. He meticulously sorts through the mail, his quill scratching across a ledger as he records each item.  The scent of sealing wax and parchment hangs heavy in the air. A motley crew of customers fills the small space. A wealthy plantation owner waits impatiently to send news of his sugar crop to London. A sailor, fresh off a voyage from Jamaica, eagerly collects a letter from his sweetheart. A nervous young clerk delivers a packet of official dispatches from the Governor's mansion. The walls are adorned with a jumble of notices and proclamations. A tattered map of the Caribbean hangs beside a list of postal rates to far-flung destinations like Boston and Bristol. A royal decree announces the latest regulations on trade and shipping. Despite its humble appearance, the post office is a hub of activity, a vital artery in the flow of information and commerce that binds the colony to the mother country. Here, news of wars and peace, fortunes made and lost, births and deaths, all pass through the hands of the postmaster, connecting lives across vast distances.  There is a letter waiting for you here."
+                    }
+                },
                 temperature = 0.8,
                 top_p = 0.95,
                 max_tokens = 16384,
@@ -164,13 +171,6 @@ namespace Erwin.Games.TreasureIsland.Commands
                 {
                   new { role = "system", content = new object[] { new { type = "text", text = _systemPromptText } } },
                   new { role = "user", content = new object[] { new { type = "text", text = input } } }
-                },
-                examples = new object[]
-                {
-                    new {
-                        input = "You are at the post office.  The only movement you can make is back to way you came to the west.  You see the following items: letter",
-                        output = "The building itself is a simple, single-story structure constructed from coral stone, its whitewashed walls reflecting the harsh Caribbean sunlight. A small, shaded porch offers respite from the heat, where patrons can wait their turn. Inside, the air is cool and dim, the only light filtering through the open doorway and a few small, barred windows. The postmaster, a stern-faced man in a sweat-stained linen shirt, presides over a cluttered desk piled high with letters, parcels, and official documents. He meticulously sorts through the mail, his quill scratching across a ledger as he records each item.  The scent of sealing wax and parchment hangs heavy in the air. A motley crew of customers fills the small space. A wealthy plantation owner waits impatiently to send news of his sugar crop to London. A sailor, fresh off a voyage from Jamaica, eagerly collects a letter from his sweetheart. A nervous young clerk delivers a packet of official dispatches from the Governor's mansion. The walls are adorned with a jumble of notices and proclamations. A tattered map of the Caribbean hangs beside a list of postal rates to far-flung destinations like Boston and Bristol. A royal decree announces the latest regulations on trade and shipping. Despite its humble appearance, the post office is a hub of activity, a vital artery in the flow of information and commerce that binds the colony to the mother country. Here, news of wars and peace, fortunes made and lost, births and deaths, all pass through the hands of the postmaster, connecting lives across vast distances.  There is a letter waiting for you here."
-                    }
                 },
                 temperature = 0.9,
                 top_p = 0.95,
