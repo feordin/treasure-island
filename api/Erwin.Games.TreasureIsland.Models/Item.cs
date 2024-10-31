@@ -13,6 +13,7 @@ namespace Erwin.Games.TreasureIsland.Models
         public bool? MustBuy { get; set; }
         public int? Cost { get; set; }
         public int? Value { get; set; }
+        public string? Reveals {get; set;}
 
         public bool IsTakeable
         {

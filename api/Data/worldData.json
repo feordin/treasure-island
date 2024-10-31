@@ -928,6 +928,96 @@
       "image": "oceanhomeward.png",
       "Help": "no",
       "AllowedMovements": [ ]
+    },
+    {
+      "Name": "ShipWreck",
+      "Description": "The remains of your ship.  It will never sail again.  You wonder if there is anything left of value.",
+      "Items": ["BrokenSeaChest"],
+      "image": "shipwreckbeach.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "JungleTrail",
+          "TimeToMove": 2
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "ShipWreckBeach",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "OceanHomeward",
+          "TimeToMove": 60
+        }
+      ]
+    },
+    {
+      "Name": "JungleTrail",
+      "Description": "The change from the beach is startling. It is suddenly dark with the dense vegetation overhead, and the heat and humidity are oppressive. You wonder what might be waiting for you along this trail.",
+      "Items": [""],
+      "image": "jungletrail.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "JungleFork",
+          "TimeToMove": 20
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "ShipWreckBeach",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "JungleFork",
+      "Description": "The change from the beach is startling. It is suddenly dark with the dense vegetation overhead, and the heat and humidity are oppressive. You wonder what might be waiting for you along this trail.",
+      "Items": [""],
+      "image": "jungletrail.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "JungleTrail",
+          "TimeToMove": 20
+        },
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "ZigZagTrail",
+          "TimeToMove": 15
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "EastWestTrail",
+          "TimeToMove": 10
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "JungleCliff",
+          "TimeToMove": 10
+        }
+      ]
     }
   ],
   "Items": [
@@ -1016,6 +1106,13 @@
       "Description": "A giant pearl.  You could sell this for a lot of money. Did Uncle Herman know this was here?",
       "MustBuy" : false,
       "Value":150
+    },
+    {
+      "Name": "BrokenSeaChest",
+      "Description": "This is the remains of a sea chest.  It is broken but there are some matches inside.",
+      "MustBuy" : false,
+      "Takeable": false,
+      "Reveals":"matches"
     }
   ],
     "GlobalCommands": [
