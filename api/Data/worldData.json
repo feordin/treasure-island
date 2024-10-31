@@ -847,6 +847,87 @@
           "TimeToMove": 60
         }
       ]
+    },
+    {
+      "Name": "Lagoon",
+      "Description": "A turquiose lagoon stretches out before you to the north.  The water is clear and you can see the bottom.  You wonder if there are fish to catch.  To the east is the beach, and to the west is desne impenetrable jungle.",
+      "Items": [],
+      "image": "lagoon.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "LagoonSwimming",
+          "TimeToMove": 2
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "ShipWreckBeach",
+          "TimeToMove": 1
+        }
+      ],
+      "Actions":[ "RemoveSwimmingEvent" ]
+    },
+    {
+      "Name": "LagoonSwimming",
+      "Description": "The water is clear, calm, and refreshing—swimming was the perfect choice. You feel a surge of energy, ready to tackle whatever challenges lie ahead. Gazing down, you can almost see the bottom, catching a glint of something shiny in the depths. Just as curiosity stirs, a flicker of movement crosses your vision, hinting at something else lurking beneath the surface.",
+      "Items": [],
+      "image": "lagoonswimming.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "Lagoon",
+          "TimeToMove": 2
+        },
+        {
+          "Direction": [
+            "down"
+          ],
+          "Destination": "LagoonDepths",
+          "TimeToMove": 1
+        }
+      ],
+      "Actions":["CheckLagoonShark"]
+    },
+    {
+      "Name": "LagoonDepths",
+      "Description": "You are pleasently suprised with your ability to reach the bottom of the lagoon.  There is a gaint oyster open before you, and gleaming inside is a giant pearl. Do you dare to try and grab it?",
+      "Items": ["pearl"],
+      "image": "lagoondepths.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "up"
+          ],
+          "Destination": "LagoonSwimming",
+          "TimeToMove": 1
+        }
+      ],
+      "Actions":["CheckLagoonShark"]
+    },
+    {
+      "Name": "LagoonShark",
+      "Description": "You feel a sudden, chilling awareness ripple through you—a warning you should have heeded when you noticed movement before. But it’s too late. Out of nowhere, a massive shadow surges beneath you, and in a heartbeat, a powerful jaw clamps around you. The shock cuts through your mind—how could there even be a great white shark in this lagoon? Before you can react, darkness closes in. Game Over.",
+      "Items": [],
+      "image": "lagoonshark.png",
+      "Help": "no",
+      "AllowedMovements": [ ]
+    },
+    {
+      "Name": "OceanHomeward",
+      "Description": "'Coming here was a terrible mistake!' you think, heart pounding. Driven by a surge of desperation, you dive into the water, swimming with every ounce of strength, the only plan in your mind to escape back home. But as you plunge deeper, a horrifying realization dawns—the true reason for your ship's demise and the eerie absence of your crew lies ahead. In the murky depths, a colossal kraken awaits, lurking just beyond sight. The moment you reach the open water, its tentacles wrap around you, sealing your fate. Game Over.",
+      "Items": [],
+      "image": "oceanhomeward.png",
+      "Help": "no",
+      "AllowedMovements": [ ]
     }
   ],
   "Items": [
@@ -929,6 +1010,12 @@
       "Name": "PromissoryNote",
       "Description": "You have to pay back a loan to the bank.  Once you get back from treasure island, they may take a bit of treasure.",
       "MustBuy" : false
+    },
+    {
+      "Name": "pearl",
+      "Description": "A giant pearl.  You could sell this for a lot of money. Did Uncle Herman know this was here?",
+      "MustBuy" : false,
+      "Value":150
     }
   ],
     "GlobalCommands": [

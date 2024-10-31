@@ -17,6 +17,11 @@ namespace Erwin.Games.TreasureIsland.Commands
         public async Task<ProcessCommandResponse?> Execute()
         {
             var currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
+            if (_saveGameData != null)
+            {
+                _saveGameData.CurrentDateTime += new TimeSpan(0, 1, 0);
+            }
+            
 
             return new ProcessCommandResponse(
                 "You look around and see: " + (currentLocation != null ? await currentLocation.GetDescription(_saveGameData) : "nothing"), _saveGameData, null, null, null);

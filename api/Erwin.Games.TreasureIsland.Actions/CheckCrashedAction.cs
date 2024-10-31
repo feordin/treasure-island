@@ -20,13 +20,16 @@ namespace Erwin.Games.TreasureIsland.Actions
                 _response?.saveGameData?.Inventory?.RemoveAll(item => string.Equals(item, "Balloonticket", StringComparison.OrdinalIgnoreCase));
 
                 // Add a message to the response
-                _response.Message += "\n\nYour ticket has been checked and removed from your inventory.\n\n";
+                if (_response != null)
+                {
+                    _response.Message += "\n\nYour ticket has been checked and removed from your inventory.\n\n";
+                    _response.saveGameData?.AddEvent("Flying", "First we allow one command without doing anything.", _response.saveGameData.CurrentDateTime);
+                }
 
-                _response.saveGameData?.AddEvent("Flying", "First we allow one command without doing anything.", _response.saveGameData.CurrentDateTime);
                 return;
             }
 
-            _response?.saveGameData?.RemoveEvent("Flhing");
+            _response?.saveGameData?.RemoveEvent("Flying");
 
             if (_response != null && _response?.saveGameData != null)
             {

@@ -58,6 +58,9 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
             else
             {
+                if (_saveGameData != null)
+                    _saveGameData.CurrentDateTime = _saveGameData.CurrentDateTime + new TimeSpan(0, 1, 0);
+
                 return new ProcessCommandResponse(
                     "You try to go " + _direction + ", " + "but can't and end up in the same place.\n\n" + (currentLocation != null ? await currentLocation.GetDescription(_saveGameData) : string.Empty),
                     _saveGameData,
