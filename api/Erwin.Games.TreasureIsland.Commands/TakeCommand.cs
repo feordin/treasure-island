@@ -32,6 +32,8 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null);
             }
 
+            _saveGameData.CurrentDateTime += new TimeSpan(0, 1, 0);
+
             // check the current location, if it's the bank, then we process this as a steal or rob command
             var currentLocation = WorldData.Instance.GetLocation(_saveGameData.CurrentLocation);
             if (currentLocation?.Name == "Bank")
