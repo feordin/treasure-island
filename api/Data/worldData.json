@@ -1292,6 +1292,13 @@
       "MustBuy" : false,
       "Takeable": false,
       "Reveals":"matches"
+    },
+    {
+      "Name": "TreasureChest",
+      "Description": "The mother load!  Gold, silver and jewels.",
+      "MustBuy" : false,
+      "Takeable": true,
+      "Value": 400
     }
   ],
     "GlobalCommands": [
