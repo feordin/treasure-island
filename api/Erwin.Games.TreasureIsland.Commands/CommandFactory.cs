@@ -66,6 +66,8 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new PrayCommand(saveGameData);
                 case "fortune":
                     return new FortuneCommand(saveGameData);
+                case "dig":
+                    return new DigCommand(saveGameData);
                 default:
                     return new UnknownCommand(saveGameData, repository, commandRemainder);
             }

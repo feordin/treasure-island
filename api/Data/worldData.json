@@ -823,21 +823,21 @@
             "north"
           ],
           "Destination": "JungleTrail",
-          "TimeToMove": 2
+          "TimeToMove": 15
         },
         {
           "Direction": [
             "west"
           ],
           "Destination": "Lagoon",
-          "TimeToMove": 1
+          "TimeToMove": 5
         },
         {
           "Direction": [
             "east"
           ],
           "Destination": "ShipWreck",
-          "TimeToMove": 1
+          "TimeToMove": 5
         },
         {
           "Direction": [
@@ -860,14 +860,21 @@
             "north"
           ],
           "Destination": "LagoonSwimming",
-          "TimeToMove": 2
+          "TimeToMove": 10
         },
         {
           "Direction": [
             "east"
           ],
           "Destination": "ShipWreckBeach",
-          "TimeToMove": 1
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
         }
       ],
       "Actions":[ "RemoveSwimmingEvent" ]
@@ -884,14 +891,14 @@
             "south"
           ],
           "Destination": "Lagoon",
-          "TimeToMove": 2
+          "TimeToMove": 5
         },
         {
           "Direction": [
             "down"
           ],
           "Destination": "LagoonDepths",
-          "TimeToMove": 1
+          "TimeToMove": 2
         }
       ],
       "Actions":["CheckLagoonShark"]
@@ -941,14 +948,14 @@
             "north"
           ],
           "Destination": "JungleTrail",
-          "TimeToMove": 2
+          "TimeToMove": 10
         },
         {
           "Direction": [
             "west"
           ],
           "Destination": "ShipWreckBeach",
-          "TimeToMove": 1
+          "TimeToMove": 5
         },
         {
           "Direction": [
@@ -975,6 +982,14 @@
         },
         {
           "Direction": [
+            "east",
+            "west"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
+        },
+        {
+          "Direction": [
             "south"
           ],
           "Destination": "ShipWreckBeach",
@@ -983,8 +998,18 @@
       ]
     },
     {
+      "Name": "DenseJungle",
+      "Description": "The plants press in all around you.  The heat and humidity are oppressive.  You can't see the sky, and you can't see the sun.  You can't see anything but the dense vegetation. You are lost in the jungle.",
+      "Items": [""],
+      "image": "lostinthejungle.png",
+      "Help": "no",
+      "AllowedMovements": [
+      ],
+      "Actions":["CheckLostInTheJungle"]
+    },
+    {
       "Name": "JungleFork",
-      "Description": "The change from the beach is startling. It is suddenly dark with the dense vegetation overhead, and the heat and humidity are oppressive. You wonder what might be waiting for you along this trail.",
+      "Description": "The trail through the jungle arrives at an intersection.  You have your choice of north, south, east or west.",
       "Items": [""],
       "image": "jungletrail.png",
       "Help": "no",
@@ -1015,6 +1040,160 @@
             "east"
           ],
           "Destination": "JungleCliff",
+          "TimeToMove": 10
+        }
+      ]
+    },
+    {
+      "Name": "ZigZagTrail",
+      "Description": "This trail winds back and forth across a jungle hillside. To the north is a giant footprint, and to the south is a fork in the trail.  An ominous volcano rises to the west, and to the east is a dense jungle.",
+      "Items": [""],
+      "image": "zigzagtrail.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "JungleFork",
+          "TimeToMove": 20
+        },
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "GiantFootprint",
+          "TimeToMove": 15
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 10
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "Volcano",
+          "TimeToMove": 10
+        }
+      ]
+    },
+    {
+      "Name": "EastWestTrail",
+      "Description": "You are on an east-west trail through the jungle.",
+      "Items": [""],
+      "image": "eastwesttrail.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "JungleFork",
+          "TimeToMove": 10
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "EdgeOfClearing",
+          "TimeToMove": 35
+        },
+        {
+          "Direction": [
+            "north",
+            "south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 12
+        }
+      ]
+    },
+    {
+      "Name": "EdgeOfClearing",
+      "Description": "You are at the edge of a clearing in the jungle.  The jungle is dense to the south and west. By the looks of the village, you believe that they may be headhunters, or the cannibals Uncle Herman warned you about.  It could be dangerous to enter unprepared.",
+      "Items": [""],
+      "image": "edgeofclearing.png",
+      "Help": "The natives are terrifed of stuffed animals.  You may be able to find one else where on the island.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "NativeVillage",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "EastWestTrail",
+          "TimeToMove": 35
+        },
+        {
+          "Direction": [
+            "west",
+            "south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 12
+        }
+      ]
+    },
+    {
+      "Name": "GiantFootprint",
+      "Description": "You are standing in a giant footprint.  It is so large that you could lie down in it and still have room.",
+      "Items": [""],
+      "image": "giantfootprint.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "ZigZagTrail",
+          "TimeToMove": 15
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "TwinPalms",
+          "TimeToMove": 10
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "SandyTrail",
+          "TimeToMove": 10
+        }
+      ]
+    },
+    {
+      "Name": "TwinPalms",
+      "Description": "Two tall palm trees cross each other like an X.  'X' marks the spot?",
+      "Items": [],
+      "image": "giantfootprint.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east",
+            "west",
+            "south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 30
+        },
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "GiantFootprint",
           "TimeToMove": 10
         }
       ]
