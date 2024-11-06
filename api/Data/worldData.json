@@ -1045,6 +1045,59 @@
       ]
     },
     {
+      "Name": "JungleCliff",
+      "Description": "You are at the base of a rocky climb.",
+      "Items": [""],
+      "image": "junglecliff.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "GrassyPlateau",
+          "TimeToMove": 20
+        },
+        {
+          "Direction": [
+            "up"
+          ],
+          "Destination": "JungleView",
+          "TimeToMove": 30
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "JungleFork",
+          "TimeToMove": 10
+        }
+      ]
+    },
+    {
+      "Name": "JungleView",
+      "Description": "You reach the top of the cliff.  All around you is dense jungle.  You are surprised to see what appears to be a mansion in the distance; defiantly resisting the jungle.",
+      "Items": [""],
+      "image": "jungleview.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east, west, north, south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
+        },
+        {
+          "Direction": [
+            "down"
+          ],
+          "Destination": "JungleCliff",
+          "TimeToMove": 30
+        }
+      ]
+    },
+    {
       "Name": "ZigZagTrail",
       "Description": "This trail winds back and forth across a jungle hillside. To the north is a giant footprint, and to the south is a fork in the trail.  An ominous volcano rises to the west, and to the east is a dense jungle.",
       "Items": [""],
@@ -1145,21 +1198,21 @@
     },
     {
       "Name": "GiantFootprint",
-      "Description": "You are standing in a giant footprint.  It is so large that you could lie down in it and still have room.",
+      "Description": "You are standing in a giant footprint.  It is so large that you could lie down in it and still have room.  To the west is an area that looks sandy and wet.",
       "Items": [""],
       "image": "giantfootprint.png",
       "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
-            "east"
+            "south"
           ],
           "Destination": "ZigZagTrail",
           "TimeToMove": 15
         },
         {
           "Direction": [
-            "south"
+            "north"
           ],
           "Destination": "TwinPalms",
           "TimeToMove": 10
@@ -1174,24 +1227,32 @@
       ]
     },
     {
+      "Name": "SandyTrail",
+      "Description": "You take a tentative step onto the sandy trail.  Unfortunately, it is quicksand and you are sucked under.  You struggle valiantly, but to no avail.  Game Over.",
+      "Items": [""],
+      "image": "quicksand.png",
+      "Help": "no",
+      "AllowedMovements": []
+    },
+    {
       "Name": "TwinPalms",
       "Description": "Two tall palm trees cross each other like an X.  'X' marks the spot?",
       "Items": [],
-      "image": "giantfootprint.png",
+      "image": "twinpalms.png",
       "Help": "no",
       "AllowedMovements": [
         {
           "Direction": [
             "east",
             "west",
-            "south"
+            "north"
           ],
           "Destination": "DenseJungle",
           "TimeToMove": 30
         },
         {
           "Direction": [
-            "north"
+            "south"
           ],
           "Destination": "GiantFootprint",
           "TimeToMove": 10
