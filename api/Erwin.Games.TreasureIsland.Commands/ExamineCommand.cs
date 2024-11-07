@@ -47,6 +47,14 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("Amazingly, wrapped in oil cloth, an old and valuable book of greek philosophy has survived.  This might be something the bank would consider collateral for a loan.", _saveGameData, null, null, null));
                 }
             }
+            else if (_param.Contains("sand", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                if (currentLocation?.Name?.Contains("GiantFootprint", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a closer look at that sandy patch ahead, that is definitely quicksand!  Better stay away.", _saveGameData, null, null, null));
+                }
+                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a look at the sand.  It's just sand.", _saveGameData, null, null, null));
+            }
             else if (item?.Reveals != null && currentLocation?.GetCurrentItems(_saveGameData).Contains(_param, StringComparer.OrdinalIgnoreCase) == true)
             {
                 // check to see if the item has already been found

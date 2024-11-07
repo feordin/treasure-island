@@ -1056,7 +1056,7 @@
             "north"
           ],
           "Destination": "GrassyPlateau",
-          "TimeToMove": 20
+          "TimeToMove": 10
         },
         {
           "Direction": [
@@ -1070,6 +1070,36 @@
             "west"
           ],
           "Destination": "JungleFork",
+          "TimeToMove": 10
+        }
+      ]
+    },
+    {
+      "Name": "GrassyPlateau",
+      "Description": "This open, soft grassy plateau is literally a breath of fresh air compared to the jungle.  Seems like a wonderful place to take rest.",
+      "Items": [""],
+      "image": "junglecliff.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "JungleCliff",
+          "TimeToMove": 10
+        },
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "GentleSlope",
+          "TimeToMove": 30
+        },
+        {
+          "Direction": [
+            "west", "east"
+          ],
+          "Destination": "DenseJungle",
           "TimeToMove": 10
         }
       ]
