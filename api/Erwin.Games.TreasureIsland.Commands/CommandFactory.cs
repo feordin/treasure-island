@@ -69,7 +69,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 case "dig":
                     return new DigCommand(saveGameData);
                 case "rest":
-                    return new RestCommand(saveGameData);
+                    return new RestCommand(saveGameData, commandName);
                 case "sleep":
                     return new SleepCommand(saveGameData);
                 default:
