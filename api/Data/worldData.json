@@ -798,7 +798,7 @@
       "Items": [  ],
       "image": "boatcabin.png",
       "Help": "no",
-      "Actions": [ "ShipWreck" ],
+      "Actions": [  ],
       "AllowedMovements": [
       ]
     },

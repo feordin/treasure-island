@@ -1,3 +1,4 @@
+using Erwin.Games.TreasureIsland.Actions;
 using Erwin.Games.TreasureIsland.Models;
 
 namespace Erwin.Games.TreasureIsland.Commands
@@ -28,6 +29,21 @@ namespace Erwin.Games.TreasureIsland.Commands
                     imageFilename: null,
                     locationDescription: null,
                     commandHistory: null);
+            }
+            else if (currentLocation?.Name?.Contains("BoatCabin", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                if (_saveGameData != null)
+                    _saveGameData.CurrentDateTime = _saveGameData.CurrentDateTime.AddHours(8);
+                    
+                response = new ProcessCommandResponse(
+                    message: "You manage to get comfortable and fall asleep.",
+                    saveGameData: _saveGameData,
+                    imageFilename: null,
+                    locationDescription: null,
+                    commandHistory: null);
+
+                var shipWreckAction = new ShipWreckAction(response);
+                shipWreckAction.Execute();
             }
             else
             {

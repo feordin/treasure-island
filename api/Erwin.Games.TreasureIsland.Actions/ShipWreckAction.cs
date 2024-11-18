@@ -27,7 +27,7 @@ namespace Erwin.Games.TreasureIsland.Actions
                 
                 _response.saveGameData.CurrentDateTime += new TimeSpan(0, 2880, 0);
 
-                _response.Message += "\n\nSuddenly, you hear the captain scream, 'Thar she blows!'.  You have a terrible feeling that the captain is on his own personal quest, pursuing the white whale.  The men harpoon the beast, but it alsmost seems the whale wanted that outcome as it pulls the ship into a terrible storm.  After what seems hours of waves, thunder and lightning, you finally black out.\n\n" + currentLocation?.Description;
+                _response.Message += "\n\nYou are awoken by the scream, 'Thar she blows!'.  You scramble topside and see an enourmous white whale off the starboard bow.  You have a terrible feeling that the captain is on his own personal quest, pursuing the beast.  The men harpoon it, but it alsmost seems the whale wanted that outcome as it pulls the ship directly into a terrible storm.  After what seems hours of waves, thunder and lightning, you finally black out.\n\n" + currentLocation?.Description;
                 _response.ImageFilename = currentLocation?.Image;
             }
         }
