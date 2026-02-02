@@ -2,6 +2,11 @@
 
 # dependencies
 /node_modules
+**/node_modules
+tests/api-test/node_modules/
+tests/api-test/output/
+tests/AgentTests/bin/
+tests/AgentTests/obj/
 /.pnp
 .pnp.js
 
@@ -25,3 +30,15 @@ yarn-error.log*
 .vs/*
 .vs/treasure-island/v17/DocumentLayout.backup.json
 .vs/treasure-island/v17/DocumentLayout.json
+
+# Claude Code / OMC local files
+.claude/
+.omc/
+*.bak
+CLAUDE.md
+
+# Reference files
+TREASALL.CPP
+
+# Local config
+swa-cli.config.json

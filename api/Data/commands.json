@@ -1,0 +1,438 @@
+{
+  "version": "1.0",
+  "description": "Command reference for the Treasure Island text adventure game. Use this to interpret player intent and map natural language to valid game commands.",
+  "instructions": "When parsing player input, identify the intent and map it to the most appropriate command. Extract any required parameters (like item names or directions). Return the command in the format: 'command parameter' (e.g., 'take letter', 'north', 'kill dracula').",
+  "commands": [
+    {
+      "command": "startup",
+      "aliases": [],
+      "parameters": [],
+      "description": "Initialize the game engine and load world data. This is called automatically when starting the game.",
+      "examples": ["startup"],
+      "category": "system"
+    },
+    {
+      "command": "new",
+      "aliases": ["start", "restart", "begin"],
+      "parameters": [],
+      "description": "Start a new game from the beginning, resetting all progress.",
+      "examples": ["new"],
+      "category": "system"
+    },
+    {
+      "command": "look",
+      "aliases": ["l", "examine room", "look around", "where am i"],
+      "parameters": [],
+      "description": "Look around the current location to see its description, available exits, and items present.",
+      "examples": ["look", "look around"],
+      "category": "exploration"
+    },
+    {
+      "command": "north",
+      "aliases": ["n", "go north", "walk north", "move north"],
+      "parameters": [],
+      "description": "Move north from the current location if an exit exists in that direction.",
+      "examples": ["north", "go north", "n"],
+      "category": "movement"
+    },
+    {
+      "command": "south",
+      "aliases": ["s", "go south", "walk south", "move south"],
+      "parameters": [],
+      "description": "Move south from the current location if an exit exists in that direction.",
+      "examples": ["south", "go south", "s"],
+      "category": "movement"
+    },
+    {
+      "command": "east",
+      "aliases": ["e", "go east", "walk east", "move east"],
+      "parameters": [],
+      "description": "Move east from the current location if an exit exists in that direction.",
+      "examples": ["east", "go east", "e"],
+      "category": "movement"
+    },
+    {
+      "command": "west",
+      "aliases": ["w", "go west", "walk west", "move west"],
+      "parameters": [],
+      "description": "Move west from the current location if an exit exists in that direction.",
+      "examples": ["west", "go west", "w"],
+      "category": "movement"
+    },
+    {
+      "command": "up",
+      "aliases": ["u", "go up", "climb up", "ascend"],
+      "parameters": [],
+      "description": "Move up (climb stairs, ladder, etc.) if an exit exists in that direction.",
+      "examples": ["up", "go up", "climb"],
+      "category": "movement"
+    },
+    {
+      "command": "down",
+      "aliases": ["d", "go down", "climb down", "descend"],
+      "parameters": [],
+      "description": "Move down (descend stairs, ladder, etc.) if an exit exists in that direction.",
+      "examples": ["down", "go down", "descend"],
+      "category": "movement"
+    },
+    {
+      "command": "left",
+      "aliases": ["go left", "turn left", "move left"],
+      "parameters": [],
+      "description": "Move left relative to the direction the player is facing.",
+      "examples": ["left", "go left"],
+      "category": "movement"
+    },
+    {
+      "command": "right",
+      "aliases": ["go right", "turn right", "move right"],
+      "parameters": [],
+      "description": "Move right relative to the direction the player is facing.",
+      "examples": ["right", "go right"],
+      "category": "movement"
+    },
+    {
+      "command": "ahead",
+      "aliases": ["forward", "go ahead", "go forward", "move forward", "straight"],
+      "parameters": [],
+      "description": "Move forward in the direction the player is currently facing.",
+      "examples": ["ahead", "forward", "go straight"],
+      "category": "movement"
+    },
+    {
+      "command": "behind",
+      "aliases": ["back", "go back", "turn around", "backward"],
+      "parameters": [],
+      "description": "Move backward (opposite to the direction the player is facing).",
+      "examples": ["behind", "go back", "turn around"],
+      "category": "movement"
+    },
+    {
+      "command": "take",
+      "aliases": ["get", "grab", "pick up", "pickup", "collect"],
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "description": "The name of the item to pick up from the current location."
+        }
+      ],
+      "description": "Pick up an item from the current location and add it to your inventory.",
+      "examples": ["take letter", "get matches", "pick up coal", "grab lamp"],
+      "category": "inventory"
+    },
+    {
+      "command": "drop",
+      "aliases": ["put down", "leave", "discard"],
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "description": "The name of the item to drop from your inventory."
+        }
+      ],
+      "description": "Drop an item from your inventory at the current location.",
+      "examples": ["drop letter", "put down matches", "leave coal"],
+      "category": "inventory"
+    },
+    {
+      "command": "examine",
+      "aliases": ["read", "inspect", "look at", "check", "study"],
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "description": "The name of the item to examine."
+        }
+      ],
+      "description": "Examine an item closely to get more details about it. Some items reveal secrets or clues when examined.",
+      "examples": ["examine letter", "read notice", "look at painting", "inspect chest"],
+      "category": "exploration"
+    },
+    {
+      "command": "buy",
+      "aliases": ["purchase"],
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "description": "The name of the item to purchase."
+        }
+      ],
+      "description": "Buy an item from a shop or vendor. Requires being at a location that sells items and having enough money.",
+      "examples": ["buy ticket", "purchase danish", "buy balloon ticket"],
+      "category": "commerce"
+    },
+    {
+      "command": "pawn",
+      "aliases": ["sell"],
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "description": "The name of the item to pawn/sell."
+        }
+      ],
+      "description": "Sell an item at the pawn shop for money. Must be at the pawn shop location.",
+      "examples": ["pawn pearl", "sell ring", "pawn necklace"],
+      "category": "commerce"
+    },
+    {
+      "command": "steal",
+      "aliases": ["borrow", "rob"],
+      "parameters": [
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "What to steal from (e.g., 'bank')."
+        }
+      ],
+      "description": "Attempt to steal money from the bank. This is risky and may have consequences.",
+      "examples": ["steal", "rob bank", "borrow money"],
+      "category": "commerce"
+    },
+    {
+      "command": "save",
+      "aliases": ["save game"],
+      "parameters": [
+        {
+          "name": "slot",
+          "type": "number",
+          "required": false,
+          "description": "The save slot number (1-9). If not specified, uses the next available slot."
+        }
+      ],
+      "description": "Save the current game progress to a save slot.",
+      "examples": ["save", "save 1", "save game"],
+      "category": "system"
+    },
+    {
+      "command": "load",
+      "aliases": ["load game", "restore"],
+      "parameters": [
+        {
+          "name": "slot",
+          "type": "number",
+          "required": true,
+          "description": "The save slot number to load from."
+        }
+      ],
+      "description": "Load a previously saved game from a save slot.",
+      "examples": ["load 1", "load game 2", "restore 1"],
+      "category": "system"
+    },
+    {
+      "command": "delete",
+      "aliases": ["delete save", "remove save"],
+      "parameters": [
+        {
+          "name": "slot",
+          "type": "number",
+          "required": true,
+          "description": "The save slot number to delete."
+        }
+      ],
+      "description": "Delete a saved game from a save slot.",
+      "examples": ["delete 1", "delete save 2"],
+      "category": "system"
+    },
+    {
+      "command": "help",
+      "aliases": ["h", "hint", "?"],
+      "parameters": [],
+      "description": "Get help or hints about the current location or situation.",
+      "examples": ["help", "hint", "?"],
+      "category": "system"
+    },
+    {
+      "command": "embellish",
+      "aliases": ["toggle embellish", "ai descriptions"],
+      "parameters": [],
+      "description": "Toggle AI-embellished descriptions on or off. When on, location descriptions are enhanced with additional atmospheric details.",
+      "examples": ["embellish"],
+      "category": "system"
+    },
+    {
+      "command": "sleep",
+      "aliases": ["go to sleep", "nap"],
+      "parameters": [],
+      "description": "Sleep to pass time. Advances the game clock by several hours. Must be in an appropriate location (like a cabin or bedroom).",
+      "examples": ["sleep", "go to sleep"],
+      "category": "action"
+    },
+    {
+      "command": "rest",
+      "aliases": ["take a break", "relax"],
+      "parameters": [],
+      "description": "Rest briefly to pass a small amount of time.",
+      "examples": ["rest", "take a break"],
+      "category": "action"
+    },
+    {
+      "command": "dig",
+      "aliases": ["dig hole", "excavate"],
+      "parameters": [],
+      "description": "Dig at the current location. Requires a shovel in your inventory. Some locations have buried items or secrets.",
+      "examples": ["dig", "dig hole"],
+      "category": "action"
+    },
+    {
+      "command": "pray",
+      "aliases": ["worship"],
+      "parameters": [],
+      "description": "Pray at the current location. May have special effects at certain locations like churches.",
+      "examples": ["pray", "worship"],
+      "category": "action"
+    },
+    {
+      "command": "fortune",
+      "aliases": ["tell fortune", "read fortune"],
+      "parameters": [],
+      "description": "Have your fortune told. Must be at the fortune teller's location.",
+      "examples": ["fortune", "tell fortune"],
+      "category": "action"
+    },
+    {
+      "command": "kill",
+      "aliases": ["stake", "attack", "slay"],
+      "parameters": [
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "The target to kill (e.g., 'dracula', 'vampire'). Currently only Dracula can be killed."
+        }
+      ],
+      "description": "Attack and kill an enemy. To kill Dracula, you need a wooden stake and hammer, must be in the Coffin Room, and it must be daytime (6am-8pm).",
+      "examples": ["kill dracula", "stake vampire", "kill"],
+      "category": "combat"
+    },
+    {
+      "command": "light",
+      "aliases": ["burn", "ignite", "set fire to"],
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "description": "The item to light (e.g., 'coal', 'matches')."
+        }
+      ],
+      "description": "Light something on fire. To light coal, you need matches (that aren't wet) and must be in the West Ice Cave. Lighting coal melts the ice.",
+      "examples": ["light coal", "burn coal", "ignite coal", "light matches"],
+      "category": "action"
+    },
+    {
+      "command": "swim",
+      "aliases": ["swim across", "wade"],
+      "parameters": [
+        {
+          "name": "direction",
+          "type": "string",
+          "required": false,
+          "description": "The direction to swim (optional)."
+        }
+      ],
+      "description": "Swim across water. In the Fissure Room, you can swim across the fissure only after the ice has been melted and the fissure is filled with water.",
+      "examples": ["swim", "swim across", "swim west"],
+      "category": "movement"
+    },
+    {
+      "command": "drink",
+      "aliases": ["drink water", "take a drink"],
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": false,
+          "description": "What to drink from (defaults to canteen)."
+        }
+      ],
+      "description": "Drink water from your canteen. Relieves thirst, which is important in the Salt Room where you'll die without water.",
+      "examples": ["drink", "drink water", "drink from canteen"],
+      "category": "action"
+    },
+    {
+      "command": "fill",
+      "aliases": ["fill up", "refill"],
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "description": "The container to fill (e.g., 'canteen')."
+        }
+      ],
+      "description": "Fill a container with water. The canteen can be filled at a creek or in the West Ice Cave after melting ice.",
+      "examples": ["fill canteen", "fill up canteen"],
+      "category": "action"
+    },
+    {
+      "command": "rub",
+      "aliases": ["rub lamp", "use lamp"],
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "description": "The item to rub (e.g., 'lamp')."
+        }
+      ],
+      "description": "Rub Aladdin's lamp to make a wish. The lamp can only be used once and will teleport you across the fissure. Use it wisely!",
+      "examples": ["rub lamp", "rub aladdin's lamp", "use lamp"],
+      "category": "action"
+    }
+  ],
+  "categories": {
+    "system": "Commands for game management (save, load, help)",
+    "movement": "Commands for navigating between locations",
+    "exploration": "Commands for examining the environment and items",
+    "inventory": "Commands for managing items you carry",
+    "commerce": "Commands for buying, selling, and financial transactions",
+    "action": "Commands for performing actions in the game world",
+    "combat": "Commands for fighting enemies"
+  },
+  "parsingGuidelines": {
+    "itemNameNormalization": "Item names should be converted to camelCase without spaces (e.g., 'wooden stake' -> 'woodenStake', 'aladdin's lamp' -> 'aladdinsLamp').",
+    "directionSynonyms": {
+      "forward": "ahead",
+      "backward": "behind",
+      "back": "behind",
+      "straight": "ahead"
+    },
+    "commonMisspellings": {
+      "examin": "examine",
+      "pic up": "take",
+      "pickup": "take",
+      "goto": "go"
+    },
+    "naturalLanguagePatterns": [
+      {
+        "pattern": "go to the (.*)",
+        "intent": "The player wants to move. If it's a direction, use that direction command. If it's a location name, this is not directly supported - suggest using directions instead."
+      },
+      {
+        "pattern": "i want to (.*)",
+        "intent": "Extract the action from after 'i want to' and map to appropriate command."
+      },
+      {
+        "pattern": "can i (.*)",
+        "intent": "Extract the action and map to appropriate command if valid."
+      },
+      {
+        "pattern": "what is (.*)",
+        "intent": "Map to 'examine [item]' command."
+      },
+      {
+        "pattern": "where am i",
+        "intent": "Map to 'look' command."
+      }
+    ]
+  }
+}

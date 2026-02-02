@@ -282,5 +282,85 @@ namespace Erwin.Games.TreasureIsland.Models
             else
                 return "The heavens seem closed at the moment.  God answers prayers in his own time.";
         }
+
+        public bool AddMovementToLocation(SaveGameData? saveGame, Movement movement)
+        {
+            if (saveGame == null || movement == null)
+            {
+                return false;
+            }
+
+            var locationChange = saveGame.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+            if (locationChange == null)
+            {
+                if (Name == null)
+                {
+                    return false;
+                }
+                locationChange = new LocationChange(Name, saveGame.CurrentDateTime);
+                saveGame.LocationChanges?.Add(locationChange);
+            }
+
+            if (locationChange.MovementsAdded?.Any(m => m.Direction?.Any(d => movement.Direction?.Contains(d, StringComparer.OrdinalIgnoreCase) == true) == true) == true)
+            {
+                return false;
+            }
+
+            locationChange.MovementsAdded?.Add(movement);
+            return true;
+        }
+
+        public bool RemoveMovementFromLocation(SaveGameData? saveGame, string? direction)
+        {
+            if (saveGame == null || direction == null)
+            {
+                return false;
+            }
+
+            var locationChange = saveGame.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+            if (locationChange == null)
+            {
+                if (Name == null)
+                {
+                    return false;
+                }
+                locationChange = new LocationChange(Name, saveGame.CurrentDateTime);
+                saveGame.LocationChanges?.Add(locationChange);
+            }
+
+            if (locationChange.MovementsRemoved?.Contains(direction, StringComparer.OrdinalIgnoreCase) == true)
+            {
+                return false;
+            }
+
+            locationChange.MovementsRemoved?.Add(direction);
+            return true;
+        }
+
+        public List<Movement> GetCurrentMovements(SaveGameData? saveGame)
+        {
+            var stringComparer = StringComparer.OrdinalIgnoreCase;
+            var locationChange = saveGame?.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+
+            // Start with base movements
+            var currentMovements = new List<Movement>(AllowedMovements ?? new List<Movement>());
+
+            // Remove blocked movements
+            if (locationChange?.MovementsRemoved != null)
+            {
+                currentMovements = currentMovements
+                    .Where(m => !locationChange.MovementsRemoved.Any(removed =>
+                        m.Direction?.Contains(removed, stringComparer) == true))
+                    .ToList();
+            }
+
+            // Add dynamic movements
+            if (locationChange?.MovementsAdded != null)
+            {
+                currentMovements.AddRange(locationChange.MovementsAdded);
+            }
+
+            return currentMovements;
+        }
     }
 }

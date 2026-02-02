@@ -72,6 +72,21 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new RestCommand(saveGameData, commandName);
                 case "sleep":
                     return new SleepCommand(saveGameData);
+                case "kill":
+                case "stake":  // alias for kill dracula
+                    return new KillDraculaCommand(saveGameData, commandParam);
+                case "light":
+                case "burn":
+                case "ignite":
+                    return new LightCommand(saveGameData, repository, commandParam);
+                case "swim":
+                    return new SwimCommand(saveGameData, repository, commandParam);
+                case "drink":
+                    return new DrinkCommand(saveGameData, commandParam);
+                case "fill":
+                    return new FillCommand(saveGameData, commandParam);
+                case "rub":
+                    return new RubCommand(saveGameData, commandParam);
                 default:
                     return new UnknownCommand(saveGameData, repository, commandRemainder);
             }

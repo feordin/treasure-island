@@ -33,7 +33,31 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             // check the current location
             var currentLocation = WorldData.Instance.GetLocation(_saveGameData?.CurrentLocation);
+
+            // Check if this direction is blocked by removed movements
+            var locationChange = _saveGameData?.LocationChanges?.FirstOrDefault(l => l.Name == currentLocation?.Name);
+            if (locationChange?.MovementsRemoved?.Contains(_direction, StringComparer.OrdinalIgnoreCase) == true)
+            {
+                if (_saveGameData != null)
+                    _saveGameData.CurrentDateTime = _saveGameData.CurrentDateTime + new TimeSpan(0, 1, 0);
+
+                return new ProcessCommandResponse(
+                    "You try to go " + _direction + ", " + "but the path is blocked.\n\n" + (currentLocation != null ? await currentLocation.GetDescription(_saveGameData) : string.Empty),
+                    _saveGameData,
+                    currentLocation?.Image,
+                    currentLocation?.Description,
+                    null);
+            }
+
+            // Try to find movement in base allowed movements first
             var movement = currentLocation?.AllowedMovements?.FirstOrDefault(m => m.Direction?.Contains(_direction) == true);
+
+            // If not found, check for dynamically added movements
+            if (movement == null)
+            {
+                movement = locationChange?.MovementsAdded?.FirstOrDefault(m => m.Direction?.Contains(_direction, StringComparer.OrdinalIgnoreCase) == true);
+            }
+
             var newLocation = WorldData.Instance.GetLocation(movement?.Destination);
 
             var cardinalDirections = new string[] {"north","south", "east", "west"};

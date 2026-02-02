@@ -1288,6 +1288,1929 @@
           "TimeToMove": 10
         }
       ]
+    },
+    {
+      "Name": "Volcano",
+      "Description": "You are standing on the rim of a giant volcano. There is much steam rising from the crater. You can see a huge hole in the ground just inside the crater which seems to go down a long way.",
+      "Items": [],
+      "image": "volcano.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "ZigZagTrail",
+          "TimeToMove": 10
+        }
+      ]
+    },
+    {
+      "Name": "GentleSlope",
+      "Description": "You are on a gentle downhill slope. To the north is a grassy plateau. To the east and west is more of the same dense jungle. And to the south is jungle but if you go down, you can find a creek.",
+      "Items": [],
+      "image": "gentleslope.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "GrassyPlateau",
+          "TimeToMove": 30
+        },
+        {
+          "Direction": [
+            "down"
+          ],
+          "Destination": "Creek",
+          "TimeToMove": 10
+        },
+        {
+          "Direction": [
+            "east",
+            "west",
+            "south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
+        }
+      ]
+    },
+    {
+      "Name": "Creek",
+      "Description": "You are at a creek full of water. To the north is a gentle downhill slope. To the east and west is more of the same dense jungle. To the south is the south side of the creek. There is a jungle vine here.",
+      "Items": ["jungleVine"],
+      "image": "creek.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "GentleSlope",
+          "TimeToMove": 10
+        },
+        {
+          "Direction": [
+            "east",
+            "west"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
+        }
+      ],
+      "AllowedCommands": ["grab vine", "take vine"]
+    },
+    {
+      "Name": "SouthCreek",
+      "Description": "You are on the south side of a creek full of water. To the north is the creek. To the east and west is more of the same dense jungle. To the south is a large clearing. There is a jungle vine here.",
+      "Items": ["jungleVine"],
+      "image": "southcreek.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "LargeClearing",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east",
+            "west"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
+        }
+      ],
+      "AllowedCommands": ["grab vine", "take vine"]
+    },
+    {
+      "Name": "LargeClearing",
+      "Description": "You are in a large clearing. To the north is the south side of a creek. To the east and south is more of the same dense jungle. To the west is the yard of a mansion. It looks old but seems to be in good shape.",
+      "Items": [],
+      "image": "largeclearing.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "SouthCreek",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "MansionYard",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east",
+            "south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
+        }
+      ]
+    },
+    {
+      "Name": "MansionYard",
+      "Description": "You are the yard of the mansion. To the north and south is dense jungle. To the east is a large clearing. To the west is the front porch of the mansion. There is a gate across the path that leads to the porch.",
+      "Items": [],
+      "image": "mansionyard.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "LargeClearing",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "MansionPorch",
+          "TimeToMove": 2
+        },
+        {
+          "Direction": [
+            "north",
+            "south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
+        }
+      ],
+      "AllowedCommands": ["open gate"]
+    },
+    {
+      "Name": "MansionPorch",
+      "Description": "You are the porch of the mansion. To the north and south is dense jungle. To the east is the front yard. To the west is the open front door of the mansion.",
+      "Items": [],
+      "image": "mansionporch.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "MansionYard",
+          "TimeToMove": 2
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "EastHall",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "north",
+            "south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
+        }
+      ]
+    },
+    {
+      "Name": "EastHall",
+      "Description": "You are at the east end of a hallway. To the north is a sitting room. To the east is the porch. To the south is the pantry. To the west is the west end of that hallway. Above you is a stairway that leads up to the second floor.",
+      "Items": [],
+      "image": "easthall.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "SittingRoom",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "Pantry",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "MansionPorch",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "WestHall",
+          "TimeToMove": 2
+        },
+        {
+          "Direction": [
+            "up"
+          ],
+          "Destination": "Landing",
+          "TimeToMove": 3
+        }
+      ]
+    },
+    {
+      "Name": "WestHall",
+      "Description": "You are at the west end of a hallway. To the north is the library. To the east is the east end of the hallway. To the south is the kitchen.",
+      "Items": [],
+      "image": "westhall.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "Library",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "Kitchen",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "EastHall",
+          "TimeToMove": 2
+        }
+      ]
+    },
+    {
+      "Name": "Pantry",
+      "Description": "You in the pantry. To the north is the east end of the hallway. To the west is the kitchen.",
+      "Items": ["matches"],
+      "image": "pantry.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "EastHall",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "Kitchen",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "SittingRoom",
+      "Description": "You in the sitting room. To the south is the east end of the hallway. To the west is the kitchen. There is a safe here but the door is closed. Inside is money and it is worth 100 points to you if you can figure out how to get the combination to the safe.",
+      "Items": ["safe"],
+      "image": "sittingroom.png",
+      "Help": "The combination is not available in the mansion.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "EastHall",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "Kitchen",
+          "TimeToMove": 1
+        }
+      ],
+      "AllowedCommands": ["open safe"]
+    },
+    {
+      "Name": "Kitchen",
+      "Description": "You are in the kitchen. To the north is the west hallway. To the east is pantry. To the south is the maids quarters. To the west is the back yard.",
+      "Items": ["flashlight"],
+      "image": "kitchen.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "WestHall",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Pantry",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "MaidsQuarters",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "Backyard",
+          "TimeToMove": 2
+        }
+      ]
+    },
+    {
+      "Name": "MaidsQuarters",
+      "Description": "You are in the maids quarters. To the north is the kitchen. It seems the maid collects old coins because these are from the 19th century and are worth 50 points to you.",
+      "Items": ["coins"],
+      "image": "maidsquarters.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "Kitchen",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "Library",
+      "Description": "You are in the library. To the north is the trophy room. To the east is sitting room. To the south is the west hallway. To the west is the hidden room.",
+      "Items": [],
+      "image": "library.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "TrophyRoom",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "SittingRoom",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "WestHall",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "HiddenRoom",
+          "TimeToMove": 1
+        }
+      ],
+      "AllowedCommands": ["take book"]
+    },
+    {
+      "Name": "TrophyRoom",
+      "Description": "You are in the trophy room. To the north is the office. To the the south is the library. There are a number of stuffed dead animals mounted on the wall.",
+      "Items": ["deadBlackCat", "rustyRifle"],
+      "image": "trophyroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "Office",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "Library",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "Office",
+      "Description": "You are in the office. To the south is the trophy room. There is a treasure here worth 100 points.",
+      "Items": ["stocksAndBonds"],
+      "image": "office.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "TrophyRoom",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "HiddenRoom",
+      "Description": "By a stroke of extreme luck, you discover this hidden room. It was because you took a book off the shelf in the library. To the east is the library. And to the south is a secret passage that you are dying to explore. Who knows where it leads?",
+      "Items": [],
+      "image": "hiddenroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Library",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "SecretPassage",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "Backyard",
+      "Description": "You are now in the back yard. To the east is the kitchen. To the west is the tool shed. There are several things there that you will need at various times as you explore Treasure Island.",
+      "Items": [],
+      "image": "backyard.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Kitchen",
+          "TimeToMove": 2
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "ToolShed",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "ToolShed",
+      "Description": "You are in the tool shed. To the east is the back yard. There are several things here that you will need.",
+      "Items": ["woodenStake", "hammer", "shovel"],
+      "image": "toolshed.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Backyard",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "Landing",
+      "Description": "You are on a landing at the top of the stairway. To the west is a hallway. There is a stairway that goes up to the attic. And the stairway you just came up goes back down to the first floor.",
+      "Items": [],
+      "image": "landing.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "UpstairsHall",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "up"
+          ],
+          "Destination": "Attic",
+          "TimeToMove": 2
+        },
+        {
+          "Direction": [
+            "down"
+          ],
+          "Destination": "EastHall",
+          "TimeToMove": 3
+        }
+      ]
+    },
+    {
+      "Name": "Attic",
+      "Description": "You are in the attic. There is a stairway that goes down to the landing. There is a lot of junk here but your eagle eye spots something that you recognize. You can see that this painting is of Whistler's Father and while worth millions, it will bring you 400 points in this game.",
+      "Items": ["pricelessPainting"],
+      "image": "attic.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "down"
+          ],
+          "Destination": "Landing",
+          "TimeToMove": 2
+        }
+      ]
+    },
+    {
+      "Name": "UpstairsHall",
+      "Description": "You are in the upstairs hallway. To the north is the master bedroom. To the south is the slippery room. Beware of the slippery room because it steals all your possessions. To the east is the second floor landing.",
+      "Items": [],
+      "image": "upstairshall.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "MasterBedroom",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "SlipperyRoom",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Landing",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "MasterBedroom",
+      "Description": "You are in the master bedroom. It appears that no one has slept here for many years. To the south is the hall. To the west is coffin room.",
+      "Items": [],
+      "image": "masterbedroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "UpstairsHall",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "CoffinRoom",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "CoffinRoom",
+      "Description": "You are in the coffin room. The coffin is open and you can see the body of Count Dracula lying there. You suddenly realize that he is vulnerable and must be killed immediately. To do that requires a wooden stake and a hammer to drive it down into his chest. To the south is the chain room. To the east is the master bedroom. But suddenly, with a tremendous roar, a huge steel door crashes down between you and the master bedroom, permanently blocking your way there.",
+      "Items": ["coffin"],
+      "image": "coffinroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "ChainRoom",
+          "TimeToMove": 1
+        }
+      ],
+      "AllowedCommands": ["kill dracula"],
+      "Actions": ["Dracula"]
+    },
+    {
+      "Name": "ChainRoom",
+      "Description": "You are in the chain room. To the north is the coffin room. To the south is the bone room. To the west is the balcony over the back yard. You see that all around the room are chains attached to the walls.",
+      "Items": [],
+      "image": "chainroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "CoffinRoom",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "BoneRoom",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "Balcony",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "Balcony",
+      "Description": "You are on the balcony over the back yard. To the east is the chain room. If you are carrying anything there is something that you must do here to avoid losing it in the slippery room when you go through there.",
+      "Items": [],
+      "image": "balcony.png",
+      "Help": "Throw items down to the backyard to save them from the slippery room.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "ChainRoom",
+          "TimeToMove": 1
+        }
+      ],
+      "AllowedCommands": ["throw ring", "throw painting"]
+    },
+    {
+      "Name": "BoneRoom",
+      "Description": "You are in the bone room. There is a skeleton here leaning against the west wall. You immediately recognize Uncle Hermans ruby ring on one of the fingers. To the north is the chain room and to the east is the slippery room. Beware of the slippery room because it will steal everything that you are carrying. The ruby ring is worth 150 points.",
+      "Items": ["rubyRing"],
+      "image": "boneroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "ChainRoom",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "SlipperyRoom",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "SlipperyRoom",
+      "Description": "You are in the slippery room. Unfortunately, it steals anything and everything that you are carrying. There is no way to recover any of these items. To the north is the hall. To the west is the bone room.",
+      "Items": [],
+      "image": "slipperyroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "UpstairsHall",
+          "TimeToMove": 1
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "BoneRoom",
+          "TimeToMove": 1
+        }
+      ],
+      "Actions": ["SlipperyRoom"]
+    },
+    {
+      "Name": "NativeVillage",
+      "Description": "You are in the native village of headhunters. To the north is the edge of a clearing. To the south is a north-south path. The natives see the dead black cat that you are carrying and run away in fear. You suddenly observe that there is a stone idol here that they worship and around its neck is an emerald necklace. It is worth 150 points.",
+      "Items": ["emeraldNecklace"],
+      "image": "nativevillage.png",
+      "Help": "You need the dead black cat or the natives will kill you.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "EdgeOfClearing",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "NorthSouthPath",
+          "TimeToMove": 5
+        }
+      ],
+      "Actions": ["NativeVillage"]
+    },
+    {
+      "Name": "NorthSouthPath",
+      "Description": "You are on a north-south path through the jungle.",
+      "Items": [],
+      "image": "northsouthpath.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "NativeVillage",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "RescueBeach",
+          "TimeToMove": 10
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Cavern",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "RescueBeach",
+      "Description": "You are on rescue beach. To the north, east, and south is jungle. To the west is the north-south path. This place extremely important to you because this is the spot where you must drop all of the treasures, one at a time, to gain points for your score. Points will not be awarded until dropped here. Also, there is a treasure buried here but you need a shovel to dig for it.",
+      "Items": [],
+      "image": "rescuebeach.png",
+      "Help": "This is where you drop treasures to score points. Try digging if you have a shovel.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "NorthSouthPath",
+          "TimeToMove": 10
+        },
+        {
+          "Direction": [
+            "north",
+            "east",
+            "south"
+          ],
+          "Destination": "DenseJungle",
+          "TimeToMove": 20
+        }
+      ],
+      "AllowedCommands": ["dig"]
+    },
+    {
+      "Name": "Cavern",
+      "Description": "You are in a cavern. To the west is the north-south path. To the east is the east end of a wild boar's den. It is dark here and if you have the flashlight, you better turn it on.",
+      "Items": [],
+      "image": "cavern.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "NorthSouthPath",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "EastBoarDen",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "EastBoarDen",
+      "Description": "You are in the east wild boar room. To the east is a cavern. To the west is the west wild boar room. The boar is very ferocious and may cause you trouble if he appears. It is dark here.",
+      "Items": [],
+      "image": "boarden.png",
+      "Help": "The boar loves donuts. If you have some, he will eat them and leave you alone.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "WestBoarDen",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Cavern",
+          "TimeToMove": 5
+        }
+      ],
+      "Actions": ["Boar"]
+    },
+    {
+      "Name": "Ocean",
+      "Description": "You are standing at the edge of the ocean. The water stretches out before you.",
+      "Items": [],
+      "image": "ocean.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "WharfRoad",
+          "TimeToMove": 1
+        }
+      ]
+    },
+    {
+      "Name": "SecretPassage",
+      "Description": "You are in a secret passage at the top of a stairway. To the north is the hidden room. Down below you is the west cellar.",
+      "Items": [],
+      "image": "secretpassage.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "HiddenRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "down"
+          ],
+          "Destination": "WestCellar",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "WestCellar",
+      "Description": "You are in the west cellar of the mansion. To the east is the east cellar. Above you is a long stairway leading up to the secret passage. It is dark here.",
+      "Items": [],
+      "image": "westcellar.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "EastCellar",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "up"
+          ],
+          "Destination": "SecretPassage",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "EastCellar",
+      "Description": "You are in the east cellar of the mansion. To the west is the west cellar. To the south is a tunnel leading into a vast underground system of caverns. There is something here that you will need but it is currently empty. It is dark here.",
+      "Items": ["canteen"],
+      "image": "eastcellar.png",
+      "Help": "You will need to fill the canteen with water. But finding it underground will take some doing.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "Tunnel1",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "WestCellar",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "Tunnel1",
+      "Description": "You are in a tunnel that leads deep into the ground. To the north is the east cellar. To the south is a low crawl. It is dark here and if you have the flashlight, you better turn it on.",
+      "Items": [],
+      "image": "tunnel1.png",
+      "Help": "You cannot pass through the low crawl if carrying the shovel - it is too large.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "EastCellar",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "LowCrawl",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "LowCrawl",
+      "Description": "You are in a low crawl. To the north is the tunnel. To the east is a high place. It is dark here.",
+      "Items": [],
+      "image": "lowcrawl.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "Tunnel1",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "HighPlace",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "HighPlace",
+      "Description": "You are in a high place. To the east is a circular cavern. To the south is a jagged cavern. To the west is a low crawl. It is dark here.",
+      "Items": [],
+      "image": "highplace.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "JaggedCavern",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "CircularCavern",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "LowCrawl",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "CircularCavern",
+      "Description": "You are in a circular cavern. To the north is a tunnel. To the west is a high place. It is dark here.",
+      "Items": [],
+      "image": "circularcavern.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "Tunnel2",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "HighPlace",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "Tunnel2",
+      "Description": "You are in a tunnel. To the north is a rail switch. To the south is a circular cavern. It is dark here.",
+      "Items": [],
+      "image": "tunnel2.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "RailSwitch",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "CircularCavern",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "RailSwitch",
+      "Description": "You are at a rail switch. To the north is a dead end shaft. To the east is northeast fork. To the south is a tunnel. There is a sign here that reads: We always wanted to put a rail system in here but ran out of money. It is dark here.",
+      "Items": [],
+      "image": "railswitch.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "DeadendShaft",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "Tunnel2",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "NortheastFork",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "DeadendShaft",
+      "Description": "You are at deadend shaft. To the south is rail switch. There is a small rusty locomotive here. And there is a sign here that reads: We regret abandoning this underground rail system in here but we just ran out of money. It is dark here.",
+      "Items": [],
+      "image": "deadendshaft.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "RailSwitch",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "NortheastFork",
+      "Description": "You are at northeast fork. To the east is angle bend. To the west is rail switch. It is dark here.",
+      "Items": [],
+      "image": "northeastfork.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "AngleBend",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "RailSwitch",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "AngleBend",
+      "Description": "You are at angle bend. To the west is northeast fork. There is some dynamite here. It is dark here.",
+      "Items": ["dynamite"],
+      "image": "anglebend.png",
+      "Help": "Do not touch the dynamite!",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "NortheastFork",
+          "TimeToMove": 5
+        }
+      ],
+      "Actions": ["DynamiteDeath"]
+    },
+    {
+      "Name": "JaggedCavern",
+      "Description": "You are in a jagged cavern. To the north is the high place. To the east is the clean room. To the west is the fissure room. It is dark here.",
+      "Items": [],
+      "image": "jaggedcavern.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "HighPlace",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "CleanRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "FissureRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "CleanRoom",
+      "Description": "You are in the clean room. To the north is a dusty passage. To the west is the jagged cavern. It is dark here.",
+      "Items": [],
+      "image": "cleanroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "DustyPassage",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "JaggedCavern",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "DustyPassage",
+      "Description": "You are in a dusty passage. To the north is the steam room. To the south is the clean room. It is dark here.",
+      "Items": [],
+      "image": "dustypassage.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "SteamRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "CleanRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "SteamRoom",
+      "Description": "You are in the steam room. To the north is the rainbow room. To the east is the bamboo room. To the south is the dusty passage. To the west is a large cavern. There is a lot of steam everywhere here. It is dark here.",
+      "Items": [],
+      "image": "steamroom.png",
+      "Help": "If your matches are wet, get some more because you will need them. And avoid the steam room until you use them.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "RainbowRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "DustyPassage",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "BambooRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "LargeCavern",
+          "TimeToMove": 5
+        }
+      ],
+      "Actions": ["SteamRoom"]
+    },
+    {
+      "Name": "RainbowRoom",
+      "Description": "You are in the rainbow room. To the east is the east rainbow room. To the south is the steam room. A sign here says: Once a native looked up through a hole in the ceiling here and he saw a rainbow in the sky. But an earthquake later filled in the hole so that the sky can no longer be seen. It is dark here.",
+      "Items": [],
+      "image": "rainbowroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "EastRainbowRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "SteamRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "EastRainbowRoom",
+      "Description": "You are in the east rainbow room. To the west is the rainbow room. There is a sign here that says: Once a native looked up through a hole in the ceiling here and he saw a rainbow in the sky. But an earthquake later filled in the hole so that the sky can no longer be seen. It is dark here.",
+      "Items": [],
+      "image": "eastrainbowroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "RainbowRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "BambooRoom",
+      "Description": "You are in the bamboo room. To the east is the mushroom room. To the west is the steam room. It is dark here.",
+      "Items": [],
+      "image": "bambooroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "MushroomRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "SteamRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "MushroomRoom",
+      "Description": "You are in the mushroom room. To the north is the small room. To the west is the bamboo room. There are a number of mushrooms growing here and you suddenly realize that you are hungry. It is dark here.",
+      "Items": ["mushrooms"],
+      "image": "mushroomroom.png",
+      "Help": "Do not eat the mushrooms - they are poisonous!",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "SmallRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "BambooRoom",
+          "TimeToMove": 5
+        }
+      ],
+      "Actions": ["MushroomDeath"]
+    },
+    {
+      "Name": "SmallRoom",
+      "Description": "You are in the small room. To the south is the mushroom room. There is a parrot chained to the wall by one leg and he begins to talk in numbers that he repeats over and over. You suddenly realize that the numbers sound like the combination to a safe, so you memorize them. It is dark here.",
+      "Items": [],
+      "image": "smallroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "MushroomRoom",
+          "TimeToMove": 5
+        }
+      ],
+      "Actions": ["ParrotCombination"]
+    },
+    {
+      "Name": "LargeCavern",
+      "Description": "You are in a large cavern. To the east is the steam room. To the west is a historical marker. It is dark here.",
+      "Items": [],
+      "image": "largecavern.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "SteamRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "HistoricalMarker",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "HistoricalMarker",
+      "Description": "You are at a historical marker. To the north is a battlefield. To the east is a large cavern. To the west is goblin valley. There is a sign here that says: Beware of the battlefield because there are unexploded mines there. It is dark here.",
+      "Items": [],
+      "image": "historicalmarker.png",
+      "Help": "Do not go to the battlefield!",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "Battlefield",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "LargeCavern",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "GoblinValley",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "Battlefield",
+      "Description": "You are on a battlefield. There are unexploded mines here. Before you can say: OOPS, one of them goes off and you are blown to bits. Game Over.",
+      "Items": [],
+      "image": "battlefield.png",
+      "Help": "no",
+      "AllowedMovements": [],
+      "Actions": ["BattlefieldDeath"]
+    },
+    {
+      "Name": "GoblinValley",
+      "Description": "You are at goblin valley. To the north is the tv room. To the east is a historical marker. There is a treasure here worth 300 points once you drop it at rescue beach. It is dark here.",
+      "Items": ["goblinTreasure"],
+      "image": "goblinvalley.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "TVRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "HistoricalMarker",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "TVRoom",
+      "Description": "You are in the tv room. To the south is goblin valley. There are reruns of I Love Lucy on the tv set. It is dark here.",
+      "Items": [],
+      "image": "tvroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "GoblinValley",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "WestBoarDen",
+      "Description": "You are in the west wild boar room. To the east is the east wild boar room. To the south is the stalactite room. The boar is ferocious and may cause you trouble if he appears. It is dark here.",
+      "Items": [],
+      "image": "westboarden.png",
+      "Help": "The boar loves donuts. If you have some, he will eat them and leave you alone.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "StalactiteRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "EastBoarDen",
+          "TimeToMove": 5
+        }
+      ],
+      "Actions": ["Boar"]
+    },
+    {
+      "Name": "StalactiteRoom",
+      "Description": "You are in the stalactite room. To the east is sandstone. To the north is the west wild boar room. It is dark here.",
+      "Items": [],
+      "image": "stalactiteroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "WestBoarDen",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "Sandstone",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "Sandstone",
+      "Description": "You are at sandstone. To the north is the arabian room. To the south is dead mans gulch. To the west is stalactite. It is dark here.",
+      "Items": [],
+      "image": "sandstone.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "ArabianRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "DeadmansGulch",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "StalactiteRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "DeadmansGulch",
+      "Description": "You are at deadmans gulch. To the north is sandstone. There is a treasure here worth 200 points on rescue beach. It is dark here.",
+      "Items": ["deadmansTreasure"],
+      "image": "deadmansgulch.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "Sandstone",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "ArabianRoom",
+      "Description": "You are in the arabian room. To the north is the east end of an ice cave. To the south is sandstone. There is a very old and curious lamp here. I suspect it may have belonged to a person called Aladdin. And it is worth 300 points on rescue beach. It is dark here.",
+      "Items": ["aladdinsLamp"],
+      "image": "arabianroom.png",
+      "Help": "Aladdin's lamp can only be used once.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "EastIceCave",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "Sandstone",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "EastIceCave",
+      "Description": "You are in the east end of an ice cave. To the east is a windy passage. To the south is the arabian room. To the west is the west end of this ice cave. It is dark here.",
+      "Items": [],
+      "image": "easticecave.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "WindyPassage",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "ArabianRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "WestIceCave",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "WindyPassage",
+      "Description": "You are in a windy passage. To the north is sulphur springs. To the west is the east end of an ice cave. It is dark here.",
+      "Items": [],
+      "image": "windypassage.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "SulphurSprings",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "EastIceCave",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "SulphurSprings",
+      "Description": "You are at sulphur springs. To the north is the chimney room. To the south is the windy passage. It is dark here.",
+      "Items": [],
+      "image": "sulphursprings.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "ChimneyRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "WindyPassage",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "ChimneyRoom",
+      "Description": "You are in the chimney room. To the south is sulphur springs. To the west is bubbling cauldron. Be careful there because it is very hot. The room in which you now stand is like a huge chimney that goes up out of sight. It looks like it may even go all the way to the top of the volcano. You will need this shovel elsewhere. It is dark here.",
+      "Items": ["caveShovel"],
+      "image": "chimneyroom.png",
+      "Help": "There is a sneaky method to get the shovel out of the caverns at the end.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "SulphurSprings",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "BubblingCauldron",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "BubblingCauldron",
+      "Description": "You are in bubbling cauldron. This is the bottom of the volcano crater and it is full of molten lava. It is so hot that you die immediately. Game Over.",
+      "Items": [],
+      "image": "bubblingcauldron.png",
+      "Help": "no",
+      "AllowedMovements": [],
+      "Actions": ["LavaDeath"]
+    },
+    {
+      "Name": "WestIceCave",
+      "Description": "You are in the west ice cave. To the north is the salt room. To the east is the east end of this cave. To the south is a sloping corridor. There are two things you must do here. Both involve matches. It is dark here.",
+      "Items": [],
+      "image": "westicecave.png",
+      "Help": "Use matches here for something important.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "SaltRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "SlopingCorridor",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "EastIceCave",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "SlopingCorridor",
+      "Description": "You are in a sloping corridor. To the north is the west ice cave. To the south is the fissure room. It is dark here.",
+      "Items": [],
+      "image": "slopingcorridor.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "WestIceCave",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "FissureRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "FissureRoom",
+      "Description": "You are in the fissure room. To the north is a sloping corridor. To the east is a jagged cavern. To the west is the west fissure room. There is a treasure here that is worth 400 points if you drop it on rescue beach. But there is a wide fissure between you and the treasure and it is too wide to jump over. You will have to find some other way to get there. And you cannot use Aladdins lamp more than one time. The melting ice has filled up the fissure with water. It is dark here.",
+      "Items": ["fissureTreasure"],
+      "image": "fissureroom.png",
+      "Help": "You need to find a way across the water-filled fissure. Aladdin's lamp can only be used once.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "SlopingCorridor",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "JaggedCavern",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "WestFissureRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "SaltRoom",
+      "Description": "You are in the salt room. To the south is the west ice cave. To the west is lava lounge. The salt is making you very thirsty. It is dark here.",
+      "Items": [],
+      "image": "saltroom.png",
+      "Help": "You need water from the canteen to quench your thirst.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "WestIceCave",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "LavaLounge",
+          "TimeToMove": 5
+        }
+      ],
+      "Actions": ["Thirst"]
+    },
+    {
+      "Name": "LavaLounge",
+      "Description": "You are in lava lounge. To the east is the salt room. To the south is echo canyon. It is dark here.",
+      "Items": [],
+      "image": "lavalounge.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "EchoCanyon",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "SaltRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "EchoCanyon",
+      "Description": "You are in echo canyon. To the north is lava lounge. To the south is a coal mine. It is dark here.",
+      "Items": [],
+      "image": "echocanyon.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "LavaLounge",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "CoalMine",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "CoalMine",
+      "Description": "You are in a coal mine. To the north is echo canyon. To the south is the west fissure. You will need coal. It is dark here.",
+      "Items": ["coal"],
+      "image": "coalmine.png",
+      "Help": "Take the coal - you will need it.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "EchoCanyon",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "WestFissureRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "WestFissureRoom",
+      "Description": "You are in the west fissure room. To the north is the coal mine. To the east is fissure. To the west is cut stone. It is dark here.",
+      "Items": [],
+      "image": "westfissureroom.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "CoalMine",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "FissureRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "CutStone",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "CutStone",
+      "Description": "You are at cut stone. To the east is west fissure. To the west is the tomb room. It is dark here.",
+      "Items": [],
+      "image": "cutstone.png",
+      "Help": "no",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "WestFissureRoom",
+          "TimeToMove": 5
+        },
+        {
+          "Direction": [
+            "west"
+          ],
+          "Destination": "TombRoom",
+          "TimeToMove": 5
+        }
+      ]
+    },
+    {
+      "Name": "TombRoom",
+      "Description": "You are in the tomb room. To the east is cut stone. There is a tomb here that has been opened and everything that was in it has been removed. The tomb is obviously one that held ancient egyptian pharaohs like King Tut. There is also a very old parchment map here that tells valuable information. It is dark here.",
+      "Items": ["parchmentMap"],
+      "image": "tombroom.png",
+      "Help": "Take the parchment map - it contains valuable information.",
+      "AllowedMovements": [
+        {
+          "Direction": [
+            "east"
+          ],
+          "Destination": "CutStone",
+          "TimeToMove": 5
+        }
+      ]
     }
   ],
   "Items": [
@@ -1390,6 +3313,158 @@
       "MustBuy" : false,
       "Takeable": true,
       "Value": 400
+    },
+    {
+      "Name": "matches",
+      "Description": "A box of wooden matches. These could be useful in dark places.",
+      "Takeable": true
+    },
+    {
+      "Name": "flashlight",
+      "Description": "A battery powered flashlight. Perfect for exploring dark caves.",
+      "Takeable": true
+    },
+    {
+      "Name": "woodenStake",
+      "Description": "A sharp wooden stake. Looks like it could kill a vampire.",
+      "Takeable": true
+    },
+    {
+      "Name": "hammer",
+      "Description": "A heavy hammer. Useful for driving stakes.",
+      "Takeable": true
+    },
+    {
+      "Name": "shovel",
+      "Description": "A sturdy shovel. Perfect for digging.",
+      "Takeable": true
+    },
+    {
+      "Name": "deadBlackCat",
+      "Description": "A stuffed dead black cat. The natives are terrified of this.",
+      "Takeable": true
+    },
+    {
+      "Name": "rustyRifle",
+      "Description": "An old rusty rifle. It probably doesn't work anymore.",
+      "Takeable": true
+    },
+    {
+      "Name": "bundleOfBills",
+      "Description": "A bundle of old bills from the safe. Worth 100 points.",
+      "Takeable": true,
+      "Value": 100
+    },
+    {
+      "Name": "coins",
+      "Description": "Old coins from the 19th century. Worth 50 points.",
+      "Takeable": true,
+      "Value": 50
+    },
+    {
+      "Name": "stocksAndBonds",
+      "Description": "Valuable stocks and bonds. Worth 100 points.",
+      "Takeable": true,
+      "Value": 100
+    },
+    {
+      "Name": "pricelessPainting",
+      "Description": "A painting of Whistler's Father. While worth millions, it will bring you 400 points in this game.",
+      "Takeable": true,
+      "Value": 400
+    },
+    {
+      "Name": "rubyRing",
+      "Description": "Uncle Herman's ruby ring. Worth 150 points.",
+      "Takeable": true,
+      "Value": 150
+    },
+    {
+      "Name": "emeraldNecklace",
+      "Description": "An emerald necklace from the stone idol. Worth 150 points.",
+      "Takeable": true,
+      "Value": 150
+    },
+    {
+      "Name": "potOfGold",
+      "Description": "A pot of gold buried at rescue beach. Worth 300 points.",
+      "Takeable": true,
+      "Value": 300
+    },
+    {
+      "Name": "jungleVine",
+      "Description": "A strong jungle vine hanging across the creek. You can grab it to swing across.",
+      "Takeable": false
+    },
+    {
+      "Name": "safe",
+      "Description": "A locked safe. You need the combination to open it.",
+      "Takeable": false
+    },
+    {
+      "Name": "coffin",
+      "Description": "An open coffin containing Count Dracula.",
+      "Takeable": false
+    },
+    {
+      "Name": "bookshelf",
+      "Description": "An old broken bookshelf in the trash pit. You think you see something inside.",
+      "Takeable": false,
+      "Reveals": "wallet"
+    },
+    {
+      "Name": "canteen",
+      "Description": "An empty canteen. You will need to fill it with water.",
+      "Takeable": true
+    },
+    {
+      "Name": "dynamite",
+      "Description": "Dangerous dynamite. Do not touch!",
+      "Takeable": false
+    },
+    {
+      "Name": "mushrooms",
+      "Description": "Colorful mushrooms growing in the cavern. They look tempting but could be poisonous.",
+      "Takeable": false
+    },
+    {
+      "Name": "goblinTreasure",
+      "Description": "A treasure from goblin valley. Worth 300 points at rescue beach.",
+      "Takeable": true,
+      "Value": 300
+    },
+    {
+      "Name": "deadmansTreasure",
+      "Description": "A treasure from deadmans gulch. Worth 200 points at rescue beach.",
+      "Takeable": true,
+      "Value": 200
+    },
+    {
+      "Name": "aladdinsLamp",
+      "Description": "A very old and curious lamp that may have belonged to Aladdin. Worth 300 points at rescue beach. Can only be used once.",
+      "Takeable": true,
+      "Value": 300
+    },
+    {
+      "Name": "fissureTreasure",
+      "Description": "A treasure from the fissure room. Worth 400 points at rescue beach.",
+      "Takeable": true,
+      "Value": 400
+    },
+    {
+      "Name": "caveShovel",
+      "Description": "A shovel found in the chimney room. Too large to fit through the low crawl.",
+      "Takeable": true
+    },
+    {
+      "Name": "coal",
+      "Description": "A piece of coal from the coal mine. You will need this.",
+      "Takeable": true
+    },
+    {
+      "Name": "parchmentMap",
+      "Description": "A very old parchment map from the tomb room. It contains valuable information about treasure locations.",
+      "Takeable": true
     }
   ],
     "GlobalCommands": [

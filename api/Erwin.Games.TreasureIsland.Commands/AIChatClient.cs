@@ -8,6 +8,8 @@ using OpenAI;
 using static System.Net.Mime.MediaTypeNames;
 using OpenAI.Chat;
 using Azure.AI.Inference;
+using Azure.AI.Projects;
+using Azure.Identity;
 
 namespace Erwin.Games.TreasureIsland.Commands
 {
@@ -15,6 +17,10 @@ namespace Erwin.Games.TreasureIsland.Commands
     {
         private readonly string? _apiKey = Environment.GetEnvironmentVariable("AzureAIStudioApiKey");
         private readonly string? _endpoint = Environment.GetEnvironmentVariable("AzureAIStudioEndpoint");
+        private readonly string? _agentConnectionString = Environment.GetEnvironmentVariable("AgentConnectionString")
+            ?? "westus.api.azureml.ms;3b0cd1dd-1e41-4f35-bd69-485b59588bbf;feordin-ai-studio;treasureisland";
+        private readonly string? _agentId = Environment.GetEnvironmentVariable("AgentId")
+            ?? "asst_B0MuLNtSJpg1PBMdyWrsZ3B6";
         private readonly string _systemPromptText;
         private readonly string _systemLocationText;
         private readonly string _systemFortuneText;
@@ -180,6 +186,70 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             return await GetResponse(payload);
 
+        }
+
+        public async Task<string?> ParsePlayerInputWithAgent(string? input)
+        {
+            try
+            {
+                // DefaultAzureCredential supports multiple auth methods:
+                // 1. Environment variables (AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID) for service principal
+                // 2. Managed Identity when running in Azure
+                // 3. Azure CLI credential (az login) for local development
+                AgentsClient client = new AgentsClient(_agentConnectionString, new DefaultAzureCredential());
+
+                Response<Agent> agentResponse = await client.GetAgentAsync(_agentId);
+                Agent agent = agentResponse.Value;
+
+                Response<AgentThread> threadResponse = await client.CreateThreadAsync();
+                AgentThread thread = threadResponse.Value;
+
+                Response<ThreadMessage> messageResponse = await client.CreateMessageAsync(
+                    thread.Id,
+                    MessageRole.User,
+                    input ?? "");
+
+                Response<ThreadRun> runResponse = await client.CreateRunAsync(
+                    thread.Id,
+                    agent.Id);
+                ThreadRun run = runResponse.Value;
+
+                // Poll until the run reaches a terminal status
+                do
+                {
+                    await Task.Delay(TimeSpan.FromMilliseconds(500));
+                    runResponse = await client.GetRunAsync(thread.Id, runResponse.Value.Id);
+                }
+                while (runResponse.Value.Status == RunStatus.Queued
+                    || runResponse.Value.Status == RunStatus.InProgress);
+
+                Response<PageableList<ThreadMessage>> messagesResponse = await client.GetMessagesAsync(thread.Id);
+                IReadOnlyList<ThreadMessage> messages = messagesResponse.Value.Data;
+
+                // Get the assistant's response (first message from assistant role)
+                foreach (ThreadMessage threadMessage in messages)
+                {
+                    if (threadMessage.Role == MessageRole.Agent)
+                    {
+                        foreach (MessageContent contentItem in threadMessage.ContentItems)
+                        {
+                            if (contentItem is MessageTextContent textItem)
+                            {
+                                _logger.LogInformation("Agent response: " + textItem.Text);
+                                return textItem.Text;
+                            }
+                        }
+                    }
+                }
+
+                _logger.LogWarning("No response from agent");
+                return "unknown_command";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error calling Foundry agent");
+                return "unknown_command";
+            }
         }
 
         private async Task<string?> GetResponse(dynamic payload)

@@ -8,6 +8,8 @@ namespace Erwin.Games.TreasureIsland.Models
 
         public List<string>? ThingsOpened { get; set; }
         public List<string>? ThingsClosed { get; set; }
+        public List<Movement>? MovementsAdded { get; set; }
+        public List<string>? MovementsRemoved { get; set; }
         public DateTime? ChangeTime { get; set; }
 
         public LocationChange()
@@ -16,6 +18,8 @@ namespace Erwin.Games.TreasureIsland.Models
             ItemsAdded = new List<string>();
             ThingsClosed = new List<string>();
             ThingsOpened = new List<string>();
+            MovementsAdded = new List<Movement>();
+            MovementsRemoved = new List<string>();
         }
 
         public LocationChange(string name, DateTime? changeTime)
@@ -25,6 +29,8 @@ namespace Erwin.Games.TreasureIsland.Models
             ItemsAdded = new List<string>();
             ThingsClosed = new List<string>();
             ThingsOpened = new List<string>();
+            MovementsAdded = new List<Movement>();
+            MovementsRemoved = new List<string>();
             ChangeTime = changeTime;
         }
 
@@ -35,6 +41,8 @@ namespace Erwin.Games.TreasureIsland.Models
             ThingsOpened = new List<string>();
             ItemsRemoved = new List<string>();
             ItemsAdded = new List<string>();
+            MovementsAdded = new List<Movement>();
+            MovementsRemoved = new List<string>();
             (added ? ItemsAdded : ItemsRemoved).Add(item);
             ChangeTime = changeTime;
         }

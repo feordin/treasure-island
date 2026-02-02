@@ -103,5 +103,11 @@ namespace Erwin.Games.TreasureIsland.Commands
         {
             throw new NotImplementedException();
         }
+
+        public Task<string?> ParsePlayerInputWithAgent(string? input)
+        {
+            // Not implemented for this client - use AIChatClient instead
+            throw new NotImplementedException("ParsePlayerInputWithAgent is only available in AIChatClient");
+        }
     }
 }
