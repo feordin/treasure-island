@@ -48,7 +48,7 @@ namespace Erwin.Games.TreasureIsland
                 // Here we analyze the input, perhaps with an LLM
                 // Then the cleaned up command is fed to a factory to create a command object
                 // Then we execute the command object
-                parsedCommand = await _aiClient.ParsePlayerInput(command);
+                parsedCommand = await _aiClient.ParsePlayerInputWithAgent(command);
                 _logger.LogInformation("Parsed game command: {0}", parsedCommand);
             }
 
