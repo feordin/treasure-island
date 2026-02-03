@@ -5,6 +5,7 @@ using Azure.AI.OpenAI;
 using System.ClientModel;
 using System.Security.Cryptography.Xml;
 using Erwin.Games.TreasureIsland.Persistence;
+using Erwin.Games.TreasureIsland.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Cosmos.Linq;
 
@@ -105,6 +106,12 @@ namespace Erwin.Games.TreasureIsland.Commands
         }
 
         public Task<string?> ParsePlayerInputWithAgent(string? input)
+        {
+            // Not implemented for this client - use AIChatClient instead
+            throw new NotImplementedException("ParsePlayerInputWithAgent is only available in AIChatClient");
+        }
+
+        public Task<string?> ParsePlayerInputWithAgent(string? input, Location? currentLocation, SaveGameData? saveGame)
         {
             // Not implemented for this client - use AIChatClient instead
             throw new NotImplementedException("ParsePlayerInputWithAgent is only available in AIChatClient");

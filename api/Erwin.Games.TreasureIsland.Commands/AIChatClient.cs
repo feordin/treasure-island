@@ -10,6 +10,7 @@ using OpenAI.Chat;
 using Azure.AI.Inference;
 using Azure.AI.Projects;
 using Azure.Identity;
+using Erwin.Games.TreasureIsland.Models;
 
 namespace Erwin.Games.TreasureIsland.Commands
 {
@@ -39,34 +40,21 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             _client = httpClientFactory.CreateClient();
 
-            _systemPromptText = @"You are an assistant to a text-based adventure game engine.  The player's commands are sent to you, and you should determine if the command matches on the allowed commands in the game. Your goal is to
-                                determine the player's intent.  They may not enter the exact command, but may enter something which indicates a similar intent.  If the user does enter an exact command, you should return that command.
-                                Following is the complete list of allowed commands:
-                                ""startup"", ""look"",""inventory"", ""open"",""close"",""take"",""say"",""north"",""south"",""east"",""west"",""up"",""down"",""ahead"",""behind"", ""left"", ""right"", ""help"", ""eat"",""drink"", ""drop"",""save"",""load"",""delete"",""new"",""sleep"",""unlock"",""lock"",""steal"",""borrow"",""embellish"", ""examine"", ""read"", ""buy"", ""pray"", ""pawn"", ""fortune"",""dig"",""rest"",""sleep""
-                                        
-                                The following subset of commands should also be followed by the next word, or the word associate with the command:
-                                ""look"",""open"",""close"",""take"",""say"",""eat"",""drink"", ""drop"",""unlock"",""lock"",""steal"",""borrow"", ""examine"", ""read"", ""buy"", ""pawn""
-                                For example:  if the user input is: ""I want to pick up the shovel"", then your response would be: ""take shovel"". The game needs to know which item is being acted upon.
+            // Optimized minimal prompt for fast command parsing
+            _systemPromptText = @"Parse text adventure commands. Output ONLY the command, nothing else.
 
-                                The following commands relate to starting, saving, loading or deleting games:
-                                ""new"",""save"",""load"",""delete""
-                                Except for the ""new"" command, these should indicate which number that should be saved, loaded or deleted.The output should be: ""save 1"" or ""delete 1"".If no number is identified, acceptable output is simply the single command word.For example: ""save""
-                                
-                                The following subset of commands: ""north"", ""south"", ""east"", ""west"", ""up"", ""down"", ""left"", ""right"", ""ahead"", and ""behind""
-                                are related to moving.  These should be the output if the user mentions something that indicates they want to move or go somewhere. 
-                                if the user indicates going forward or onward,  return ""ahead""
-                                If the user indicates going back or returning, return ""behaind""
+COMMANDS: north,south,east,west,up,down,left,right,ahead,behind,look,take,drop,examine,buy,pawn,save,load,delete,new,help,sleep,rest,dig,pray,fortune,swim,drink,fill,rub,light,kill,steal,embellish,inventory
 
-                                Any input similar to ""start a new game"" or ""start over"" should return ""new"".
-
-                                If the user asks to have their fortune read.  return ""fortune""
-
-                                To distinguish between ""look"" and ""examine"" if the user is trying to get look at or in a specific object, return ""examine"" followed by the word for the object.  If they are just looking around, return ""look""
-
-                                The output should be only the matched command, for example:  ""north""  or the matched command with additional word, for example:  ""drop matches"".  The consumer of the ouput is the game engine,
-                                so the output should be in a format that the game engine can understand, which is the matched command text without any additional explanation.
-
-                                If you cannot match the input to one of the commands respond with: unknown_command, and then add some helpful hints to the player about what commands might be available.  Along with a fun description story or quote to brighten their day."
+RULES:
+- Movement: forward/onward=ahead, back/return=behind
+- With items: take/get/grab X=take X, look at/read/inspect X=examine X
+- Save/load/delete need slot number if given: ""save to slot 2""=save 2
+- Location context [LOCATION CONTEXT] shows exits, description, and current location
+- ""enter X""/""go to X"": find direction leading to X from exits, return that direction
+- ""exit X""/""leave X"": if player is AT location X, return ""behind""
+- ""exit""/""leave"" alone: return ""behind""
+- Descriptive movement (""go down the hill"", ""walk up the path""): match description to find which direction, return that direction
+- Unknown input: respond ""unknown_command"" with brief hint"
             ;
 
             _systemLocationText = @"You are an AI assistant that helps generate interesting game location descriptions given a base starting point.  Keep important details like relative locations to other locations the same, but make the description more detailed and fun.
@@ -178,9 +166,9 @@ namespace Erwin.Games.TreasureIsland.Commands
                   new { role = "system", content = new object[] { new { type = "text", text = _systemPromptText } } },
                   new { role = "user", content = new object[] { new { type = "text", text = input } } }
                 },
-                temperature = 0.9,
+                temperature = 0.3,  // Lower temperature for deterministic parsing
                 top_p = 0.95,
-                max_tokens = 16384,
+                max_tokens = 256,   // Commands are short, no need for large output
                 stream = false
             };
 
@@ -188,7 +176,65 @@ namespace Erwin.Games.TreasureIsland.Commands
 
         }
 
+        public async Task<string?> ParsePlayerInputWithAgent(string? input, Location? currentLocation, SaveGameData? saveGame)
+        {
+            // Build contextual input with location information
+            string contextualInput = input ?? "";
+
+            if (currentLocation != null && saveGame != null)
+            {
+                var movements = currentLocation.GetCurrentMovements(saveGame);
+                var exits = new List<string>();
+
+                foreach (var movement in movements)
+                {
+                    if (movement.Direction != null && movement.Direction.Length > 0 && movement.Destination != null)
+                    {
+                        exits.Add($"{movement.Direction[0]} leads to {movement.Destination}");
+                    }
+                }
+
+                // Build context with location description for better understanding
+                var contextParts = new List<string>
+                {
+                    $"Player is at: {currentLocation.Name}",
+                    $"Player is facing: {saveGame.Facing ?? "north"}"
+                };
+
+                // Include brief location description for contextual phrases like "down the hill"
+                if (!string.IsNullOrEmpty(currentLocation.Description))
+                {
+                    // Truncate to first 200 chars to keep tokens low
+                    var desc = currentLocation.Description.Length > 200
+                        ? currentLocation.Description.Substring(0, 200) + "..."
+                        : currentLocation.Description;
+                    contextParts.Add($"Description: {desc}");
+                }
+
+                if (exits.Count > 0)
+                {
+                    contextParts.Add($"Available exits: {string.Join("; ", exits)}");
+                }
+
+                contextualInput = $@"[LOCATION CONTEXT]
+{string.Join("\n", contextParts)}
+
+[PLAYER INPUT]
+{input}";
+            }
+
+            // Use fast direct endpoint instead of slow agent API
+            return await ParsePlayerInput(contextualInput);
+        }
+
         public async Task<string?> ParsePlayerInputWithAgent(string? input)
+        {
+            // Use fast direct endpoint call instead of agent API for speed
+            return await ParsePlayerInput(input);
+        }
+
+        // Kept for reference - slower agent-based implementation
+        private async Task<string?> ParsePlayerInputWithAgentSlow(string? input)
         {
             try
             {

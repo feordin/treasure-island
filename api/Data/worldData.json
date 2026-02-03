@@ -1,6 +1,6 @@
 {
-    "id": "treasure-island",
-    "IntroText": "Welcome to the text based adventure game, Treasure Island! To play this game you enter commands below to indicate what you want to do.  While the game will try and understand any command you type in, you are only allowed to do certain things.  You can move around by going north, south, east, west, up or down.  You can pick up or drop things, which will add or remove them from your inventory.  Sometimes you can also interact with objects, like lighting a match or drinking water.  You'll have to discover those as you go.  if  you need it, you can ask for help, but it may not always be available and if it is, will count against your score.\n\nAs a fun feature, you can have AI embellish the location descriptions.  Type the command: embellish to turn it on or off. While fun, it will take a bit longer for the system to respond, and sometimes those descriptions are a bit less than accurate.\n\nYou have walked from the farm to town because you are worried about Uncle Herman.  You haven't heard from him since he let treasure hunting some months ago.  You are standing on a hilltop overlooking town.",
+  "id": "treasure-island",
+  "IntroText": "Welcome to the text based adventure game, Treasure Island! To play this game you enter commands below to indicate what you want to do.  While the game will try and understand any command you type in, you are only allowed to do certain things.  You can move around by going north, south, east, west, up or down.  You can pick up or drop things, which will add or remove them from your inventory.  Sometimes you can also interact with objects, like lighting a match or drinking water.  You'll have to discover those as you go.  if  you need it, you can ask for help, but it may not always be available and if it is, will count against your score.\n\nAs a fun feature, you can have AI embellish the location descriptions.  Type the command: embellish to turn it on or off. While fun, it will take a bit longer for the system to respond, and sometimes those descriptions are a bit less than accurate.\n\nYou have walked from the farm to town because you are worried about Uncle Herman.  You haven't heard from him since he let treasure hunting some months ago.  You are standing on a hilltop overlooking town.",
   "Locations": [
     {
       "Name": "Hilltop",
@@ -17,7 +17,8 @@
           "Destination": "Road",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "The Hilltop"
     },
     {
       "Name": "Road",
@@ -42,7 +43,8 @@
           "Destination": "Hilltop",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "The Road to Town"
     },
     {
       "Name": "TownEntrance",
@@ -66,7 +68,8 @@
           "Destination": "Road",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Town Entrance"
     },
     {
       "Name": "Northend",
@@ -103,7 +106,8 @@
           "Destination": "MainStreet",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "North End of Town"
     },
     {
       "Name": "PostOffice",
@@ -121,11 +125,12 @@
           "Destination": "Northend",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Post Office"
     },
     {
       "Name": "Bank",
-      "Description": "The air hangs heavy with the scent of salt, spices, and the ever-present rum.  Amidst the raucous taverns and bustling merchant stalls lining the harbor, stands a sturdy, imposing building of coral stone, its facade bleached white by the relentless sun. This is the Exchange and Deposit Bank, a bastion of wealth and security in this rough and tumble port city. Iron bars guard the windows, and a heavy oak door, reinforced with iron bands, marks the entrance. Stepping inside, one is struck by the cool, dim interior. Thick walls keep out the heat, and sunlight struggles to penetrate the small, high windows. The air is heavy with the scent of ink, parchment, and beeswax. Dominating the room is a long, polished mahogany counter, behind which clerks with meticulously penned ledgers attend to their business.  Scales and strongboxes rest atop the counter, ready to weigh coins and store valuables.  Behind the counter, a massive iron door, secured by multiple locks, hints at the treasures within the vault. A diverse clientele populates the bank.  A rough-hewn buccaneer, fresh from a raid on a Spanish galleon, deposits a sack overflowing with gold doubloons.  A finely dressed sugar planter negotiates a loan to expand his estate. A nervous widow, clutching a small purse, seeks to withdraw funds for her passage back to England. The walls are adorned with notices of exchange rates for various currencies – Spanish reales, Portuguese escudos, English pounds.  Proclamations from the Governor warn against counterfeiting and announce new regulations on trade and finance. Despite the air of stability and order, an undercurrent of tension permeates the bank. This is a world where fortunes are made and lost overnight, where pirates and privateers roam the seas, and where the threat of invasion or natural disaster always looms. Yet, the bank stands as a symbol of enduring prosperity and a testament to the growing economic power of the Caribbean colonies.  There is a surpsing amount of money within reach.",
+      "Description": "The air hangs heavy with the scent of salt, spices, and the ever-present rum.  Amidst the raucous taverns and bustling merchant stalls lining the harbor, stands a sturdy, imposing building of coral stone, its facade bleached white by the relentless sun. This is the Exchange and Deposit Bank, a bastion of wealth and security in this rough and tumble port city. Iron bars guard the windows, and a heavy oak door, reinforced with iron bands, marks the entrance. Stepping inside, one is struck by the cool, dim interior. Thick walls keep out the heat, and sunlight struggles to penetrate the small, high windows. The air is heavy with the scent of ink, parchment, and beeswax. Dominating the room is a long, polished mahogany counter, behind which clerks with meticulously penned ledgers attend to their business.  Scales and strongboxes rest atop the counter, ready to weigh coins and store valuables.  Behind the counter, a massive iron door, secured by multiple locks, hints at the treasures within the vault. A diverse clientele populates the bank.  A rough-hewn buccaneer, fresh from a raid on a Spanish galleon, deposits a sack overflowing with gold doubloons.  A finely dressed sugar planter negotiates a loan to expand his estate. A nervous widow, clutching a small purse, seeks to withdraw funds for her passage back to England. The walls are adorned with notices of exchange rates for various currencies \u2013 Spanish reales, Portuguese escudos, English pounds.  Proclamations from the Governor warn against counterfeiting and announce new regulations on trade and finance. Despite the air of stability and order, an undercurrent of tension permeates the bank. This is a world where fortunes are made and lost overnight, where pirates and privateers roam the seas, and where the threat of invasion or natural disaster always looms. Yet, the bank stands as a symbol of enduring prosperity and a testament to the growing economic power of the Caribbean colonies.  There is a surpsing amount of money within reach.",
       "Items": [
         "money"
       ],
@@ -139,7 +144,8 @@
           "Destination": "Northend",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Bank"
     },
     {
       "Name": "MainStreet",
@@ -176,12 +182,17 @@
           "Destination": "CenterStreet",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "Main Street"
     },
     {
       "Name": "Bakery",
       "Description": "You are at the town bakery, Marguerite smiles as she offers you her wares.",
-      "Items": [ "danish", "donuts", "coffee"],
+      "Items": [
+        "danish",
+        "donuts",
+        "coffee"
+      ],
       "image": "bakery.png",
       "Help": "Those donuts might come in handy.",
       "AllowedMovements": [
@@ -192,7 +203,8 @@
           "Destination": "MainStreet",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Bakery"
     },
     {
       "Name": "BankAlley",
@@ -215,12 +227,15 @@
           "Destination": "MainStreet",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Alley Behind the Bank"
     },
     {
       "Name": "AlleyEnd",
       "Description": "You are farther into an alley between the bank and the jail.  On one side is the south wall of the bank, the other is the north wall of the jail.  The alley ends in a wall here.  There are some bushes growing on the side of the alley, and you think you can see something under them.",
-      "Items": [ "bushes" ],
+      "Items": [
+        "bushes"
+      ],
       "image": "alleyend.png",
       "Help": "Try examining the bushes.",
       "AllowedMovements": [
@@ -231,7 +246,8 @@
           "Destination": "BankAlley",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "End of the Alley"
     },
     {
       "Name": "CenterStreet",
@@ -268,7 +284,8 @@
           "Destination": "KingStreet",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "Center Street"
     },
     {
       "Name": "Church",
@@ -284,7 +301,8 @@
           "Destination": "CenterStreet",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Church"
     },
     {
       "Name": "JailVisitor",
@@ -300,7 +318,8 @@
           "Destination": "CenterStreet",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Jail Visitor's Room"
     },
     {
       "Name": "JailCell",
@@ -308,8 +327,8 @@
       "Items": [],
       "image": "jail.png",
       "Help": "Unfortunately, there is not much to do now.  In future versions of the game we might add a jail escape!",
-      "AllowedMovements": [
-      ]
+      "AllowedMovements": [],
+      "DisplayName": "The Jail Cell"
     },
     {
       "Name": "KingStreet",
@@ -346,7 +365,8 @@
           "Destination": "CrossStreet",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "King Street"
     },
     {
       "Name": "PawnShop",
@@ -362,12 +382,15 @@
           "Destination": "KingStreet",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Pawn Shop"
     },
     {
       "Name": "ConstablesOffice",
       "Description": "A rather self important looking man who is clearly the law in town looks you over.  He finally says, 'At your service.'  There are several notices of wanted posters and rewards.",
-      "Items": [ "notices" ],
+      "Items": [
+        "notices"
+      ],
       "image": "constablesoffice.png",
       "Help": "Perhaps take a closer look at the notices on the wall.",
       "AllowedMovements": [
@@ -378,7 +401,8 @@
           "Destination": "KingStreet",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Constable's Office"
     },
     {
       "Name": "CrossStreet",
@@ -415,12 +439,15 @@
           "Destination": "QueensAve",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "Cross Street"
     },
     {
       "Name": "FortuneTeller",
       "Description": "The structure is a modest wooden shack with weathered, deep blue paint and a thatched roof. Tattered curtains of rich crimson and indigo drape over the entrance, and faint, wafting smoke from incense and herbs gives it a mystical air. Inside, the dim room is lined with shelves bearing worn leather-bound books, jars filled with strange roots and powders, and crystal orbs that shimmer in the candlelight. A small, round table at the center, covered with a velvet cloth, holds an array of tarot cards, runes, and an intricate brass pendulum. The fortune teller, draped in layered shawls and adorned with charms and amulets, greets visitors with a knowing smile, offering glimpses into fates entwined with the seas, storms, and secrets of the Caribbean.",
-      "Items": [ "monkeysPaw" ],
+      "Items": [
+        "monkeysPaw"
+      ],
       "image": "fortuneteller.png",
       "Help": "no",
       "AllowedMovements": [
@@ -431,12 +458,15 @@
           "Destination": "CrossStreet",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Fortune Teller's Tent"
     },
     {
       "Name": "StageCoachDepot",
       "Description": "You didn't realize that there was a stage coach in town!  But, when you look into the destinations, it seems to stop at the various farm communities in the interior of the island.  Looks like you could've ridden the coach into town instead of walking.  Nice to know, but it won't help you now.  Unless you wish to go home and abandon Uncle Herman.  There is a friendly clerk willing to sell you a ticket.  The actual coach itself is further to the west.",
-      "Items": [ "StageTicket" ],
+      "Items": [
+        "StageTicket"
+      ],
       "image": "stagecoachdepot.png",
       "Help": "no",
       "AllowedMovements": [
@@ -454,17 +484,20 @@
           "Destination": "StageCoach",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Stagecoach Depot"
     },
     {
       "Name": "StageCoach",
       "Description": "You've never ridden a coach before, and the interior looks comfortable.",
-      "Items": [  ],
+      "Items": [],
       "image": "stagecoach.png",
       "Help": "no",
-      "AllowedMovements": [
+      "AllowedMovements": [],
+      "Actions": [
+        "CheckStageTicket"
       ],
-      "Actions":[ "CheckStageTicket" ]
+      "DisplayName": "Inside the Stagecoach"
     },
     {
       "Name": "QueensAve",
@@ -501,11 +534,12 @@
           "Destination": "Southend",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "Queen's Avenue"
     },
     {
       "Name": "UknownBuilding",
-      "Description": "This a small, simple house standing humbly in front of you. It’s built mostly from wood and materials gathered from around the island, with a roof made from woven palm leaves or wooden shingles that offer some shade from the bright, hot sun and the frequent rains. The walls are plain, not solid like stone or brick, but formed from wooden slats or panels made from cane, allowing a little air to flow through. If you ran your hand along the wall, you’d feel the roughness of the wood, weathered from the salt air. Now, if you reach out to where the windows would be, you won’t feel glass. Instead, you’ll find simple shutters made from wood. They can swing open to let in the cool breeze, but they close tightly to keep out the rain. Underfoot, the floor inside is either the packed earth of the island or rough wooden planks that might feel uneven beneath your feet. Inside, it’s a single open space, very plain and functional. The few pieces of furniture are made from local wood—a table with sturdy benches or stools for sitting, and perhaps a few shelves for storing essentials. You might feel the hammock hanging in a corner, which serves as a bed, or a cot that can be folded away. If you step back outside, you’d notice a small area nearby, like an open shed, where cooking happens. There’s a small fire pit, with pots for cooking meals and a place to gather, sparing the house from the heat and smoke.  Nothing here it seems.",
+      "Description": "This a small, simple house standing humbly in front of you. It\u2019s built mostly from wood and materials gathered from around the island, with a roof made from woven palm leaves or wooden shingles that offer some shade from the bright, hot sun and the frequent rains. The walls are plain, not solid like stone or brick, but formed from wooden slats or panels made from cane, allowing a little air to flow through. If you ran your hand along the wall, you\u2019d feel the roughness of the wood, weathered from the salt air. Now, if you reach out to where the windows would be, you won\u2019t feel glass. Instead, you\u2019ll find simple shutters made from wood. They can swing open to let in the cool breeze, but they close tightly to keep out the rain. Underfoot, the floor inside is either the packed earth of the island or rough wooden planks that might feel uneven beneath your feet. Inside, it\u2019s a single open space, very plain and functional. The few pieces of furniture are made from local wood\u2014a table with sturdy benches or stools for sitting, and perhaps a few shelves for storing essentials. You might feel the hammock hanging in a corner, which serves as a bed, or a cot that can be folded away. If you step back outside, you\u2019d notice a small area nearby, like an open shed, where cooking happens. There\u2019s a small fire pit, with pots for cooking meals and a place to gather, sparing the house from the heat and smoke.  Nothing here it seems.",
       "Items": [],
       "image": "unknownbuilding.png",
       "Help": "no",
@@ -517,7 +551,8 @@
           "Destination": "QueensAve",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "An Unknown Building"
     },
     {
       "Name": "LawOffice",
@@ -533,7 +568,8 @@
           "Destination": "QueensAve",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Law Office"
     },
     {
       "Name": "Southend",
@@ -570,12 +606,15 @@
           "Destination": "WharfRoad",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "South End of Town"
     },
     {
       "Name": "Airport",
       "Description": "Growing up on the farm you never imaged that people could fly!  It seems an amazing adventure!  Could you fly to Uncle Herman?.  The balloon is just to the east.",
-      "Items": [ "BalloonTicket"],
+      "Items": [
+        "BalloonTicket"
+      ],
       "image": "airport.png",
       "Help": "no",
       "AllowedMovements": [
@@ -593,12 +632,13 @@
           "Destination": "Balloon",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Balloon Launch Site"
     },
     {
       "Name": "Balloon",
       "Description": "You step up the basket at the bottom of the balloon, wondering if you are ready to fly!  Just tell the pilot to go up when are ready.",
-      "Items": [ ],
+      "Items": [],
       "image": "balloon.png",
       "Help": "no",
       "AllowedMovements": [
@@ -610,7 +650,10 @@
           "TimeToMove": 120
         }
       ],
-      "Actions":[ "CheckBalloonTicket" ]
+      "Actions": [
+        "CheckBalloonTicket"
+      ],
+      "DisplayName": "Inside the Hot Air Balloon"
     },
     {
       "Name": "Flying",
@@ -618,24 +661,30 @@
       "Items": [],
       "image": "flying.png",
       "Help": "no",
-      "AllowedMovements": [
+      "AllowedMovements": [],
+      "Actions": [
+        "CheckCrashed"
       ],
-      "Actions":[ "CheckCrashed" ]
+      "DisplayName": "Flying Over the Island"
     },
     {
       "Name": "Crashed",
       "Description": "The pilot screams the scream of the dying!  A huge tear has opened in the side of the balloon and you plummet to the ground.  Your last thought is: 'At least this is a good death.'  Game Over.",
-      "Items": [ ],
+      "Items": [],
       "image": "crashed.png",
       "Help": "no",
-      "AllowedMovements": [
+      "AllowedMovements": [],
+      "Actions": [
+        "CheckCrashed"
       ],
-      "Actions":[ "CheckCrashed" ]
+      "DisplayName": "The Crash Site"
     },
     {
       "Name": "TrashPit",
       "Description": "You are standing in the town trash pit.  The smell of decaying fish is overwhelming.  You are wondering why you can here, when you think you see something inside the reamins of a broken old bookshelf.",
-      "Items": [ "bookshelf" ],
+      "Items": [
+        "bookshelf"
+      ],
       "image": "trashpit.png",
       "Help": "no",
       "AllowedMovements": [
@@ -646,7 +695,8 @@
           "Destination": "Southend",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Trash Pit"
     },
     {
       "Name": "WharfRoad",
@@ -683,7 +733,8 @@
           "Destination": "Wharf",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "Wharf Road"
     },
     {
       "Name": "Wharf",
@@ -720,7 +771,8 @@
           "Destination": "SharkBay",
           "TimeToMove": 60
         }
-      ]
+      ],
+      "DisplayName": "The Wharf"
     },
     {
       "Name": "Beach",
@@ -743,12 +795,15 @@
           "Destination": "SharkBay",
           "TimeToMove": 60
         }
-      ]
+      ],
+      "DisplayName": "The Beach"
     },
     {
       "Name": "TicketBooth",
       "Description": "You are standing on the dock at the ticket booth.  Th old sailor behind the counter speaks, and you think it might be words, but you can't be sure.  Luckily the sign indicates that a ticket for the boat is 5 gold.  North of you the boat lies docked.",
-      "Items": [ "ticket" ],
+      "Items": [
+        "ticket"
+      ],
       "image": "ticketbooth.png",
       "Help": "no",
       "AllowedMovements": [
@@ -766,15 +821,18 @@
           "Destination": "Boat",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Ticket Booth"
     },
     {
       "Name": "Boat",
       "Description": "You walk up the gangplank to the HMS Erwin.  It is a fine ship with a fine crew, and you wonder where it may take you.  Hopefully to Uncle Herman and treasure.  You can go below decks to your cabin.",
-      "Items": [  ],
+      "Items": [],
       "image": "boat.png",
       "Help": "no",
-      "Actions":[ "CheckTicket" ],
+      "Actions": [
+        "CheckTicket"
+      ],
       "AllowedMovements": [
         {
           "Direction": [
@@ -790,17 +848,18 @@
           "Destination": "BoatCabin",
           "TimeToMove": 3
         }
-      ]
+      ],
+      "DisplayName": "On the Boat"
     },
     {
       "Name": "BoatCabin",
       "Description": "What is surprising is how low the ceiling is, and how small the cabin is.  But at least you have your own hammock.",
-      "Items": [  ],
+      "Items": [],
       "image": "boatcabin.png",
       "Help": "no",
-      "Actions": [  ],
-      "AllowedMovements": [
-      ]
+      "Actions": [],
+      "AllowedMovements": [],
+      "DisplayName": "The Boat Cabin"
     },
     {
       "Name": "SharkBay",
@@ -808,8 +867,8 @@
       "Items": [],
       "image": "sharkbay.png",
       "Help": "no",
-      "AllowedMovements": [
-      ]
+      "AllowedMovements": [],
+      "DisplayName": "Shark Bay"
     },
     {
       "Name": "ShipWreckBeach",
@@ -846,7 +905,8 @@
           "Destination": "OceanHomeward",
           "TimeToMove": 60
         }
-      ]
+      ],
+      "DisplayName": "Shipwreck Beach"
     },
     {
       "Name": "Lagoon",
@@ -877,11 +937,14 @@
           "TimeToMove": 20
         }
       ],
-      "Actions":[ "RemoveSwimmingEvent" ]
+      "Actions": [
+        "RemoveSwimmingEvent"
+      ],
+      "DisplayName": "The Lagoon"
     },
     {
       "Name": "LagoonSwimming",
-      "Description": "The water is clear, calm, and refreshing—swimming was the perfect choice. You feel a surge of energy, ready to tackle whatever challenges lie ahead. Gazing down, you can almost see the bottom, catching a glint of something shiny in the depths. Just as curiosity stirs, a flicker of movement crosses your vision, hinting at something else lurking beneath the surface.",
+      "Description": "The water is clear, calm, and refreshing\u2014swimming was the perfect choice. You feel a surge of energy, ready to tackle whatever challenges lie ahead. Gazing down, you can almost see the bottom, catching a glint of something shiny in the depths. Just as curiosity stirs, a flicker of movement crosses your vision, hinting at something else lurking beneath the surface.",
       "Items": [],
       "image": "lagoonswimming.png",
       "Help": "no",
@@ -901,12 +964,17 @@
           "TimeToMove": 2
         }
       ],
-      "Actions":["CheckLagoonShark"]
+      "Actions": [
+        "CheckLagoonShark"
+      ],
+      "DisplayName": "Swimming in the Lagoon"
     },
     {
       "Name": "LagoonDepths",
       "Description": "You are pleasently suprised with your ability to reach the bottom of the lagoon.  There is a gaint oyster open before you, and gleaming inside is a giant pearl. Do you dare to try and grab it?",
-      "Items": ["pearl"],
+      "Items": [
+        "pearl"
+      ],
       "image": "lagoondepths.png",
       "Help": "no",
       "AllowedMovements": [
@@ -918,28 +986,35 @@
           "TimeToMove": 1
         }
       ],
-      "Actions":["CheckLagoonShark"]
+      "Actions": [
+        "CheckLagoonShark"
+      ],
+      "DisplayName": "Depths of the Lagoon"
     },
     {
       "Name": "LagoonShark",
-      "Description": "You feel a sudden, chilling awareness ripple through you—a warning you should have heeded when you noticed movement before. But it’s too late. Out of nowhere, a massive shadow surges beneath you, and in a heartbeat, a powerful jaw clamps around you. The shock cuts through your mind—how could there even be a great white shark in this lagoon? Before you can react, darkness closes in. Game Over.",
+      "Description": "You feel a sudden, chilling awareness ripple through you\u2014a warning you should have heeded when you noticed movement before. But it\u2019s too late. Out of nowhere, a massive shadow surges beneath you, and in a heartbeat, a powerful jaw clamps around you. The shock cuts through your mind\u2014how could there even be a great white shark in this lagoon? Before you can react, darkness closes in. Game Over.",
       "Items": [],
       "image": "lagoonshark.png",
       "Help": "no",
-      "AllowedMovements": [ ]
+      "AllowedMovements": [],
+      "DisplayName": "Shark Attack!"
     },
     {
       "Name": "OceanHomeward",
-      "Description": "'Coming here was a terrible mistake!' you think, heart pounding. Driven by a surge of desperation, you dive into the water, swimming with every ounce of strength, the only plan in your mind to escape back home. But as you plunge deeper, a horrifying realization dawns—the true reason for your ship's demise and the eerie absence of your crew lies ahead. In the murky depths, a colossal kraken awaits, lurking just beyond sight. The moment you reach the open water, its tentacles wrap around you, sealing your fate. Game Over.",
+      "Description": "'Coming here was a terrible mistake!' you think, heart pounding. Driven by a surge of desperation, you dive into the water, swimming with every ounce of strength, the only plan in your mind to escape back home. But as you plunge deeper, a horrifying realization dawns\u2014the true reason for your ship's demise and the eerie absence of your crew lies ahead. In the murky depths, a colossal kraken awaits, lurking just beyond sight. The moment you reach the open water, its tentacles wrap around you, sealing your fate. Game Over.",
       "Items": [],
       "image": "oceanhomeward.png",
       "Help": "no",
-      "AllowedMovements": [ ]
+      "AllowedMovements": [],
+      "DisplayName": "Sailing Homeward"
     },
     {
       "Name": "ShipWreck",
       "Description": "The remains of your ship.  It will never sail again.  You wonder if there is anything left of value.",
-      "Items": ["BrokenSeaChest"],
+      "Items": [
+        "BrokenSeaChest"
+      ],
       "image": "shipwreckbeach.png",
       "Help": "no",
       "AllowedMovements": [
@@ -964,12 +1039,15 @@
           "Destination": "OceanHomeward",
           "TimeToMove": 60
         }
-      ]
+      ],
+      "DisplayName": "The Shipwreck"
     },
     {
       "Name": "JungleTrail",
       "Description": "The change from the beach is startling. It is suddenly dark with the dense vegetation overhead, and the heat and humidity are oppressive. You wonder what might be waiting for you along this trail.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "jungletrail.png",
       "Help": "no",
       "AllowedMovements": [
@@ -995,22 +1073,29 @@
           "Destination": "ShipWreckBeach",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Jungle Trail"
     },
     {
       "Name": "DenseJungle",
       "Description": "The plants press in all around you.  The heat and humidity are oppressive.  You can't see the sky, and you can't see the sun.  You can't see anything but the dense vegetation. You are lost in the jungle.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "lostinthejungle.png",
       "Help": "no",
-      "AllowedMovements": [
+      "AllowedMovements": [],
+      "Actions": [
+        "CheckLostInTheJungle"
       ],
-      "Actions":["CheckLostInTheJungle"]
+      "DisplayName": "Dense Jungle"
     },
     {
       "Name": "JungleFork",
       "Description": "The trail through the jungle arrives at an intersection.  You have your choice of north, south, east or west.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "jungletrail.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1042,12 +1127,15 @@
           "Destination": "JungleCliff",
           "TimeToMove": 10
         }
-      ]
+      ],
+      "DisplayName": "Fork in the Jungle Trail"
     },
     {
       "Name": "JungleCliff",
       "Description": "You are at the base of a rocky climb.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "junglecliff.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1072,12 +1160,15 @@
           "Destination": "JungleFork",
           "TimeToMove": 10
         }
-      ]
+      ],
+      "DisplayName": "Jungle Cliff"
     },
     {
       "Name": "GrassyPlateau",
       "Description": "This open, soft grassy plateau is literally a breath of fresh air compared to the jungle.  Seems like a wonderful place to take rest.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "junglecliff.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1097,17 +1188,21 @@
         },
         {
           "Direction": [
-            "west", "east"
+            "west",
+            "east"
           ],
           "Destination": "DenseJungle",
           "TimeToMove": 10
         }
-      ]
+      ],
+      "DisplayName": "Grassy Plateau"
     },
     {
       "Name": "JungleView",
       "Description": "You reach the top of the cliff.  All around you is dense jungle.  You are surprised to see what appears to be a mansion in the distance; defiantly resisting the jungle.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "jungleview.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1125,12 +1220,15 @@
           "Destination": "JungleCliff",
           "TimeToMove": 30
         }
-      ]
+      ],
+      "DisplayName": "Jungle Overlook"
     },
     {
       "Name": "ZigZagTrail",
       "Description": "This trail winds back and forth across a jungle hillside. To the north is a giant footprint, and to the south is a fork in the trail.  An ominous volcano rises to the west, and to the east is a dense jungle.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "zigzagtrail.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1162,12 +1260,15 @@
           "Destination": "Volcano",
           "TimeToMove": 10
         }
-      ]
+      ],
+      "DisplayName": "Zig-Zag Trail"
     },
     {
       "Name": "EastWestTrail",
       "Description": "You are on an east-west trail through the jungle.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "eastwesttrail.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1193,12 +1294,15 @@
           "Destination": "DenseJungle",
           "TimeToMove": 12
         }
-      ]
+      ],
+      "DisplayName": "East-West Trail"
     },
     {
       "Name": "EdgeOfClearing",
       "Description": "You are at the edge of a clearing in the jungle.  The jungle is dense to the south and west. By the looks of the village, you believe that they may be headhunters, or the cannibals Uncle Herman warned you about.  It could be dangerous to enter unprepared.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "edgeofclearing.png",
       "Help": "The natives are terrifed of stuffed animals.  You may be able to find one else where on the island.",
       "AllowedMovements": [
@@ -1224,12 +1328,15 @@
           "Destination": "DenseJungle",
           "TimeToMove": 12
         }
-      ]
+      ],
+      "DisplayName": "Edge of the Clearing"
     },
     {
       "Name": "GiantFootprint",
       "Description": "You are standing in a giant footprint.  It is so large that you could lie down in it and still have room.  To the west is an area that looks sandy and wet.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "giantfootprint.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1254,15 +1361,19 @@
           "Destination": "SandyTrail",
           "TimeToMove": 10
         }
-      ]
+      ],
+      "DisplayName": "Giant Footprint"
     },
     {
       "Name": "SandyTrail",
       "Description": "You take a tentative step onto the sandy trail.  Unfortunately, it is quicksand and you are sucked under.  You struggle valiantly, but to no avail.  Game Over.",
-      "Items": [""],
+      "Items": [
+        ""
+      ],
       "image": "quicksand.png",
       "Help": "no",
-      "AllowedMovements": []
+      "AllowedMovements": [],
+      "DisplayName": "Sandy Trail"
     },
     {
       "Name": "TwinPalms",
@@ -1287,7 +1398,8 @@
           "Destination": "GiantFootprint",
           "TimeToMove": 10
         }
-      ]
+      ],
+      "DisplayName": "Twin Palms"
     },
     {
       "Name": "Volcano",
@@ -1303,7 +1415,8 @@
           "Destination": "ZigZagTrail",
           "TimeToMove": 10
         }
-      ]
+      ],
+      "DisplayName": "The Volcano"
     },
     {
       "Name": "GentleSlope",
@@ -1335,12 +1448,15 @@
           "Destination": "DenseJungle",
           "TimeToMove": 20
         }
-      ]
+      ],
+      "DisplayName": "Gentle Slope"
     },
     {
       "Name": "Creek",
       "Description": "You are at a creek full of water. To the north is a gentle downhill slope. To the east and west is more of the same dense jungle. To the south is the south side of the creek. There is a jungle vine here.",
-      "Items": ["jungleVine"],
+      "Items": [
+        "jungleVine"
+      ],
       "image": "creek.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1360,12 +1476,18 @@
           "TimeToMove": 20
         }
       ],
-      "AllowedCommands": ["grab vine", "take vine"]
+      "AllowedCommands": [
+        "grab vine",
+        "take vine"
+      ],
+      "DisplayName": "The Creek"
     },
     {
       "Name": "SouthCreek",
       "Description": "You are on the south side of a creek full of water. To the north is the creek. To the east and west is more of the same dense jungle. To the south is a large clearing. There is a jungle vine here.",
-      "Items": ["jungleVine"],
+      "Items": [
+        "jungleVine"
+      ],
       "image": "southcreek.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1385,7 +1507,11 @@
           "TimeToMove": 20
         }
       ],
-      "AllowedCommands": ["grab vine", "take vine"]
+      "AllowedCommands": [
+        "grab vine",
+        "take vine"
+      ],
+      "DisplayName": "South Creek"
     },
     {
       "Name": "LargeClearing",
@@ -1416,7 +1542,8 @@
           "Destination": "DenseJungle",
           "TimeToMove": 20
         }
-      ]
+      ],
+      "DisplayName": "Large Clearing"
     },
     {
       "Name": "MansionYard",
@@ -1448,7 +1575,10 @@
           "TimeToMove": 20
         }
       ],
-      "AllowedCommands": ["open gate"]
+      "AllowedCommands": [
+        "open gate"
+      ],
+      "DisplayName": "Mansion Yard"
     },
     {
       "Name": "MansionPorch",
@@ -1479,7 +1609,8 @@
           "Destination": "DenseJungle",
           "TimeToMove": 20
         }
-      ]
+      ],
+      "DisplayName": "Mansion Porch"
     },
     {
       "Name": "EastHall",
@@ -1523,7 +1654,8 @@
           "Destination": "Landing",
           "TimeToMove": 3
         }
-      ]
+      ],
+      "DisplayName": "East Hallway"
     },
     {
       "Name": "WestHall",
@@ -1553,12 +1685,15 @@
           "Destination": "EastHall",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "West Hallway"
     },
     {
       "Name": "Pantry",
       "Description": "You in the pantry. To the north is the east end of the hallway. To the west is the kitchen.",
-      "Items": ["matches"],
+      "Items": [
+        "matches"
+      ],
       "image": "pantry.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1576,12 +1711,15 @@
           "Destination": "Kitchen",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Pantry"
     },
     {
       "Name": "SittingRoom",
       "Description": "You in the sitting room. To the south is the east end of the hallway. To the west is the kitchen. There is a safe here but the door is closed. Inside is money and it is worth 100 points to you if you can figure out how to get the combination to the safe.",
-      "Items": ["safe"],
+      "Items": [
+        "safe"
+      ],
       "image": "sittingroom.png",
       "Help": "The combination is not available in the mansion.",
       "AllowedMovements": [
@@ -1600,12 +1738,17 @@
           "TimeToMove": 1
         }
       ],
-      "AllowedCommands": ["open safe"]
+      "AllowedCommands": [
+        "open safe"
+      ],
+      "DisplayName": "The Sitting Room"
     },
     {
       "Name": "Kitchen",
       "Description": "You are in the kitchen. To the north is the west hallway. To the east is pantry. To the south is the maids quarters. To the west is the back yard.",
-      "Items": ["flashlight"],
+      "Items": [
+        "flashlight"
+      ],
       "image": "kitchen.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1637,12 +1780,15 @@
           "Destination": "Backyard",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "The Kitchen"
     },
     {
       "Name": "MaidsQuarters",
       "Description": "You are in the maids quarters. To the north is the kitchen. It seems the maid collects old coins because these are from the 19th century and are worth 50 points to you.",
-      "Items": ["coins"],
+      "Items": [
+        "coins"
+      ],
       "image": "maidsquarters.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1653,7 +1799,8 @@
           "Destination": "Kitchen",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Maid's Quarters"
     },
     {
       "Name": "Library",
@@ -1691,12 +1838,18 @@
           "TimeToMove": 1
         }
       ],
-      "AllowedCommands": ["take book"]
+      "AllowedCommands": [
+        "take book"
+      ],
+      "DisplayName": "The Library"
     },
     {
       "Name": "TrophyRoom",
       "Description": "You are in the trophy room. To the north is the office. To the the south is the library. There are a number of stuffed dead animals mounted on the wall.",
-      "Items": ["deadBlackCat", "rustyRifle"],
+      "Items": [
+        "deadBlackCat",
+        "rustyRifle"
+      ],
       "image": "trophyroom.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1714,12 +1867,15 @@
           "Destination": "Library",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Trophy Room"
     },
     {
       "Name": "Office",
       "Description": "You are in the office. To the south is the trophy room. There is a treasure here worth 100 points.",
-      "Items": ["stocksAndBonds"],
+      "Items": [
+        "stocksAndBonds"
+      ],
       "image": "office.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1730,7 +1886,8 @@
           "Destination": "TrophyRoom",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Office"
     },
     {
       "Name": "HiddenRoom",
@@ -1753,7 +1910,8 @@
           "Destination": "SecretPassage",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Hidden Room"
     },
     {
       "Name": "Backyard",
@@ -1776,12 +1934,17 @@
           "Destination": "ToolShed",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Backyard"
     },
     {
       "Name": "ToolShed",
       "Description": "You are in the tool shed. To the east is the back yard. There are several things here that you will need.",
-      "Items": ["woodenStake", "hammer", "shovel"],
+      "Items": [
+        "woodenStake",
+        "hammer",
+        "shovel"
+      ],
       "image": "toolshed.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1792,7 +1955,8 @@
           "Destination": "Backyard",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Tool Shed"
     },
     {
       "Name": "Landing",
@@ -1822,12 +1986,15 @@
           "Destination": "EastHall",
           "TimeToMove": 3
         }
-      ]
+      ],
+      "DisplayName": "The Landing"
     },
     {
       "Name": "Attic",
       "Description": "You are in the attic. There is a stairway that goes down to the landing. There is a lot of junk here but your eagle eye spots something that you recognize. You can see that this painting is of Whistler's Father and while worth millions, it will bring you 400 points in this game.",
-      "Items": ["pricelessPainting"],
+      "Items": [
+        "pricelessPainting"
+      ],
       "image": "attic.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1838,7 +2005,8 @@
           "Destination": "Landing",
           "TimeToMove": 2
         }
-      ]
+      ],
+      "DisplayName": "The Attic"
     },
     {
       "Name": "UpstairsHall",
@@ -1868,7 +2036,8 @@
           "Destination": "Landing",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Upstairs Hallway"
     },
     {
       "Name": "MasterBedroom",
@@ -1891,12 +2060,15 @@
           "Destination": "CoffinRoom",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Master Bedroom"
     },
     {
       "Name": "CoffinRoom",
       "Description": "You are in the coffin room. The coffin is open and you can see the body of Count Dracula lying there. You suddenly realize that he is vulnerable and must be killed immediately. To do that requires a wooden stake and a hammer to drive it down into his chest. To the south is the chain room. To the east is the master bedroom. But suddenly, with a tremendous roar, a huge steel door crashes down between you and the master bedroom, permanently blocking your way there.",
-      "Items": ["coffin"],
+      "Items": [
+        "coffin"
+      ],
       "image": "coffinroom.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1908,8 +2080,13 @@
           "TimeToMove": 1
         }
       ],
-      "AllowedCommands": ["kill dracula"],
-      "Actions": ["Dracula"]
+      "AllowedCommands": [
+        "kill dracula"
+      ],
+      "Actions": [
+        "Dracula"
+      ],
+      "DisplayName": "The Coffin Room"
     },
     {
       "Name": "ChainRoom",
@@ -1939,7 +2116,8 @@
           "Destination": "Balcony",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Chain Room"
     },
     {
       "Name": "Balcony",
@@ -1956,12 +2134,18 @@
           "TimeToMove": 1
         }
       ],
-      "AllowedCommands": ["throw ring", "throw painting"]
+      "AllowedCommands": [
+        "throw ring",
+        "throw painting"
+      ],
+      "DisplayName": "The Balcony"
     },
     {
       "Name": "BoneRoom",
       "Description": "You are in the bone room. There is a skeleton here leaning against the west wall. You immediately recognize Uncle Hermans ruby ring on one of the fingers. To the north is the chain room and to the east is the slippery room. Beware of the slippery room because it will steal everything that you are carrying. The ruby ring is worth 150 points.",
-      "Items": ["rubyRing"],
+      "Items": [
+        "rubyRing"
+      ],
       "image": "boneroom.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1979,7 +2163,8 @@
           "Destination": "SlipperyRoom",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "Room of Bones"
     },
     {
       "Name": "SlipperyRoom",
@@ -2003,12 +2188,17 @@
           "TimeToMove": 1
         }
       ],
-      "Actions": ["SlipperyRoom"]
+      "Actions": [
+        "SlipperyRoom"
+      ],
+      "DisplayName": "Slippery Room"
     },
     {
       "Name": "NativeVillage",
       "Description": "You are in the native village of headhunters. To the north is the edge of a clearing. To the south is a north-south path. The natives see the dead black cat that you are carrying and run away in fear. You suddenly observe that there is a stone idol here that they worship and around its neck is an emerald necklace. It is worth 150 points.",
-      "Items": ["emeraldNecklace"],
+      "Items": [
+        "emeraldNecklace"
+      ],
       "image": "nativevillage.png",
       "Help": "You need the dead black cat or the natives will kill you.",
       "AllowedMovements": [
@@ -2027,7 +2217,10 @@
           "TimeToMove": 5
         }
       ],
-      "Actions": ["NativeVillage"]
+      "Actions": [
+        "NativeVillage"
+      ],
+      "DisplayName": "Native Village"
     },
     {
       "Name": "NorthSouthPath",
@@ -2057,7 +2250,8 @@
           "Destination": "Cavern",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "North-South Path"
     },
     {
       "Name": "RescueBeach",
@@ -2083,7 +2277,10 @@
           "TimeToMove": 20
         }
       ],
-      "AllowedCommands": ["dig"]
+      "AllowedCommands": [
+        "dig"
+      ],
+      "DisplayName": "Rescue Beach"
     },
     {
       "Name": "Cavern",
@@ -2106,7 +2303,8 @@
           "Destination": "EastBoarDen",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "The Cavern"
     },
     {
       "Name": "EastBoarDen",
@@ -2130,7 +2328,10 @@
           "TimeToMove": 5
         }
       ],
-      "Actions": ["Boar"]
+      "Actions": [
+        "Boar"
+      ],
+      "DisplayName": "East Boar Den"
     },
     {
       "Name": "Ocean",
@@ -2146,7 +2347,8 @@
           "Destination": "WharfRoad",
           "TimeToMove": 1
         }
-      ]
+      ],
+      "DisplayName": "The Ocean"
     },
     {
       "Name": "SecretPassage",
@@ -2169,7 +2371,8 @@
           "Destination": "WestCellar",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Secret Passage"
     },
     {
       "Name": "WestCellar",
@@ -2192,12 +2395,15 @@
           "Destination": "SecretPassage",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "West Cellar"
     },
     {
       "Name": "EastCellar",
       "Description": "You are in the east cellar of the mansion. To the west is the west cellar. To the south is a tunnel leading into a vast underground system of caverns. There is something here that you will need but it is currently empty. It is dark here.",
-      "Items": ["canteen"],
+      "Items": [
+        "canteen"
+      ],
       "image": "eastcellar.png",
       "Help": "You will need to fill the canteen with water. But finding it underground will take some doing.",
       "AllowedMovements": [
@@ -2215,7 +2421,8 @@
           "Destination": "WestCellar",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "East Cellar"
     },
     {
       "Name": "Tunnel1",
@@ -2238,7 +2445,8 @@
           "Destination": "LowCrawl",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Cave Tunnel"
     },
     {
       "Name": "LowCrawl",
@@ -2261,7 +2469,8 @@
           "Destination": "HighPlace",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Low Crawl"
     },
     {
       "Name": "HighPlace",
@@ -2291,7 +2500,8 @@
           "Destination": "LowCrawl",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "High Place"
     },
     {
       "Name": "CircularCavern",
@@ -2314,7 +2524,8 @@
           "Destination": "HighPlace",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Circular Cavern"
     },
     {
       "Name": "Tunnel2",
@@ -2337,7 +2548,8 @@
           "Destination": "CircularCavern",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Second Tunnel"
     },
     {
       "Name": "RailSwitch",
@@ -2367,7 +2579,8 @@
           "Destination": "NortheastFork",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Rail Switch Room"
     },
     {
       "Name": "DeadendShaft",
@@ -2383,7 +2596,8 @@
           "Destination": "RailSwitch",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Dead-End Shaft"
     },
     {
       "Name": "NortheastFork",
@@ -2406,12 +2620,15 @@
           "Destination": "RailSwitch",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Northeast Fork"
     },
     {
       "Name": "AngleBend",
       "Description": "You are at angle bend. To the west is northeast fork. There is some dynamite here. It is dark here.",
-      "Items": ["dynamite"],
+      "Items": [
+        "dynamite"
+      ],
       "image": "anglebend.png",
       "Help": "Do not touch the dynamite!",
       "AllowedMovements": [
@@ -2423,7 +2640,10 @@
           "TimeToMove": 5
         }
       ],
-      "Actions": ["DynamiteDeath"]
+      "Actions": [
+        "DynamiteDeath"
+      ],
+      "DisplayName": "Angle Bend"
     },
     {
       "Name": "JaggedCavern",
@@ -2453,7 +2673,8 @@
           "Destination": "FissureRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Jagged Cavern"
     },
     {
       "Name": "CleanRoom",
@@ -2476,7 +2697,8 @@
           "Destination": "JaggedCavern",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Clean Room"
     },
     {
       "Name": "DustyPassage",
@@ -2499,7 +2721,8 @@
           "Destination": "CleanRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Dusty Passage"
     },
     {
       "Name": "SteamRoom",
@@ -2537,7 +2760,10 @@
           "TimeToMove": 5
         }
       ],
-      "Actions": ["SteamRoom"]
+      "Actions": [
+        "SteamRoom"
+      ],
+      "DisplayName": "Steam Room"
     },
     {
       "Name": "RainbowRoom",
@@ -2560,7 +2786,8 @@
           "Destination": "SteamRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Rainbow Room"
     },
     {
       "Name": "EastRainbowRoom",
@@ -2576,7 +2803,8 @@
           "Destination": "RainbowRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "East Rainbow Room"
     },
     {
       "Name": "BambooRoom",
@@ -2599,12 +2827,15 @@
           "Destination": "SteamRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Bamboo Room"
     },
     {
       "Name": "MushroomRoom",
       "Description": "You are in the mushroom room. To the north is the small room. To the west is the bamboo room. There are a number of mushrooms growing here and you suddenly realize that you are hungry. It is dark here.",
-      "Items": ["mushrooms"],
+      "Items": [
+        "mushrooms"
+      ],
       "image": "mushroomroom.png",
       "Help": "Do not eat the mushrooms - they are poisonous!",
       "AllowedMovements": [
@@ -2623,7 +2854,10 @@
           "TimeToMove": 5
         }
       ],
-      "Actions": ["MushroomDeath"]
+      "Actions": [
+        "MushroomDeath"
+      ],
+      "DisplayName": "Mushroom Room"
     },
     {
       "Name": "SmallRoom",
@@ -2640,7 +2874,10 @@
           "TimeToMove": 5
         }
       ],
-      "Actions": ["ParrotCombination"]
+      "Actions": [
+        "ParrotCombination"
+      ],
+      "DisplayName": "Small Room"
     },
     {
       "Name": "LargeCavern",
@@ -2663,7 +2900,8 @@
           "Destination": "HistoricalMarker",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Large Cavern"
     },
     {
       "Name": "HistoricalMarker",
@@ -2693,7 +2931,8 @@
           "Destination": "GoblinValley",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Historical Marker"
     },
     {
       "Name": "Battlefield",
@@ -2702,12 +2941,17 @@
       "image": "battlefield.png",
       "Help": "no",
       "AllowedMovements": [],
-      "Actions": ["BattlefieldDeath"]
+      "Actions": [
+        "BattlefieldDeath"
+      ],
+      "DisplayName": "Ancient Battlefield"
     },
     {
       "Name": "GoblinValley",
       "Description": "You are at goblin valley. To the north is the tv room. To the east is a historical marker. There is a treasure here worth 300 points once you drop it at rescue beach. It is dark here.",
-      "Items": ["goblinTreasure"],
+      "Items": [
+        "goblinTreasure"
+      ],
       "image": "goblinvalley.png",
       "Help": "no",
       "AllowedMovements": [
@@ -2725,7 +2969,8 @@
           "Destination": "HistoricalMarker",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Goblin Valley"
     },
     {
       "Name": "TVRoom",
@@ -2741,7 +2986,8 @@
           "Destination": "GoblinValley",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "TV Room"
     },
     {
       "Name": "WestBoarDen",
@@ -2765,7 +3011,10 @@
           "TimeToMove": 5
         }
       ],
-      "Actions": ["Boar"]
+      "Actions": [
+        "Boar"
+      ],
+      "DisplayName": "West Boar Den"
     },
     {
       "Name": "StalactiteRoom",
@@ -2788,7 +3037,8 @@
           "Destination": "Sandstone",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Stalactite Room"
     },
     {
       "Name": "Sandstone",
@@ -2818,12 +3068,15 @@
           "Destination": "StalactiteRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Sandstone Chamber"
     },
     {
       "Name": "DeadmansGulch",
       "Description": "You are at deadmans gulch. To the north is sandstone. There is a treasure here worth 200 points on rescue beach. It is dark here.",
-      "Items": ["deadmansTreasure"],
+      "Items": [
+        "deadmansTreasure"
+      ],
       "image": "deadmansgulch.png",
       "Help": "no",
       "AllowedMovements": [
@@ -2834,12 +3087,15 @@
           "Destination": "Sandstone",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Deadman's Gulch"
     },
     {
       "Name": "ArabianRoom",
       "Description": "You are in the arabian room. To the north is the east end of an ice cave. To the south is sandstone. There is a very old and curious lamp here. I suspect it may have belonged to a person called Aladdin. And it is worth 300 points on rescue beach. It is dark here.",
-      "Items": ["aladdinsLamp"],
+      "Items": [
+        "aladdinsLamp"
+      ],
       "image": "arabianroom.png",
       "Help": "Aladdin's lamp can only be used once.",
       "AllowedMovements": [
@@ -2857,7 +3113,8 @@
           "Destination": "Sandstone",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Arabian Room"
     },
     {
       "Name": "EastIceCave",
@@ -2887,7 +3144,8 @@
           "Destination": "WestIceCave",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "East Ice Cave"
     },
     {
       "Name": "WindyPassage",
@@ -2910,7 +3168,8 @@
           "Destination": "EastIceCave",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Windy Passage"
     },
     {
       "Name": "SulphurSprings",
@@ -2933,12 +3192,15 @@
           "Destination": "WindyPassage",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Sulphur Springs"
     },
     {
       "Name": "ChimneyRoom",
       "Description": "You are in the chimney room. To the south is sulphur springs. To the west is bubbling cauldron. Be careful there because it is very hot. The room in which you now stand is like a huge chimney that goes up out of sight. It looks like it may even go all the way to the top of the volcano. You will need this shovel elsewhere. It is dark here.",
-      "Items": ["caveShovel"],
+      "Items": [
+        "caveShovel"
+      ],
       "image": "chimneyroom.png",
       "Help": "There is a sneaky method to get the shovel out of the caverns at the end.",
       "AllowedMovements": [
@@ -2956,7 +3218,8 @@
           "Destination": "BubblingCauldron",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Chimney Room"
     },
     {
       "Name": "BubblingCauldron",
@@ -2965,7 +3228,10 @@
       "image": "bubblingcauldron.png",
       "Help": "no",
       "AllowedMovements": [],
-      "Actions": ["LavaDeath"]
+      "Actions": [
+        "LavaDeath"
+      ],
+      "DisplayName": "Bubbling Cauldron"
     },
     {
       "Name": "WestIceCave",
@@ -2995,7 +3261,8 @@
           "Destination": "EastIceCave",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "West Ice Cave"
     },
     {
       "Name": "SlopingCorridor",
@@ -3018,12 +3285,15 @@
           "Destination": "FissureRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Sloping Corridor"
     },
     {
       "Name": "FissureRoom",
       "Description": "You are in the fissure room. To the north is a sloping corridor. To the east is a jagged cavern. To the west is the west fissure room. There is a treasure here that is worth 400 points if you drop it on rescue beach. But there is a wide fissure between you and the treasure and it is too wide to jump over. You will have to find some other way to get there. And you cannot use Aladdins lamp more than one time. The melting ice has filled up the fissure with water. It is dark here.",
-      "Items": ["fissureTreasure"],
+      "Items": [
+        "fissureTreasure"
+      ],
       "image": "fissureroom.png",
       "Help": "You need to find a way across the water-filled fissure. Aladdin's lamp can only be used once.",
       "AllowedMovements": [
@@ -3048,7 +3318,8 @@
           "Destination": "WestFissureRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Fissure Room"
     },
     {
       "Name": "SaltRoom",
@@ -3072,7 +3343,10 @@
           "TimeToMove": 5
         }
       ],
-      "Actions": ["Thirst"]
+      "Actions": [
+        "Thirst"
+      ],
+      "DisplayName": "Salt Room"
     },
     {
       "Name": "LavaLounge",
@@ -3095,7 +3369,8 @@
           "Destination": "SaltRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Lava Lounge"
     },
     {
       "Name": "EchoCanyon",
@@ -3118,12 +3393,15 @@
           "Destination": "CoalMine",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Echo Canyon"
     },
     {
       "Name": "CoalMine",
       "Description": "You are in a coal mine. To the north is echo canyon. To the south is the west fissure. You will need coal. It is dark here.",
-      "Items": ["coal"],
+      "Items": [
+        "coal"
+      ],
       "image": "coalmine.png",
       "Help": "Take the coal - you will need it.",
       "AllowedMovements": [
@@ -3141,7 +3419,8 @@
           "Destination": "WestFissureRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "The Coal Mine"
     },
     {
       "Name": "WestFissureRoom",
@@ -3171,7 +3450,8 @@
           "Destination": "CutStone",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "West Fissure Room"
     },
     {
       "Name": "CutStone",
@@ -3194,12 +3474,15 @@
           "Destination": "TombRoom",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "Cut Stone Chamber"
     },
     {
       "Name": "TombRoom",
       "Description": "You are in the tomb room. To the east is cut stone. There is a tomb here that has been opened and everything that was in it has been removed. The tomb is obviously one that held ancient egyptian pharaohs like King Tut. There is also a very old parchment map here that tells valuable information. It is dark here.",
-      "Items": ["parchmentMap"],
+      "Items": [
+        "parchmentMap"
+      ],
       "image": "tombroom.png",
       "Help": "Take the parchment map - it contains valuable information.",
       "AllowedMovements": [
@@ -3210,7 +3493,8 @@
           "Destination": "CutStone",
           "TimeToMove": 5
         }
-      ]
+      ],
+      "DisplayName": "The Tomb Room"
     }
   ],
   "Items": [
@@ -3234,19 +3518,19 @@
     {
       "Name": "chest",
       "Description": "It is old and broken, but seems it was once of good quality.  You think you see something inside.",
-      "Takeable" : false
+      "Takeable": false
     },
     {
       "Name": "danish",
       "Description": "A tasty cream tart with berries.",
       "MustBuy": true,
-      "Cost":1
+      "Cost": 1
     },
     {
       "Name": "donuts",
       "Description": "Nature's perfect food.",
       "MustBuy": true,
-      "Cost":1
+      "Cost": 1
     },
     {
       "Name": "coffee",
@@ -3265,52 +3549,51 @@
       "Description": "This will get you on the stage coach to the interior of the island.",
       "MustBuy": true,
       "Cost": 5
-
     },
     {
       "Name": "notices",
       "Description": "One notice in particular catches your eye.  There is a reward offered for a lost wallet.",
-      "Takeable" : false
+      "Takeable": false
     },
     {
       "Name": "therepublic pawned",
       "Description": "You pawned this off, but can buy it back.",
-      "MustBuy" : true,
+      "MustBuy": true,
       "Cost": 10
     },
     {
       "Name": "monkeysPaw",
       "Description": "You pawned this off, but can buy it back.",
-      "MustBuy" : false
+      "MustBuy": false
     },
     {
       "Name": "BalloonTicket",
       "Description": "You need this to fly.",
-      "MustBuy" : true,
-      "Cost":4
+      "MustBuy": true,
+      "Cost": 4
     },
     {
       "Name": "PromissoryNote",
       "Description": "You have to pay back a loan to the bank.  Once you get back from treasure island, they may take a bit of treasure.",
-      "MustBuy" : false
+      "MustBuy": false
     },
     {
       "Name": "pearl",
       "Description": "A giant pearl.  You could sell this for a lot of money. Did Uncle Herman know this was here?",
-      "MustBuy" : false,
-      "Value":150
+      "MustBuy": false,
+      "Value": 150
     },
     {
       "Name": "BrokenSeaChest",
       "Description": "This is the remains of a sea chest.  It is broken but there are some matches inside.",
-      "MustBuy" : false,
+      "MustBuy": false,
       "Takeable": false,
-      "Reveals":"matches"
+      "Reveals": "matches"
     },
     {
       "Name": "TreasureChest",
       "Description": "The mother load!  Gold, silver and jewels.",
-      "MustBuy" : false,
+      "MustBuy": false,
       "Takeable": true,
       "Value": 400
     },
@@ -3467,30 +3750,30 @@
       "Takeable": true
     }
   ],
-    "GlobalCommands": [
-        "look",
-        "inventory",
-        "open",
-        "close",
-        "take",
-        "say",
-        "north",
-        "south",
-        "east",
-        "west",
-        "up",
-        "down",
-        "help",
-        "eat",
-        "drop",
-        "light",
-        "drink",
-        "save game",
-        "load game",
-        "delete game",
-        "new game",
-        "sleep",
-        "unlock",
-        "lock"
-    ]
+  "GlobalCommands": [
+    "look",
+    "inventory",
+    "open",
+    "close",
+    "take",
+    "say",
+    "north",
+    "south",
+    "east",
+    "west",
+    "up",
+    "down",
+    "help",
+    "eat",
+    "drop",
+    "light",
+    "drink",
+    "save game",
+    "load game",
+    "delete game",
+    "new game",
+    "sleep",
+    "unlock",
+    "lock"
+  ]
 }

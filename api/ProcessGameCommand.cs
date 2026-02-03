@@ -45,11 +45,21 @@ namespace Erwin.Games.TreasureIsland
 
             if (command != "startup")
             {
-                // Here we analyze the input, perhaps with an LLM
-                // Then the cleaned up command is fed to a factory to create a command object
-                // Then we execute the command object
-                parsedCommand = await _aiClient.ParsePlayerInputWithAgent(command);
-                _logger.LogInformation("Parsed game command: {0}", parsedCommand);
+                // Fast path: Try direct command matching first (no AI needed)
+                parsedCommand = CommandMatcher.TryMatchCommand(command);
+
+                if (parsedCommand != null)
+                {
+                    _logger.LogInformation("Fast path matched: {0} -> {1}", command, parsedCommand);
+                }
+                else
+                {
+                    // Slow path: Use AI for natural language understanding
+                    // Pass location context to help with commands like "enter the bank"
+                    var currentLocation = WorldData.Instance?.GetLocation(data.saveGameData?.CurrentLocation);
+                    parsedCommand = await _aiClient.ParsePlayerInputWithAgent(command, currentLocation, data.saveGameData);
+                    _logger.LogInformation("AI parsed: {0} -> {1}", command, parsedCommand);
+                }
             }
 
             ICommand cmd = CommandFactory.CreateCommand(parsedCommand, data.saveGameData, _gameDataRepository);
@@ -84,11 +94,18 @@ namespace Erwin.Games.TreasureIsland
                 {
                     saveGameList = new List<SaveGameData>() { result.saveGameData };
                 }
-                
+
                 if (saveGameList != null)
                 {
                     result?.SavedGames?.AddRange(saveGameList);
                 }
+            }
+
+            // Populate the display name for the current location
+            if (result?.saveGameData != null)
+            {
+                var location = WorldData.Instance?.GetLocation(result.saveGameData.CurrentLocation);
+                result.saveGameData.CurrentLocationDisplayName = location?.GetDisplayName();
             }
 
             return new OkObjectResult(result);

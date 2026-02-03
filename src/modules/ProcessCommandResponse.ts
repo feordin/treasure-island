@@ -4,6 +4,7 @@ export interface SaveGameData {
     player?: string;
     score?: number;
     currentLocation?: string;
+    currentLocationDisplayName?: string; // User-friendly location name for display
     currentDateTime?: string; // ISO 8601 date string
     inventory?: string[];
     health?: number;

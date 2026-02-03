@@ -26,7 +26,7 @@ const SavedGamesList: React.FC<SavedGamesListProps> = ({ savedGames }) => {
               <td>{index}</td>
               <td>{new Date(game.currentDateTime || "01-01-1789").toLocaleDateString('en-US', { timeZone: 'UTC' })}</td>
               <td>{new Date(game.currentDateTime || "12:00").toLocaleTimeString('en-US', { timeZone: 'UTC' })}</td>
-              <td>{game.currentLocation}</td>
+              <td>{game.currentLocationDisplayName || game.currentLocation}</td>
             </tr>
           ))}
         </tbody>

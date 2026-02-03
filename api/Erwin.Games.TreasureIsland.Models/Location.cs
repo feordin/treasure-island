@@ -8,6 +8,14 @@ namespace Erwin.Games.TreasureIsland.Models
     public class Location
     {
         public string? Name { get; set; }
+        /// <summary>
+        /// User-friendly display name shown to the player. Falls back to Name if not set.
+        /// </summary>
+        public string? DisplayName { get; set; }
+        /// <summary>
+        /// Gets the display name, falling back to Name if DisplayName is not set.
+        /// </summary>
+        public string GetDisplayName() => DisplayName ?? Name ?? "Unknown Location";
         public string? Description { get; set; }
         public List<string>? Items { get; set; }
         public string? Image { get; set; }
@@ -152,12 +160,16 @@ namespace Erwin.Games.TreasureIsland.Models
                 foreach (var movement in AllowedMovements)
                 {
                     var translatedDirection = Location.CardinalDirectionToSimple(saveGame?.Facing, movement?.Direction?[0]);
+                    // Get the display name for the destination location
+                    var destinationLocation = WorldData.Instance?.GetLocation(movement?.Destination);
+                    var destinationName = destinationLocation?.GetDisplayName() ?? movement?.Destination;
+
                     if (translatedDirection == "right" || translatedDirection == "left")
-                        description += $"\nOn the {translatedDirection} ({movement?.Direction?[0]}) is the {movement?.Destination}.";
+                        description += $"\nOn the {translatedDirection} ({movement?.Direction?[0]}) is {destinationName}.";
                     else if (translatedDirection == "ahead")
-                        description += $"\nAhead of you ({saveGame?.Facing}) is the {movement?.Destination}.";
+                        description += $"\nAhead of you ({saveGame?.Facing}) is {destinationName}.";
                     else
-                        description += $"\nBehind you is the {movement?.Destination}.";
+                        description += $"\nBehind you is {destinationName}.";
                 }
             }
 

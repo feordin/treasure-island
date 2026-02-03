@@ -9,6 +9,10 @@ namespace Erwin.Games.TreasureIsland.Models
         public string? Player { get; set; }
         public int Score { get; set; }
         public string? CurrentLocation { get; set; }
+        /// <summary>
+        /// User-friendly display name for the current location. Set by game logic.
+        /// </summary>
+        public string? CurrentLocationDisplayName { get; set; }
         public DateTime CurrentDateTime { get; set; }
         public List<string>? Inventory { get; set; }
         public int Health { get; set; }

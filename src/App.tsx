@@ -94,7 +94,8 @@ function App() {
     // update the game status
     if (currentGameRef.current) {
       if (currentGameRef.current.currentLocation && location !== currentGameRef.current.currentLocation) {
-        location = currentGameRef.current.currentLocation;
+        // Use display name for UI, fall back to internal name if not available
+        location = currentGameRef.current.currentLocationDisplayName || currentGameRef.current.currentLocation;
         currentLocationDescription = response.locationDescription;
       }
       if (currentGameRef.current.currentDateTime) {
