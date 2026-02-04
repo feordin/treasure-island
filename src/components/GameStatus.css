@@ -1,3 +1,4 @@
+/* Desktop layout */
 .game-status {
     position: fixed;
     top: 0;
@@ -9,25 +10,44 @@
     padding: 10px;
     box-sizing: border-box;
   }
-  
+
   .status-item {
     margin-bottom: 10px;
   }
-  
+
   .inventory {
     margin-top: 20px;
   }
-  
+
   .inventory ul {
     list-style-type: none;
     padding: 0;
   }
-  
+
   .inventory li {
     margin-bottom: 5px;
   }
 
   .inventory-list-container {
-    max-height: 200px; /* Adjust the height as needed */
+    max-height: 200px;
     overflow-y: auto;
   }
+
+/* Mobile layout - hide default, show in drawer */
+@media (max-width: 768px) {
+  .game-status {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .game-status-desktop {
+    display: none;
+  }
+
+  .inventory-list-container {
+    max-height: none;
+  }
+}

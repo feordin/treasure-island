@@ -1,4 +1,6 @@
 /* src/components/LocationImage.css */
+
+/* Desktop layout */
 .location-image {
     position: absolute;
     top: 0;
@@ -8,10 +10,28 @@
     height: 100vh;  /* Full viewport height */
     box-sizing: border-box;
   }
-  
+
   .location-image img {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Ensure the image covers the container */
   }
-  
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  .location-image {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    height: 35vh; /* 35% of viewport height on mobile */
+    flex-shrink: 0;
+  }
+
+  .location-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

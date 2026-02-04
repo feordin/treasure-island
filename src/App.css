@@ -1,4 +1,6 @@
 /* App.css */
+
+/* Desktop layout */
 .app-container {
   display: flex;
   height: 100vh;
@@ -15,11 +17,104 @@
   background-color: #f0f0f0;
 }
 
-/* src/App.css */
 .App {
   position: relative;
-  height: 100vh; /* Full viewport height */
-  width: 100vw;  /* Full viewport width */
+  height: 100vh;
+  width: 100vw;
   overflow: hidden;
+}
+
+/* Desktop-only elements */
+.desktop-only {
+  display: block;
+}
+
+/* Desktop TTS controls */
+.desktop-tts-controls {
+  position: fixed;
+  top: 10px;
+  left: 26%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.desktop-tts-toggle {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop-tts-toggle:hover {
+  background-color: #34495e;
+}
+
+.desktop-tts-toggle.active {
+  background-color: #27ae60;
+}
+
+.desktop-tts-toggle.speaking {
+  background-color: #e74c3c;
+  animation: pulse-desktop 0.5s infinite;
+}
+
+.tts-rate-label {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.desktop-tts-off {
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop-tts-off:hover {
+  background-color: #e74c3c;
+}
+
+@keyframes pulse-desktop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  .App {
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px; /* Space for mobile header */
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .desktop-tts-controls {
+    display: none;
+  }
 }
 
