@@ -69,7 +69,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null));
                 }
 
-                currentLocation.AddItemToLocation(_saveGameData, _param);
+                currentLocation?.AddItemToLocation(_saveGameData, _param);
                 
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                     "You drop the " + _param + ".",

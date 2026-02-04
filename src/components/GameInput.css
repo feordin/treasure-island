@@ -82,6 +82,8 @@
     border-right: none;
     border-top: 1px solid #ccc;
     flex-shrink: 0;
+    flex-grow: 0;
+    box-sizing: border-box;
   }
 
   .game-input form {

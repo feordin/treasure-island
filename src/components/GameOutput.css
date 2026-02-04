@@ -39,11 +39,14 @@
     left: auto;
     width: 100%;
     height: auto;
-    flex: 1;
-    min-height: 0; /* Allow flex shrinking */
+    flex: 1 1 0; /* Grow and shrink, base size 0 */
+    min-height: 0; /* Critical: allows flex item to shrink below content size */
+    overflow-y: auto; /* Scroll within this area only */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     border-right: none;
     border-bottom: 1px solid #ccc;
     font-size: 14px;
     padding: 10px;
+    box-sizing: border-box;
   }
 }

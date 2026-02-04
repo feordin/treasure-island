@@ -106,7 +106,13 @@
   .App {
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height - accounts for mobile browser chrome */
+    max-height: 100vh;
+    max-height: 100dvh;
     padding-top: 50px; /* Space for mobile header */
+    overflow: hidden; /* Prevent any scrolling on the main container */
+    box-sizing: border-box;
   }
 
   .desktop-only {
