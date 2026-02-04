@@ -178,7 +178,7 @@ function App() {
       aiEmbelleshedDescriptions = currentGameRef.current.aiEmbelleshedDescriptions;
     }
 
-  }, [currentLocationImage]);
+  }, [currentLocationImage, isTtsEnabled]);
 
   useEffect(() => {
     if (!initRef.current) {

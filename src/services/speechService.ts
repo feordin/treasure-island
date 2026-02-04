@@ -18,17 +18,21 @@ const getApiUrl = (): string => {
 async function getToken(): Promise<SpeechToken> {
   // Return cached token if still valid (tokens last 10 min, we refresh at 9)
   if (cachedToken && Date.now() < tokenExpiry) {
+    console.log('[TTS] Using cached token');
     return cachedToken;
   }
 
+  console.log('[TTS] Fetching new token from:', `${getApiUrl()}/GetSpeechToken`);
   const response = await fetch(`${getApiUrl()}/GetSpeechToken`);
   if (!response.ok) {
+    console.error('[TTS] Token fetch failed:', response.status, response.statusText);
     throw new Error('Failed to get speech token');
   }
 
   cachedToken = await response.json();
   tokenExpiry = Date.now() + 9 * 60 * 1000; // 9 minutes
 
+  console.log('[TTS] Got new token, region:', cachedToken?.region);
   return cachedToken!;
 }
 
@@ -149,7 +153,11 @@ export function stopSpeaking(): void {
 
 // Text-to-Speech: Speak the given text aloud
 export async function textToSpeech(text: string, rate?: SpeechRate): Promise<void> {
+  console.log('[TTS] Starting text-to-speech...');
+
   const { token, region } = await getToken();
+  console.log('[TTS] Got token, region:', region);
+
   const useRate = rate ?? currentRate;
 
   return new Promise((resolve, reject) => {
@@ -163,15 +171,15 @@ export async function textToSpeech(text: string, rate?: SpeechRate): Promise<voi
     // Store reference for stop functionality
     currentSynthesizer = synthesizer;
 
+    // Determine language from voice name (e.g., en-GB-RyanNeural -> en-GB)
+    const voiceLang = currentVoice.split('-').slice(0, 2).join('-');
+
     // Build SSML for rate and pitch control
     const rateValue = typeof useRate === 'number' ? `${useRate * 100}%` : useRate;
-    const ssml = `
-      <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US">
-        <voice name="${currentVoice}">
-          <prosody rate="${rateValue}" pitch="${currentPitch}">${escapeXml(text)}</prosody>
-        </voice>
-      </speak>
-    `;
+    const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${voiceLang}"><voice name="${currentVoice}"><prosody rate="${rateValue}" pitch="${currentPitch}">${escapeXml(text)}</prosody></voice></speak>`;
+
+    console.log('[TTS] Voice:', currentVoice, 'Rate:', rateValue, 'Pitch:', currentPitch);
+    console.log('[TTS] SSML:', ssml.substring(0, 200) + '...');
 
     synthesizer.speakSsmlAsync(
       ssml,
@@ -179,10 +187,15 @@ export async function textToSpeech(text: string, rate?: SpeechRate): Promise<voi
         currentSynthesizer = null;
         synthesizer.close();
 
+        console.log('[TTS] Result reason:', SpeechSDK.ResultReason[result.reason]);
+
         if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
+          console.log('[TTS] Speech completed successfully');
           resolve();
         } else if (result.reason === SpeechSDK.ResultReason.Canceled) {
           const cancellation = SpeechSDK.CancellationDetails.fromResult(result);
+          console.log('[TTS] Canceled - reason:', SpeechSDK.CancellationReason[cancellation.reason]);
+          console.log('[TTS] Error details:', cancellation.errorDetails);
           // Don't reject if manually stopped
           if (cancellation.reason === SpeechSDK.CancellationReason.Error) {
             reject(new Error(`Speech synthesis canceled: ${cancellation.errorDetails}`));
@@ -190,12 +203,14 @@ export async function textToSpeech(text: string, rate?: SpeechRate): Promise<voi
             resolve(); // Treat manual cancellation as success
           }
         } else {
+          console.log('[TTS] Speech failed with reason:', result.reason);
           reject(new Error('Speech synthesis failed'));
         }
       },
       (error) => {
         currentSynthesizer = null;
         synthesizer.close();
+        console.error('[TTS] Error:', error);
         reject(error);
       }
     );
