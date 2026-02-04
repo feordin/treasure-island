@@ -43,7 +43,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             // Optimized minimal prompt for fast command parsing
             _systemPromptText = @"Parse text adventure commands. Output ONLY the command, nothing else.
 
-COMMANDS: north,south,east,west,up,down,left,right,ahead,behind,look,take,drop,examine,buy,pawn,save,load,delete,new,help,sleep,rest,dig,pray,fortune,swim,drink,fill,rub,light,kill,steal,embellish,inventory
+COMMANDS: north,south,east,west,up,down,left,right,ahead,behind,look,take,drop,examine,buy,pawn,save,load,delete,new,help,sleep,rest,dig,pray,fortune,swim,drink,fill,rub,light,kill,steal,borrow,wish,embellish,inventory
 
 RULES:
 - Movement: forward/onward=ahead, back/return=behind
@@ -54,6 +54,8 @@ RULES:
 - ""exit X""/""leave X"": if player is AT location X, return ""behind""
 - ""exit""/""leave"" alone: return ""behind""
 - Descriptive movement (""go down the hill"", ""walk up the path""): match description to find which direction, return that direction
+- Bank: ""borrow""/""loan""/""get loan""=borrow (for loans), ""steal""/""rob""=steal (for theft). Do NOT confuse these.
+- Wish: ""wish for X""/""make a wish""=wish X (valid: money,treasure,food,help)
 - Unknown input: respond ""unknown_command"" with brief hint"
             ;
 
@@ -217,10 +219,10 @@ RULES:
                 }
 
                 contextualInput = $@"[LOCATION CONTEXT]
-{string.Join("\n", contextParts)}
+                        {string.Join("\n", contextParts)}
 
-[PLAYER INPUT]
-{input}";
+                        [PLAYER INPUT]
+                        {input}";
             }
 
             // Use fast direct endpoint instead of slow agent API

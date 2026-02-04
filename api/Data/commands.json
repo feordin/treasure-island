@@ -184,7 +184,7 @@
     },
     {
       "command": "steal",
-      "aliases": ["borrow", "rob"],
+      "aliases": ["rob"],
       "parameters": [
         {
           "name": "target",
@@ -194,8 +194,31 @@
         }
       ],
       "description": "Attempt to steal money from the bank. This is risky and may have consequences.",
-      "examples": ["steal", "rob bank", "borrow money"],
+      "examples": ["steal", "rob bank"],
       "category": "commerce"
+    },
+    {
+      "command": "borrow",
+      "aliases": ["loan", "get loan", "take loan"],
+      "parameters": [],
+      "description": "Request a loan from the bank. Requires collateral (TheRepublic book). Must be at the bank.",
+      "examples": ["borrow", "get a loan", "take out a loan", "borrow money"],
+      "category": "commerce"
+    },
+    {
+      "command": "wish",
+      "aliases": ["make wish", "wish for"],
+      "parameters": [
+        {
+          "name": "wishType",
+          "type": "string",
+          "required": true,
+          "description": "What to wish for: 'money', 'treasure', 'food', or 'help'."
+        }
+      ],
+      "description": "Use the monkey's paw to make a wish. You only get one wish, so choose wisely. Requires the monkey's paw in inventory.",
+      "examples": ["wish for money", "wish for treasure", "wish for food", "wish for help"],
+      "category": "magic"
     },
     {
       "command": "save",

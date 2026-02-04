@@ -42,3 +42,7 @@ TREASALL.CPP
 
 # Local config
 swa-cli.config.json
+
+# Azurite local storage emulator
+__azurite*
+__blobstorage__/

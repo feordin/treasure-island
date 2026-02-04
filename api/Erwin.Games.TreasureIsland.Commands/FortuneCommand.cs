@@ -20,11 +20,16 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             if (currentLocation?.Name == "FortuneTeller")
             {
-                if (_saveGameData?.Money >= 5)
+                if (_saveGameData?.Money >= 2)
                 {
-                    _saveGameData.Money -= 5;
+                    _saveGameData.Money -= 2;
                     return new ProcessCommandResponse(
                         "Madame Isadora, La Vidente, caresses your palm and then speaks: " + await currentLocation.GetFortune(), _saveGameData, null, null, null);
+                }
+                else
+                {
+                    return new ProcessCommandResponse(
+                        "Madame Isadora, La Vidente, looks at you expectantly.  'The spirits require 5 coins to speak, dear traveler.'", _saveGameData, null, null, null);
                 }
             }
 

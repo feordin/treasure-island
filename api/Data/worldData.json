@@ -3563,8 +3563,9 @@
     },
     {
       "Name": "monkeysPaw",
-      "Description": "You pawned this off, but can buy it back.",
-      "MustBuy": false
+      "Description": "A withered, mummified monkey's paw with one curled finger remaining. Madame Isadora warns that it grants but a single wish, and even that comes at a price. 'Choose wisely,' she whispers, 'for you only get one chance.'",
+      "MustBuy": true,
+      "Cost": 3
     },
     {
       "Name": "BalloonTicket",

@@ -44,12 +44,14 @@ namespace Erwin.Games.TreasureIsland.Commands
             { "swim", "swim" }, { "swim across", "swim" },
             { "drink", "drink" }, { "drink water", "drink" },
             { "steal", "steal" }, { "rob", "steal" }, { "rob bank", "steal" },
+            { "borrow", "borrow" }, { "loan", "borrow" }, { "get loan", "borrow" }, { "get a loan", "borrow" }, { "take loan", "borrow" }, { "borrow money", "borrow" },
             { "kill", "kill" }, { "attack", "kill" }, { "stake", "kill" }, { "slay", "kill" },
         };
 
         // Commands that take a parameter (used for pattern matching)
         private static readonly HashSet<string> _parameterCommands = new(StringComparer.OrdinalIgnoreCase)
         {
+            "wish", "wish for",
             "take", "get", "grab", "pick up", "pickup", "collect",
             "drop", "put down", "leave", "discard",
             "examine", "read", "inspect", "look at", "check", "study",
@@ -77,6 +79,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             { "save game", "save" },
             { "delete save", "delete" }, { "remove save", "delete" },
             { "stake", "kill" }, { "attack", "kill" }, { "slay", "kill" },
+            { "wish for", "wish" }, { "make wish", "wish" }, { "make a wish", "wish" },
         };
 
         // Phrases that should NOT be fast-path matched (need location context from AI)

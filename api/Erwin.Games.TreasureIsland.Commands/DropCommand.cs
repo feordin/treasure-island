@@ -32,7 +32,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null));
             }
 
-            // check the current location, if it's the bank, then we process this as a steal or rob command
+            // check the current location, the drop command works differently in the pawn shop
             var currentLocation = WorldData.Instance.GetLocation(_saveGameData.CurrentLocation);
             
             if (_param == null){
@@ -58,7 +58,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             {
                 _saveGameData?.Inventory?.RemoveAt(_saveGameData.Inventory.FindIndex(n => n.Equals(_param, StringComparison.OrdinalIgnoreCase)));
 
-                if (_param == "wallet" && _saveGameData != null)
+                if (_param == "wallet" && _saveGameData != null && currentLocation?.Name == "ConstablesOffice")
                 {
                     _saveGameData.Money += 10;
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
