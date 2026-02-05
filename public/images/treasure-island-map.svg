@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 2400" width="2200" height="2400">
+  <defs>
+    <style>
+      .area-label { font: bold 24px sans-serif; fill: #333; }
+      .location { font: 11px sans-serif; fill: #000; }
+      .location-box { fill: #fff; stroke: #333; stroke-width: 1; rx: 4; }
+      .location-box-town { fill: #ffe4b5; stroke: #8b4513; }
+      .location-box-jungle { fill: #90ee90; stroke: #228b22; }
+      .location-box-beach { fill: #f0e68c; stroke: #daa520; }
+      .location-box-mansion { fill: #dda0dd; stroke: #8b008b; }
+      .location-box-cave { fill: #d3d3d3; stroke: #696969; }
+      .location-box-special { fill: #ff6b6b; stroke: #8b0000; }
+      .connection { stroke: #666; stroke-width: 2; fill: none; }
+      .connection-cave { stroke: #555; stroke-width: 2; stroke-dasharray: 5,3; }
+      .water { fill: #87ceeb; }
+      .land { fill: #f5deb3; }
+      .land-town { fill: #e8d4a8; }
+      .cave-bg { fill: #8b7355; }
+      .mansion-bg { fill: #4a3728; }
+      .section-divider { stroke: #333; stroke-width: 3; stroke-dasharray: 10,5; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="700" y="40" text-anchor="middle" style="font: bold 36px serif; fill: #8b4513;">Treasure Island - Complete Map</text>
+  <text x="700" y="70" text-anchor="middle" style="font: 16px serif; fill: #666;">121 Locations Across 4 Major Areas</text>
+
+  <!-- Ocean Background for top section -->
+  <rect x="0" y="80" width="1400" height="1020" class="water"/>
+
+  <!-- ==================== TOWN ISLAND (Left) ==================== -->
+  <path d="M 80,200 Q 150,150 350,160 Q 500,150 550,200
+           Q 600,400 580,700 Q 560,900 500,1000
+           Q 400,1050 250,1030 Q 120,950 100,800
+           Q 80,500 80,200 Z"
+        class="land-town"/>
+
+  <text x="320" y="200" text-anchor="middle" class="area-label">🏘️ TOWN ISLAND</text>
+
+  <!-- Hilltop (Start) -->
+  <rect x="270" y="220" width="100" height="30" class="location-box-town"/>
+  <text x="320" y="240" text-anchor="middle" class="location">⭐ Hilltop</text>
+
+  <!-- Road -->
+  <line x1="320" y1="250" x2="320" y2="280" class="connection"/>
+  <rect x="280" y="280" width="80" height="30" class="location-box-town"/>
+  <text x="320" y="300" text-anchor="middle" class="location">Road</text>
+
+  <!-- Town Entrance -->
+  <line x1="320" y1="310" x2="320" y2="340" class="connection"/>
+  <rect x="260" y="340" width="120" height="30" class="location-box-town"/>
+  <text x="320" y="360" text-anchor="middle" class="location">Town Entrance</text>
+
+  <!-- Northend with branches -->
+  <line x1="320" y1="370" x2="320" y2="400" class="connection"/>
+  <rect x="275" y="400" width="90" height="30" class="location-box-town"/>
+  <text x="320" y="420" text-anchor="middle" class="location">Northend</text>
+
+  <!-- Bank (west of Northend) -->
+  <line x1="275" y1="415" x2="220" y2="415" class="connection"/>
+  <rect x="160" y="400" width="60" height="30" class="location-box-town"/>
+  <text x="190" y="420" text-anchor="middle" class="location">Bank</text>
+
+  <!-- Post Office (east of Northend) -->
+  <line x1="365" y1="415" x2="420" y2="415" class="connection"/>
+  <rect x="420" y="400" width="90" height="30" class="location-box-town"/>
+  <text x="465" y="420" text-anchor="middle" class="location">Post Office</text>
+
+  <!-- Main Street -->
+  <line x1="320" y1="430" x2="320" y2="460" class="connection"/>
+  <rect x="265" y="460" width="110" height="30" class="location-box-town"/>
+  <text x="320" y="480" text-anchor="middle" class="location">Main Street</text>
+
+  <!-- Bank Alley (west) -->
+  <line x1="265" y1="475" x2="210" y2="475" class="connection"/>
+  <rect x="140" y="460" width="70" height="30" class="location-box-town"/>
+  <text x="175" y="480" text-anchor="middle" class="location">Bank Alley</text>
+  <line x1="140" y1="475" x2="100" y2="475" class="connection"/>
+  <rect x="100" y="490" width="70" height="30" class="location-box-town"/>
+  <text x="135" y="510" text-anchor="middle" class="location">Alley End</text>
+
+  <!-- Bakery (east) -->
+  <line x1="375" y1="475" x2="420" y2="475" class="connection"/>
+  <rect x="420" y="460" width="70" height="30" class="location-box-town"/>
+  <text x="455" y="480" text-anchor="middle" class="location">Bakery</text>
+
+  <!-- Center Street -->
+  <line x1="320" y1="490" x2="320" y2="520" class="connection"/>
+  <rect x="260" y="520" width="120" height="30" class="location-box-town"/>
+  <text x="320" y="540" text-anchor="middle" class="location">Center Street</text>
+
+  <!-- Jail Visitor (west) -->
+  <line x1="260" y1="535" x2="200" y2="535" class="connection"/>
+  <rect x="130" y="520" width="70" height="30" class="location-box-town"/>
+  <text x="165" y="540" text-anchor="middle" class="location">Jail Visitor</text>
+
+  <!-- Church (east) -->
+  <line x1="380" y1="535" x2="420" y2="535" class="connection"/>
+  <rect x="420" y="520" width="70" height="30" class="location-box-town"/>
+  <text x="455" y="540" text-anchor="middle" class="location">Church</text>
+
+  <!-- King Street -->
+  <line x1="320" y1="550" x2="320" y2="580" class="connection"/>
+  <rect x="265" y="580" width="110" height="30" class="location-box-town"/>
+  <text x="320" y="600" text-anchor="middle" class="location">King Street</text>
+
+  <!-- Constable (west) -->
+  <line x1="265" y1="595" x2="200" y2="595" class="connection"/>
+  <rect x="130" y="580" width="70" height="30" class="location-box-town"/>
+  <text x="165" y="600" text-anchor="middle" class="location">Constable</text>
+
+  <!-- Pawn Shop (east) -->
+  <line x1="375" y1="595" x2="420" y2="595" class="connection"/>
+  <rect x="420" y="580" width="90" height="30" class="location-box-town"/>
+  <text x="465" y="600" text-anchor="middle" class="location">Pawn Shop</text>
+
+  <!-- Cross Street -->
+  <line x1="320" y1="610" x2="320" y2="640" class="connection"/>
+  <rect x="265" y="640" width="110" height="30" class="location-box-town"/>
+  <text x="320" y="660" text-anchor="middle" class="location">Cross Street</text>
+
+  <!-- Queens Ave -->
+  <line x1="320" y1="670" x2="320" y2="700" class="connection"/>
+  <rect x="265" y="700" width="110" height="30" class="location-box-town"/>
+  <text x="320" y="720" text-anchor="middle" class="location">Queens Ave</text>
+
+  <!-- Unknown Building (west) -->
+  <line x1="265" y1="715" x2="200" y2="715" class="connection"/>
+  <rect x="120" y="700" width="80" height="30" class="location-box-town"/>
+  <text x="160" y="720" text-anchor="middle" class="location">Unknown</text>
+
+  <!-- Law Office (east) -->
+  <line x1="375" y1="715" x2="420" y2="715" class="connection"/>
+  <rect x="420" y="700" width="90" height="30" class="location-box-town"/>
+  <text x="465" y="720" text-anchor="middle" class="location">Law Office</text>
+
+  <!-- Southend -->
+  <line x1="320" y1="730" x2="320" y2="760" class="connection"/>
+  <rect x="275" y="760" width="90" height="30" class="location-box-town"/>
+  <text x="320" y="780" text-anchor="middle" class="location">Southend</text>
+
+  <!-- Trash Pit (west) -->
+  <line x1="275" y1="775" x2="220" y2="775" class="connection"/>
+  <rect x="150" y="760" width="70" height="30" class="location-box-town"/>
+  <text x="185" y="780" text-anchor="middle" class="location">Trash Pit</text>
+
+  <!-- Airport (east) -->
+  <line x1="365" y1="775" x2="420" y2="775" class="connection"/>
+  <rect x="420" y="760" width="70" height="30" class="location-box-town"/>
+  <text x="455" y="780" text-anchor="middle" class="location">Airport</text>
+
+  <!-- Balloon -->
+  <line x1="490" y1="775" x2="530" y2="775" class="connection"/>
+  <rect x="530" y="760" width="60" height="30" class="location-box-special"/>
+  <text x="560" y="780" text-anchor="middle" class="location">🎈 Balloon</text>
+
+  <!-- Flying -->
+  <line x1="560" y1="760" x2="560" y2="720" class="connection"/>
+  <rect x="530" y="690" width="60" height="30" class="location-box-special"/>
+  <text x="560" y="710" text-anchor="middle" class="location">Flying</text>
+
+  <!-- Wharf Road -->
+  <line x1="320" y1="790" x2="320" y2="820" class="connection"/>
+  <rect x="265" y="820" width="110" height="30" class="location-box-town"/>
+  <text x="320" y="840" text-anchor="middle" class="location">Wharf Road</text>
+
+  <!-- Beach (west of Wharf Road) -->
+  <line x1="265" y1="835" x2="200" y2="835" class="connection"/>
+  <rect x="140" y="820" width="60" height="30" class="location-box-beach"/>
+  <text x="170" y="840" text-anchor="middle" class="location">Beach</text>
+
+  <!-- Ocean (from Beach) -->
+  <line x1="140" y1="835" x2="100" y2="860" class="connection"/>
+  <rect x="100" y="860" width="60" height="30" class="location-box-beach"/>
+  <text x="130" y="880" text-anchor="middle" class="location">🌊 Ocean</text>
+
+  <!-- Wharf -->
+  <line x1="320" y1="850" x2="320" y2="880" class="connection"/>
+  <rect x="280" y="880" width="80" height="30" class="location-box-beach"/>
+  <text x="320" y="900" text-anchor="middle" class="location">Wharf</text>
+
+  <!-- Ticket Booth (east of Wharf) -->
+  <line x1="360" y1="895" x2="420" y2="895" class="connection"/>
+  <rect x="420" y="880" width="100" height="30" class="location-box-town"/>
+  <text x="470" y="900" text-anchor="middle" class="location">Ticket Booth</text>
+
+  <!-- Boat -->
+  <line x1="470" y1="880" x2="470" y2="840" class="connection"/>
+  <rect x="440" y="810" width="60" height="30" class="location-box-beach"/>
+  <text x="470" y="830" text-anchor="middle" class="location">⛵ Boat</text>
+
+  <!-- Boat Cabin -->
+  <line x1="500" y1="825" x2="540" y2="825" class="connection"/>
+  <rect x="540" y="810" width="80" height="30" class="location-box-beach"/>
+  <text x="580" y="830" text-anchor="middle" class="location">Boat Cabin</text>
+
+  <!-- Boat travel indicator -->
+  <line x1="470" y1="950" x2="750" y2="950" stroke="#4169e1" stroke-width="3" stroke-dasharray="15,10"/>
+  <text x="610" y="940" text-anchor="middle" style="font: bold 14px sans-serif; fill: #4169e1;">⛵ BOAT TRAVEL</text>
+
+  <!-- ==================== TREASURE ISLAND (Center-Right) ==================== -->
+  <path d="M 700,200 Q 850,120 1050,150 Q 1250,130 1380,200
+           Q 1480,350 1500,550 Q 1500,800 1450,950
+           Q 1350,1050 1100,1080 Q 850,1080 750,1000
+           Q 700,850 700,600 Q 680,400 700,200 Z"
+        class="land"/>
+
+  <text x="1050" y="200" text-anchor="middle" class="area-label">🏝️ TREASURE ISLAND</text>
+
+  <!-- ==================== SHIPWRECK BEACH AREA ==================== -->
+  <text x="820" y="280" class="area-label">🏖️ BEACHES</text>
+
+  <!-- Shipwreck Beach -->
+  <rect x="780" y="300" width="130" height="30" class="location-box-beach"/>
+  <text x="845" y="320" text-anchor="middle" class="location">Shipwreck Beach</text>
+
+  <!-- Lagoon -->
+  <line x1="845" y1="330" x2="845" y2="370" class="connection"/>
+  <rect x="805" y="370" width="80" height="30" class="location-box-beach"/>
+  <text x="845" y="390" text-anchor="middle" class="location">Lagoon</text>
+
+  <!-- Lagoon Swimming -->
+  <line x1="845" y1="400" x2="845" y2="440" class="connection"/>
+  <rect x="780" y="440" width="130" height="30" class="location-box-beach"/>
+  <text x="845" y="460" text-anchor="middle" class="location">Lagoon Swimming</text>
+
+  <!-- Lagoon Depths -->
+  <line x1="845" y1="470" x2="845" y2="510" class="connection"/>
+  <rect x="785" y="510" width="120" height="30" class="location-box-special"/>
+  <text x="845" y="530" text-anchor="middle" class="location">🦈 Lagoon Depths</text>
+
+  <!-- Shipwreck -->
+  <line x1="910" y1="315" x2="970" y2="315" class="connection"/>
+  <rect x="970" y="300" width="90" height="30" class="location-box-beach"/>
+  <text x="1015" y="320" text-anchor="middle" class="location">⚓ Shipwreck</text>
+
+  <!-- Ocean Homeward -->
+  <line x1="780" y1="315" x2="720" y2="315" class="connection"/>
+  <rect x="720" y="340" width="60" height="30" class="location-box-beach"/>
+  <text x="750" y="360" text-anchor="middle" class="location">Ocean</text>
+
+  <!-- ==================== JUNGLE AREA ==================== -->
+  <text x="1150" y="560" class="area-label">🌴 JUNGLE</text>
+
+  <!-- Jungle Trail (from Shipwreck) - longer diagonal connection -->
+  <line x1="1060" y1="315" x2="1100" y2="580" class="connection"/>
+  <rect x="1050" y="580" width="100" height="30" class="location-box-jungle"/>
+  <text x="1100" y="600" text-anchor="middle" class="location">Jungle Trail</text>
+
+  <!-- Jungle Fork -->
+  <line x1="1100" y1="610" x2="1100" y2="650" class="connection"/>
+  <rect x="1050" y="650" width="100" height="30" class="location-box-jungle"/>
+  <text x="1100" y="670" text-anchor="middle" class="location">Jungle Fork</text>
+
+  <!-- Dense Jungle (east of fork) -->
+  <line x1="1150" y1="665" x2="1200" y2="665" class="connection"/>
+  <rect x="1200" y="650" width="100" height="30" class="location-box-jungle"/>
+  <text x="1250" y="670" text-anchor="middle" class="location">Dense Jungle</text>
+
+  <!-- Large Clearing (to Mansion) -->
+  <line x1="1300" y1="665" x2="1340" y2="665" class="connection"/>
+  <rect x="1280" y="650" width="110" height="30" class="location-box-jungle"/>
+  <text x="1335" y="670" text-anchor="middle" class="location">Large Clearing</text>
+
+  <!-- Arrow to mansion -->
+  <line x1="1335" y1="680" x2="1335" y2="720" stroke="#8b008b" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="1335" y="740" text-anchor="middle" style="font: bold 12px sans-serif; fill: #8b008b;">➡️ MANSION</text>
+
+  <!-- ZigZag Trail -->
+  <line x1="1100" y1="680" x2="1100" y2="720" class="connection"/>
+  <rect x="1040" y="720" width="120" height="30" class="location-box-jungle"/>
+  <text x="1100" y="740" text-anchor="middle" class="location">ZigZag Trail</text>
+
+  <!-- Volcano (west of ZigZag) -->
+  <line x1="1040" y1="735" x2="980" y2="735" class="connection"/>
+  <rect x="910" y="720" width="70" height="30" class="location-box-special"/>
+  <text x="945" y="740" text-anchor="middle" class="location">🌋 Volcano</text>
+
+  <!-- Jungle Cliff (east) -->
+  <line x1="1160" y1="735" x2="1200" y2="735" class="connection"/>
+  <rect x="1200" y="720" width="100" height="30" class="location-box-jungle"/>
+  <text x="1250" y="740" text-anchor="middle" class="location">Jungle Cliff</text>
+
+  <!-- Jungle View -->
+  <line x1="1250" y1="720" x2="1250" y2="680" class="connection"/>
+
+  <!-- Giant Footprint -->
+  <line x1="1100" y1="750" x2="1100" y2="790" class="connection"/>
+  <rect x="1030" y="790" width="140" height="30" class="location-box-jungle"/>
+  <text x="1100" y="810" text-anchor="middle" class="location">Giant Footprint</text>
+
+  <!-- Twin Palms -->
+  <line x1="1100" y1="820" x2="1100" y2="860" class="connection"/>
+  <rect x="1050" y="860" width="100" height="30" class="location-box-jungle"/>
+  <text x="1100" y="880" text-anchor="middle" class="location">Twin Palms</text>
+
+  <!-- Sandy Trail (death) -->
+  <line x1="1050" y1="875" x2="990" y2="875" class="connection"/>
+  <rect x="910" y="860" width="80" height="30" class="location-box-special"/>
+  <text x="950" y="880" text-anchor="middle" class="location">💀 Sandy Trail</text>
+
+  <!-- Grassy Plateau -->
+  <line x1="1300" y1="735" x2="1340" y2="735" class="connection"/>
+  <rect x="1280" y="720" width="110" height="30" class="location-box-jungle"/>
+  <text x="1335" y="740" text-anchor="middle" class="location">Grassy Plateau</text>
+
+  <!-- Gentle Slope -->
+  <line x1="1335" y1="750" x2="1335" y2="790" class="connection"/>
+  <rect x="1280" y="790" width="110" height="30" class="location-box-jungle"/>
+  <text x="1335" y="810" text-anchor="middle" class="location">Gentle Slope</text>
+
+  <!-- Creek -->
+  <line x1="1335" y1="820" x2="1335" y2="860" class="connection"/>
+  <rect x="1300" y="860" width="70" height="30" class="location-box-jungle"/>
+  <text x="1335" y="880" text-anchor="middle" class="location">Creek</text>
+
+  <!-- East-West Trail -->
+  <line x1="1050" y1="665" x2="990" y2="665" class="connection"/>
+  <rect x="910" y="650" width="80" height="30" class="location-box-jungle"/>
+  <text x="950" y="670" text-anchor="middle" class="location">E-W Trail</text>
+
+  <!-- Edge of Clearing -->
+  <line x1="910" y1="665" x2="850" y2="665" class="connection"/>
+  <rect x="810" y="680" width="80" height="30" class="location-box-jungle"/>
+  <text x="850" y="700" text-anchor="middle" class="location">Edge Clear</text>
+
+  <!-- Native Village -->
+  <line x1="850" y1="710" x2="850" y2="750" class="connection"/>
+  <rect x="800" y="750" width="100" height="30" class="location-box-jungle"/>
+  <text x="850" y="770" text-anchor="middle" class="location">Native Village</text>
+
+  <!-- North-South Path -->
+  <line x1="850" y1="780" x2="850" y2="820" class="connection"/>
+  <rect x="810" y="820" width="80" height="30" class="location-box-jungle"/>
+  <text x="850" y="840" text-anchor="middle" class="location">N-S Path</text>
+
+  <!-- Rescue Beach -->
+  <line x1="850" y1="850" x2="850" y2="890" class="connection"/>
+  <rect x="790" y="890" width="120" height="30" class="location-box-beach"/>
+  <text x="850" y="910" text-anchor="middle" class="location">🏖️ Rescue Beach</text>
+
+  <!-- Cavern entrance (from N-S Path) -->
+  <line x1="890" y1="835" x2="950" y2="835" class="connection"/>
+  <rect x="950" y="820" width="80" height="30" class="location-box-cave"/>
+  <text x="990" y="840" text-anchor="middle" class="location">Cavern ⬇️</text>
+
+  <!-- ==================== MANSION SECTION (Right Side) ==================== -->
+  <rect x="1450" y="80" width="750" height="1020" class="mansion-bg"/>
+  <line x1="1450" y1="80" x2="1450" y2="1100" class="section-divider"/>
+
+  <text x="1800" y="130" text-anchor="middle" style="font: bold 32px serif; fill: #fff;">🏚️ THE MANSION</text>
+  <text x="1800" y="160" text-anchor="middle" style="font: 16px serif; fill: #ddd;">Accessible from Large Clearing on Treasure Island</text>
+
+  <!-- Mansion Yard -->
+  <rect x="1500" y="200" width="100" height="30" class="location-box-mansion"/>
+  <text x="1550" y="220" text-anchor="middle" class="location">Mansion Yard</text>
+
+  <!-- Mansion Porch -->
+  <line x1="1600" y1="215" x2="1660" y2="215" class="connection"/>
+  <rect x="1660" y="200" width="100" height="30" class="location-box-mansion"/>
+  <text x="1710" y="220" text-anchor="middle" class="location">Porch</text>
+
+  <!-- GROUND FLOOR -->
+  <text x="1800" y="270" text-anchor="middle" style="font: bold 16px sans-serif; fill: #ccc;">— GROUND FLOOR —</text>
+
+  <!-- East Hall -->
+  <line x1="1710" y1="230" x2="1710" y2="290" class="connection"/>
+  <rect x="1670" y="290" width="80" height="30" class="location-box-mansion"/>
+  <text x="1710" y="310" text-anchor="middle" class="location">East Hall</text>
+
+  <!-- Sitting Room (north of East Hall) -->
+  <line x1="1750" y1="305" x2="1820" y2="305" class="connection"/>
+  <rect x="1820" y="290" width="80" height="30" class="location-box-mansion"/>
+  <text x="1860" y="310" text-anchor="middle" class="location">Sitting Rm</text>
+
+  <!-- West Hall -->
+  <line x1="1670" y1="305" x2="1600" y2="305" class="connection"/>
+  <rect x="1530" y="290" width="70" height="30" class="location-box-mansion"/>
+  <text x="1565" y="310" text-anchor="middle" class="location">West Hall</text>
+
+  <!-- Library -->
+  <line x1="1565" y1="290" x2="1565" y2="250" class="connection"/>
+  <rect x="1530" y="220" width="70" height="30" class="location-box-mansion"/>
+  <text x="1565" y="240" text-anchor="middle" class="location">Library</text>
+
+  <!-- Trophy Room (north of Library) -->
+  <line x1="1530" y1="235" x2="1510" y2="235" class="connection"/>
+  <rect x="1460" y="220" width="50" height="30" class="location-box-mansion"/>
+  <text x="1485" y="240" text-anchor="middle" class="location">Trophy</text>
+
+  <!-- Office -->
+  <line x1="1485" y1="250" x2="1485" y2="290" class="connection"/>
+  <rect x="1460" y="290" width="50" height="30" class="location-box-mansion"/>
+  <text x="1485" y="310" text-anchor="middle" class="location">Office</text>
+
+  <!-- Kitchen (south of West Hall) -->
+  <line x1="1565" y1="320" x2="1565" y2="360" class="connection"/>
+  <rect x="1535" y="360" width="60" height="30" class="location-box-mansion"/>
+  <text x="1565" y="380" text-anchor="middle" class="location">Kitchen</text>
+
+  <!-- Pantry (south of East Hall) -->
+  <line x1="1710" y1="320" x2="1710" y2="360" class="connection"/>
+  <rect x="1680" y="360" width="60" height="30" class="location-box-mansion"/>
+  <text x="1710" y="380" text-anchor="middle" class="location">Pantry</text>
+
+  <!-- Maid's Quarters -->
+  <line x1="1565" y1="390" x2="1565" y2="430" class="connection"/>
+  <rect x="1525" y="430" width="80" height="30" class="location-box-mansion"/>
+  <text x="1565" y="450" text-anchor="middle" class="location">Maid's Qtr</text>
+
+  <!-- Backyard -->
+  <line x1="1535" y1="375" x2="1510" y2="375" class="connection"/>
+  <rect x="1460" y="360" width="50" height="30" class="location-box-mansion"/>
+  <text x="1485" y="380" text-anchor="middle" class="location">Backyard</text>
+
+  <!-- Tool Shed -->
+  <line x1="1485" y1="390" x2="1485" y2="430" class="connection"/>
+  <rect x="1455" y="430" width="60" height="30" class="location-box-mansion"/>
+  <text x="1485" y="450" text-anchor="middle" class="location">Tool Shed</text>
+
+  <!-- Hidden Room -->
+  <line x1="1530" y1="235" x2="1530" y2="180" class="connection"/>
+  <rect x="1490" y="150" width="80" height="30" class="location-box-mansion"/>
+  <text x="1530" y="170" text-anchor="middle" class="location">Hidden Rm</text>
+
+  <!-- Secret Passage -->
+  <line x1="1530" y1="150" x2="1530" y2="110" class="connection-cave"/>
+  <rect x="1480" y="80" width="100" height="30" class="location-box-cave"/>
+  <text x="1530" y="100" text-anchor="middle" class="location">Secret Pass ⬇️</text>
+
+  <!-- UPPER FLOORS -->
+  <text x="1950" y="270" text-anchor="middle" style="font: bold 16px sans-serif; fill: #ccc;">— UPPER FLOORS —</text>
+
+  <!-- Landing (up from East Hall) -->
+  <line x1="1860" y1="320" x2="1860" y2="360" class="connection"/>
+  <rect x="1820" y="360" width="80" height="30" class="location-box-mansion"/>
+  <text x="1860" y="380" text-anchor="middle" class="location">Landing</text>
+
+  <!-- Upstairs Hall -->
+  <line x1="1900" y1="375" x2="1960" y2="375" class="connection"/>
+  <rect x="1960" y="360" width="100" height="30" class="location-box-mansion"/>
+  <text x="2010" y="380" text-anchor="middle" class="location">Upstairs Hall</text>
+
+  <!-- Attic -->
+  <line x1="1860" y1="360" x2="1860" y2="320" class="connection"/>
+  <rect x="1920" y="290" width="50" height="30" class="location-box-mansion"/>
+  <text x="1945" y="310" text-anchor="middle" class="location">Attic</text>
+
+  <!-- Master Bedroom -->
+  <line x1="2010" y1="390" x2="2010" y2="430" class="connection"/>
+  <rect x="1960" y="430" width="100" height="30" class="location-box-mansion"/>
+  <text x="2010" y="450" text-anchor="middle" class="location">Master Bed</text>
+
+  <!-- Slippery Room -->
+  <line x1="2060" y1="375" x2="2120" y2="375" class="connection"/>
+  <rect x="2120" y="360" width="70" height="30" class="location-box-mansion"/>
+  <text x="2155" y="380" text-anchor="middle" class="location">Slippery</text>
+
+  <!-- Coffin Room -->
+  <line x1="1960" y1="445" x2="1900" y2="445" class="connection"/>
+  <rect x="1820" y="430" width="80" height="30" class="location-box-special"/>
+  <text x="1860" y="450" text-anchor="middle" class="location">🧛 Coffin Rm</text>
+
+  <!-- Chain Room -->
+  <line x1="1860" y1="460" x2="1860" y2="500" class="connection"/>
+  <rect x="1820" y="500" width="80" height="30" class="location-box-mansion"/>
+  <text x="1860" y="520" text-anchor="middle" class="location">Chain Room</text>
+
+  <!-- Bone Room -->
+  <line x1="1860" y1="530" x2="1860" y2="570" class="connection"/>
+  <rect x="1820" y="570" width="80" height="30" class="location-box-mansion"/>
+  <text x="1860" y="590" text-anchor="middle" class="location">Bone Room</text>
+
+  <!-- Balcony -->
+  <line x1="1820" y1="515" x2="1760" y2="515" class="connection"/>
+  <rect x="1700" y="500" width="60" height="30" class="location-box-mansion"/>
+  <text x="1730" y="520" text-anchor="middle" class="location">Balcony</text>
+
+  <!-- BASEMENT -->
+  <text x="1800" y="650" text-anchor="middle" style="font: bold 16px sans-serif; fill: #ccc;">— BASEMENT —</text>
+
+  <!-- West Cellar -->
+  <rect x="1700" y="680" width="80" height="30" class="location-box-cave"/>
+  <text x="1740" y="700" text-anchor="middle" class="location">W Cellar</text>
+
+  <!-- East Cellar -->
+  <line x1="1780" y1="695" x2="1840" y2="695" class="connection-cave"/>
+  <rect x="1840" y="680" width="80" height="30" class="location-box-cave"/>
+  <text x="1880" y="700" text-anchor="middle" class="location">E Cellar</text>
+
+  <!-- Connection to caves indicator -->
+  <line x1="1880" y1="710" x2="1880" y2="750" class="connection-cave"/>
+  <text x="1880" y="770" text-anchor="middle" style="font: bold 12px sans-serif; fill: #ddd;">⬇️ TO CAVES</text>
+
+  <!-- ==================== UNDERGROUND CAVE SECTION ==================== -->
+  <rect x="0" y="1100" width="1400" height="1300" class="cave-bg"/>
+  <line x1="0" y1="1100" x2="1400" y2="1100" class="section-divider"/>
+  <text x="700" y="1150" text-anchor="middle" style="font: bold 32px serif; fill: #fff;">⛏️ UNDERGROUND CAVE SYSTEM</text>
+  <text x="700" y="1180" text-anchor="middle" style="font: 16px serif; fill: #ddd;">Accessible from Cavern entrance and Mansion Basement</text>
+
+  <!-- ==================== CAVE SYSTEM - UPPER LEVEL ==================== -->
+  <text x="200" y="1240" class="area-label" style="fill: #fff;">UPPER CAVES</text>
+
+  <!-- Cavern (entry from jungle) -->
+  <rect x="100" y="1260" width="80" height="30" class="location-box-cave"/>
+  <text x="140" y="1280" text-anchor="middle" class="location">Cavern</text>
+
+  <!-- East Boar Den -->
+  <line x1="180" y1="1275" x2="240" y2="1275" class="connection-cave"/>
+  <rect x="240" y="1260" width="90" height="30" class="location-box-cave"/>
+  <text x="285" y="1280" text-anchor="middle" class="location">E Boar Den</text>
+
+  <!-- West Boar Den -->
+  <line x1="100" y1="1275" x2="40" y2="1275" class="connection-cave"/>
+  <rect x="20" y="1290" width="70" height="30" class="location-box-cave"/>
+  <text x="55" y="1310" text-anchor="middle" class="location">W Boar Den</text>
+
+  <!-- Tunnel 1 (from mansion) -->
+  <rect x="500" y="1260" width="60" height="30" class="location-box-cave"/>
+  <text x="530" y="1280" text-anchor="middle" class="location">Tunnel 1</text>
+
+  <!-- Low Crawl -->
+  <line x1="530" y1="1290" x2="530" y2="1330" class="connection-cave"/>
+  <rect x="495" y="1330" width="70" height="30" class="location-box-cave"/>
+  <text x="530" y="1350" text-anchor="middle" class="location">Low Crawl</text>
+
+  <!-- High Place -->
+  <line x1="565" y1="1345" x2="630" y2="1345" class="connection-cave"/>
+  <rect x="630" y="1330" width="80" height="30" class="location-box-cave"/>
+  <text x="670" y="1350" text-anchor="middle" class="location">High Place</text>
+
+  <!-- Circular Cavern -->
+  <line x1="710" y1="1345" x2="770" y2="1345" class="connection-cave"/>
+  <rect x="770" y="1330" width="90" height="30" class="location-box-cave"/>
+  <text x="815" y="1350" text-anchor="middle" class="location">Circular Cav</text>
+
+  <!-- Tunnel 2 -->
+  <line x1="815" y1="1330" x2="815" y2="1290" class="connection-cave"/>
+  <rect x="785" y="1260" width="60" height="30" class="location-box-cave"/>
+  <text x="815" y="1280" text-anchor="middle" class="location">Tunnel 2</text>
+
+  <!-- Rail Switch -->
+  <line x1="845" y1="1275" x2="910" y2="1275" class="connection-cave"/>
+  <rect x="910" y="1260" width="80" height="30" class="location-box-cave"/>
+  <text x="950" y="1280" text-anchor="middle" class="location">Rail Switch</text>
+
+  <!-- Dead End Shaft -->
+  <line x1="950" y1="1260" x2="950" y2="1220" class="connection-cave"/>
+  <rect x="910" y="1190" width="80" height="30" class="location-box-cave"/>
+  <text x="950" y="1210" text-anchor="middle" class="location">Dead End 🚂</text>
+
+  <!-- Northeast Fork -->
+  <line x1="990" y1="1275" x2="1050" y2="1275" class="connection-cave"/>
+  <rect x="1050" y="1260" width="70" height="30" class="location-box-cave"/>
+  <text x="1085" y="1280" text-anchor="middle" class="location">NE Fork</text>
+
+  <!-- Angle Bend -->
+  <line x1="1120" y1="1275" x2="1180" y2="1275" class="connection-cave"/>
+  <rect x="1180" y="1260" width="80" height="30" class="location-box-cave"/>
+  <text x="1220" y="1280" text-anchor="middle" class="location">Angle Bend</text>
+
+  <!-- Jagged Cavern -->
+  <line x1="670" y1="1360" x2="670" y2="1400" class="connection-cave"/>
+  <rect x="630" y="1400" width="80" height="30" class="location-box-cave"/>
+  <text x="670" y="1420" text-anchor="middle" class="location">Jagged Cav</text>
+
+  <!-- ==================== CAVE SYSTEM - MIDDLE LEVEL ==================== -->
+  <text x="200" y="1480" class="area-label" style="fill: #fff;">MIDDLE CAVES</text>
+
+  <!-- Clean Room -->
+  <rect x="100" y="1510" width="80" height="30" class="location-box-cave"/>
+  <text x="140" y="1530" text-anchor="middle" class="location">Clean Room</text>
+
+  <!-- Dusty Passage -->
+  <line x1="180" y1="1525" x2="240" y2="1525" class="connection-cave"/>
+  <rect x="240" y="1510" width="90" height="30" class="location-box-cave"/>
+  <text x="285" y="1530" text-anchor="middle" class="location">Dusty Pass</text>
+
+  <!-- Steam Room -->
+  <line x1="330" y1="1525" x2="390" y2="1525" class="connection-cave"/>
+  <rect x="390" y="1510" width="80" height="30" class="location-box-cave"/>
+  <text x="430" y="1530" text-anchor="middle" class="location">Steam Room</text>
+
+  <!-- Rainbow Room -->
+  <line x1="430" y1="1540" x2="430" y2="1580" class="connection-cave"/>
+  <rect x="380" y="1580" width="100" height="30" class="location-box-cave"/>
+  <text x="430" y="1600" text-anchor="middle" class="location">🌈 Rainbow Rm</text>
+
+  <!-- East Rainbow Room -->
+  <line x1="480" y1="1595" x2="540" y2="1595" class="connection-cave"/>
+  <rect x="540" y="1580" width="90" height="30" class="location-box-cave"/>
+  <text x="585" y="1600" text-anchor="middle" class="location">E Rainbow</text>
+
+  <!-- Bamboo Room -->
+  <line x1="470" y1="1525" x2="530" y2="1525" class="connection-cave"/>
+  <rect x="530" y="1510" width="90" height="30" class="location-box-cave"/>
+  <text x="575" y="1530" text-anchor="middle" class="location">Bamboo Rm</text>
+
+  <!-- Mushroom Room -->
+  <line x1="620" y1="1525" x2="680" y2="1525" class="connection-cave"/>
+  <rect x="680" y="1510" width="90" height="30" class="location-box-special"/>
+  <text x="725" y="1530" text-anchor="middle" class="location">🍄 Mushroom</text>
+
+  <!-- Small Room (parrot) -->
+  <line x1="725" y1="1510" x2="725" y2="1470" class="connection-cave"/>
+  <rect x="685" y="1440" width="80" height="30" class="location-box-cave"/>
+  <text x="725" y="1460" text-anchor="middle" class="location">🦜 Small Rm</text>
+
+  <!-- Large Cavern -->
+  <line x1="390" y1="1525" x2="330" y2="1525" class="connection-cave"/>
+  <rect x="250" y="1510" width="80" height="30" class="location-box-cave"/>
+  <text x="290" y="1530" text-anchor="middle" class="location">Large Cav</text>
+
+  <!-- Historical Marker -->
+  <line x1="100" y1="1525" x2="40" y2="1525" class="connection-cave"/>
+  <rect x="20" y="1550" width="80" height="30" class="location-box-cave"/>
+  <text x="60" y="1570" text-anchor="middle" class="location">Hist Marker</text>
+
+  <!-- Battlefield -->
+  <line x1="60" y1="1550" x2="60" y2="1510" class="connection-cave"/>
+  <rect x="20" y="1480" width="80" height="30" class="location-box-special"/>
+  <text x="60" y="1500" text-anchor="middle" class="location">⚔️ Battlefield</text>
+
+  <!-- Goblin Valley -->
+  <line x1="60" y1="1580" x2="60" y2="1620" class="connection-cave"/>
+  <rect x="20" y="1620" width="80" height="30" class="location-box-cave"/>
+  <text x="60" y="1640" text-anchor="middle" class="location">Goblin Val</text>
+
+  <!-- TV Room -->
+  <line x1="60" y1="1650" x2="60" y2="1690" class="connection-cave"/>
+  <rect x="30" y="1690" width="60" height="30" class="location-box-cave"/>
+  <text x="60" y="1710" text-anchor="middle" class="location">📺 TV Rm</text>
+
+  <!-- ==================== CAVE SYSTEM - LOWER LEVEL ==================== -->
+  <text x="950" y="1480" class="area-label" style="fill: #fff;">STALACTITE and ARABIAN</text>
+
+  <!-- Stalactite Room -->
+  <rect x="850" y="1510" width="90" height="30" class="location-box-cave"/>
+  <text x="895" y="1530" text-anchor="middle" class="location">Stalactite</text>
+
+  <!-- Sandstone -->
+  <line x1="940" y1="1525" x2="1000" y2="1525" class="connection-cave"/>
+  <rect x="1000" y="1510" width="80" height="30" class="location-box-cave"/>
+  <text x="1040" y="1530" text-anchor="middle" class="location">Sandstone</text>
+
+  <!-- Deadman's Gulch -->
+  <line x1="1080" y1="1525" x2="1140" y2="1525" class="connection-cave"/>
+  <rect x="1140" y="1510" width="90" height="30" class="location-box-cave"/>
+  <text x="1185" y="1530" text-anchor="middle" class="location">Deadman's</text>
+
+  <!-- Arabian Room -->
+  <line x1="1230" y1="1525" x2="1290" y2="1525" class="connection-cave"/>
+  <rect x="1290" y="1510" width="80" height="30" class="location-box-cave"/>
+  <text x="1330" y="1530" text-anchor="middle" class="location">🪔 Arabian</text>
+
+  <!-- ==================== ICE CAVES ==================== -->
+  <text x="950" y="1600" class="area-label" style="fill: #fff;">🧊 ICE CAVES</text>
+
+  <!-- East Ice Cave -->
+  <rect x="850" y="1630" width="80" height="30" class="location-box-cave"/>
+  <text x="890" y="1650" text-anchor="middle" class="location">E Ice Cave</text>
+
+  <!-- West Ice Cave -->
+  <line x1="850" y1="1645" x2="790" y2="1645" class="connection-cave"/>
+  <rect x="720" y="1630" width="70" height="30" class="location-box-cave"/>
+  <text x="755" y="1650" text-anchor="middle" class="location">W Ice</text>
+
+  <!-- Salt Room -->
+  <line x1="755" y1="1630" x2="755" y2="1590" class="connection-cave"/>
+  <rect x="720" y="1560" width="70" height="30" class="location-box-cave"/>
+  <text x="755" y="1580" text-anchor="middle" class="location">Salt Rm</text>
+
+  <!-- Sloping Corridor -->
+  <line x1="755" y1="1660" x2="755" y2="1700" class="connection-cave"/>
+  <rect x="710" y="1700" width="90" height="30" class="location-box-cave"/>
+  <text x="755" y="1720" text-anchor="middle" class="location">Sloping Cor</text>
+
+  <!-- Fissure Room -->
+  <line x1="755" y1="1730" x2="755" y2="1770" class="connection-cave"/>
+  <rect x="715" y="1770" width="80" height="30" class="location-box-cave"/>
+  <text x="755" y="1790" text-anchor="middle" class="location">Fissure Rm</text>
+
+  <!-- West Fissure Room -->
+  <line x1="715" y1="1785" x2="650" y2="1785" class="connection-cave"/>
+  <rect x="580" y="1770" width="70" height="30" class="location-box-cave"/>
+  <text x="615" y="1790" text-anchor="middle" class="location">W Fissure</text>
+
+  <!-- Cut Stone -->
+  <line x1="615" y1="1800" x2="615" y2="1840" class="connection-cave"/>
+  <rect x="580" y="1840" width="70" height="30" class="location-box-cave"/>
+  <text x="615" y="1860" text-anchor="middle" class="location">Cut Stone</text>
+
+  <!-- Tomb Room -->
+  <line x1="615" y1="1870" x2="615" y2="1910" class="connection-cave"/>
+  <rect x="570" y="1910" width="90" height="30" class="location-box-cave"/>
+  <text x="615" y="1930" text-anchor="middle" class="location">⚱️ Tomb Rm</text>
+
+  <!-- ==================== VOLCANIC SECTION ==================== -->
+  <text x="1150" y="1600" class="area-label" style="fill: #fff;">🔥 VOLCANIC</text>
+
+  <!-- Windy Passage -->
+  <rect x="1050" y="1630" width="90" height="30" class="location-box-cave"/>
+  <text x="1095" y="1650" text-anchor="middle" class="location">Windy Pass</text>
+
+  <!-- Sulphur Springs -->
+  <line x1="1095" y1="1660" x2="1095" y2="1700" class="connection-cave"/>
+  <rect x="1045" y="1700" width="100" height="30" class="location-box-cave"/>
+  <text x="1095" y="1720" text-anchor="middle" class="location">Sulphur Spr</text>
+
+  <!-- Chimney Room -->
+  <line x1="1095" y1="1730" x2="1095" y2="1770" class="connection-cave"/>
+  <rect x="1045" y="1770" width="100" height="30" class="location-box-cave"/>
+  <text x="1095" y="1790" text-anchor="middle" class="location">Chimney Rm</text>
+
+  <!-- Bubbling Cauldron (death) -->
+  <line x1="1045" y1="1785" x2="980" y2="1785" class="connection-cave"/>
+  <rect x="890" y="1770" width="90" height="30" class="location-box-special"/>
+  <text x="935" y="1790" text-anchor="middle" class="location">🔥 Cauldron</text>
+
+  <!-- Echo Canyon -->
+  <rect x="1200" y="1630" width="80" height="30" class="location-box-cave"/>
+  <text x="1240" y="1650" text-anchor="middle" class="location">Echo Cyn</text>
+
+  <!-- Coal Mine -->
+  <line x1="1240" y1="1660" x2="1240" y2="1700" class="connection-cave"/>
+  <rect x="1200" y="1700" width="80" height="30" class="location-box-cave"/>
+  <text x="1240" y="1720" text-anchor="middle" class="location">Coal Mine</text>
+
+  <!-- Lava Lounge -->
+  <rect x="1320" y="1630" width="90" height="30" class="location-box-cave"/>
+  <text x="1365" y="1650" text-anchor="middle" class="location">Lava Lounge</text>
+
+  <!-- ==================== LEGEND ==================== -->
+  <rect x="1480" y="850" width="280" height="320" fill="#fff" stroke="#333" stroke-width="2" rx="10"/>
+  <text x="1620" y="880" text-anchor="middle" style="font: bold 18px sans-serif;">LEGEND</text>
+
+  <rect x="1500" y="900" width="20" height="15" class="location-box-town"/>
+  <text x="1530" y="912" style="font: 12px sans-serif;">Town</text>
+
+  <rect x="1500" y="925" width="20" height="15" class="location-box-jungle"/>
+  <text x="1530" y="937" style="font: 12px sans-serif;">Jungle</text>
+
+  <rect x="1500" y="950" width="20" height="15" class="location-box-beach"/>
+  <text x="1530" y="962" style="font: 12px sans-serif;">Beach/Ocean</text>
+
+  <rect x="1500" y="975" width="20" height="15" class="location-box-mansion"/>
+  <text x="1530" y="987" style="font: 12px sans-serif;">Mansion</text>
+
+  <rect x="1500" y="1000" width="20" height="15" class="location-box-cave"/>
+  <text x="1530" y="1012" style="font: 12px sans-serif;">Cave/Underground</text>
+
+  <rect x="1500" y="1025" width="20" height="15" class="location-box-special"/>
+  <text x="1530" y="1037" style="font: 12px sans-serif;">Danger/Special</text>
+
+  <line x1="1500" y1="1060" x2="1530" y2="1060" class="connection"/>
+  <text x="1540" y="1065" style="font: 12px sans-serif;">Surface path</text>
+
+  <line x1="1500" y1="1085" x2="1530" y2="1085" class="connection-cave"/>
+  <text x="1540" y="1090" style="font: 12px sans-serif;">Underground path</text>
+
+  <text x="1500" y="1120" style="font: 12px sans-serif;">⭐ = Start Location</text>
+  <text x="1500" y="1140" style="font: 12px sans-serif;">⬇️ = Goes underground</text>
+  <text x="1500" y="1160" style="font: 12px sans-serif;">➡️ = Goes to another area</text>
+
+  <!-- Note -->
+  <text x="700" y="2000" text-anchor="middle" style="font: italic 14px sans-serif; fill: #ddd;">
+    Simplified representation - some connections omitted for clarity. Total locations: 121
+  </text>
+</svg>
