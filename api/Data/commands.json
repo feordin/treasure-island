@@ -410,6 +410,14 @@
       "description": "Rub Aladdin's lamp to make a wish. The lamp can only be used once and will teleport you across the fissure. Use it wisely!",
       "examples": ["rub lamp", "rub aladdin's lamp", "use lamp"],
       "category": "action"
+    },
+    {
+      "command": "signal",
+      "aliases": ["signal fire", "light fire", "build fire", "make fire", "start fire", "wait for rescue", "hope for rescue", "call for help", "signal for help"],
+      "parameters": [],
+      "description": "Signal for rescue at Rescue Beach. To light a signal fire, you need matches and fuel (driftwood, lumber, or coal). If you've been on the island long enough (30+ days), patrol ships may spot you even without a fire.",
+      "examples": ["signal", "light fire", "build fire", "signal for help", "wait for rescue"],
+      "category": "action"
     }
   ],
   "categories": {

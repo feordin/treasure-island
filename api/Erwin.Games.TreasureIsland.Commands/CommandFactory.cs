@@ -89,6 +89,8 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new RubCommand(saveGameData, commandParam);
                 case "wish":
                     return new WishCommand(saveGameData, commandParam);
+                case "signal":
+                    return new SignalCommand(saveGameData, repository, commandName, commandParam);
                 default:
                     return new UnknownCommand(saveGameData, repository, commandRemainder);
             }

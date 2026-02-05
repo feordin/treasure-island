@@ -872,8 +872,8 @@
     },
     {
       "Name": "ShipWreckBeach",
-      "Description": "You are on a beautiful clear stretch of sand. Off to one side is remains of the ship you boarded.  There is no sign of the crew.  To other side, you see the edge of a lagoon through the trees.  There is also clear trail heading off into the interior of the island through the jungle.  It seems this island may have some inhabitants.  You remember Uncle Herman's warning about cannibals.",
-      "Items": [],
+      "Description": "You are on a beautiful clear stretch of sand. Off to one side is the remains of the ship you boarded, its hull broken and splintered. Salvageable lumber from the wreckage could be useful for building a signal fire. There is no sign of the crew. To the other side, you see the edge of a lagoon through the trees. There is also a clear trail heading off into the interior of the island through the jungle. It seems this island may have some inhabitants. You remember Uncle Herman's warning about cannibals.",
+      "Items": ["lumber"],
       "image": "shipwreckbeach.png",
       "Help": "no",
       "AllowedMovements": [
@@ -2255,10 +2255,10 @@
     },
     {
       "Name": "RescueBeach",
-      "Description": "You are on rescue beach. To the north, east, and south is jungle. To the west is the north-south path. This place extremely important to you because this is the spot where you must drop all of the treasures, one at a time, to gain points for your score. Points will not be awarded until dropped here. Also, there is a treasure buried here but you need a shovel to dig for it.",
-      "Items": [],
+      "Description": "You are on rescue beach. To the north, east, and south is jungle. To the west is the north-south path. This wide, open beach faces the sea and would be an ideal spot to signal passing ships. There is driftwood scattered along the shore. This is also the spot where you must drop treasures to gain points for your score. There is a treasure buried here but you need a shovel to dig for it.",
+      "Items": ["driftwood"],
       "image": "rescuebeach.png",
-      "Help": "This is where you drop treasures to score points. Try digging if you have a shovel.",
+      "Help": "Drop treasures here to score points. If you have matches and fuel (driftwood, lumber, or coal), you could light a signal fire to attract rescue ships. Try digging if you have a shovel.",
       "AllowedMovements": [
         {
           "Direction": [
@@ -3742,7 +3742,17 @@
     },
     {
       "Name": "coal",
-      "Description": "A piece of coal from the coal mine. You will need this.",
+      "Description": "A piece of coal from the coal mine. Burns hot and long - perfect for a signal fire.",
+      "Takeable": true
+    },
+    {
+      "Name": "driftwood",
+      "Description": "Sun-bleached driftwood from the beach. Dry and perfect for starting a fire.",
+      "Takeable": true
+    },
+    {
+      "Name": "lumber",
+      "Description": "Salvaged lumber from the shipwreck. Could be used to build a signal fire.",
       "Takeable": true
     },
     {
