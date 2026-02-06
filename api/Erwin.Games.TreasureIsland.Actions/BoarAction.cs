@@ -40,6 +40,12 @@ namespace Erwin.Games.TreasureIsland.Actions
             }
             else
             {
+                // Try last-chance escape before death
+                if (LastChanceEscape.TryEscape(_response, "wild boar attack"))
+                {
+                    return;
+                }
+
                 // Player dies
                 _response.saveGameData.AddEvent("GameOver", "Killed by wild boar", _response.saveGameData.CurrentDateTime);
                 _response.Message += "\n\nA massive wild boar charges at you! Without anything to distract it, you have no chance. Game Over.";

@@ -24,6 +24,12 @@ namespace Erwin.Games.TreasureIsland.Actions
             }
             else
             {
+                // Try last-chance escape before death
+                if (LastChanceEscape.TryEscape(_response, "dehydration"))
+                {
+                    return;
+                }
+
                 // No water - player dies of thirst!
                 _response.saveGameData?.AddEvent("GameOver", "Died of thirst in the salt room", _response.saveGameData.CurrentDateTime);
                 _response.Message += "\n\nThe salt in the air makes you desperately thirsty. Without any water, you collapse from dehydration. Your adventure ends here...";

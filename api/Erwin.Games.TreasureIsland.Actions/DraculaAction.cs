@@ -27,6 +27,12 @@ namespace Erwin.Games.TreasureIsland.Actions
 
             if (isNight)
             {
+                // Try last-chance escape before death
+                if (LastChanceEscape.TryEscape(_response, "Dracula attack"))
+                {
+                    return;
+                }
+
                 // Dracula is awake - player dies
                 _response.saveGameData.AddEvent("GameOver", "Killed by Dracula", _response.saveGameData.CurrentDateTime);
                 _response.Message += "\n\nAs you enter the room, you see a dark coffin. Suddenly, the lid bursts open and Count Dracula rises before you, his eyes glowing red in the darkness! Before you can react, he lunges at your throat with supernatural speed. Your adventure ends here in the darkness...";

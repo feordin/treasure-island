@@ -21,6 +21,16 @@ namespace Erwin.Games.TreasureIsland.Actions
 
             if (hasDynamite)
             {
+                // Try last-chance escape before death
+                if (LastChanceEscape.TryEscape(_response, "dynamite explosion"))
+                {
+                    // Remove the dynamite since it exploded
+                    _response.saveGameData.Inventory = _response.saveGameData.Inventory?
+                        .Where(item => !item.Equals("dynamite", StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    return;
+                }
+
                 _response.saveGameData.AddEvent("GameOver", "Killed by unstable dynamite", _response.saveGameData.CurrentDateTime);
                 _response.Message += "\n\nAs you pick up the old dynamite, it becomes unstable and explodes in your hands! Game Over.";
             }

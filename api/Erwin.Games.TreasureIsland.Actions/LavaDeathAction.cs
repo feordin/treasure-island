@@ -14,6 +14,12 @@ namespace Erwin.Games.TreasureIsland.Actions
 
         public void Execute()
         {
+            // Try last-chance escape before death
+            if (LastChanceEscape.TryEscape(_response, "falling into lava"))
+            {
+                return;
+            }
+
             _response.saveGameData.AddEvent("GameOver", "Fell into lava", _response.saveGameData.CurrentDateTime);
             _response.Message += "\n\nThe intense heat from the bubbling lava is overwhelming. Before you can turn back, the ground beneath you crumbles and you fall into the molten rock. Game Over.";
         }

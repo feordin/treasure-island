@@ -69,6 +69,8 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             if (movement != null &&  newLocation != null && _saveGameData != null)
             {
+                // Track previous location for last-chance escape mechanics
+                _saveGameData.PreviousLocation = _saveGameData.CurrentLocation;
                 _saveGameData.CurrentLocation = movement.Destination;
                 if (movement.TimeToMove != null)
                     _saveGameData.CurrentDateTime = _saveGameData.CurrentDateTime + new TimeSpan(0, movement.TimeToMove.Value, 0);

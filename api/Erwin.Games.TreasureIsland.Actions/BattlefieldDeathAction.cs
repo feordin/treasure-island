@@ -14,6 +14,12 @@ namespace Erwin.Games.TreasureIsland.Actions
 
         public void Execute()
         {
+            // Try last-chance escape before death
+            if (LastChanceEscape.TryEscape(_response, "mine explosion on battlefield"))
+            {
+                return;
+            }
+
             _response.saveGameData.AddEvent("GameOver", "Killed by mine on battlefield", _response.saveGameData.CurrentDateTime);
             _response.Message += "\n\nYou step onto the battlefield. Before you can react, you hear a click beneath your foot - an unexploded mine! A massive explosion engulfs you. Game Over.";
         }

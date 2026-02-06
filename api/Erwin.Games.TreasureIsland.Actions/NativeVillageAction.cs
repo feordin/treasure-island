@@ -27,6 +27,12 @@ namespace Erwin.Games.TreasureIsland.Actions
             }
             else
             {
+                // Try last-chance escape before death
+                if (LastChanceEscape.TryEscape(_response, "headhunter attack"))
+                {
+                    return;
+                }
+
                 // Player dies without the dead cat
                 _response.saveGameData.AddEvent("GameOver", "Killed by headhunters", _response.saveGameData.CurrentDateTime);
                 _response.Message += "\n\nThe headhunter natives spot you entering their village! Without any talisman to frighten them, they quickly surround you with spears. Your adventure ends here...";
