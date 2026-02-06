@@ -168,6 +168,10 @@ namespace Erwin.Games.TreasureIsland.Models
                         description += $"\nOn the {translatedDirection} ({movement?.Direction?[0]}) is {destinationName}.";
                     else if (translatedDirection == "ahead")
                         description += $"\nAhead of you ({saveGame?.Facing}) is {destinationName}.";
+                    else if (translatedDirection == "up")
+                        description += $"\nUp from here is {destinationName}.";
+                    else if (translatedDirection == "down")
+                        description += $"\nDown from here is {destinationName}.";
                     else
                         description += $"\nBehind you is {destinationName}.";
                 }
