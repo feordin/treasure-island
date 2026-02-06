@@ -2195,7 +2195,7 @@
     },
     {
       "Name": "NativeVillage",
-      "Description": "You are in the native village of headhunters. To the north is the edge of a clearing. To the south is a north-south path. The natives see the dead black cat that you are carrying and run away in fear. You suddenly observe that there is a stone idol here that they worship and around its neck is an emerald necklace. It is worth 150 points.",
+      "Description": "You are in the native village of headhunters. To the north is the edge of a clearing. To the south is a north-south path. You suddenly observe that there is a stone idol here that they worship and around its neck is an emerald necklace. It is worth 150 points.",
       "Items": [
         "emeraldNecklace"
       ],
