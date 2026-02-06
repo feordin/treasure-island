@@ -71,8 +71,13 @@ namespace Erwin.Games.TreasureIsland.Commands
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You don't have a " + _param + " to examine.", _saveGameData, null, null, null));
             }
 
+            var examineItem = WorldData.Instance?.GetItem(_param);
+            var examineText = !string.IsNullOrEmpty(examineItem?.ExamineText)
+                ? examineItem.ExamineText
+                : examineItem?.Description;
+
             return Task.FromResult<ProcessCommandResponse?>(
-                new ProcessCommandResponse("You take a look at the " + _param + ".\n\n" + WorldData.Instance?.GetItem(_param)?.Description,_saveGameData, null, null, null));
+                new ProcessCommandResponse("You take a look at the " + _param + ".\n\n" + examineText, _saveGameData, null, null, null));
         }
     }
 }

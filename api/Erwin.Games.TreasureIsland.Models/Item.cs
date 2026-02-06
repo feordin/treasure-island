@@ -7,6 +7,7 @@ namespace Erwin.Games.TreasureIsland.Models
     {
         public string? Name { get; set; }
         public string? Description { get; set; }
+        public string? ExamineText { get; set; }
 
         public bool? Takeable { get; set; }
 

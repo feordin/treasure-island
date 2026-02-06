@@ -55,7 +55,7 @@ RULES:
 - ""exit""/""leave"" alone: return ""behind""
 - Descriptive movement (""go down the hill"", ""walk up the path""): match description to find which direction, return that direction
 - Bank: ""borrow""/""loan""/""get loan""=borrow (for loans), ""steal""/""rob""=steal (for theft). Do NOT confuse these.
-- Wish: ""wish for X""/""make a wish""=wish X (valid: money,treasure,food,help)
+- Wish: ""wish for X""/""make a wish""=wish X (valid: money,treasure,food,help,rescue,escape,safety)
 - Signal: ""light fire""/""build fire""/""signal fire""/""wait for rescue""/""hope for rescue""/""call for help""=signal
 - Unknown input: respond ""unknown_command"" with brief hint"
             ;

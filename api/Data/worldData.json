@@ -3564,6 +3564,7 @@
     {
       "Name": "monkeysPaw",
       "Description": "A withered, mummified monkey's paw with one curled finger remaining. Madame Isadora warns that it grants but a single wish, and even that comes at a price. 'Choose wisely,' she whispers, 'for you only get one chance.'",
+      "ExamineText": "You examine the withered monkey's paw closely. Its leathery skin is stretched tight over ancient bones, and one gnarled finger remains curled, as if waiting.\n\nYou recall Madame Isadora's words: 'The paw grants wishes, but each comes at a price. You may wish for MONEY, TREASURE, FOOD, or HELP...'\n\nShe paused, then added in a hushed tone: '...or if you find yourself truly lost and desperate, wish for RESCUE. The paw can spirit you away to safety - but you will leave behind whatever treasures you carry in that forsaken place.'\n\nThe paw seems to pulse slightly in your hand. Choose wisely - you only get one wish.",
       "MustBuy": true,
       "Cost": 3
     },
@@ -3758,6 +3759,7 @@
     {
       "Name": "parchmentMap",
       "Description": "A very old parchment map from the tomb room. It contains valuable information about treasure locations.",
+      "ExamineText": "You carefully unfold the ancient parchment and study its faded markings...\n\nThe map reveals several secrets:\n\n• ALADDIN'S LAMP: 'In the Arabian Room, deep within the ice caves, lies a lamp of legend. But beware - the lamp grants only ONE wish. Use it wisely to cross the great fissure.'\n\n• THE GREAT FISSURE: 'To safely return from beyond the fissure, first melt the ice to fill the chasm with water. Only then can you swim back after using the lamp.'\n\n• KING TUT'S TREASURE: 'The pharaoh's greatest treasure lies beyond the western fissure. Take it before you wish yourself back!'\n\n• THE LAGOON'S SECRET: 'Dive deep in the lagoon waters to find a pearl of great value. But beware the shark that guards these waters.'\n\n• GOBLIN VALLEY: 'Treasure awaits in Goblin Valley, but only those who bring light shall find it.'",
       "Takeable": true
     }
   ],

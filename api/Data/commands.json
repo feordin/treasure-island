@@ -213,11 +213,11 @@
           "name": "wishType",
           "type": "string",
           "required": true,
-          "description": "What to wish for: 'money', 'treasure', 'food', or 'help'."
+          "description": "What to wish for: 'money', 'treasure', 'food', 'help', or 'rescue'."
         }
       ],
-      "description": "Use the monkey's paw to make a wish. You only get one wish, so choose wisely. Requires the monkey's paw in inventory.",
-      "examples": ["wish for money", "wish for treasure", "wish for food", "wish for help"],
+      "description": "Use the monkey's paw to make a wish. You only get one wish, so choose wisely. Requires the monkey's paw in inventory. Wishing for 'rescue' will teleport you to safety but you may lose treasures.",
+      "examples": ["wish for money", "wish for treasure", "wish for food", "wish for help", "wish for rescue"],
       "category": "magic"
     },
     {

@@ -125,6 +125,26 @@ namespace Erwin.Games.TreasureIsland.Commands
                               "The whispers fade. The paw lies still, its power spent.";
                     break;
 
+                case "rescue":
+                case "escape":
+                case "safety":
+                case "home":
+                case "beach":
+                    _saveGameData.AddEvent("MonkeysPawWish", "Wished for rescue - teleported to Rescue Beach.", _saveGameData.CurrentDateTime);
+                    _saveGameData.CurrentLocation = "RescueBeach";
+                    var rescueLocation = WorldData.Instance?.GetLocation("RescueBeach");
+                    message = "The monkey's paw curls its finger, and the world around you dissolves into mist...\n\n" +
+                              "When the mist clears, you find yourself standing on a familiar sandy beach. " +
+                              "The sound of waves and the cry of seagulls greet you. You've been transported to Rescue Beach!\n\n" +
+                              "The paw lies still in your hand, its power spent. You got your wish, but at what cost? " +
+                              "Any treasures you left behind in the caves are now beyond your reach.";
+                    return new ProcessCommandResponse(
+                        message,
+                        _saveGameData,
+                        rescueLocation?.Image,
+                        rescueLocation != null ? rescueLocation.Description : null,
+                        null);
+
                 default:
                     return new ProcessCommandResponse(
                         "The monkey's paw does not understand your wish. You may wish for 'money', 'treasure', 'food', or 'help'.",
