@@ -1462,7 +1462,7 @@
     },
     {
       "Name": "Creek",
-      "Description": "You are at a creek full of water. To the north is a gentle downhill slope. To the east and west is more of the same dense jungle. To the south is the south side of the creek. There is a jungle vine here.",
+      "Description": "You are at a creek full of water, it's deep enought that if you want to cross to other side, you'll have to swim. What might lurk in the water? To the north is a gentle downhill slope. To the east and west is more of the same dense jungle. To the south is the south side of the creek. There is a jungle vine here.",
       "Items": [
         "jungleVine"
       ],
@@ -1504,7 +1504,7 @@
     },
     {
       "Name": "SouthCreek",
-      "Description": "You are on the south side of a creek full of water. To the north is the creek. To the east and west is more of the same dense jungle. To the south is a large clearing. There is a jungle vine here.",
+      "Description": "You are on the south side of a creek full of water. To the north is the other side of the creek, it's deep enought that to cross you would have to swim, what might lurk in the water?. To the east and west is more of the same dense jungle. To the south is a large clearing. There is a jungle vine here.",
       "Items": [
         "jungleVine"
       ],
