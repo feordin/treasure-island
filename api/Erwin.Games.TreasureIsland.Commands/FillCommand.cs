@@ -69,8 +69,9 @@ namespace Erwin.Games.TreasureIsland.Commands
             bool inWestIceCave = _saveGameData.CurrentLocation?.Equals("WestIceCave", StringComparison.OrdinalIgnoreCase) == true;
             bool iceMelted = _saveGameData.GetEvent("ice_melted") != null;
 
-            // Check if at a water source (creek locations)
+            // Check if at a water source (creek locations or lagoon)
             bool atCreek = _saveGameData.CurrentLocation?.Contains("Creek", StringComparison.OrdinalIgnoreCase) == true;
+            bool atLagoon = _saveGameData.CurrentLocation?.Equals("Lagoon", StringComparison.OrdinalIgnoreCase) == true;
 
             if (inWestIceCave && iceMelted)
             {
@@ -87,6 +88,16 @@ namespace Erwin.Games.TreasureIsland.Commands
                 _saveGameData.AddEvent("canteen_filled", "Filled canteen with creek water", _saveGameData.CurrentDateTime);
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                     message: "You fill your canteen with fresh water from the creek.",
+                    saveGameData: _saveGameData,
+                    imageFilename: null,
+                    locationDescription: null,
+                    commandHistory: null));
+            }
+            else if (atLagoon)
+            {
+                _saveGameData.AddEvent("canteen_filled", "Filled canteen with lagoon water", _saveGameData.CurrentDateTime);
+                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    message: "You fill your canteen with the crystal-clear water from the lagoon.",
                     saveGameData: _saveGameData,
                     imageFilename: null,
                     locationDescription: null,

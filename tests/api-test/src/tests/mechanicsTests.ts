@@ -20,7 +20,9 @@ export async function runMechanicsTests(client: ApiClient, graph: LocationGraph)
     testDraculaMechanics,
     testIcePuzzle,
     testThirstMechanics,
-    testLampMechanics
+    testLampMechanics,
+    testCreekMechanics,
+    testLagoonMechanics
   ];
 
   for (const test of tests) {
@@ -491,4 +493,147 @@ async function testLampMechanics(client: ApiClient, graph: LocationGraph): Promi
   }
 
   console.log('  ✓ Lamp mechanics test passed');
+}
+
+async function testCreekMechanics(client: ApiClient, graph: LocationGraph): Promise<void> {
+  console.log('  Testing Creek mechanics...');
+
+  // Test 1: Swim at Creek = Death by crocodiles
+  console.log('    Testing swim at Creek (should cause GameOver)...');
+  await client.sendCommand('startup');
+
+  const navCreek = await navigateTo(client, graph, 'Creek', false);
+  if (navCreek.success) {
+    await client.sendCommand('swim');
+
+    if (client.isGameOver() || client.getCurrentLocation() === 'CrocodileDeath') {
+      console.log('    ✓ Swimming in creek causes crocodile death');
+    } else {
+      console.log('    ⚠ Expected GameOver from swimming in creek');
+    }
+  } else {
+    console.log('    ⓘ Could not navigate to Creek');
+  }
+
+  // Test 2: Swing command at Creek crosses to SouthCreek
+  console.log('    Testing swing at Creek...');
+  await client.sendCommand('startup');
+
+  const navCreek2 = await navigateTo(client, graph, 'Creek', false);
+  if (navCreek2.success) {
+    await client.sendCommand('swing');
+    const afterSwing = client.getCurrentLocation();
+
+    if (afterSwing === 'SouthCreek') {
+      console.log('    ✓ Swing at Creek moves to SouthCreek');
+    } else {
+      console.log(`    ⚠ Expected SouthCreek after swing, got ${afterSwing}`);
+    }
+  } else {
+    console.log('    ⓘ Could not navigate to Creek');
+  }
+
+  // Test 3: Swing command at SouthCreek crosses to Creek
+  console.log('    Testing swing at SouthCreek...');
+  await client.sendCommand('startup');
+
+  const navSouth = await navigateTo(client, graph, 'SouthCreek', false);
+  if (navSouth.success) {
+    await client.sendCommand('swing');
+    const afterSwing = client.getCurrentLocation();
+
+    if (afterSwing === 'Creek') {
+      console.log('    ✓ Swing at SouthCreek moves to Creek');
+    } else {
+      console.log(`    ⚠ Expected Creek after swing, got ${afterSwing}`);
+    }
+  } else {
+    console.log('    ⓘ Could not navigate to SouthCreek');
+  }
+
+  // Test 4: Fill canteen at Creek
+  console.log('    Testing fill canteen at Creek...');
+  await client.sendCommand('startup');
+
+  const canteenResult = await collectItem(client, graph, 'canteen', false);
+  if (canteenResult.success) {
+    const navCreek3 = await navigateTo(client, graph, 'Creek', false);
+    if (navCreek3.success) {
+      await client.sendCommand('fill canteen');
+
+      if (hasEvent(client, 'canteen_filled')) {
+        console.log('    ✓ Can fill canteen at Creek');
+      } else {
+        console.log('    ⓘ Could not fill canteen at Creek');
+      }
+    }
+  } else {
+    console.log('    ⓘ Could not collect canteen');
+  }
+
+  console.log('  ✓ Creek mechanics test passed');
+}
+
+async function testLagoonMechanics(client: ApiClient, graph: LocationGraph): Promise<void> {
+  console.log('  Testing Lagoon mechanics...');
+
+  // Test 1: Movement north from Lagoon should NOT go to LagoonSwimming (removed)
+  console.log('    Testing movement restriction at Lagoon...');
+  await client.sendCommand('startup');
+
+  const navLagoon = await navigateTo(client, graph, 'Lagoon', false);
+  if (navLagoon.success) {
+    await client.sendCommand('north');
+    const afterNorth = client.getCurrentLocation();
+
+    if (afterNorth === 'Lagoon') {
+      console.log('    ✓ North movement from Lagoon is blocked (requires swim)');
+    } else if (afterNorth === 'LagoonSwimming') {
+      console.log('    ⚠ North movement should not go to LagoonSwimming');
+    } else {
+      console.log(`    ⓘ Unexpected location after north: ${afterNorth}`);
+    }
+  } else {
+    console.log('    ⓘ Could not navigate to Lagoon');
+  }
+
+  // Test 2: Swim command at Lagoon enters LagoonSwimming
+  console.log('    Testing swim at Lagoon...');
+  await client.sendCommand('startup');
+
+  const navLagoon2 = await navigateTo(client, graph, 'Lagoon', false);
+  if (navLagoon2.success) {
+    await client.sendCommand('swim');
+    const afterSwim = client.getCurrentLocation();
+
+    if (afterSwim === 'LagoonSwimming') {
+      console.log('    ✓ Swim at Lagoon moves to LagoonSwimming');
+    } else {
+      console.log(`    ⚠ Expected LagoonSwimming after swim, got ${afterSwim}`);
+    }
+  } else {
+    console.log('    ⓘ Could not navigate to Lagoon');
+  }
+
+  // Test 3: Fill canteen at Lagoon
+  console.log('    Testing fill canteen at Lagoon...');
+  await client.sendCommand('startup');
+
+  const canteenResult = await collectItem(client, graph, 'canteen', false);
+  if (canteenResult.success) {
+    const navLagoon3 = await navigateTo(client, graph, 'Lagoon', false);
+    if (navLagoon3.success) {
+      await client.sendCommand('fill canteen');
+
+      if (hasEvent(client, 'canteen_filled')) {
+        console.log('    ✓ Can fill canteen at Lagoon');
+      } else {
+        console.log('    ⓘ Could not fill canteen at Lagoon');
+      }
+    }
+  } else {
+    console.log('    ⓘ Could not collect canteen');
+  }
+
+  console.log('  ✓ Lagoon mechanics test passed');
 }

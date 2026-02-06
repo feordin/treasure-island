@@ -1,25 +1,33 @@
 import { LocationNode, WorldData, Location } from '../types/gameTypes.js';
 
 // Known death trap locations and trap locations with no exits
+// These are ALWAYS avoided by default pathfinding
 const DEATH_TRAP_LOCATIONS = new Set([
   'SharkBay', 'LagoonShark', 'OceanHomeward', 'Crashed',
   'Battlefield', 'BubblingCauldron', 'SandyTrail', 'LavaLounge',
   'DenseJungle',    // No exits - "lost in jungle" trap
-  'NativeVillage',  // Death without donuts/deadCat
-  'EastBoarDen',    // Death without food
-  'WestBoarDen',    // Death without food
-  'SaltRoom',       // Death without water
+  'CrocodileDeath', // Eaten by crocodiles in the creek
+]);
+
+// Conditional death traps - death depends on having items or time of day
+// For perfect game, we need to go through these WITH the right items
+const CONDITIONAL_DEATH_LOCATIONS = new Set([
+  'NativeVillage',  // Death without deadBlackCat
+  'EastBoarDen',    // Death without donuts
+  'WestBoarDen',    // Death without donuts
+  'SaltRoom',       // Death without water in canteen
+  'CoffinRoom',     // Death at night without stake+hammer
+]);
+
+// Locations that steal items or have other bad effects (not death, but game-ending for perfect run)
+// Always avoided by default pathfinding
+export const ITEM_LOSS_LOCATIONS = new Set([
+  'SlipperyRoom',   // Steals all inventory items
 ]);
 
 // Locations that are death traps only under certain conditions
-const CONDITIONAL_DEATH_TRAPS = new Set([
-  'CoffinRoom',      // Only at night
-  'SaltRoom',        // Only without water
-  'NativeVillage',   // Only without dead cat
-  'EastBoarDen',     // Only without food
-  'WestBoarDen',     // Only without food
-  'SlipperyRoom'     // Loses all items, not death
-]);
+// Re-export CONDITIONAL_DEATH_LOCATIONS for use by test code
+export { CONDITIONAL_DEATH_LOCATIONS };
 
 export class LocationGraph {
   private nodes: Map<string, LocationNode> = new Map();
@@ -56,7 +64,11 @@ export class LocationGraph {
   }
 
   private isDeathTrap(loc: Location): boolean {
+    // Check unconditional death traps
     if (DEATH_TRAP_LOCATIONS.has(loc.Name)) return true;
+
+    // Check item loss locations (game-ending for perfect run)
+    if (ITEM_LOSS_LOCATIONS.has(loc.Name)) return true;
 
     // Check for death-related actions
     if (loc.Actions) {
@@ -107,7 +119,7 @@ export class LocationGraph {
   }
 
   getConditionalDeathTraps(): string[] {
-    return Array.from(CONDITIONAL_DEATH_TRAPS);
+    return Array.from(CONDITIONAL_DEATH_LOCATIONS);
   }
 
   findLocationsWithItem(itemName: string): string[] {
@@ -118,6 +130,12 @@ export class LocationGraph {
 
   // BFS to find shortest path
   findPath(from: string, to: string, avoidDeathTraps: boolean = true): string[] | null {
+    return this.findPathWithAvoid(from, to, avoidDeathTraps ? undefined : new Set());
+  }
+
+  // BFS to find shortest path, with custom set of locations to avoid
+  // If avoidLocations is undefined, avoids death traps. If empty set, avoids nothing.
+  findPathWithAvoid(from: string, to: string, avoidLocations?: Set<string>): string[] | null {
     if (from === to) return [];
 
     const visited = new Set<string>();
@@ -141,7 +159,16 @@ export class LocationGraph {
 
         const destNode = this.nodes.get(destination);
         if (!destNode) continue;
-        if (avoidDeathTraps && destNode.isDeathTrap) continue;
+
+        // Check if we should avoid this destination
+        if (avoidLocations === undefined) {
+          // Default: avoid death traps
+          if (destNode.isDeathTrap) continue;
+        } else {
+          // Custom: avoid specified locations
+          if (avoidLocations.has(destination)) continue;
+        }
+
         if (visited.has(destination)) continue;
 
         queue.push({

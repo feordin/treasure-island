@@ -8,6 +8,7 @@ import { TestReport, TestResult } from './types/gameTypes.js';
 import { runLocationTests } from './tests/locationTests.js';
 import { runMechanicsTests } from './tests/mechanicsTests.js';
 import { runItemTests } from './tests/itemTests.js';
+import { runPerfectGameTest } from './tests/perfectGameTest.js';
 
 interface TestSuite {
   name: string;
@@ -18,7 +19,8 @@ interface TestSuite {
 const testSuites: TestSuite[] = [
   { name: 'Location Navigation', category: 'locations', run: runLocationTests },
   { name: 'Game Mechanics', category: 'mechanics', run: runMechanicsTests },
-  { name: 'Item Interactions', category: 'items', run: runItemTests }
+  { name: 'Item Interactions', category: 'items', run: runItemTests },
+  { name: 'Perfect Game Walkthrough', category: 'perfect', run: runPerfectGameTest }
 ];
 
 async function main() {

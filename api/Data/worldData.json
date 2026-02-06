@@ -741,7 +741,8 @@
       "Description": "You are standing on the dock at the wharf.  The water is a bit rough and the waves are crashing against the pilings.  The air is heavy with the smell of salt and the sound of the ocean.  To the south the ocean stretches out before you.  On one side is the ticket booth, and the other is the beach.",
       "Items": [],
       "image": "wharf.png",
-      "Help": "no",
+      "Help": "DEATH AWAITS! Do not swim south into the ocean - a great white shark patrols these waters and will eat you! Take the boat from the ticket booth instead. Buy a ticket first!",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -779,7 +780,8 @@
       "Description": "A gorgeous expanse of ocean is to your south, and you wonder where in that vast ocean is Uncle Herman.  Back to the east is the wharf, and the boat.",
       "Items": [],
       "image": "beach.png",
-      "Help": "Is that a shark in the water?",
+      "Help": "DEATH AWAITS! That IS a shark in the water! Do not swim south into the ocean - the great white shark will eat you! Return to the wharf and take the boat instead.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -871,6 +873,15 @@
       "DisplayName": "Shark Bay"
     },
     {
+      "Name": "CrocodileDeath",
+      "Description": "The murky water of the creek erupts as massive crocodiles surge toward you from every direction. Their powerful jaws snap shut, dragging you beneath the surface. The last thing you see is the churning water turning red. Your adventure ends here in the depths of the creek. Game Over.",
+      "Items": [],
+      "image": "crocodiledeath.png",
+      "Help": "no",
+      "AllowedMovements": [],
+      "DisplayName": "Crocodile Death"
+    },
+    {
       "Name": "ShipWreckBeach",
       "Description": "You are on a beautiful clear stretch of sand. Off to one side is the remains of the ship you boarded, its hull broken and splintered. Salvageable lumber from the wreckage could be useful for building a signal fire. There is no sign of the crew. To the other side, you see the edge of a lagoon through the trees. There is also a clear trail heading off into the interior of the island through the jungle. It seems this island may have some inhabitants. You remember Uncle Herman's warning about cannibals.",
       "Items": ["lumber"],
@@ -917,13 +928,6 @@
       "AllowedMovements": [
         {
           "Direction": [
-            "north"
-          ],
-          "Destination": "LagoonSwimming",
-          "TimeToMove": 10
-        },
-        {
-          "Direction": [
             "east"
           ],
           "Destination": "ShipWreckBeach",
@@ -936,6 +940,10 @@
           "Destination": "DenseJungle",
           "TimeToMove": 20
         }
+      ],
+      "AllowedCommands": [
+        "swim",
+        "fill canteen"
       ],
       "Actions": [
         "RemoveSwimmingEvent"
@@ -1304,7 +1312,8 @@
         ""
       ],
       "image": "edgeofclearing.png",
-      "Help": "The natives are terrifed of stuffed animals.  You may be able to find one else where on the island.",
+      "Help": "DANGER! The native village to the north is inhabited by cannibals! They will kill and eat you unless you have something that terrifies them. The natives are terrified of stuffed animals - you may be able to find one elsewhere on the island. The dense jungle to the south and west is a death trap with no way out.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -1458,7 +1467,8 @@
         "jungleVine"
       ],
       "image": "creek.png",
-      "Help": "no",
+      "Help": "DANGER! Do NOT swim in this creek - it is infested with crocodiles that will kill you instantly! Use the jungle vine to swing across to the other side instead. You can also fill your canteen here safely from the bank. Avoid the dense jungle to the east and west - you will get lost with no way out!",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -1485,7 +1495,10 @@
       ],
       "AllowedCommands": [
         "grab vine",
-        "take vine"
+        "take vine",
+        "swim",
+        "swing",
+        "fill canteen"
       ],
       "DisplayName": "The Creek"
     },
@@ -1496,7 +1509,8 @@
         "jungleVine"
       ],
       "image": "southcreek.png",
-      "Help": "no",
+      "Help": "DANGER! Do NOT swim in this creek - it is infested with crocodiles that will kill you instantly! Use the jungle vine to swing across to the north side instead. You can also fill your canteen here safely from the bank. The large clearing to the south leads toward the mansion. Avoid the dense jungle to the east and west!",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -1523,7 +1537,10 @@
       ],
       "AllowedCommands": [
         "grab vine",
-        "take vine"
+        "take vine",
+        "swim",
+        "swing",
+        "fill canteen"
       ],
       "DisplayName": "South Creek"
     },
@@ -2027,7 +2044,8 @@
       "Description": "You are in the upstairs hallway. To the north is the master bedroom. To the south is the slippery room. Beware of the slippery room because it steals all your possessions. To the east is the second floor landing.",
       "Items": [],
       "image": "upstairshall.png",
-      "Help": "no",
+      "Help": "BEWARE! The slippery room to the south will steal ALL of your possessions if you enter it! There is no way to recover your items once lost. A safer route to the caves is through the coffin room - go north to the master bedroom, then west. But be warned - Dracula sleeps there, and the steel door will trap you inside. Visit during daylight hours with a wooden stake and hammer to deal with the vampire.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -2058,7 +2076,8 @@
       "Description": "You are in the master bedroom. It appears that no one has slept here for many years. To the south is the hall. To the west is coffin room.",
       "Items": [],
       "image": "masterbedroom.png",
-      "Help": "no",
+      "Help": "WARNING! The coffin room to the west contains Count Dracula! If you enter at night without a wooden stake and hammer, you will surely die. Only enter during daylight hours (6am-6pm) with both items to kill the vampire. Also beware - a steel door will permanently block your return to this bedroom once you enter the coffin room.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -2107,7 +2126,8 @@
       "Description": "You are in the chain room. To the north is the coffin room. To the south is the bone room. To the west is the balcony over the back yard. You see that all around the room are chains attached to the walls.",
       "Items": [],
       "image": "chainroom.png",
-      "Help": "no",
+      "Help": "WARNING! The coffin room to the north contains Count Dracula! If you enter at night without a wooden stake and hammer, you will surely die. Only enter during daylight hours (6am-6pm) with both items to kill the vampire. The bone room to the south is safe, and the balcony to the west lets you throw items down to the backyard.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -2161,7 +2181,8 @@
         "rubyRing"
       ],
       "image": "boneroom.png",
-      "Help": "no",
+      "Help": "BEWARE! The slippery room to the east will steal ALL of your possessions if you enter it! There is no way to recover your items once lost. Don't forget to take Uncle Herman's ruby ring - it's worth 150 points!",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -2241,7 +2262,8 @@
       "Description": "You are on a north-south path through the jungle.",
       "Items": [],
       "image": "northsouthpath.png",
-      "Help": "no",
+      "Help": "DANGER! The native village to the north is inhabited by cannibals! They will kill and eat you unless you carry a stuffed animal that terrifies them. The rescue beach to the south is your destination - drop treasures there to score points.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -2301,7 +2323,8 @@
       "Description": "You are in a cavern. To the west is the north-south path. To the east is the east end of a wild boar's den. It is dark here and if you have the flashlight, you better turn it on.",
       "Items": [],
       "image": "cavern.png",
-      "Help": "no",
+      "Help": "DANGER! A ferocious wild boar lurks in the den to the east! It will attack and kill you unless you have something to distract it. The boar loves donuts - you can buy some at the bakery in town. Make sure you have a flashlight too, as it's dark in the caves.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -2922,7 +2945,8 @@
       "Description": "You are at a historical marker. To the north is a battlefield. To the east is a large cavern. To the west is goblin valley. There is a sign here that says: Beware of the battlefield because there are unexploded mines there. It is dark here.",
       "Items": [],
       "image": "historicalmarker.png",
-      "Help": "Do not go to the battlefield!",
+      "Help": "DEATH AWAITS! The battlefield to the north contains unexploded mines - you will be blown to pieces instantly if you enter! There is absolutely no way to survive and no treasure there. Go east to the large cavern or west to goblin valley instead.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -3035,7 +3059,8 @@
       "Description": "You are in the stalactite room. To the east is sandstone. To the north is the west wild boar room. It is dark here.",
       "Items": [],
       "image": "stalactiteroom.png",
-      "Help": "no",
+      "Help": "DANGER! A ferocious wild boar lurks in the den to the north! It will attack and kill you unless you have donuts to distract it. You can buy donuts at the bakery in town.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -3216,7 +3241,8 @@
         "caveShovel"
       ],
       "image": "chimneyroom.png",
-      "Help": "There is a sneaky method to get the shovel out of the caverns at the end.",
+      "Help": "DEATH AWAITS! The bubbling cauldron to the west is filled with molten lava - you will die instantly if you enter! There is no treasure there and no way to survive. Take the shovel here - you'll need it elsewhere. There's a sneaky method to get items out of the caverns using Aladdin's lamp.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -3252,7 +3278,8 @@
       "Description": "You are in the west ice cave. To the north is the salt room. To the east is the east end of this cave. To the south is a sloping corridor. There are two things you must do here. Both involve matches. It is dark here.",
       "Items": [],
       "image": "westicecave.png",
-      "Help": "Use matches here for something important.",
+      "Help": "DANGER! The salt room to the north will kill you from dehydration unless you have water in your canteen! Fill your canteen at a water source (creek, lagoon, or melt the ice here) before entering. You can light coal here with matches to melt the ice and create a water source. The melted water also fills the fissure to the south, allowing you to swim across.",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [
@@ -3391,7 +3418,8 @@
       "Description": "You are in echo canyon. To the north is lava lounge. To the south is a coal mine. It is dark here.",
       "Items": [],
       "image": "echocanyon.png",
-      "Help": "no",
+      "Help": "DANGER! The lava lounge to the north is extremely hot and will kill you instantly! Only the monkey's paw or Aladdin's lamp can save you there. The coal mine to the south has coal you'll need - take it!",
+      "HelpCost": 100,
       "AllowedMovements": [
         {
           "Direction": [

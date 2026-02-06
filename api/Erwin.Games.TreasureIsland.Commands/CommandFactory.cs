@@ -91,6 +91,8 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new WishCommand(saveGameData, commandParam);
                 case "signal":
                     return new SignalCommand(saveGameData, repository, commandName, commandParam);
+                case "swing":
+                    return new SwingCommand(saveGameData, repository, commandParam);
                 default:
                     return new UnknownCommand(saveGameData, repository, commandRemainder);
             }

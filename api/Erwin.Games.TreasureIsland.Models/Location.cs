@@ -34,6 +34,11 @@ namespace Erwin.Games.TreasureIsland.Models
 
         public string? Help { get; set; }
 
+        /// <summary>
+        /// Point cost for receiving the help hint at this location. If > 0, player pays this cost once.
+        /// </summary>
+        public int HelpCost { get; set; } = 0;
+
         public static string? CardinalDirectionToSimple(string? facing, string? cardinalDirection)
         {
             facing = facing?.ToLower();

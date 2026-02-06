@@ -6,7 +6,8 @@
     "test": "tsx src/index.ts",
     "test:locations": "tsx src/index.ts --category=locations",
     "test:mechanics": "tsx src/index.ts --category=mechanics",
-    "test:items": "tsx src/index.ts --category=items"
+    "test:items": "tsx src/index.ts --category=items",
+    "test:perfect": "tsx src/index.ts --category=perfect"
   },
   "dependencies": {
     "typescript": "^5.0.0"
