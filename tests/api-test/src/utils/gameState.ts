@@ -29,7 +29,7 @@ export async function navigateTo(
     return { success: true };
   }
 
-  const path = graph.findPath(current, destination, false);
+  const path = graph.findPath(current, destination, true);  // Avoid death traps
   if (!path) {
     return { success: false, error: `No path from ${current} to ${destination}` };
   }

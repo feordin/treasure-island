@@ -1474,6 +1474,13 @@
           ],
           "Destination": "DenseJungle",
           "TimeToMove": 20
+        },
+        {
+          "Direction": [
+            "south"
+          ],
+          "Destination": "SouthCreek",
+          "TimeToMove": 5
         }
       ],
       "AllowedCommands": [
@@ -1491,6 +1498,13 @@
       "image": "southcreek.png",
       "Help": "no",
       "AllowedMovements": [
+        {
+          "Direction": [
+            "north"
+          ],
+          "Destination": "Creek",
+          "TimeToMove": 5
+        },
         {
           "Direction": [
             "south"

@@ -1,9 +1,14 @@
 import { LocationNode, WorldData, Location } from '../types/gameTypes.js';
 
-// Known death trap locations
+// Known death trap locations and trap locations with no exits
 const DEATH_TRAP_LOCATIONS = new Set([
   'SharkBay', 'LagoonShark', 'OceanHomeward', 'Crashed',
-  'Battlefield', 'BubblingCauldron', 'SandyTrail'
+  'Battlefield', 'BubblingCauldron', 'SandyTrail', 'LavaLounge',
+  'DenseJungle',    // No exits - "lost in jungle" trap
+  'NativeVillage',  // Death without donuts/deadCat
+  'EastBoarDen',    // Death without food
+  'WestBoarDen',    // Death without food
+  'SaltRoom',       // Death without water
 ]);
 
 // Locations that are death traps only under certain conditions
