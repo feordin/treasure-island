@@ -14,7 +14,7 @@
   .location-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure the image covers the container */
+    object-fit: contain; /* Display the whole image maintaining aspect ratio */
   }
 
 /* Mobile layout */
@@ -35,6 +35,6 @@
   .location-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 }
