@@ -48,7 +48,7 @@ async function navigatePerfectGame(
  * - pricelessPainting (400) - Attic
  * - rubyRing (150) - BoneRoom
  * - emeraldNecklace (150) - NativeVillage
- * - goblinTreasure (300) - GoblinValley
+ * - diamonds (300) - GoblinValley (examine GoblinTower to reveal)
  * - deadmansTreasure (200) - DeadmansGulch
  * - aladdinsLamp (300) - ArabianRoom
  * - fissureTreasure (400) - FissureRoom
@@ -405,7 +405,7 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
   });
 
   await runStep({
-    description: 'Get goblinTreasure from GoblinValley (300 pts)',
+    description: 'Get diamonds from GoblinValley (300 pts)',
     action: async () => {
       const nav = await navigatePerfectGame(client, graph, 'GoblinValley');
       if (!nav.success) {
@@ -413,8 +413,9 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
         return false;
       }
       await client.sendCommand('light matches');
-      await client.sendCommand('take goblinTreasure');
-      return hasItem(client, 'goblinTreasure');
+      await client.sendCommand('examine GoblinTower');
+      await client.sendCommand('take diamonds');
+      return hasItem(client, 'diamonds');
     },
     required: true
   });
@@ -656,7 +657,7 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
     { name: 'pricelessPainting', points: 400 },
     { name: 'rubyRing', points: 150 },
     { name: 'emeraldNecklace', points: 150 },
-    { name: 'goblinTreasure', points: 300 },
+    { name: 'diamonds', points: 300 },
     { name: 'deadmansTreasure', points: 200 },
     { name: 'aladdinsLamp', points: 300 },
     { name: 'fissureTreasure', points: 400 },

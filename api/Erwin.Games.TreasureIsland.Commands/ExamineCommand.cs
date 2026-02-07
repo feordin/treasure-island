@@ -38,13 +38,16 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
             else if (_param == "bookshelf" && _saveGameData != null)
             {
-                                // check to see if the wallet was previously found
-                var walletEvent = _saveGameData.GetEvent("book");
-                if (walletEvent == null)
+                if (currentLocation?.Name?.Contains("TrashPit", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    currentLocation?.AddItemToLocation(_saveGameData, "TheRepublic");
-                    _saveGameData.AddEvent("TheRepublic", "Amazingly, wrapped in oil cloth, an old and valuable book of greek philosophy has survived.  This might be something the bank would consider collateral for a loan.", _saveGameData.CurrentDateTime);
-                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("Amazingly, wrapped in oil cloth, an old and valuable book of greek philosophy has survived.  This might be something the bank would consider collateral for a loan.", _saveGameData, null, null, null));
+                    // check to see if the book was previously found
+                    var bookevent = _saveGameData.GetEvent("book");
+                    if (bookevent == null)
+                    {
+                        currentLocation?.AddItemToLocation(_saveGameData, "TheRepublic");
+                        _saveGameData.AddEvent("book", "Amazingly, wrapped in oil cloth, an old and valuable book of greek philosophy has survived.  This might be something the bank would consider collateral for a loan.", _saveGameData.CurrentDateTime);
+                        return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("Amazingly, wrapped in oil cloth, an old and valuable book of greek philosophy has survived.  This might be something the bank would consider collateral for a loan.", _saveGameData, null, null, null));
+                    }
                 }
             }
             else if (_param.Contains("sand", StringComparison.OrdinalIgnoreCase) == true)
@@ -54,6 +57,19 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a closer look at that sandy patch ahead, that is definitely quicksand!  Better stay away.", _saveGameData, null, null, null));
                 }
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a look at the sand.  It's just sand.", _saveGameData, null, null, null));
+            }
+            else if (_param.Contains("GoblinTower", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                if (currentLocation?.Name?.Contains("GoblinValley", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    var diamondsEvent = _saveGameData?.GetEvent("diamonds");
+                    if (diamondsEvent == null)
+                    {
+                        currentLocation?.AddItemToLocation(_saveGameData, "diamonds");
+                        _saveGameData?.AddEvent("diamonds", "Found the diamonds behind the goblin tower.", _saveGameData.CurrentDateTime);
+                        return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("Even covered in dust, it is unmistakable, diamonds in the rough!", _saveGameData, null, null, null));
+                    }
+                }
             }
             else if (item?.Reveals != null && currentLocation?.GetCurrentItems(_saveGameData).Contains(_param, StringComparer.OrdinalIgnoreCase) == true)
             {

@@ -2986,20 +2986,13 @@
     },
     {
       "Name": "GoblinValley",
-      "Description": "You are at goblin valley. To the north is the tv room. To the east is a historical marker. There is a treasure here worth 300 points once you drop it at rescue beach. It is dark here.",
+      "Description": "You are at goblin valley. To the east is a historical marker. You think you see a glimmer of something shiny behind one of the goblin towers. It is dark here.",
       "Items": [
-        "goblinTreasure"
+        "GoblinTower"
       ],
       "image": "goblinvalley.png",
       "Help": "no",
       "AllowedMovements": [
-        {
-          "Direction": [
-            "north"
-          ],
-          "Destination": "TVRoom",
-          "TimeToMove": 5
-        },
         {
           "Direction": [
             "east"
@@ -3009,23 +3002,6 @@
         }
       ],
       "DisplayName": "Goblin Valley"
-    },
-    {
-      "Name": "TVRoom",
-      "Description": "You are in the tv room. To the south is goblin valley. There are reruns of I Love Lucy on the tv set. It is dark here.",
-      "Items": [],
-      "image": "tvroom.png",
-      "Help": "no",
-      "AllowedMovements": [
-        {
-          "Direction": [
-            "south"
-          ],
-          "Destination": "GoblinValley",
-          "TimeToMove": 5
-        }
-      ],
-      "DisplayName": "TV Room"
     },
     {
       "Name": "WestBoarDen",
@@ -3546,6 +3522,11 @@
       "Takeable": false
     },
     {
+      "Name": "GoblinTower",
+      "Description": "A tall, oddly formed structure. You think you see something shiny behind it.",
+      "Takeable": false
+    },
+    {
       "Name": "letter",
       "Description": "This is a letter from your uncle:\n\"Please help me!  I am being held captive on treasure island by a tribe of cannibals and they are planning to eat me!  You can save if you come quickly.  There is also treasure!  Plenty for both of us.  Uncle Herman\""
     },
@@ -3755,7 +3736,7 @@
       "Takeable": false
     },
     {
-      "Name": "goblinTreasure",
+      "Name": "diamonds",
       "Description": "A treasure from goblin valley. Worth 300 points at rescue beach.",
       "Takeable": true,
       "Value": 300

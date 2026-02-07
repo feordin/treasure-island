@@ -40,15 +40,45 @@ namespace Erwin.Games.TreasureIsland.Actions
             }
             else
             {
-                // Try last-chance escape before death
-                if (LastChanceEscape.TryEscape(_response, "wild boar attack"))
+                // Determine chance the boar is home based on how many times player has passed through
+                var boarEvent = _response.saveGameData.GetEvent("boar");
+                int encounterCount = 0;
+                if (boarEvent != null)
                 {
-                    return;
+                    int.TryParse(boarEvent.Description, out encounterCount);
                 }
 
-                // Player dies
-                _response.saveGameData.AddEvent("GameOver", "Killed by wild boar", _response.saveGameData.CurrentDateTime);
-                _response.Message += "\n\nA massive wild boar charges at you! Without anything to distract it, you have no chance. Game Over.";
+                // Chance of boar appearing is (encounterCount + 1) in 10
+                int chanceOutOfTen = Math.Min(encounterCount + 1, 10);
+                var random = new Random();
+                bool boarIsHome = random.Next(10) < chanceOutOfTen;
+
+                if (boarIsHome)
+                {
+                    // Try last-chance escape before death
+                    if (LastChanceEscape.TryEscape(_response, "wild boar attack"))
+                    {
+                        return;
+                    }
+
+                    // Player dies
+                    _response.saveGameData.AddEvent("GameOver", "Killed by wild boar", _response.saveGameData.CurrentDateTime);
+                    _response.Message += "\n\nA massive wild boar charges at you! Without anything to distract it, you have no chance. Game Over.";
+                }
+                else
+                {
+                    // Boar wasn't home, but increment the encounter count
+                    if (boarEvent != null)
+                    {
+                        boarEvent.Description = (encounterCount + 1).ToString();
+                    }
+                    else
+                    {
+                        _response.saveGameData.AddEvent("boar", "1", _response.saveGameData.CurrentDateTime);
+                    }
+
+                    _response.Message += "\n\nYou hear snorting in the distance but the wild boar doesn't seem to be home. You sneak through quickly.";
+                }
             }
         }
     }
