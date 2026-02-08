@@ -83,6 +83,8 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new SwimCommand(saveGameData, repository, commandParam);
                 case "drink":
                     return new DrinkCommand(saveGameData, commandParam);
+                case "eat":
+                    return new EatCommand(saveGameData, repository, commandParam);
                 case "fill":
                     return new FillCommand(saveGameData, commandParam);
                 case "rub":

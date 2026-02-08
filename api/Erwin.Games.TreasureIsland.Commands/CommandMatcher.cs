@@ -42,6 +42,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             { "pray", "pray" }, { "worship", "pray" },
             { "fortune", "fortune" }, { "tell fortune", "fortune" }, { "read fortune", "fortune" },
             { "swim", "swim" }, { "swim across", "swim" },
+            { "eat", "eat" },
             { "drink", "drink" }, { "drink water", "drink" },
             { "steal", "steal" }, { "rob", "steal" }, { "rob bank", "steal" },
             { "borrow", "borrow" }, { "loan", "borrow" }, { "get loan", "borrow" }, { "get a loan", "borrow" }, { "take loan", "borrow" }, { "borrow money", "borrow" },
@@ -58,6 +59,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             "buy", "purchase",
             "pawn", "sell",
             "light", "burn", "ignite",
+            "eat", "consume",
             "fill", "fill up", "refill",
             "rub", "use",
             "save", "load", "delete", "kill"
@@ -72,6 +74,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             { "read", "examine" }, { "inspect", "examine" }, { "look at", "examine" }, { "check", "examine" }, { "study", "examine" },
             { "purchase", "buy" },
             { "sell", "pawn" },
+            { "consume", "eat" },
             { "burn", "light" }, { "ignite", "light" }, { "set fire to", "light" },
             { "fill up", "fill" }, { "refill", "fill" },
             { "use", "rub" },
@@ -141,7 +144,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
 
             // Try base commands directly (e.g., "take shovel", "examine letter")
-            foreach (var cmd in new[] { "take", "drop", "examine", "buy", "pawn", "light", "fill", "rub", "save", "load", "delete", "kill" })
+            foreach (var cmd in new[] { "take", "drop", "examine", "buy", "pawn", "light", "fill", "rub", "eat", "save", "load", "delete", "kill" })
             {
                 if (input.StartsWith(cmd + " ", StringComparison.OrdinalIgnoreCase))
                 {
