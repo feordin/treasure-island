@@ -134,6 +134,12 @@ namespace Erwin.Games.TreasureIsland.Commands
                 }
             }
 
+            // Special handling for "open" command - pass through without NormalizeParameter
+            if (input.StartsWith("open ", StringComparison.OrdinalIgnoreCase))
+            {
+                return input.ToLower();
+            }
+
             // Try base commands directly (e.g., "take shovel", "examine letter")
             foreach (var cmd in new[] { "take", "drop", "examine", "buy", "pawn", "light", "fill", "rub", "save", "load", "delete", "kill" })
             {

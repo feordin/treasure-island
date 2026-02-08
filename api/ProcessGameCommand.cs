@@ -80,6 +80,13 @@ namespace Erwin.Games.TreasureIsland
                 }
             }
 
+            // Global Dracula action - runs on every command
+            if (result != null && result.saveGameData?.GetEvent("GameOver") == null)
+            {
+                var draculaAction = new DraculaAction(result);
+                draculaAction.Execute();
+            }
+
             // update the history
             await _gameDataRepository.AddToGameHistory(command, result?.Message, result?.saveGameData?.Player, 0);
 

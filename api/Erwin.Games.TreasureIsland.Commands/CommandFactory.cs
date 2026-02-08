@@ -93,6 +93,14 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return new SignalCommand(saveGameData, repository, commandName, commandParam);
                 case "swing":
                     return new SwingCommand(saveGameData, repository, commandParam);
+                case "open":
+                    // Handle combination that may have spaces: "open safe 7 23 42" → join tokens[2..] with dashes
+                    var combinationParam = nextParam;
+                    if (commandTokens?.Length > 3)
+                    {
+                        combinationParam = string.Join("-", commandTokens.Skip(2));
+                    }
+                    return new OpenCommand(saveGameData, repository, commandParam, combinationParam);
                 default:
                     return new UnknownCommand(saveGameData, repository, commandRemainder);
             }

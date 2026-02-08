@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Erwin.Games.TreasureIsland.Actions;
 using Erwin.Games.TreasureIsland.Models;
 using Erwin.Games.TreasureIsland.Persistence;
 
@@ -68,11 +69,11 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
-            // Check if in FissureRoom or WestFissureRoom
+            // Check if in FissureRoom or FissureLedge
             bool inFissureRoom = _saveGameData.CurrentLocation?.Equals("FissureRoom", StringComparison.OrdinalIgnoreCase) == true;
-            bool inWestFissureRoom = _saveGameData.CurrentLocation?.Equals("WestFissureRoom", StringComparison.OrdinalIgnoreCase) == true;
+            bool inFissureLedge = _saveGameData.CurrentLocation?.Equals("FissureLedge", StringComparison.OrdinalIgnoreCase) == true;
 
-            if (!inFissureRoom && !inWestFissureRoom)
+            if (!inFissureRoom && !inFissureLedge)
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                     message: "You rub the lamp but nothing happens. Perhaps it only works in a special place...",
@@ -87,8 +88,7 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             // Check if player has King Tut's treasure
             bool hasTreasure = _saveGameData.Inventory?.Any(item =>
-                item.Equals("kingTutsTreasure", StringComparison.OrdinalIgnoreCase) ||
-                item.Equals("fissureTreasure", StringComparison.OrdinalIgnoreCase)) ?? false;
+                item.Equals("kingsTutTreasure", StringComparison.OrdinalIgnoreCase)) ?? false;
 
             string message;
             string? newLocation;
@@ -96,18 +96,32 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             if (inFissureRoom)
             {
-                // Teleport to WestFissureRoom
-                newLocation = "WestFissureRoom";
-                message = "You rub the lamp and a genie appears in a puff of smoke! 'Your wish is my command!' In a flash of light, you find yourself on the other side of the fissure.";
+                // Teleport to FissureLedge
+                newLocation = "FissureLedge";
+                message = "You rub the lamp and a genie appears in a puff of smoke! 'Your wish is my command!' In a flash of light, you find yourself on the narrow ledge on the other side of the fissure.";
 
                 if (_saveGameData.GetEvent("fissure_filled") == null)
                 {
-                    // Player used lamp to cross without swimming - they're now stuck!
+                    // Player used lamp to cross without water — try monkey's paw escape
+                    _saveGameData.PreviousLocation = "FissureRoom";
+                    var trappedResponse = new ProcessCommandResponse(
+                        message: message,
+                        saveGameData: _saveGameData,
+                        imageFilename: null,
+                        locationDescription: null,
+                        commandHistory: null);
+
+                    if (LastChanceEscape.TryEscape(trappedResponse, "trapped on fissure ledge"))
+                    {
+                        return Task.FromResult<ProcessCommandResponse?>(trappedResponse);
+                    }
+
+                    // No escape — they're stuck
                     message += "\n\nBut wait... without water in the fissure, you have no way to swim back. And the lamp only grants one wish. You are trapped!";
-                    _saveGameData.AddEvent("GameOver", "Trapped on wrong side of fissure", _saveGameData.CurrentDateTime);
+                    _saveGameData.AddEvent("GameOver", "Trapped on fissure ledge", _saveGameData.CurrentDateTime);
                 }
             }
-            else // inWestFissureRoom
+            else // inFissureLedge
             {
                 // Teleport back to FissureRoom
                 newLocation = "FissureRoom";

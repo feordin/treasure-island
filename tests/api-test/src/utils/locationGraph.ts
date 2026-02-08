@@ -4,7 +4,7 @@ import { LocationNode, WorldData, Location } from '../types/gameTypes.js';
 // These are ALWAYS avoided by default pathfinding
 const DEATH_TRAP_LOCATIONS = new Set([
   'SharkBay', 'LagoonShark', 'OceanHomeward', 'Crashed',
-  'Battlefield', 'BubblingCauldron', 'SandyTrail', 'LavaLounge',
+  'Battlefield', 'BubblingCauldron', 'SandyTrail',
   'DenseJungle',    // No exits - "lost in jungle" trap
   'CrocodileDeath', // Eaten by crocodiles in the creek
 ]);
@@ -23,6 +23,8 @@ const CONDITIONAL_DEATH_LOCATIONS = new Set([
 // Always avoided by default pathfinding
 export const ITEM_LOSS_LOCATIONS = new Set([
   'SlipperyRoom',   // Steals all inventory items
+  // Note: SteamRoom wets matches but is the only path to GoblinValley.
+  // The test handles this by doing coal/fissure puzzle BEFORE visiting GoblinValley.
 ]);
 
 // Locations that are death traps only under certain conditions
@@ -70,10 +72,11 @@ export class LocationGraph {
     // Check item loss locations (game-ending for perfect run)
     if (ITEM_LOSS_LOCATIONS.has(loc.Name)) return true;
 
-    // Check for death-related actions
+    // Check for death-related actions (only truly deadly ones)
+    const DEADLY_ACTIONS = new Set(['DynamiteDeath', 'LavaDeath', 'BattlefieldDeath']);
     if (loc.Actions) {
       for (const action of loc.Actions) {
-        if (action.includes('Death') || action === 'LavaDeath' || action === 'BattlefieldDeath') {
+        if (DEADLY_ACTIONS.has(action)) {
           return true;
         }
       }

@@ -43,7 +43,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             // Optimized minimal prompt for fast command parsing
             _systemPromptText = @"Parse text adventure commands. Output ONLY the command, nothing else.
 
-COMMANDS: north,south,east,west,up,down,left,right,ahead,behind,look,take,drop,examine,buy,pawn,save,load,delete,new,help,sleep,rest,dig,pray,fortune,swim,drink,fill,rub,light,kill,steal,borrow,wish,signal,embellish,inventory
+COMMANDS: north,south,east,west,up,down,left,right,ahead,behind,look,take,drop,examine,buy,pawn,save,load,delete,new,help,sleep,rest,dig,pray,fortune,swim,drink,fill,rub,light,kill,steal,borrow,wish,signal,embellish,inventory,open
 
 RULES:
 - Movement: forward/onward=ahead, back/return=behind
@@ -57,6 +57,7 @@ RULES:
 - Bank: ""borrow""/""loan""/""get loan""=borrow (for loans), ""steal""/""rob""=steal (for theft). Do NOT confuse these.
 - Wish: ""wish for X""/""make a wish""=wish X (valid: money,treasure,food,help,rescue,escape,safety)
 - Signal: ""light fire""/""build fire""/""signal fire""/""wait for rescue""/""hope for rescue""/""call for help""=signal
+- Open: ""open safe 7-23-42""=open safe 7-23-42, normalize combination numbers to dash-separated format
 - Unknown input: respond ""unknown_command"" with brief hint"
             ;
 

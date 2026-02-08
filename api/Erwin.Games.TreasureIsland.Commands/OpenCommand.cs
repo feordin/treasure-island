@@ -1,17 +1,26 @@
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Erwin.Games.TreasureIsland.Models;
+using Erwin.Games.TreasureIsland.Persistence;
 
 namespace Erwin.Games.TreasureIsland.Commands
 {
-    public class KillDraculaCommand : ICommand
+    public class OpenCommand : ICommand
     {
         private readonly SaveGameData? _saveGameData;
-        private readonly string? _target;
+        private readonly IGameDataRepository _repository;
+        private readonly string? _objectName;
+        private readonly string? _combination;
 
-        public KillDraculaCommand(SaveGameData? saveGameData, string? target = null)
+        private static readonly int[] CorrectCombination = { 7, 23, 42 };
+
+        public OpenCommand(SaveGameData? saveGameData, IGameDataRepository repository, string? objectName, string? combination)
         {
             _saveGameData = saveGameData;
-            _target = target;
+            _repository = repository;
+            _objectName = objectName;
+            _combination = combination;
         }
 
         public Task<ProcessCommandResponse?> Execute()
@@ -26,73 +35,74 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
-            // Check if target is valid (null, empty, or dracula/vampire)
-            if (!string.IsNullOrEmpty(_target) &&
-                !_target.Equals("dracula", StringComparison.OrdinalIgnoreCase) &&
-                !_target.Equals("vampire", StringComparison.OrdinalIgnoreCase))
+            _saveGameData.CurrentDateTime += new TimeSpan(0, 1, 0);
+
+            if (string.IsNullOrEmpty(_objectName) ||
+                !_objectName.Equals("safe", StringComparison.OrdinalIgnoreCase))
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    message: $"There is nothing called {_target} here to kill.",
+                    message: "What do you want to open?",
                     saveGameData: _saveGameData,
                     imageFilename: null,
                     locationDescription: null,
                     commandHistory: null));
             }
 
-            // Check if Dracula is already killed
-            var killedEvent = _saveGameData.GetEvent("killed_dracula");
-            if (killedEvent != null)
+            // Must be at SittingRoom
+            if (_saveGameData.CurrentLocation?.Equals("SittingRoom", StringComparison.OrdinalIgnoreCase) != true)
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    message: "Dracula is already dead",
+                    message: "There is no safe here.",
                     saveGameData: _saveGameData,
                     imageFilename: null,
                     locationDescription: null,
                     commandHistory: null));
             }
 
-            // Check if player has wooden stake and hammer
-            var hasWoodenStake = _saveGameData.Inventory?.Contains("woodenStake", StringComparer.OrdinalIgnoreCase) == true;
-            var hasHammer = _saveGameData.Inventory?.Contains("hammer", StringComparer.OrdinalIgnoreCase) == true;
-
-            if (!hasWoodenStake || !hasHammer)
+            // Already opened
+            if (_saveGameData.GetEvent("safe_opened") != null)
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    message: "You need a wooden stake and hammer to kill Dracula",
+                    message: "The safe is already open.",
                     saveGameData: _saveGameData,
                     imageFilename: null,
                     locationDescription: null,
                     commandHistory: null));
             }
 
-            // Check if player is in the CoffinRoom
-            if (!_saveGameData.CurrentLocation?.Equals("CoffinRoom", StringComparison.OrdinalIgnoreCase) == true)
+            // Need combination
+            if (string.IsNullOrEmpty(_combination))
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    message: "Dracula is not here",
+                    message: "You need to provide the combination to open the safe.",
                     saveGameData: _saveGameData,
                     imageFilename: null,
                     locationDescription: null,
                     commandHistory: null));
             }
 
-            // Check if it's daytime (hour 6-20) - must match DraculaAction's night check
-            var currentHour = _saveGameData.CurrentDateTime.Hour;
-            if (currentHour < 6 || currentHour >= 20)
+            // Parse combination numbers from any format (7-23-42, 7,23,42, 7 23 42, etc.)
+            var matches = Regex.Matches(_combination, @"\d+");
+            var numbers = matches.Select(m => int.Parse(m.Value)).ToArray();
+
+            if (numbers.SequenceEqual(CorrectCombination))
             {
+                _saveGameData.AddEvent("safe_opened", "Opened the safe with combination 7-23-42", _saveGameData.CurrentDateTime);
+
+                // Add bundleOfBills to SittingRoom
+                var sittingRoom = WorldData.Instance.GetLocation("SittingRoom");
+                sittingRoom?.AddItemToLocation(_saveGameData, "bundleOfBills");
+
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    message: "Dracula is awake and you cannot approach him!",
+                    message: "You carefully turn the dial... 7... 23... 42... Click! The safe swings open, revealing a bundle of bills inside!",
                     saveGameData: _saveGameData,
                     imageFilename: null,
                     locationDescription: null,
                     commandHistory: null));
             }
-
-            // All conditions met - kill Dracula
-            _saveGameData.AddEvent("killed_dracula", "You drive the wooden stake through Dracula's heart with the hammer. The vampire lord crumbles to dust.", _saveGameData.CurrentDateTime);
 
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                message: "You drive the wooden stake through Dracula's heart with the hammer. The vampire lord crumbles to dust.",
+                message: "The combination doesn't work. The safe remains locked.",
                 saveGameData: _saveGameData,
                 imageFilename: null,
                 locationDescription: null,

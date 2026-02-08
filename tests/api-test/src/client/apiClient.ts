@@ -136,6 +136,14 @@ export class ApiClient {
       : new Date();
   }
 
+  /**
+   * Get the game hour in UTC (matching how the C# backend interprets DateTime.Hour).
+   * IMPORTANT: Always use this instead of getGameTime().getHours() to avoid timezone issues.
+   */
+  getGameHourUTC(): number {
+    return this.getGameTime().getUTCHours();
+  }
+
   isGameOver(): boolean {
     return this.getEvents().some(e => e.name === 'GameOver');
   }

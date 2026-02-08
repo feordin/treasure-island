@@ -46,6 +46,26 @@ namespace Erwin.Games.TreasureIsland.Commands
                     ));
                 }
             }
+            else if (_saveGameData?.CurrentLocation?.Equals("RescueBeach", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                var itemEvent = _saveGameData.GetEvent("PotOfGoldReveal");
+                if (itemEvent == null)
+                {
+                    currentLocation?.AddItemToLocation(_saveGameData, "potOfGold");
+                    _saveGameData?.AddEvent("PotOfGoldReveal", "Digging is successful! You find a pot of gold!", _saveGameData.CurrentDateTime);
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You dig into the sand and your shovel strikes something hard. It's a pot of gold!", _saveGameData, null, null, null));
+                }
+                else
+                {
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                        message: "You dig more around where you found the pot of gold, but don't find anything else.",
+                        saveGameData: _saveGameData,
+                        imageFilename: null,
+                        locationDescription: null,
+                        commandHistory: null
+                    ));
+                }
+            }
             else
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(

@@ -71,14 +71,25 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
 
             // we need another check here to make sure the is actually possible to take
-            if (currentItems?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true && 
+            if (currentItems?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true &&
                 currentLocation?.Name != null &&
                 (itemDetails == null || itemDetails.IsTakeable == true))
             {
                 _saveGameData?.Inventory?.Add(_param);
                 // check if the saved game already has any changes to this location
                 currentLocation.RemoveItemFromLocation(_saveGameData, _param);
-                
+
+                // Weight warning for King Tut's treasure
+                if (_param.Equals("kingsTutTreasure", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new ProcessCommandResponse(
+                        "You take the kingsTutTreasure. This treasure is incredibly heavy... Swimming while carrying it would be nearly impossible.",
+                        _saveGameData,
+                        null,
+                        null,
+                        null);
+                }
+
                 return new ProcessCommandResponse(
                     "You take the " + _param + ".",
                     _saveGameData,

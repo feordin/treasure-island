@@ -1747,7 +1747,7 @@
     },
     {
       "Name": "SittingRoom",
-      "Description": "You in the sitting room. To the south is the east end of the hallway. To the west is the kitchen. There is a safe here but the door is closed. Inside is money and it is worth 100 points to you if you can figure out how to get the combination to the safe.",
+      "Description": "You are in the sitting room. To the south is the east end of the hallway. To the west is the kitchen. There is a safe here but the door is closed. You wonder what might be inside if you could figure out the combination.",
       "Items": [
         "safe"
       ],
@@ -1816,7 +1816,7 @@
     },
     {
       "Name": "MaidsQuarters",
-      "Description": "You are in the maids quarters. To the north is the kitchen. It seems the maid collects old coins because these are from the 19th century and are worth 50 points to you.",
+      "Description": "You are in the maids quarters. To the north is the kitchen. It seems the maid had a fondness for collecting old coins. You notice a small collection from the 19th century on the nightstand.",
       "Items": [
         "coins"
       ],
@@ -1903,7 +1903,7 @@
     },
     {
       "Name": "Office",
-      "Description": "You are in the office. To the south is the trophy room. There is a treasure here worth 100 points.",
+      "Description": "You are in the office. To the south is the trophy room. A large mahogany desk dominates the room, its surface buried under dusty ledgers and old correspondence. You notice what appear to be stock certificates scattered among the papers.",
       "Items": [
         "stocksAndBonds"
       ],
@@ -2022,7 +2022,7 @@
     },
     {
       "Name": "Attic",
-      "Description": "You are in the attic. There is a stairway that goes down to the landing. There is a lot of junk here but your eagle eye spots something that you recognize. You can see that this painting is of Whistler's Father and while worth millions, it will bring you 400 points in this game.",
+      "Description": "You are in the attic. There is a stairway that goes down to the landing. There is a lot of junk here but your eagle eye spots something that you recognize. Beneath a dusty sheet, you can see that this painting is of Whistler's Father. It must be incredibly valuable.",
       "Items": [
         "pricelessPainting"
       ],
@@ -2116,9 +2116,6 @@
       "AllowedCommands": [
         "kill dracula"
       ],
-      "Actions": [
-        "Dracula"
-      ],
       "DisplayName": "The Coffin Room"
     },
     {
@@ -2176,7 +2173,7 @@
     },
     {
       "Name": "BoneRoom",
-      "Description": "You are in the bone room. There is a skeleton here leaning against the west wall. You immediately recognize Uncle Hermans ruby ring on one of the fingers. To the north is the chain room and to the east is the slippery room. Beware of the slippery room because it will steal everything that you are carrying. The ruby ring is worth 150 points.",
+      "Description": "You are in the bone room. There is a skeleton here leaning against the west wall. You immediately recognize Uncle Herman's ruby ring on one of the fingers. To the north is the chain room and to the east is the slippery room. Beware of the slippery room because it will steal everything that you are carrying.",
       "Items": [
         "rubyRing"
       ],
@@ -2230,7 +2227,7 @@
     },
     {
       "Name": "NativeVillage",
-      "Description": "You are in the native village of headhunters. To the north is the edge of a clearing. To the south is a north-south path. You suddenly observe that there is a stone idol here that they worship and around its neck is an emerald necklace. It is worth 150 points.",
+      "Description": "You are in the native village of headhunters. To the north is the edge of a clearing. To the south is a north-south path. You suddenly observe that there is a stone idol here that they worship and around its neck is a stunning emerald necklace.",
       "Items": [
         "emeraldNecklace"
       ],
@@ -2291,7 +2288,7 @@
     },
     {
       "Name": "RescueBeach",
-      "Description": "You are on rescue beach. To the north, east, and south is jungle. To the west is the north-south path. This wide, open beach faces the sea and would be an ideal spot to signal passing ships. There is driftwood scattered along the shore. This is also the spot where you must drop treasures to gain points for your score. There is a treasure buried here but you need a shovel to dig for it.",
+      "Description": "You are on rescue beach. To the north, east, and south is jungle. To the west is the north-south path. This wide, open beach faces the sea and would be an ideal spot to signal passing ships. There is driftwood scattered along the shore. The sand here looks like it has been disturbed recently, as if something was buried. This seems like the kind of place where valuables left behind would be safe.",
       "Items": ["driftwood"],
       "image": "rescuebeach.png",
       "Help": "Drop treasures here to score points. If you have matches and fuel (driftwood, lumber, or coal), you could light a signal fire to attract rescue ships. Try digging if you have a shovel.",
@@ -3088,7 +3085,7 @@
     },
     {
       "Name": "DeadmansGulch",
-      "Description": "You are at deadmans gulch. To the north is sandstone. There is a treasure here worth 200 points on rescue beach. It is dark here.",
+      "Description": "You are at deadmans gulch. To the north is sandstone. Something glints in the shadows among the rocks. It is dark here.",
       "Items": [
         "deadmansTreasure"
       ],
@@ -3107,7 +3104,7 @@
     },
     {
       "Name": "ArabianRoom",
-      "Description": "You are in the arabian room. To the north is the east end of an ice cave. To the south is sandstone. There is a very old and curious lamp here. I suspect it may have belonged to a person called Aladdin. And it is worth 300 points on rescue beach. It is dark here.",
+      "Description": "You are in the arabian room. To the north is the east end of an ice cave. To the south is sandstone. There is a very old and curious lamp here. You suspect it may have belonged to a person called Aladdin. It is dark here.",
       "Items": [
         "aladdinsLamp"
       ],
@@ -3307,12 +3304,10 @@
     },
     {
       "Name": "FissureRoom",
-      "Description": "You are in the fissure room. To the north is a sloping corridor. To the east is a jagged cavern. To the west is the west fissure room. There is a treasure here that is worth 400 points if you drop it on rescue beach. But there is a wide fissure between you and the treasure and it is too wide to jump over. You will have to find some other way to get there. And you cannot use Aladdins lamp more than one time. The melting ice has filled up the fissure with water. It is dark here.",
-      "Items": [
-        "fissureTreasure"
-      ],
+      "Description": "You are in the fissure room. To the north is a sloping corridor. To the east is a jagged cavern. A wide fissure splits the cavern floor, too wide to jump across. On a narrow ledge on the far side, you can see something glinting in the darkness. It is dark here.",
+      "Items": [],
       "image": "fissureroom.png",
-      "Help": "You need to find a way across the water-filled fissure. Aladdin's lamp can only be used once.",
+      "Help": "You need to fill the fissure with water to swim across. Light coal in the west ice cave to melt the ice. Aladdin's lamp can teleport you across, but can only be used once.",
       "AllowedMovements": [
         {
           "Direction": [
@@ -3327,16 +3322,23 @@
           ],
           "Destination": "JaggedCavern",
           "TimeToMove": 5
-        },
-        {
-          "Direction": [
-            "west"
-          ],
-          "Destination": "WestFissureRoom",
-          "TimeToMove": 5
         }
       ],
+      "Actions": [
+        "FissureWater"
+      ],
       "DisplayName": "Fissure Room"
+    },
+    {
+      "Name": "FissureLedge",
+      "Description": "You are on a narrow ledge on the far side of the fissure. The ledge is barely wide enough to stand on. You can see the main fissure room across the gap. There are no passages leading anywhere from here. It is dark here.",
+      "Items": [
+        "kingsTutTreasure"
+      ],
+      "image": "fissureroom.png",
+      "Help": "You can swim back across the fissure if it is filled with water, but not while carrying heavy treasure. Aladdin's lamp can teleport you back.",
+      "AllowedMovements": [],
+      "DisplayName": "Fissure Ledge"
     },
     {
       "Name": "SaltRoom",
@@ -3754,8 +3756,8 @@
       "Value": 300
     },
     {
-      "Name": "fissureTreasure",
-      "Description": "A treasure from the fissure room. Worth 400 points at rescue beach.",
+      "Name": "kingsTutTreasure",
+      "Description": "The legendary golden sarcophagus mask of King Tutankhamun, encrusted with lapis lazuli and turquoise. Its hollow eyes seem to stare into eternity. Worth 400 points at rescue beach.",
       "Takeable": true,
       "Value": 400
     },

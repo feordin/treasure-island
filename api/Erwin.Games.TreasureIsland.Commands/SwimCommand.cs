@@ -33,6 +33,17 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             var currentLocation = _saveGameData.CurrentLocation;
 
+            // Global drowning check: swimming with King Tut's treasure is fatal
+            bool hasKingsTutTreasure = _saveGameData.Inventory?.Any(item =>
+                item.Equals("kingsTutTreasure", StringComparison.OrdinalIgnoreCase)) ?? false;
+
+            if (hasKingsTutTreasure && (
+                currentLocation?.Equals("FissureRoom", StringComparison.OrdinalIgnoreCase) == true ||
+                currentLocation?.Equals("FissureLedge", StringComparison.OrdinalIgnoreCase) == true))
+            {
+                return HandleTreasureDrowning();
+            }
+
             // Handle swimming at the Creek - DEATH BY CROCODILES
             if (currentLocation?.Equals("Creek", StringComparison.OrdinalIgnoreCase) == true ||
                 currentLocation?.Equals("SouthCreek", StringComparison.OrdinalIgnoreCase) == true)
@@ -50,6 +61,12 @@ namespace Erwin.Games.TreasureIsland.Commands
             if (currentLocation?.Equals("FissureRoom", StringComparison.OrdinalIgnoreCase) == true)
             {
                 return HandleFissureSwim();
+            }
+
+            // Handle swimming from FissureLedge back to FissureRoom
+            if (currentLocation?.Equals("FissureLedge", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                return HandleFissureLedgeSwim();
             }
 
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
@@ -124,19 +141,75 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
-            // Swim across to WestFissureRoom
+            // Swim across to FissureLedge
             _saveGameData.PreviousLocation = _saveGameData.CurrentLocation;
-            _saveGameData.CurrentLocation = "WestFissureRoom";
+            _saveGameData.CurrentLocation = "FissureLedge";
             _saveGameData.CurrentDateTime = _saveGameData.CurrentDateTime.AddMinutes(5);
 
-            var westFissureRoom = WorldData.Instance?.GetLocation("WestFissureRoom");
+            var fissureLedge = WorldData.Instance?.GetLocation("FissureLedge");
 
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                message: "You dive into the cold water and swim across the fissure. The water is shockingly cold from the melted ice, but you make it across safely.\n\n" +
-                    (westFissureRoom?.Description ?? "You are in the west fissure room."),
+                message: "You dive into the cold water and swim across the fissure. The water is shockingly cold from the melted ice, but you make it across safely to the narrow ledge.\n\n" +
+                    (fissureLedge?.Description ?? "You are on a narrow ledge on the far side of the fissure."),
                 saveGameData: _saveGameData,
-                imageFilename: westFissureRoom?.Image,
-                locationDescription: westFissureRoom?.Description,
+                imageFilename: fissureLedge?.Image,
+                locationDescription: fissureLedge?.Description,
+                commandHistory: null));
+        }
+
+        private Task<ProcessCommandResponse?> HandleFissureLedgeSwim()
+        {
+            // Check if the fissure has water (ice was melted)
+            if (_saveGameData!.GetEvent("fissure_filled") == null)
+            {
+                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    message: "The fissure is deep and dry. You cannot swim across without water.",
+                    saveGameData: _saveGameData,
+                    imageFilename: null,
+                    locationDescription: null,
+                    commandHistory: null));
+            }
+
+            // Swim back to FissureRoom
+            _saveGameData.PreviousLocation = _saveGameData.CurrentLocation;
+            _saveGameData.CurrentLocation = "FissureRoom";
+            _saveGameData.CurrentDateTime = _saveGameData.CurrentDateTime.AddMinutes(5);
+
+            var fissureRoom = WorldData.Instance?.GetLocation("FissureRoom");
+
+            return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                message: "You dive into the cold water and swim back across the fissure to the main room.\n\n" +
+                    (fissureRoom?.Description ?? "You are in the fissure room."),
+                saveGameData: _saveGameData,
+                imageFilename: fissureRoom?.Image,
+                locationDescription: fissureRoom?.Description,
+                commandHistory: null));
+        }
+
+        private Task<ProcessCommandResponse?> HandleTreasureDrowning()
+        {
+            _saveGameData!.PreviousLocation = _saveGameData.CurrentLocation;
+
+            var response = new ProcessCommandResponse(
+                message: "",
+                saveGameData: _saveGameData,
+                imageFilename: null,
+                locationDescription: null,
+                commandHistory: null);
+
+            // Try last-chance escape before death
+            if (LastChanceEscape.TryEscape(response, "drowning with heavy treasure"))
+            {
+                return Task.FromResult<ProcessCommandResponse?>(response);
+            }
+
+            _saveGameData.AddEvent("GameOver", "Drowned while swimming with King Tut's treasure", _saveGameData.CurrentDateTime);
+
+            return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                message: "You plunge into the icy water, but King Tut's golden mask drags you down like an anchor. The massive treasure is far too heavy to swim with. You struggle desperately, but the weight pulls you under the dark water... Your adventure ends here in the flooded fissure.",
+                saveGameData: _saveGameData,
+                imageFilename: null,
+                locationDescription: null,
                 commandHistory: null));
         }
     }

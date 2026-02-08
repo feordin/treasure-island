@@ -111,15 +111,18 @@ export async function setGameTime(
 ): Promise<void> {
   // Use sleep command to advance time
   // Each sleep advances time by 8 hours
-  let currentHour = client.getGameTime().getHours();
+  // IMPORTANT: Use getUTCHours() to match C# backend's DateTime.Hour interpretation
+  let currentHour = client.getGameHourUTC();
+  let maxAttempts = 10; // Safety limit to prevent infinite loop
 
-  while (currentHour !== targetHour) {
+  while (currentHour !== targetHour && maxAttempts > 0) {
     if (verbose) {
       console.log(`  Advancing time: ${currentHour} -> ${targetHour}`);
     }
 
     await client.sendCommand('sleep');
-    currentHour = client.getGameTime().getHours();
+    currentHour = client.getGameHourUTC();
+    maxAttempts--;
 
     // Safety check to prevent infinite loop
     if (client.isGameOver()) break;
@@ -127,18 +130,28 @@ export async function setGameTime(
 }
 
 export async function ensureDaytime(client: ApiClient): Promise<void> {
-  const hour = client.getGameTime().getHours();
-  // Daytime is 6-19 (6am to 7pm)
-  if (hour < 6 || hour >= 20) {
-    await setGameTime(client, 12);
+  // Daytime is 6-19 (6am to 7pm) per C# backend's hour check
+  // Use UTC to match backend's DateTime.Hour
+  let hour = client.getGameHourUTC();
+  let maxAttempts = 5;
+  while ((hour < 6 || hour >= 20) && maxAttempts > 0) {
+    await client.sendCommand('sleep');
+    hour = client.getGameHourUTC();
+    maxAttempts--;
+    if (client.isGameOver()) break;
   }
 }
 
 export async function ensureNighttime(client: ApiClient): Promise<void> {
-  const hour = client.getGameTime().getHours();
-  // Nighttime is 20-5 (8pm to 5am)
-  if (hour >= 6 && hour < 20) {
-    await setGameTime(client, 22);
+  // Nighttime is 20-5 (8pm to 5am) per C# backend's hour check
+  // Use UTC to match backend's DateTime.Hour
+  let hour = client.getGameHourUTC();
+  let maxAttempts = 5;
+  while (hour >= 6 && hour < 20 && maxAttempts > 0) {
+    await client.sendCommand('sleep');
+    hour = client.getGameHourUTC();
+    maxAttempts--;
+    if (client.isGameOver()) break;
   }
 }
 

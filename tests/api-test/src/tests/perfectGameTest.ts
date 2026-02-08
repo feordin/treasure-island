@@ -1,42 +1,7 @@
 import { ApiClient } from '../client/apiClient.js';
-import { LocationGraph, ITEM_LOSS_LOCATIONS } from '../utils/locationGraph.js';
+import { LocationGraph } from '../utils/locationGraph.js';
 import { navigateTo, hasItem, hasEvent, ensureDaytime } from '../utils/gameState.js';
 import { ProcessCommandResponse } from '../types/gameTypes.js';
-
-/**
- * Navigate to a location for perfect game - avoids SlipperyRoom but allows death traps
- * Used when we have the right items to survive death traps
- */
-async function navigatePerfectGame(
-  client: ApiClient,
-  graph: LocationGraph,
-  destination: string
-): Promise<{ success: boolean; error?: string }> {
-  const current = client.getCurrentLocation();
-  if (!current) {
-    return { success: false, error: 'Unknown current location' };
-  }
-
-  if (current === destination) {
-    return { success: true };
-  }
-
-  // Avoid only SlipperyRoom (which steals items), but allow death traps
-  const path = graph.findPathWithAvoid(current, destination, ITEM_LOSS_LOCATIONS);
-  if (!path) {
-    return { success: false, error: `No path from ${current} to ${destination}` };
-  }
-
-  for (const direction of path) {
-    await client.sendCommand(direction);
-    if (client.isGameOver()) {
-      return { success: false, error: 'GameOver during navigation' };
-    }
-  }
-
-  const arrived = client.getCurrentLocation() === destination;
-  return { success: arrived };
-}
 
 /**
  * Perfect Game Test - Achieves 3000 points (maximum score) and rescue
@@ -51,7 +16,7 @@ async function navigatePerfectGame(
  * - diamonds (300) - GoblinValley (examine GoblinTower to reveal)
  * - deadmansTreasure (200) - DeadmansGulch
  * - aladdinsLamp (300) - ArabianRoom
- * - fissureTreasure (400) - FissureRoom
+ * - kingsTutTreasure (400) - FissureLedge
  * - TreasureChest (400) - TwinPalms (dig)
  * - bundleOfBills (100) - Safe in SittingRoom
  * - potOfGold (300) - RescueBeach (dig)
@@ -318,6 +283,10 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
   // ============================================================
   console.log('--- PHASE 4: Mansion Treasures ---\n');
 
+  // Ensure daytime before mansion exploration to avoid Dracula
+  await ensureDaytime(client);
+  console.log(`    Game hour (UTC): ${client.getGameHourUTC()} - ensured daytime\n`);
+
   await runStep({
     description: 'Get coins from MaidsQuarters (50 pts)',
     action: async () => {
@@ -351,37 +320,18 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
     required: true
   });
 
-  // Get safe combination from parrot
-  await runStep({
-    description: 'Learn safe combination from parrot in SmallRoom',
-    action: async () => {
-      // SmallRoom is in the caves - need to navigate there
-      // First light matches, then navigate to SmallRoom (it's dark)
-      await client.sendCommand('light matches');
-      const nav = await navigatePerfectGame(client, graph, 'SmallRoom');
-      if (!nav.success) {
-        console.log(`    Could not navigate to SmallRoom from ${client.getCurrentLocation()}`);
-        return false;
-      }
-      // Light again in case the light went out
-      await client.sendCommand('light matches');
-      // Look around to trigger parrot action
-      await client.sendCommand('look');
-      return hasEvent(client, 'learned_combination');
-    },
-    required: true
-  });
-
+  // Safe combination is 7-23-42 (known from game lore, also revealed by parrot in SmallRoom)
+  // Note: We skip SmallRoom because the only path goes through SteamRoom which wets matches,
+  // preventing us from lighting coal later for the fissure puzzle.
   await runStep({
     description: 'Open safe in SittingRoom for bundleOfBills (100 pts)',
     action: async () => {
-      // Navigate back to mansion from caves
-      const nav = await navigatePerfectGame(client, graph, 'SittingRoom');
+      const nav = await navigateTo(client, graph, 'SittingRoom');
       if (!nav.success) {
-        console.log(`    Could not navigate to SittingRoom from ${client.getCurrentLocation()}`);
+        console.log(`    Could not navigate to SittingRoom from ${client.getCurrentLocation()}: ${nav.error}`);
         return false;
       }
-      await client.sendCommand('open safe');
+      await client.sendCommand('open safe 7-23-42');
       await client.sendCommand('take bundleOfBills');
       return hasItem(client, 'bundleOfBills');
     },
@@ -389,97 +339,23 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
   });
 
   // ============================================================
-  // PHASE 5: CAVE TREASURES
+  // PHASE 5: CLEAR BOAR DEN, KILL DRACULA, HANDLE SLIPPERY ROOM
   // ============================================================
-  console.log('--- PHASE 5: Cave Treasures ---\n');
+  console.log('--- PHASE 5: BoarDen + Dracula + SlipperyRoom ---\n');
 
-  await runStep({
-    description: 'Get rubyRing from BoneRoom (150 pts)',
-    action: async () => {
-      const nav = await navigatePerfectGame(client, graph, 'BoneRoom');
-      if (!nav.success) return false;
-      await client.sendCommand('take rubyRing');
-      return hasItem(client, 'rubyRing');
-    },
-    required: true
-  });
-
-  await runStep({
-    description: 'Get diamonds from GoblinValley (300 pts)',
-    action: async () => {
-      const nav = await navigatePerfectGame(client, graph, 'GoblinValley');
-      if (!nav.success) {
-        console.log(`    Could not navigate to GoblinValley`);
-        return false;
-      }
-      await client.sendCommand('light matches');
-      await client.sendCommand('examine GoblinTower');
-      await client.sendCommand('take diamonds');
-      return hasItem(client, 'diamonds');
-    },
-    required: true
-  });
-
-  await runStep({
-    description: 'Get deadmansTreasure from DeadmansGulch (200 pts)',
-    action: async () => {
-      const nav = await navigatePerfectGame(client, graph, 'DeadmansGulch');
-      if (!nav.success) {
-        console.log(`    Could not navigate to DeadmansGulch`);
-        return false;
-      }
-      await client.sendCommand('light matches');
-      await client.sendCommand('take deadmansTreasure');
-      return hasItem(client, 'deadmansTreasure');
-    },
-    required: true
-  });
-
-  await runStep({
-    description: 'Get aladdinsLamp from ArabianRoom (300 pts)',
-    action: async () => {
-      const nav = await navigatePerfectGame(client, graph, 'ArabianRoom');
-      if (!nav.success) {
-        console.log(`    Could not navigate to ArabianRoom`);
-        return false;
-      }
-      await client.sendCommand('light matches');
-      await client.sendCommand('take aladdinsLamp');
-      return hasItem(client, 'aladdinsLamp');
-    },
-    required: true
-  });
-
-  await runStep({
-    description: 'Get fissureTreasure from FissureRoom (400 pts)',
-    action: async () => {
-      const nav = await navigatePerfectGame(client, graph, 'FissureRoom');
-      if (!nav.success) {
-        console.log(`    Could not navigate to FissureRoom`);
-        return false;
-      }
-      await client.sendCommand('light matches');
-      await client.sendCommand('take fissureTreasure');
-      return hasItem(client, 'fissureTreasure');
-    },
-    required: true
-  });
-
-  // ============================================================
-  // PHASE 6: DANGEROUS AREAS (Order matters for path clearing!)
-  // ============================================================
-  console.log('--- PHASE 6: Dangerous Areas ---\n');
+  // Ensure daytime before navigating through BoarDen to avoid Dracula encounters
+  await ensureDaytime(client);
+  console.log(`    Game hour (UTC): ${client.getGameHourUTC()} - ensured daytime before BoarDen\n`);
 
   // Get past boar with donuts FIRST - this clears the path to Cavern/RescueBeach
   await runStep({
     description: 'Navigate through BoarDen (using donuts)',
     action: async () => {
-      // The boar action automatically uses donuts when entering
       if (!hasItem(client, 'donuts')) {
         console.log(`    Don't have donuts!`);
         return false;
       }
-      const nav = await navigatePerfectGame(client, graph, 'EastBoarDen');
+      const nav = await navigateTo(client, graph, 'EastBoarDen');
       if (client.isGameOver()) {
         console.log(`    Died at BoarDen!`);
         return false;
@@ -489,29 +365,30 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
     required: true
   });
 
-  // Kill Dracula during day
+  // Kill Dracula during day - must do before accessing BoneRoom
   await runStep({
     description: 'Ensure daytime for Dracula encounter',
     action: async () => {
       await ensureDaytime(client);
-      const hour = client.getGameTime().getHours();
+      if (client.isGameOver()) return false;
+      const hour = client.getGameHourUTC();
       return hour >= 6 && hour < 20;
     },
     required: true
   });
 
   await runStep({
-    description: 'Kill Dracula in CoffinRoom',
+    description: 'Navigate to CoffinRoom and kill Dracula',
     action: async () => {
-      // CoffinRoom is a conditional death trap - need to use unsafe navigation
-      // We have stake and hammer, and it's daytime, so we're safe
-      const nav = await navigatePerfectGame(client, graph, 'CoffinRoom');
+      // CoffinRoom accessed via MasterBedroom (one-way - steel door traps us)
+      // We have stake + hammer and it's daytime, so we're safe
+      const nav = await navigateTo(client, graph, 'CoffinRoom');
       if (!nav.success) {
-        console.log(`    Could not navigate to CoffinRoom from ${client.getCurrentLocation()}`);
+        console.log(`    Could not reach CoffinRoom from ${client.getCurrentLocation()}: ${nav.error}`);
         return false;
       }
       if (client.isGameOver()) {
-        console.log(`    Died at CoffinRoom!`);
+        console.log(`    Died at CoffinRoom! GameOver during navigation or Dracula attack`);
         return false;
       }
       await client.sendCommand('kill dracula');
@@ -520,18 +397,123 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
     required: true
   });
 
+  // Now we're trapped in CoffinRoom/ChainRoom/BoneRoom area (steel door blocked return)
+  // Strategy: Get rubyRing, drop items at ChainRoom, trigger SlipperyRoom trap, recover items
+
+  await runStep({
+    description: 'Get rubyRing from BoneRoom (150 pts)',
+    action: async () => {
+      // CoffinRoom → south → ChainRoom → south → BoneRoom
+      await client.sendCommand('south'); // to ChainRoom
+      await client.sendCommand('south'); // to BoneRoom
+      if (client.getCurrentLocation() !== 'BoneRoom') {
+        console.log(`    Expected BoneRoom, got ${client.getCurrentLocation()}`);
+        return false;
+      }
+      await client.sendCommand('take rubyRing');
+      return hasItem(client, 'rubyRing');
+    },
+    required: true
+  });
+
+  await runStep({
+    description: 'Drop valuables at ChainRoom before SlipperyRoom',
+    action: async () => {
+      // Go north to ChainRoom
+      await client.sendCommand('north');
+      if (client.getCurrentLocation() !== 'ChainRoom') {
+        console.log(`    Expected ChainRoom, got ${client.getCurrentLocation()}`);
+        return false;
+      }
+
+      // Drop all items we want to keep
+      const itemsToKeep = [
+        'rubyRing', 'coins', 'stocksandbonds', 'pricelesspainting',
+        'bundleofbills', 'matches', 'shovel', 'canteen', 'deadblackcat'
+      ];
+      for (const item of itemsToKeep) {
+        if (hasItem(client, item)) {
+          await client.sendCommand(`drop ${item}`);
+        }
+      }
+      return true;
+    },
+    required: true
+  });
+
+  await runStep({
+    description: 'Trigger SlipperyRoom trap (sacrifice expendable items)',
+    action: async () => {
+      // Go south to BoneRoom, then east to SlipperyRoom
+      await client.sendCommand('south'); // ChainRoom → BoneRoom
+      await client.sendCommand('east');  // BoneRoom → SlipperyRoom
+      if (client.getCurrentLocation() !== 'SlipperyRoom') {
+        console.log(`    Expected SlipperyRoom, got ${client.getCurrentLocation()}`);
+        return false;
+      }
+      // SlipperyRoom steals remaining items (Map, Compass, stake, hammer, ticket, etc.)
+      // This triggers the slippery_room_loss event - subsequent entries are safe
+      return hasEvent(client, 'slippery_room_loss');
+    },
+    required: true
+  });
+
+  await runStep({
+    description: 'Recover items from ChainRoom after SlipperyRoom trap',
+    action: async () => {
+      // SlipperyRoom → west → BoneRoom → north → ChainRoom
+      await client.sendCommand('west');  // to BoneRoom
+      await client.sendCommand('north'); // to ChainRoom
+      if (client.getCurrentLocation() !== 'ChainRoom') {
+        console.log(`    Expected ChainRoom, got ${client.getCurrentLocation()}`);
+        return false;
+      }
+
+      // Pick up all dropped items
+      const itemsToRecover = [
+        'rubyRing', 'coins', 'stocksandbonds', 'pricelesspainting',
+        'bundleofbills', 'matches', 'shovel', 'canteen', 'deadblackcat'
+      ];
+      for (const item of itemsToRecover) {
+        await client.sendCommand(`take ${item}`);
+      }
+
+      // Verify we got the critical items back
+      return hasItem(client, 'rubyRing') && hasItem(client, 'matches') && hasItem(client, 'shovel');
+    },
+    required: true
+  });
+
+  await runStep({
+    description: 'Exit through SlipperyRoom to UpstairsHall',
+    action: async () => {
+      // ChainRoom → south → BoneRoom → east → SlipperyRoom (safe now!) → north → UpstairsHall
+      await client.sendCommand('south'); // to BoneRoom
+      await client.sendCommand('east');  // to SlipperyRoom (safe - event already triggered)
+      await client.sendCommand('north'); // to UpstairsHall
+      return client.getCurrentLocation() === 'UpstairsHall';
+    },
+    required: true
+  });
+
+  console.log(`    Inventory after SlipperyRoom: ${client.getInventory().join(', ')}\n`);
+
+  // ============================================================
+  // PHASE 6: NATIVE VILLAGE & CAVE ACCESS
+  // ============================================================
+  console.log('--- PHASE 6: NativeVillage & Emerald Necklace ---\n');
+
   // Get emerald necklace from natives (protected by dead cat)
   await runStep({
     description: 'Get emeraldNecklace from NativeVillage (150 pts)',
     action: async () => {
-      // Dead black cat protects from natives - need unsafe navigation
       if (!hasItem(client, 'deadBlackCat') && !hasItem(client, 'deadblackcat')) {
         console.log(`    Don't have dead black cat!`);
         return false;
       }
-      const nav = await navigatePerfectGame(client, graph, 'NativeVillage');
+      const nav = await navigateTo(client, graph, 'NativeVillage');
       if (!nav.success) {
-        console.log(`    Could not navigate to NativeVillage from ${client.getCurrentLocation()}`);
+        console.log(`    Could not navigate to NativeVillage from ${client.getCurrentLocation()}: ${nav.error}`);
         return false;
       }
       if (client.isGameOver()) {
@@ -544,38 +526,137 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
     required: true
   });
 
-  // Navigate through salt room (protected by water) - optional, opens path through caves
+  // ============================================================
+  // PHASE 7: CAVE TREASURES & FISSURE PUZZLE
+  // ============================================================
+  console.log('--- PHASE 7: Cave Treasures & Fissure Puzzle ---\n');
+
+  // IMPORTANT: Order matters! The path to GoblinValley goes through SteamRoom which wets matches.
+  // We must complete the coal/fissure puzzle (needs dry matches) BEFORE visiting GoblinValley.
+  // ArabianRoom (lamp) must come before the fissure puzzle since we need rub lamp to escape.
+
   await runStep({
-    description: 'Navigate through SaltRoom (using water)',
+    description: 'Get aladdinsLamp from ArabianRoom (300 pts)',
     action: async () => {
-      // Verify we have filled canteen
-      if (!hasEvent(client, 'canteen_filled')) {
-        console.log(`    Canteen not filled!`);
+      const nav = await navigateTo(client, graph, 'ArabianRoom');
+      if (!nav.success) {
+        console.log(`    Could not navigate to ArabianRoom from ${client.getCurrentLocation()}: ${nav.error}`);
         return false;
       }
-      const nav = await navigatePerfectGame(client, graph, 'SaltRoom');
-      if (client.isGameOver()) {
-        console.log(`    Died in SaltRoom!`);
-        return false;
-      }
-      return nav.success;
+      await client.sendCommand('light matches');
+      await client.sendCommand('take aladdinsLamp');
+      return hasItem(client, 'aladdinsLamp');
     },
-    required: false
+    required: true
+  });
+
+  await runStep({
+    description: 'Get coal from CoalMine for fissure puzzle',
+    action: async () => {
+      const nav = await navigateTo(client, graph, 'CoalMine');
+      if (!nav.success) {
+        console.log(`    Could not navigate to CoalMine from ${client.getCurrentLocation()}: ${nav.error}`);
+        return false;
+      }
+      await client.sendCommand('light matches');
+      await client.sendCommand('take coal');
+      return hasItem(client, 'coal');
+    },
+    required: true
+  });
+
+  await runStep({
+    description: 'Light coal in WestIceCave to fill fissure with water',
+    action: async () => {
+      const nav = await navigateTo(client, graph, 'WestIceCave');
+      if (!nav.success) {
+        console.log(`    Could not navigate to WestIceCave from ${client.getCurrentLocation()}: ${nav.error}`);
+        return false;
+      }
+      await client.sendCommand('light coal');
+      return hasEvent(client, 'fissure_filled');
+    },
+    required: true
+  });
+
+  await runStep({
+    description: 'Swim to FissureLedge and get kingsTutTreasure (400 pts)',
+    action: async () => {
+      const nav = await navigateTo(client, graph, 'FissureRoom');
+      if (!nav.success) {
+        console.log(`    Could not navigate to FissureRoom from ${client.getCurrentLocation()}: ${nav.error}`);
+        return false;
+      }
+      await client.sendCommand('light matches');
+      await client.sendCommand('swim');
+      if (client.getCurrentLocation() !== 'FissureLedge') {
+        console.log(`    Expected FissureLedge, got ${client.getCurrentLocation()}`);
+        return false;
+      }
+      await client.sendCommand('take kingsTutTreasure');
+      return hasItem(client, 'kingsTutTreasure');
+    },
+    required: true
+  });
+
+  await runStep({
+    description: 'Rub lamp to teleport back from FissureLedge with treasure',
+    action: async () => {
+      await client.sendCommand('rub lamp');
+      if (client.getCurrentLocation() !== 'FissureRoom') {
+        console.log(`    Expected FissureRoom after lamp, got ${client.getCurrentLocation()}`);
+        return false;
+      }
+      return hasItem(client, 'kingsTutTreasure') && hasEvent(client, 'lamp_used');
+    },
+    required: true
+  });
+
+  // These cave treasures don't need dry matches (just illumination which is optional)
+  await runStep({
+    description: 'Get deadmansTreasure from DeadmansGulch (200 pts)',
+    action: async () => {
+      const nav = await navigateTo(client, graph, 'DeadmansGulch');
+      if (!nav.success) {
+        console.log(`    Could not navigate to DeadmansGulch from ${client.getCurrentLocation()}: ${nav.error}`);
+        return false;
+      }
+      await client.sendCommand('take deadmansTreasure');
+      return hasItem(client, 'deadmansTreasure');
+    },
+    required: true
+  });
+
+  // GoblinValley is last because the ONLY path goes through SteamRoom (wets matches permanently)
+  await runStep({
+    description: 'Get diamonds from GoblinValley (300 pts)',
+    action: async () => {
+      const nav = await navigateTo(client, graph, 'GoblinValley');
+      if (!nav.success) {
+        console.log(`    Could not navigate to GoblinValley from ${client.getCurrentLocation()}: ${nav.error}`);
+        return false;
+      }
+      // Matches may be wet from SteamRoom - try lighting anyway for illumination
+      await client.sendCommand('light matches');
+      await client.sendCommand('examine GoblinTower');
+      await client.sendCommand('take diamonds');
+      return hasItem(client, 'diamonds');
+    },
+    required: true
   });
 
   // ============================================================
-  // PHASE 7: SPECIAL TREASURES
+  // PHASE 8: SPECIAL TREASURES
   // ============================================================
-  console.log('--- PHASE 7: Special Treasures ---\n');
+  console.log('--- PHASE 8: Special Treasures ---\n');
 
   // Dig for treasure chest at TwinPalms
   await runStep({
     description: 'Dig for TreasureChest at TwinPalms (400 pts)',
     action: async () => {
-      // TwinPalms is near DenseJungle (death trap), use unsafe navigation
-      const nav = await navigatePerfectGame(client, graph, 'TwinPalms');
+      const nav = await navigateTo(client, graph, 'TwinPalms');
       if (!nav.success) {
-        console.log(`    Could not navigate to TwinPalms from ${client.getCurrentLocation()}`);
+        console.log(`    Could not navigate to TwinPalms from ${client.getCurrentLocation()}: ${nav.error}`);
         return false;
       }
       await client.sendCommand('dig');
@@ -589,17 +670,21 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
   await runStep({
     description: 'Get pearl from LagoonDepths (150 pts)',
     action: async () => {
-      // Need to swim and dive in lagoon - use unsafe nav as area is near death traps
-      const nav = await navigatePerfectGame(client, graph, 'Lagoon');
+      const nav = await navigateTo(client, graph, 'Lagoon');
       if (!nav.success) {
-        console.log(`    Could not navigate to Lagoon from ${client.getCurrentLocation()}`);
+        console.log(`    Could not navigate to Lagoon from ${client.getCurrentLocation()}: ${nav.error}`);
         return false;
       }
       await client.sendCommand('swim');
-      // Navigate to LagoonSwimming first
-      await client.sendCommand('north');
-      // Then to LagoonDepths
+      if (client.getCurrentLocation() !== 'LagoonSwimming') {
+        console.log(`    Expected LagoonSwimming, got ${client.getCurrentLocation()}`);
+        return false;
+      }
       await client.sendCommand('down');
+      if (client.getCurrentLocation() !== 'LagoonDepths') {
+        console.log(`    Expected LagoonDepths, got ${client.getCurrentLocation()}`);
+        return false;
+      }
       await client.sendCommand('take pearl');
       return hasItem(client, 'pearl');
     },
@@ -607,18 +692,16 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
   });
 
   // ============================================================
-  // PHASE 8: VICTORY - RESCUE BEACH
+  // PHASE 9: VICTORY - RESCUE BEACH
   // ============================================================
-  console.log('--- PHASE 8: Victory at Rescue Beach ---\n');
+  console.log('--- PHASE 9: Victory at Rescue Beach ---\n');
 
   await runStep({
     description: 'Navigate to RescueBeach',
     action: async () => {
-      // RescueBeach is connected through areas with death traps, use unsafe navigation
-      // Path: through Cavern -> NorthSouthPath -> RescueBeach
-      const nav = await navigatePerfectGame(client, graph, 'RescueBeach');
+      const nav = await navigateTo(client, graph, 'RescueBeach');
       if (!nav.success) {
-        console.log(`    Could not navigate to RescueBeach from ${client.getCurrentLocation()}`);
+        console.log(`    Could not navigate to RescueBeach from ${client.getCurrentLocation()}: ${nav.error}`);
         return false;
       }
       return nav.success;
@@ -660,7 +743,7 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
     { name: 'diamonds', points: 300 },
     { name: 'deadmansTreasure', points: 200 },
     { name: 'aladdinsLamp', points: 300 },
-    { name: 'fissureTreasure', points: 400 },
+    { name: 'kingsTutTreasure', points: 400 },
     { name: 'TreasureChest', points: 400 },
     { name: 'bundleOfBills', points: 100 },
     { name: 'potOfGold', points: 300 },
