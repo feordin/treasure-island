@@ -63,6 +63,7 @@ namespace Erwin.Games.TreasureIsland.Actions
 
                     // Player dies
                     _response.saveGameData.AddEvent("GameOver", "Killed by wild boar", _response.saveGameData.CurrentDateTime);
+                    _response.saveGameData.CurrentLocation = "GameOver";
                     _response.Message += "\n\nA massive wild boar charges at you! Without anything to distract it, you have no chance. Game Over.";
                 }
                 else

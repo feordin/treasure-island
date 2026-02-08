@@ -32,6 +32,7 @@ namespace Erwin.Games.TreasureIsland.Actions
                 }
 
                 _response.saveGameData.AddEvent("GameOver", "Killed by unstable dynamite", _response.saveGameData.CurrentDateTime);
+                _response.saveGameData.CurrentLocation = "GameOver";
                 _response.Message += "\n\nAs you pick up the old dynamite, it becomes unstable and explodes in your hands! Game Over.";
             }
             else

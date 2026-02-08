@@ -7,6 +7,7 @@ const DEATH_TRAP_LOCATIONS = new Set([
   'Battlefield', 'BubblingCauldron', 'SandyTrail',
   'DenseJungle',    // No exits - "lost in jungle" trap
   'CrocodileDeath', // Eaten by crocodiles in the creek
+  'GameOver',       // Generic death location (no exits)
 ]);
 
 // Conditional death traps - death depends on having items or time of day

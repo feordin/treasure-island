@@ -35,6 +35,7 @@ namespace Erwin.Games.TreasureIsland.Actions
 
                 // Player dies without the dead cat
                 _response.saveGameData.AddEvent("GameOver", "Killed by headhunters", _response.saveGameData.CurrentDateTime);
+                _response.saveGameData.CurrentLocation = "GameOver";
                 _response.Message += "\n\nThe headhunter natives spot you entering their village! Without any talisman to frighten them, they quickly surround you with spears. Your adventure ends here...";
             }
         }

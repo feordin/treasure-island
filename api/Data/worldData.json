@@ -882,6 +882,15 @@
       "DisplayName": "Crocodile Death"
     },
     {
+      "Name": "GameOver",
+      "Description": "Your adventure has ended. You can start a new game or load a saved game.",
+      "Items": [],
+      "image": "gameover.png",
+      "Help": "no",
+      "AllowedMovements": [],
+      "DisplayName": "Game Over"
+    },
+    {
       "Name": "ShipWreckBeach",
       "Description": "You are on a beautiful clear stretch of sand. Off to one side is the remains of the ship you boarded, its hull broken and splintered. Salvageable lumber from the wreckage could be useful for building a signal fire. There is no sign of the crew. To the other side, you see the edge of a lagoon through the trees. There is also a clear trail heading off into the interior of the island through the jungle. It seems this island may have some inhabitants. You remember Uncle Herman's warning about cannibals.",
       "Items": ["lumber"],

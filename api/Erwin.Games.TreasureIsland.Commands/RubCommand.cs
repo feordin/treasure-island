@@ -119,6 +119,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                     // No escape — they're stuck
                     message += "\n\nBut wait... without water in the fissure, you have no way to swim back. And the lamp only grants one wish. You are trapped!";
                     _saveGameData.AddEvent("GameOver", "Trapped on fissure ledge", _saveGameData.CurrentDateTime);
+                    _saveGameData.CurrentLocation = "GameOver";
                 }
             }
             else // inFissureLedge

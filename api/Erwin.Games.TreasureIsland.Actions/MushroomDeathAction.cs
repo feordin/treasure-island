@@ -29,6 +29,7 @@ namespace Erwin.Games.TreasureIsland.Actions
                 }
 
                 saveData.AddEvent("GameOver", "Poisoned by eating mushrooms in the mushroom room", saveData.CurrentDateTime);
+                saveData.CurrentLocation = "GameOver";
 
                 _response.Message += "\n\nThe mushroom poison courses through your veins. The room spins as you collapse. Your adventure ends here.";
                 return;

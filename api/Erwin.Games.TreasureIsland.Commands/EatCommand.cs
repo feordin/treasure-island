@@ -106,6 +106,7 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             // Death by mushroom poisoning
             _saveGameData.AddEvent("GameOver", "Poisoned by eating mushrooms in the mushroom room", _saveGameData.CurrentDateTime);
+            _saveGameData.CurrentLocation = "GameOver";
 
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                 message: "You grab a handful of the colorful mushrooms and pop them in your mouth. They taste surprisingly sweet at first, but then a burning sensation spreads through your body. The cavern begins to spin as the deadly poison takes hold. You collapse to the ground as everything fades to black... Your adventure ends here.",

@@ -120,6 +120,7 @@ namespace Erwin.Games.TreasureIsland.Actions
 
                 // Dracula kills the player
                 _response.saveGameData.AddEvent("GameOver", "Killed by Dracula", _response.saveGameData.CurrentDateTime);
+                _response.saveGameData.CurrentLocation = "GameOver";
                 _response.Message += "\n\nA shadow falls over you. You turn to see Count Dracula looming behind you, his eyes glowing crimson red in the darkness! His pale hands reach for your throat with inhuman speed. Your adventure ends here in the darkness...";
                 _response.ImageFilename = "draculaface.png";
             }

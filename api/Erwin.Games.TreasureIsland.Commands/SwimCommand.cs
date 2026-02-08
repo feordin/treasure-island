@@ -204,6 +204,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
 
             _saveGameData.AddEvent("GameOver", "Drowned while swimming with King Tut's treasure", _saveGameData.CurrentDateTime);
+            _saveGameData.CurrentLocation = "GameOver";
 
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                 message: "You plunge into the icy water, but King Tut's golden mask drags you down like an anchor. The massive treasure is far too heavy to swim with. You struggle desperately, but the weight pulls you under the dark water... Your adventure ends here in the flooded fissure.",
