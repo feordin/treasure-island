@@ -64,6 +64,12 @@ namespace Erwin.Games.TreasureIsland.Commands
                 return LightMatches();
             }
 
+            // Handle "light fire" / "build fire" etc.
+            if (_target.Equals("fire", StringComparison.OrdinalIgnoreCase))
+            {
+                return LightFire();
+            }
+
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                 message: $"You can't light the {_target}.",
                 saveGameData: _saveGameData,
@@ -113,8 +119,11 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
-            // Check if in WestIceCave
-            if (!_saveGameData.CurrentLocation?.Equals("WestIceCave", StringComparison.OrdinalIgnoreCase) == true)
+            // Check if in an ice cave (WestIceCave or EastIceCave)
+            bool isInIceCave = _saveGameData.CurrentLocation?.Equals("WestIceCave", StringComparison.OrdinalIgnoreCase) == true ||
+                               _saveGameData.CurrentLocation?.Equals("EastIceCave", StringComparison.OrdinalIgnoreCase) == true;
+
+            if (!isInIceCave)
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                     message: "There's no point lighting coal here. You need to be somewhere the heat would be useful.",
@@ -200,6 +209,89 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                 message: "You strike a match. It flares briefly in the darkness, casting dancing shadows on the walls before burning out.",
+                saveGameData: _saveGameData,
+                imageFilename: null,
+                locationDescription: null,
+                commandHistory: null));
+        }
+
+        private Task<ProcessCommandResponse?> LightFire()
+        {
+            // Check if player has matches
+            bool hasMatches = _saveGameData!.Inventory?.Any(item =>
+                item.Equals("matches", StringComparison.OrdinalIgnoreCase)) ?? false;
+
+            if (!hasMatches)
+            {
+                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    message: "You need matches to light a fire.",
+                    saveGameData: _saveGameData,
+                    imageFilename: null,
+                    locationDescription: null,
+                    commandHistory: null));
+            }
+
+            // Check if matches are wet
+            if (_saveGameData.GetEvent("wet_matches") != null)
+            {
+                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    message: "Your matches are wet and won't light!",
+                    saveGameData: _saveGameData,
+                    imageFilename: null,
+                    locationDescription: null,
+                    commandHistory: null));
+            }
+
+            // Check for fuel
+            bool hasCoal = _saveGameData.Inventory?.Any(item =>
+                item.Equals("coal", StringComparison.OrdinalIgnoreCase)) ?? false;
+            bool hasDriftwood = _saveGameData.Inventory?.Any(item =>
+                item.Equals("driftwood", StringComparison.OrdinalIgnoreCase)) ?? false;
+            bool hasLumber = _saveGameData.Inventory?.Any(item =>
+                item.Equals("lumber", StringComparison.OrdinalIgnoreCase)) ?? false;
+
+            bool hasFuel = hasCoal || hasDriftwood || hasLumber;
+
+            if (!hasFuel)
+            {
+                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    message: "You have matches but nothing to burn. You need fuel like coal, driftwood, or lumber.",
+                    saveGameData: _saveGameData,
+                    imageFilename: null,
+                    locationDescription: null,
+                    commandHistory: null));
+            }
+
+            // Check location - ice caves use coal to melt ice
+            bool isInIceCave = _saveGameData.CurrentLocation?.Equals("WestIceCave", StringComparison.OrdinalIgnoreCase) == true ||
+                               _saveGameData.CurrentLocation?.Equals("EastIceCave", StringComparison.OrdinalIgnoreCase) == true;
+
+            if (isInIceCave)
+            {
+                if (!hasCoal)
+                {
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                        message: "You have fuel but it won't burn hot enough to melt the ice. You need coal.",
+                        saveGameData: _saveGameData,
+                        imageFilename: null,
+                        locationDescription: null,
+                        commandHistory: null));
+                }
+
+                // Redirect to LightCoal for ice melting logic
+                return LightCoal();
+            }
+
+            // Check if at RescueBeach - redirect to signal command
+            if (_saveGameData.CurrentLocation?.Equals("RescueBeach", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                var signalCommand = new SignalCommand(_saveGameData, _repository, "signal");
+                return signalCommand.Execute();
+            }
+
+            // Not in a useful location
+            return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                message: "This doesn't seem like a useful place to light a fire. Perhaps at a beach to signal for rescue, or in an icy cave where the heat could melt something?",
                 saveGameData: _saveGameData,
                 imageFilename: null,
                 locationDescription: null,
