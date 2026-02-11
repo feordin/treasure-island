@@ -48,6 +48,10 @@ namespace Erwin.Games.TreasureIsland.Commands
             { "steal", "steal" }, { "rob", "steal" }, { "rob bank", "steal" },
             { "borrow", "borrow" }, { "loan", "borrow" }, { "get loan", "borrow" }, { "get a loan", "borrow" }, { "take loan", "borrow" }, { "borrow money", "borrow" },
             { "kill", "kill" }, { "attack", "kill" }, { "stake", "kill" }, { "slay", "kill" },
+
+            // All commands
+            { "drop all", "drop all" },
+            { "take all", "take all" }, { "get all", "take all" }, { "pick up all", "take all" },
         };
 
         // Commands that take a parameter (used for pattern matching)

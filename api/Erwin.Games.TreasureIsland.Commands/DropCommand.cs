@@ -46,6 +46,12 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null));
             }
 
+            // Handle "drop all" command
+            if (_param.Equals("all", StringComparison.OrdinalIgnoreCase))
+            {
+                return HandleDropAll(currentLocation);
+            }
+
             if (currentLocation?.Name == "PawnShop")
             {
                 var pawnCommand = new PawnCommand(_saveGameData, _gameDataRepository, _command, _param);
@@ -77,6 +83,20 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return HandleTreasureDrop(currentLocation, itemDetails);
                 }
 
+                // Special handling for Balcony - items fall to Backyard
+                if (currentLocation?.Name == "Balcony")
+                {
+                    var backyard = WorldData.Instance?.GetLocation("Backyard");
+                    backyard?.AddItemToLocation(_saveGameData, _param);
+
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                        $"You drop the {_param} over the balcony. It lands in the backyard below.",
+                        _saveGameData,
+                        null,
+                        null,
+                        null));
+                }
+
                 currentLocation?.AddItemToLocation(_saveGameData, _param);
 
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
@@ -95,6 +115,56 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null,
                     null));
             }
+        }
+
+        private Task<ProcessCommandResponse?> HandleDropAll(Location? currentLocation)
+        {
+            if (_saveGameData?.Inventory == null || _saveGameData.Inventory.Count == 0)
+            {
+                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                    "You have nothing to drop.",
+                    _saveGameData,
+                    null,
+                    null,
+                    null));
+            }
+
+            var droppedItems = new List<string>();
+            var itemsToRemove = new List<string>(_saveGameData.Inventory);
+            var isBalcony = currentLocation?.Name == "Balcony";
+            var backyard = isBalcony ? WorldData.Instance?.GetLocation("Backyard") : null;
+
+            foreach (var item in itemsToRemove)
+            {
+                _saveGameData.Inventory.Remove(item);
+                droppedItems.Add(item);
+
+                if (isBalcony && backyard != null)
+                {
+                    backyard.AddItemToLocation(_saveGameData, item);
+                }
+                else
+                {
+                    currentLocation?.AddItemToLocation(_saveGameData, item);
+                }
+            }
+
+            string message;
+            if (isBalcony)
+            {
+                message = $"You drop everything over the balcony: {string.Join(", ", droppedItems)}. They land in the backyard below.";
+            }
+            else
+            {
+                message = $"You drop: {string.Join(", ", droppedItems)}.";
+            }
+
+            return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                message,
+                _saveGameData,
+                null,
+                null,
+                null));
         }
 
         private Task<ProcessCommandResponse?> HandleTreasureDrop(Location currentLocation, Item itemDetails)

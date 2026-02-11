@@ -1844,8 +1844,8 @@
     },
     {
       "Name": "Library",
-      "Description": "You are in the library. To the north is the trophy room. To the east is sitting room. To the south is the west hallway. To the west is the hidden room.",
-      "Items": [],
+      "Description": "You are in the library. To the north is the trophy room. To the east is sitting room. To the south is the west hallway.",
+      "Items": ["librarybookshelf"],
       "image": "library.png",
       "Help": "no",
       "AllowedMovements": [
@@ -1869,18 +1869,12 @@
           ],
           "Destination": "WestHall",
           "TimeToMove": 1
-        },
-        {
-          "Direction": [
-            "west"
-          ],
-          "Destination": "HiddenRoom",
-          "TimeToMove": 1
         }
-      ],
+        ],
       "AllowedCommands": [
         "take book"
       ],
+      "Actions": ["LibrarySecret"],
       "DisplayName": "The Library"
     },
     {
@@ -2161,7 +2155,7 @@
     },
     {
       "Name": "Balcony",
-      "Description": "You are on the balcony over the back yard. To the east is the chain room. If you are carrying anything there is something that you must do here to avoid losing it in the slippery room when you go through there.",
+      "Description": "You are on the balcony overlooking the backyard below. To the east is the chain room. You can see the backyard directly beneath you - anything dropped here will land down there.",
       "Items": [],
       "image": "balcony.png",
       "Help": "Throw items down to the backyard to save them from the slippery room.",
@@ -3794,6 +3788,18 @@
       "Name": "parchmentMap",
       "Description": "A very old parchment map from the tomb room. It contains valuable information about treasure locations.",
       "ExamineText": "You carefully unfold the ancient parchment and study its faded markings...\n\nThe map reveals several secrets:\n\n• ALADDIN'S LAMP: 'In the Arabian Room, deep within the ice caves, lies a lamp of legend. But beware - the lamp grants only ONE wish. Use it wisely to cross the great fissure.'\n\n• THE GREAT FISSURE: 'To safely return from beyond the fissure, first melt the ice to fill the chasm with water. Only then can you swim back after using the lamp.'\n\n• KING TUT'S TREASURE: 'The pharaoh's greatest treasure lies beyond the western fissure. Take it before you wish yourself back!'\n\n• THE LAGOON'S SECRET: 'Dive deep in the lagoon waters to find a pearl of great value. But beware the shark that guards these waters.'\n\n• GOBLIN VALLEY: 'Treasure awaits in Goblin Valley, but only those who bring light shall find it.'",
+      "Takeable": true
+    },
+    {
+      "Name": "librarybookshelf",
+      "Description": "A large bookshelf filled with dusty old books. One book looks different from the others.",
+      "ExamineText": "Looking closely at the bookshelf, you notice one book that stands out - it appears to be a fake book, perhaps hiding something.",
+      "Takeable": false,
+      "Reveals": "fakeBook"
+    },
+    {
+      "Name": "fakeBook",
+      "Description": "A hollow fake book that serves as a hidden lever.",
       "Takeable": true
     }
   ],

@@ -51,6 +51,12 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null);
             }
 
+            // Handle "take all" command
+            if (_param.Equals("all", StringComparison.OrdinalIgnoreCase))
+            {
+                return HandleTakeAll(currentLocation);
+            }
+
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
             var itemDetails = WorldData.Instance?.GetItem(_param);
 
@@ -90,6 +96,32 @@ namespace Erwin.Games.TreasureIsland.Commands
                         null);
                 }
 
+                // Special handling for fakeBook - opens secret passage in Library
+                if (_param.Equals("fakeBook", StringComparison.OrdinalIgnoreCase) || _param.Equals("fakebook", StringComparison.OrdinalIgnoreCase))
+                {
+                    _saveGameData.AddEvent("library_secret_opened", "The secret bookshelf passage has been opened", _saveGameData.CurrentDateTime);
+
+                    // Add west movement to Library
+                    var library = WorldData.Instance?.GetLocation("Library");
+                    if (library != null)
+                    {
+                        var westMovement = new Movement
+                        {
+                            Direction = new[] { "west" },
+                            Destination = "HiddenRoom",
+                            TimeToMove = 1
+                        };
+                        library.AddMovementToLocation(_saveGameData, westMovement);
+                    }
+
+                    return new ProcessCommandResponse(
+                        "As you pull the fake book, the bookshelf swings open revealing a hidden room to the west!",
+                        _saveGameData,
+                        null,
+                        null,
+                        null);
+                }
+
                 return new ProcessCommandResponse(
                     "You take the " + _param + ".",
                     _saveGameData,
@@ -106,6 +138,56 @@ namespace Erwin.Games.TreasureIsland.Commands
                     null,
                     null);
             }
+        }
+
+        private ProcessCommandResponse HandleTakeAll(Location? currentLocation)
+        {
+            var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
+
+            if (currentItems == null || currentItems.Count == 0)
+            {
+                return new ProcessCommandResponse(
+                    "There is nothing here to take.",
+                    _saveGameData,
+                    null,
+                    null,
+                    null);
+            }
+
+            var takenItems = new List<string>();
+            var itemsToTake = currentItems.ToList();
+
+            foreach (var item in itemsToTake)
+            {
+                var itemDetails = WorldData.Instance?.GetItem(item);
+
+                // Skip items that can't be taken or must be bought
+                if (itemDetails?.IsTakeable == false || itemDetails?.IsMustBuy == true)
+                {
+                    continue;
+                }
+
+                _saveGameData?.Inventory?.Add(item);
+                currentLocation?.RemoveItemFromLocation(_saveGameData, item);
+                takenItems.Add(item);
+            }
+
+            if (takenItems.Count == 0)
+            {
+                return new ProcessCommandResponse(
+                    "There is nothing here you can take.",
+                    _saveGameData,
+                    null,
+                    null,
+                    null);
+            }
+
+            return new ProcessCommandResponse(
+                $"You take: {string.Join(", ", takenItems)}.",
+                _saveGameData,
+                null,
+                null,
+                null);
         }
     }
 }
