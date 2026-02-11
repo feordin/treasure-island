@@ -1498,8 +1498,8 @@
           "Direction": [
             "south"
           ],
-          "Destination": "SouthCreek",
-          "TimeToMove": 5
+          "Destination": "CrocodileDeath",
+          "TimeToMove": 1
         }
       ],
       "AllowedCommands": [
@@ -1525,8 +1525,8 @@
           "Direction": [
             "north"
           ],
-          "Destination": "Creek",
-          "TimeToMove": 5
+          "Destination": "CrocodileDeath",
+          "TimeToMove": 1
         },
         {
           "Direction": [
