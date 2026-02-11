@@ -28,10 +28,11 @@ namespace Erwin.Games.TreasureIsland.Actions
             // If Dracula has been killed, do nothing
             if (_response.saveGameData.GetEvent("killed_dracula") != null)
             {
-                // If player is in CoffinRoom, mention the empty coffin
+                // If player is in CoffinRoom, mention the empty coffin and show dead dracula image
                 if (_response.saveGameData.CurrentLocation?.Equals("CoffinRoom", StringComparison.OrdinalIgnoreCase) == true)
                 {
                     _response.Message += "\n\nThe coffin is empty. Only a pile of dust remains where Dracula once lay.";
+                    _response.ImageFilename = "deaddracula.png";
                 }
                 return;
             }
