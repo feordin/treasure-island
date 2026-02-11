@@ -41,6 +41,16 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
+            // If target is a fuel item and player is at Rescue Beach, redirect to signal command
+            var fuelItems = new[] { "driftwood", "lumber", "coal" };
+            if (fuelItems.Any(f => _target.Equals(f, StringComparison.OrdinalIgnoreCase) ||
+                    _target.StartsWith(f, StringComparison.OrdinalIgnoreCase)) &&
+                _saveGameData.CurrentLocation?.Equals("RescueBeach", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                var signalCommand = new SignalCommand(_saveGameData, _repository, "signal");
+                return signalCommand.Execute();
+            }
+
             // Handle lighting coal
             if (_target.Equals("coal", StringComparison.OrdinalIgnoreCase))
             {

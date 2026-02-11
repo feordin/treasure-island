@@ -121,6 +121,25 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
         }
 
+        private void ScoreInventoryTreasures()
+        {
+            if (_saveGameData?.Inventory == null || WorldData.Instance == null) return;
+
+            foreach (var item in _saveGameData.Inventory)
+            {
+                var itemDetails = WorldData.Instance.GetItem(item);
+                if (itemDetails?.Value > 0)
+                {
+                    var treasureEventName = $"scored_{itemDetails.Name}";
+                    if (_saveGameData.GetEvent(treasureEventName) == null)
+                    {
+                        _saveGameData.Score += itemDetails.Value.Value;
+                        _saveGameData.AddEvent(treasureEventName, $"Scored {itemDetails.Value.Value} points for {itemDetails.Name}", _saveGameData.CurrentDateTime);
+                    }
+                }
+            }
+        }
+
         private Task<ProcessCommandResponse?> LightSignalFire(string fuelItem)
         {
             // Consume the fuel
@@ -129,6 +148,9 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             // Mark as rescued
             _saveGameData.AddEvent("rescued", "Rescued by signal fire", _saveGameData.CurrentDateTime);
+
+            // Score any treasures still in inventory
+            ScoreInventoryTreasures();
 
             // Build the victory message
             var score = _saveGameData.Score;
@@ -166,7 +188,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                 message,
                 _saveGameData,
-                null,
+                "rescued.png",
                 null,
                 null));
         }
@@ -175,6 +197,9 @@ namespace Erwin.Games.TreasureIsland.Commands
         {
             // Mark as rescued
             _saveGameData!.AddEvent("rescued", "Rescued by patrol ship", _saveGameData.CurrentDateTime);
+
+            // Score any treasures still in inventory
+            ScoreInventoryTreasures();
 
             var score = _saveGameData.Score;
             var rating = GetScoreRating(score);
@@ -199,7 +224,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                 message,
                 _saveGameData,
-                null,
+                "rescued.png",
                 null,
                 null));
         }
