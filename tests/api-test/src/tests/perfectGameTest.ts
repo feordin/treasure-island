@@ -213,7 +213,19 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
     required: false
   });
 
-  // Navigate to mansion area for key items
+  // Creek crossing: swim is now deadly (crocodiles!), must swing across with vine
+  await runStep({
+    description: 'Navigate to Creek and swing across to south side',
+    action: async () => {
+      const nav = await navigateTo(client, graph, 'Creek', false);
+      if (!nav.success) return false;
+      await client.sendCommand('swing');
+      return client.getCurrentLocation() === 'SouthCreek';
+    },
+    required: true
+  });
+
+  // Now on south side of creek - navigate to mansion area for key items
   await runStep({
     description: 'Navigate to TrophyRoom for dead black cat',
     action: async () => {
@@ -265,10 +277,11 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
     required: true
   });
 
+  // Fill canteen at SouthCreek (south side of creek, avoids needing to cross back)
   await runStep({
-    description: 'Fill canteen with water at Creek',
+    description: 'Fill canteen with water at SouthCreek',
     action: async () => {
-      const nav = await navigateTo(client, graph, 'Creek', false);
+      const nav = await navigateTo(client, graph, 'SouthCreek', false);
       if (!nav.success) return false;
       await client.sendCommand('fill canteen');
       return hasEvent(client, 'canteen_filled');
@@ -339,33 +352,15 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
   });
 
   // ============================================================
-  // PHASE 5: CLEAR BOAR DEN, KILL DRACULA, HANDLE SLIPPERY ROOM
+  // PHASE 5: KILL DRACULA, HANDLE SLIPPERY ROOM, THEN BOAR DEN
   // ============================================================
-  console.log('--- PHASE 5: BoarDen + Dracula + SlipperyRoom ---\n');
+  console.log('--- PHASE 5: Dracula + SlipperyRoom + BoarDen ---\n');
 
-  // Ensure daytime before navigating through BoarDen to avoid Dracula encounters
-  await ensureDaytime(client);
-  console.log(`    Game hour (UTC): ${client.getGameHourUTC()} - ensured daytime before BoarDen\n`);
+  // Kill Dracula first while we're on the south side of the creek (mansion area).
+  // We save donuts at ChainRoom so they survive the SlipperyRoom trap,
+  // then swing north and use them at BoarDen.
 
-  // Get past boar with donuts FIRST - this clears the path to Cavern/RescueBeach
-  await runStep({
-    description: 'Navigate through BoarDen (using donuts)',
-    action: async () => {
-      if (!hasItem(client, 'donuts')) {
-        console.log(`    Don't have donuts!`);
-        return false;
-      }
-      const nav = await navigateTo(client, graph, 'EastBoarDen');
-      if (client.isGameOver()) {
-        console.log(`    Died at BoarDen!`);
-        return false;
-      }
-      return nav.success || hasEvent(client, 'boar_fed');
-    },
-    required: true
-  });
-
-  // Kill Dracula during day - must do before accessing BoneRoom
+  // Ensure daytime for Dracula encounter
   await runStep({
     description: 'Ensure daytime for Dracula encounter',
     action: async () => {
@@ -376,6 +371,8 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
     },
     required: true
   });
+
+  console.log(`    Game hour (UTC): ${client.getGameHourUTC()} - ensured daytime\n`);
 
   await runStep({
     description: 'Navigate to CoffinRoom and kill Dracula',
@@ -426,10 +423,11 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
         return false;
       }
 
-      // Drop all items we want to keep
+      // Drop all items we want to keep (including donuts for BoarDen later)
       const itemsToKeep = [
         'rubyRing', 'coins', 'stocksandbonds', 'pricelesspainting',
-        'bundleofbills', 'matches', 'shovel', 'canteen', 'deadblackcat'
+        'bundleofbills', 'matches', 'shovel', 'canteen', 'deadblackcat',
+        'donuts'
       ];
       for (const item of itemsToKeep) {
         if (hasItem(client, item)) {
@@ -469,10 +467,11 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
         return false;
       }
 
-      // Pick up all dropped items
+      // Pick up all dropped items (including donuts for BoarDen)
       const itemsToRecover = [
         'rubyRing', 'coins', 'stocksandbonds', 'pricelesspainting',
-        'bundleofbills', 'matches', 'shovel', 'canteen', 'deadblackcat'
+        'bundleofbills', 'matches', 'shovel', 'canteen', 'deadblackcat',
+        'donuts'
       ];
       for (const item of itemsToRecover) {
         await client.sendCommand(`take ${item}`);
@@ -497,6 +496,39 @@ export async function runPerfectGameTest(client: ApiClient, graph: LocationGraph
   });
 
   console.log(`    Inventory after SlipperyRoom: ${client.getInventory().join(', ')}\n`);
+
+  // Swing back north across the creek to reach BoarDen and NativeVillage
+  await runStep({
+    description: 'Swing across creek to north side for BoarDen',
+    action: async () => {
+      const nav = await navigateTo(client, graph, 'SouthCreek', false);
+      if (!nav.success) {
+        console.log(`    Could not navigate to SouthCreek from ${client.getCurrentLocation()}: ${nav.error}`);
+        return false;
+      }
+      await client.sendCommand('swing');
+      return client.getCurrentLocation() === 'Creek';
+    },
+    required: true
+  });
+
+  // Now on north side - clear BoarDen with donuts
+  await runStep({
+    description: 'Navigate through BoarDen (using donuts)',
+    action: async () => {
+      if (!hasItem(client, 'donuts')) {
+        console.log(`    Don't have donuts!`);
+        return false;
+      }
+      const nav = await navigateTo(client, graph, 'EastBoarDen');
+      if (client.isGameOver()) {
+        console.log(`    Died at BoarDen!`);
+        return false;
+      }
+      return nav.success || hasEvent(client, 'boar_fed');
+    },
+    required: true
+  });
 
   // ============================================================
   // PHASE 6: NATIVE VILLAGE & CAVE ACCESS
