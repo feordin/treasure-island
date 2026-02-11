@@ -215,7 +215,7 @@ namespace Erwin.Games.TreasureIsland.Models
             var locationChange = saveGame?.LocationChanges?.FirstOrDefault(l => l.Name == Name);
             var defaultItemsHashSet = new HashSet<string>(Items ?? new List<string>(), stringComparer);
             var locationRemovedHashSet = new HashSet<string>(locationChange?.ItemsRemoved ?? new List<string>(), stringComparer);
-            var finalItemsHashSet = defaultItemsHashSet.Except(locationRemovedHashSet).ToHashSet();
+            var finalItemsHashSet = defaultItemsHashSet.Except(locationRemovedHashSet, stringComparer).ToHashSet(stringComparer);
             var addedItemsHashSet = new HashSet<string>(locationChange?.ItemsAdded ?? new List<string>(), stringComparer);
             finalItemsHashSet.UnionWith(addedItemsHashSet);
 

@@ -180,7 +180,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             if (parameter.Contains(' '))
             {
                 var words = parameter.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                parameter = words[0].ToLower() + string.Concat(words.Skip(1).Select(w =>
+                return words[0].ToLower() + string.Concat(words.Skip(1).Select(w =>
                     char.ToUpper(w[0]) + w.Substring(1).ToLower()));
             }
 
