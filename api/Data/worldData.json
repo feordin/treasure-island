@@ -2050,7 +2050,7 @@
     },
     {
       "Name": "UpstairsHall",
-      "Description": "You are in the upstairs hallway. To the north is the master bedroom. To the south is the slippery room. Beware of the slippery room because it steals all your possessions. To the east is the second floor landing.",
+      "Description": "You are in the upstairs hallway. To the north is the master bedroom. To the south is the slippery room. To the east is the second floor landing.",
       "Items": [],
       "image": "upstairshall.png",
       "Help": "BEWARE! The slippery room to the south will steal ALL of your possessions if you enter it! There is no way to recover your items once lost. A safer route to the caves is through the coffin room - go north to the master bedroom, then west. But be warned - Dracula sleeps there, and the steel door will trap you inside. Visit during daylight hours with a wooden stake and hammer to deal with the vampire.",
