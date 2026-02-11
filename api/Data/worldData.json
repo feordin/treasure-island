@@ -1113,7 +1113,7 @@
       "Items": [
         ""
       ],
-      "image": "jungletrail.png",
+      "image": "junglefork.png",
       "Help": "no",
       "AllowedMovements": [
         {
@@ -1186,7 +1186,7 @@
       "Items": [
         ""
       ],
-      "image": "junglecliff.png",
+      "image": "grassyplateau.png",
       "Help": "no",
       "AllowedMovements": [
         {
