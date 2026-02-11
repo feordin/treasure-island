@@ -19,15 +19,34 @@ namespace Erwin.Games.TreasureIsland.Commands
 
         public Task<ProcessCommandResponse?> Execute()
         {
-            var item = WorldData.Instance?.GetItem(_param);
             var currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
+
             if (string.IsNullOrEmpty(_param))
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("What would you like to examine?", _saveGameData, null, null, null));
             }
-            else if (_param == "bushes" && _saveGameData != null) // bushes are a special case which adds wallet to the list of items to alley end.
+
+            // First, find the matching item at current location or inventory
+            var itemsAtLocation = currentLocation?.GetCurrentItems(_saveGameData);
+            var matchingItemName = itemsAtLocation?.FirstOrDefault(i =>
+                i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
+                i.Contains(_param, StringComparison.OrdinalIgnoreCase));
+
+            // If not found at location, check inventory
+            if (matchingItemName == null)
             {
-                // check to see if the wallet was previously found
+                matchingItemName = _saveGameData?.Inventory?.FirstOrDefault(i =>
+                    i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
+                    i.Contains(_param, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Get the actual item using the matched name (or fall back to param for special cases)
+            var itemNameToUse = matchingItemName ?? _param;
+            var item = WorldData.Instance?.GetItem(itemNameToUse);
+
+            // Special case: bushes (adds wallet to alley)
+            if (_param == "bushes" && _saveGameData != null)
+            {
                 var walletEvent = _saveGameData.GetEvent("wallet");
                 if (walletEvent == null)
                 {
@@ -36,11 +55,11 @@ namespace Erwin.Games.TreasureIsland.Commands
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a look at the bushes and find a wallet.", _saveGameData, null, null, null));
                 }
             }
+            // Special case: bookshelf in TrashPit (adds TheRepublic)
             else if (_param == "bookshelf" && _saveGameData != null)
             {
                 if (currentLocation?.Name?.Contains("TrashPit", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    // check to see if the book was previously found
                     var bookevent = _saveGameData.GetEvent("book");
                     if (bookevent == null)
                     {
@@ -50,6 +69,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                     }
                 }
             }
+            // Special case: sand
             else if (_param.Contains("sand", StringComparison.OrdinalIgnoreCase) == true)
             {
                 if (currentLocation?.Name?.Contains("GiantFootprint", StringComparison.OrdinalIgnoreCase) == true)
@@ -58,6 +78,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 }
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a look at the sand.  It's just sand.", _saveGameData, null, null, null));
             }
+            // Special case: GoblinTower
             else if (_param.Contains("GoblinTower", StringComparison.OrdinalIgnoreCase) == true)
             {
                 if (currentLocation?.Name?.Contains("GoblinValley", StringComparison.OrdinalIgnoreCase) == true)
@@ -71,51 +92,29 @@ namespace Erwin.Games.TreasureIsland.Commands
                     }
                 }
             }
-            else if (item?.Reveals != null && currentLocation?.GetCurrentItems(_saveGameData).Contains(_param, StringComparer.OrdinalIgnoreCase) == true)
+
+            // Generic Reveals handling - check if the matched item reveals something
+            if (item?.Reveals != null && matchingItemName != null)
             {
-                // check to see if the item has already been found
-                var itemEvent = _saveGameData?.GetEvent(_param);
+                var itemEvent = _saveGameData?.GetEvent(matchingItemName);
                 if (itemEvent == null)
                 {
                     currentLocation?.AddItemToLocation(_saveGameData, item.Reveals);
-                    _saveGameData?.AddEvent(_param, "You take a look at the " + _param + " and find: " + item.Reveals + ".", _saveGameData.CurrentDateTime);
-                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a look at the " + _param + " and find:" + item.Reveals + ".", _saveGameData, null, null, null));
+                    _saveGameData?.AddEvent(matchingItemName, "You take a look at the " + matchingItemName + " and find: " + item.Reveals + ".", _saveGameData.CurrentDateTime);
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a look at the " + matchingItemName + " and find: " + item.Reveals + ".", _saveGameData, null, null, null));
                 }
             }
-            else if(_saveGameData?.Inventory?.Contains(_param, StringComparer.OrdinalIgnoreCase) == false && item?.IsTakeable == true)
-            {
-                return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You don't have a " + _param + " to examine.", _saveGameData, null, null, null));
-            }
 
-            // Check if the item is in the current location or in inventory
-            var itemsAtLocation = currentLocation?.GetCurrentItems(_saveGameData);
-
-            // First, try to find an item at the current location that matches or contains the search term
-            var matchingItemName = itemsAtLocation?.FirstOrDefault(i =>
-                i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
-                i.Contains(_param, StringComparison.OrdinalIgnoreCase));
-
-            // If not found at location, check inventory
-            if (matchingItemName == null)
-            {
-                matchingItemName = _saveGameData?.Inventory?.FirstOrDefault(i =>
-                    i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
-                    i.Contains(_param, StringComparison.OrdinalIgnoreCase));
-            }
-
-            // If we found a matching item, use its full name for the lookup
-            var itemNameToExamine = matchingItemName ?? _param;
-            var examineItem = WorldData.Instance?.GetItem(itemNameToExamine);
-
-            if (examineItem == null && matchingItemName == null)
+            // Check if item exists at location or inventory
+            if (item == null && matchingItemName == null)
             {
                 return Task.FromResult<ProcessCommandResponse?>(
                     new ProcessCommandResponse("There is no " + _param + " here to examine.", _saveGameData, null, null, null));
             }
 
-            var examineText = !string.IsNullOrEmpty(examineItem?.ExamineText)
-                ? examineItem.ExamineText
-                : examineItem?.Description;
+            var examineText = !string.IsNullOrEmpty(item?.ExamineText)
+                ? item.ExamineText
+                : item?.Description;
 
             return Task.FromResult<ProcessCommandResponse?>(
                 new ProcessCommandResponse("You take a look at the " + (matchingItemName ?? _param) + ".\n\n" + examineText, _saveGameData, null, null, null));
