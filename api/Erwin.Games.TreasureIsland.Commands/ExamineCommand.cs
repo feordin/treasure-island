@@ -87,13 +87,38 @@ namespace Erwin.Games.TreasureIsland.Commands
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You don't have a " + _param + " to examine.", _saveGameData, null, null, null));
             }
 
-            var examineItem = WorldData.Instance?.GetItem(_param);
+            // Check if the item is in the current location or in inventory
+            var itemsAtLocation = currentLocation?.GetCurrentItems(_saveGameData);
+
+            // First, try to find an item at the current location that matches or contains the search term
+            var matchingItemName = itemsAtLocation?.FirstOrDefault(i =>
+                i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
+                i.Contains(_param, StringComparison.OrdinalIgnoreCase));
+
+            // If not found at location, check inventory
+            if (matchingItemName == null)
+            {
+                matchingItemName = _saveGameData?.Inventory?.FirstOrDefault(i =>
+                    i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
+                    i.Contains(_param, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // If we found a matching item, use its full name for the lookup
+            var itemNameToExamine = matchingItemName ?? _param;
+            var examineItem = WorldData.Instance?.GetItem(itemNameToExamine);
+
+            if (examineItem == null && matchingItemName == null)
+            {
+                return Task.FromResult<ProcessCommandResponse?>(
+                    new ProcessCommandResponse("There is no " + _param + " here to examine.", _saveGameData, null, null, null));
+            }
+
             var examineText = !string.IsNullOrEmpty(examineItem?.ExamineText)
                 ? examineItem.ExamineText
                 : examineItem?.Description;
 
             return Task.FromResult<ProcessCommandResponse?>(
-                new ProcessCommandResponse("You take a look at the " + _param + ".\n\n" + examineText, _saveGameData, null, null, null));
+                new ProcessCommandResponse("You take a look at the " + (matchingItemName ?? _param) + ".\n\n" + examineText, _saveGameData, null, null, null));
         }
     }
 }

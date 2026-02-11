@@ -229,7 +229,13 @@ namespace Erwin.Games.TreasureIsland.Models
                 return false;
             }
 
-            var locationChange = saveGame.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+            // Initialize LocationChanges if null
+            if (saveGame.LocationChanges == null)
+            {
+                saveGame.LocationChanges = new List<LocationChange>();
+            }
+
+            var locationChange = saveGame.LocationChanges.FirstOrDefault(l => l.Name == Name);
             if (locationChange == null)
             {
                 if (Name == null)
@@ -237,7 +243,7 @@ namespace Erwin.Games.TreasureIsland.Models
                     return false;
                 }
                 locationChange = new LocationChange(Name, item, true, saveGame.CurrentDateTime);
-                saveGame.LocationChanges?.Add(locationChange);
+                saveGame.LocationChanges.Add(locationChange);
             }
             else
             {
@@ -258,7 +264,13 @@ namespace Erwin.Games.TreasureIsland.Models
                 return false;
             }
 
-            var locationChange = saveGame.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+            // Initialize LocationChanges if null
+            if (saveGame.LocationChanges == null)
+            {
+                saveGame.LocationChanges = new List<LocationChange>();
+            }
+
+            var locationChange = saveGame.LocationChanges.FirstOrDefault(l => l.Name == Name);
             if (locationChange == null)
             {
                 if (Name == null)
@@ -266,7 +278,7 @@ namespace Erwin.Games.TreasureIsland.Models
                     return false;
                 }
                 locationChange = new LocationChange(Name, item, false, saveGame.CurrentDateTime);
-                saveGame.LocationChanges?.Add(locationChange);
+                saveGame.LocationChanges.Add(locationChange);
             }
             else
             {
@@ -311,7 +323,13 @@ namespace Erwin.Games.TreasureIsland.Models
                 return false;
             }
 
-            var locationChange = saveGame.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+            // Initialize LocationChanges if null
+            if (saveGame.LocationChanges == null)
+            {
+                saveGame.LocationChanges = new List<LocationChange>();
+            }
+
+            var locationChange = saveGame.LocationChanges.FirstOrDefault(l => l.Name == Name);
             if (locationChange == null)
             {
                 if (Name == null)
@@ -319,7 +337,7 @@ namespace Erwin.Games.TreasureIsland.Models
                     return false;
                 }
                 locationChange = new LocationChange(Name, saveGame.CurrentDateTime);
-                saveGame.LocationChanges?.Add(locationChange);
+                saveGame.LocationChanges.Add(locationChange);
             }
 
             if (locationChange.MovementsAdded?.Any(m => m.Direction?.Any(d => movement.Direction?.Contains(d, StringComparer.OrdinalIgnoreCase) == true) == true) == true)
@@ -338,7 +356,13 @@ namespace Erwin.Games.TreasureIsland.Models
                 return false;
             }
 
-            var locationChange = saveGame.LocationChanges?.FirstOrDefault(l => l.Name == Name);
+            // Initialize LocationChanges if null
+            if (saveGame.LocationChanges == null)
+            {
+                saveGame.LocationChanges = new List<LocationChange>();
+            }
+
+            var locationChange = saveGame.LocationChanges.FirstOrDefault(l => l.Name == Name);
             if (locationChange == null)
             {
                 if (Name == null)
@@ -346,7 +370,7 @@ namespace Erwin.Games.TreasureIsland.Models
                     return false;
                 }
                 locationChange = new LocationChange(Name, saveGame.CurrentDateTime);
-                saveGame.LocationChanges?.Add(locationChange);
+                saveGame.LocationChanges.Add(locationChange);
             }
 
             if (locationChange.MovementsRemoved?.Contains(direction, StringComparer.OrdinalIgnoreCase) == true)
