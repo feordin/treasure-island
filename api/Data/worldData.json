@@ -3421,12 +3421,10 @@
     },
     {
       "Name": "CoalMine",
-      "Description": "You are in a coal mine. To the north is echo canyon. To the south is the west fissure. You will need coal. It is dark here.",
-      "Items": [
-        "coal"
-      ],
+      "Description": "You are in an old coal mine. To the north is echo canyon. To the south is the west fissure. The walls are black with coal dust, and you can see veins of coal in the rock. It is dark here.",
+      "Items": [],
       "image": "coalmine.png",
-      "Help": "Take the coal - you will need it.",
+      "Help": "There's coal in these walls - but you'll need to dig it out with a shovel.",
       "AllowedMovements": [
         {
           "Direction": [
