@@ -42,6 +42,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             { "pray", "pray" }, { "worship", "pray" },
             { "fortune", "fortune" }, { "tell fortune", "fortune" }, { "read fortune", "fortune" },
             { "swim", "swim" }, { "swim across", "swim" },
+            { "swing", "swing" }, { "swing vine", "swing" }, { "swing across", "swing" }, { "use vine", "swing" }, { "grab vine", "swing" },
             { "eat", "eat" },
             { "drink", "drink" }, { "drink water", "drink" },
             { "steal", "steal" }, { "rob", "steal" }, { "rob bank", "steal" },
