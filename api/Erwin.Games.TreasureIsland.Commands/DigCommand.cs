@@ -15,10 +15,14 @@ namespace Erwin.Games.TreasureIsland.Commands
         {
             var currentLocation = WorldData.Instance?.GetLocation(_saveGameData?.CurrentLocation);
 
-            if (_saveGameData?.Inventory?.Contains("shovel", StringComparer.OrdinalIgnoreCase) == false)
+            // Check if player has any type of shovel
+            bool hasShovel = _saveGameData?.Inventory?.Contains("shovel", StringComparer.OrdinalIgnoreCase) == true ||
+                             _saveGameData?.Inventory?.Contains("caveShovel", StringComparer.OrdinalIgnoreCase) == true;
+
+            if (!hasShovel)
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    message: "You try digging with your bare hands, but can't make much progress.  If you only had a shovel.",
+                    message: "You try digging with your bare hands, but can't make much progress. If only you had a shovel.",
                     saveGameData: _saveGameData,
                     imageFilename: null,
                     locationDescription: null,
@@ -59,6 +63,28 @@ namespace Erwin.Games.TreasureIsland.Commands
                 {
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                         message: "You dig more around where you found the pot of gold, but don't find anything else.",
+                        saveGameData: _saveGameData,
+                        imageFilename: null,
+                        locationDescription: null,
+                        commandHistory: null
+                    ));
+                }
+            }
+            else if (_saveGameData?.CurrentLocation?.Equals("CoalMine", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                var itemEvent = _saveGameData.GetEvent("CoalReveal");
+                if (itemEvent == null)
+                {
+                    currentLocation?.AddItemToLocation(_saveGameData, "coal");
+                    _saveGameData?.AddEvent("CoalReveal", "You dig into the coal vein and extract some coal!", _saveGameData.CurrentDateTime);
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                        "You swing your shovel into the coal vein. After some effort, you extract a good chunk of coal. This will burn hot enough to melt ice!",
+                        _saveGameData, null, null, null));
+                }
+                else
+                {
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                        message: "You've already extracted the accessible coal from this vein.",
                         saveGameData: _saveGameData,
                         imageFilename: null,
                         locationDescription: null,

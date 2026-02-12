@@ -43,8 +43,8 @@ namespace Erwin.Games.TreasureIsland.Commands
             { "fortune", "fortune" }, { "tell fortune", "fortune" }, { "read fortune", "fortune" },
             { "swim", "swim" }, { "swim across", "swim" },
             { "swing", "swing" }, { "swing vine", "swing" }, { "swing across", "swing" }, { "use vine", "swing" }, { "grab vine", "swing" },
-            { "build fire", "signal" }, { "build a fire", "signal" }, { "start fire", "signal" }, { "start a fire", "signal" },
-            { "make fire", "signal" }, { "make a fire", "signal" }, { "light fire", "signal" }, { "light a fire", "signal" },
+            { "build fire", "light fire" }, { "build a fire", "light fire" }, { "start fire", "light fire" }, { "start a fire", "light fire" },
+            { "make fire", "light fire" }, { "make a fire", "light fire" }, { "light fire", "light fire" }, { "light a fire", "light fire" },
             { "signal fire", "signal" }, { "signal for help", "signal" }, { "signal ship", "signal" }, { "signal for rescue", "signal" },
             { "eat", "eat" },
             { "drink", "drink" }, { "drink water", "drink" },
@@ -55,6 +55,14 @@ namespace Erwin.Games.TreasureIsland.Commands
             // All commands
             { "drop all", "drop all" },
             { "take all", "take all" }, { "get all", "take all" }, { "pick up all", "take all" },
+
+            // Turn on/off commands
+            { "turn on flashlight", "turn on flashlight" }, { "turn flashlight on", "turn on flashlight" },
+            { "turn off flashlight", "turn off flashlight" }, { "turn flashlight off", "turn off flashlight" },
+            { "switch on flashlight", "turn on flashlight" }, { "switch flashlight on", "turn on flashlight" },
+            { "switch off flashlight", "turn off flashlight" }, { "switch flashlight off", "turn off flashlight" },
+            { "turn on light", "turn on flashlight" }, { "turn on torch", "turn on flashlight" },
+            { "turn off light", "turn off flashlight" }, { "turn off torch", "turn off flashlight" },
         };
 
         // Commands that take a parameter (used for pattern matching)

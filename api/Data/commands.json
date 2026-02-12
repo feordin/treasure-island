@@ -413,10 +413,31 @@
     },
     {
       "command": "signal",
-      "aliases": ["signal fire", "light fire", "build fire", "make fire", "start fire", "wait for rescue", "hope for rescue", "call for help", "signal for help"],
+      "aliases": ["signal fire", "wait for rescue", "hope for rescue", "call for help", "signal for help"],
       "parameters": [],
       "description": "Signal for rescue at Rescue Beach. To light a signal fire, you need matches and fuel (driftwood, lumber, or coal). If you've been on the island long enough (30+ days), patrol ships may spot you even without a fire.",
-      "examples": ["signal", "light fire", "build fire", "signal for help", "wait for rescue"],
+      "examples": ["signal", "signal for help", "wait for rescue"],
+      "category": "action"
+    },
+    {
+      "command": "turn",
+      "aliases": ["switch", "toggle"],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "string",
+          "required": true,
+          "description": "Whether to turn 'on' or 'off'."
+        },
+        {
+          "name": "item",
+          "type": "string",
+          "required": true,
+          "description": "The item to turn on or off (e.g., 'flashlight')."
+        }
+      ],
+      "description": "Turn an item on or off. Currently supports the flashlight. You need to have the flashlight turned on to see in dark areas like Goblin Valley.",
+      "examples": ["turn on flashlight", "turn off flashlight", "switch on flashlight", "turn flashlight on"],
       "category": "action"
     }
   ],
@@ -478,7 +499,12 @@
       {"input": "light the coal", "output": "light coal"},
       {"input": "fill the canteen", "output": "fill canteen"},
       {"input": "kill dracula", "output": "kill dracula"},
-      {"input": "stake the vampire", "output": "kill dracula"}
+      {"input": "stake the vampire", "output": "kill dracula"},
+      {"input": "turn on the flashlight", "output": "turn on flashlight"},
+      {"input": "turn off the flashlight", "output": "turn off flashlight"},
+      {"input": "switch on the light", "output": "turn on flashlight"},
+      {"input": "turn the flashlight on", "output": "turn on flashlight"},
+      {"input": "turn the flashlight off", "output": "turn off flashlight"}
     ],
     "naturalLanguagePatterns": [
       {
