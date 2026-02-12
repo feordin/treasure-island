@@ -57,13 +57,16 @@ namespace Erwin.Games.TreasureIsland.Commands
                 return HandleTakeAll(currentLocation);
             }
 
+            // Resolve fuzzy item name to system name
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
-            var itemDetails = WorldData.Instance?.GetItem(_param);
+            var resolvedParam = WorldData.Instance?.ResolveItemName(_param, currentItems) ?? _param;
+            var displayName = WorldData.Instance?.GetItemDisplayName(resolvedParam) ?? resolvedParam;
+            var itemDetails = WorldData.Instance?.GetItem(resolvedParam);
 
             if (itemDetails?.IsMustBuy == true && _saveGameData.Money < itemDetails?.Cost)
             {
                 return new ProcessCommandResponse(
-                    "You try take the " + _param + " without having enough to money to pay.  Sorry, but the watch have a careful eye!  You stop before you end up in jail.",
+                    "You try take the " + displayName + " without having enough to money to pay.  Sorry, but the watch have a careful eye!  You stop before you end up in jail.",
                     _saveGameData,
                     null,
                     null,
@@ -72,24 +75,24 @@ namespace Erwin.Games.TreasureIsland.Commands
 
             if (itemDetails?.IsMustBuy == true && _saveGameData.Money >= itemDetails?.Cost)
             {
-                var buyCommand = new BuyCommand(_saveGameData, _gameDataRepository, _command, _param);
+                var buyCommand = new BuyCommand(_saveGameData, _gameDataRepository, _command, resolvedParam);
                 return await buyCommand.Execute();
             }
 
             // we need another check here to make sure the is actually possible to take
-            if (currentItems?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true &&
+            if (currentItems?.Contains(resolvedParam, StringComparer.OrdinalIgnoreCase) == true &&
                 currentLocation?.Name != null &&
                 (itemDetails == null || itemDetails.IsTakeable == true))
             {
-                _saveGameData?.Inventory?.Add(_param);
+                _saveGameData?.Inventory?.Add(resolvedParam);
                 // check if the saved game already has any changes to this location
-                currentLocation.RemoveItemFromLocation(_saveGameData, _param);
+                currentLocation.RemoveItemFromLocation(_saveGameData, resolvedParam);
 
                 // Weight warning for King Tut's treasure
-                if (_param.Equals("kingsTutTreasure", StringComparison.OrdinalIgnoreCase))
+                if (resolvedParam.Equals("kingsTutTreasure", StringComparison.OrdinalIgnoreCase))
                 {
                     return new ProcessCommandResponse(
-                        "You take the kingsTutTreasure. This treasure is incredibly heavy... Swimming while carrying it would be nearly impossible.",
+                        "You take the " + displayName + ". This treasure is incredibly heavy... Swimming while carrying it would be nearly impossible.",
                         _saveGameData,
                         null,
                         null,
@@ -97,7 +100,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 }
 
                 // Special handling for fakeBook - opens secret passage in Library
-                if (_param.Equals("fakeBook", StringComparison.OrdinalIgnoreCase) || _param.Equals("fakebook", StringComparison.OrdinalIgnoreCase))
+                if (resolvedParam.Equals("fakeBook", StringComparison.OrdinalIgnoreCase) || resolvedParam.Equals("fakebook", StringComparison.OrdinalIgnoreCase))
                 {
                     _saveGameData.AddEvent("library_secret_opened", "The secret bookshelf passage has been opened", _saveGameData.CurrentDateTime);
 
@@ -123,7 +126,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 }
 
                 return new ProcessCommandResponse(
-                    "You take the " + _param + ".",
+                    "You take the " + displayName + ".",
                     _saveGameData,
                     null,
                     null,
@@ -132,7 +135,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             else
             {
                 return new ProcessCommandResponse(
-                    "The " + _param + " is not here, or you can't take it.",
+                    "The " + displayName + " is not here, or you can't take it.",
                     _saveGameData,
                     null,
                     null,
@@ -169,7 +172,7 @@ namespace Erwin.Games.TreasureIsland.Commands
 
                 _saveGameData?.Inventory?.Add(item);
                 currentLocation?.RemoveItemFromLocation(_saveGameData, item);
-                takenItems.Add(item);
+                takenItems.Add(WorldData.Instance?.GetItemDisplayName(item) ?? item);
             }
 
             if (takenItems.Count == 0)

@@ -52,21 +52,25 @@ namespace Erwin.Games.TreasureIsland.Commands
                 return HandleDropAll(currentLocation);
             }
 
+            // Resolve fuzzy item name against inventory
+            var resolvedParam = WorldData.Instance?.ResolveItemName(_param, _saveGameData.Inventory) ?? _param;
+            var displayName = WorldData.Instance?.GetItemDisplayName(resolvedParam) ?? resolvedParam;
+
             if (currentLocation?.Name == "PawnShop")
             {
-                var pawnCommand = new PawnCommand(_saveGameData, _gameDataRepository, _command, _param);
+                var pawnCommand = new PawnCommand(_saveGameData, _gameDataRepository, _command, resolvedParam);
                 return pawnCommand.Execute();
             }
 
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
-            var itemDetails = WorldData.Instance?.GetItem(_param);
+            var itemDetails = WorldData.Instance?.GetItem(resolvedParam);
 
-            if(_saveGameData?.Inventory?.Contains(_param, StringComparer.OrdinalIgnoreCase) == true &&
+            if(_saveGameData?.Inventory?.Contains(resolvedParam, StringComparer.OrdinalIgnoreCase) == true &&
                 currentLocation?.Name != null)
             {
-                _saveGameData?.Inventory?.RemoveAt(_saveGameData.Inventory.FindIndex(n => n.Equals(_param, StringComparison.OrdinalIgnoreCase)));
+                _saveGameData?.Inventory?.RemoveAt(_saveGameData.Inventory.FindIndex(n => n.Equals(resolvedParam, StringComparison.OrdinalIgnoreCase)));
 
-                if (_param == "wallet" && _saveGameData != null && currentLocation?.Name == "ConstablesOffice")
+                if (resolvedParam.Equals("wallet", StringComparison.OrdinalIgnoreCase) && _saveGameData != null && currentLocation?.Name == "ConstablesOffice")
                 {
                     _saveGameData.Money += 10;
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
@@ -87,20 +91,20 @@ namespace Erwin.Games.TreasureIsland.Commands
                 if (currentLocation?.Name == "Balcony")
                 {
                     var backyard = WorldData.Instance?.GetLocation("Backyard");
-                    backyard?.AddItemToLocation(_saveGameData, _param);
+                    backyard?.AddItemToLocation(_saveGameData, resolvedParam);
 
                     return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                        $"You drop the {_param} over the balcony. It lands in the backyard below.",
+                        $"You drop the {displayName} over the balcony. It lands in the backyard below.",
                         _saveGameData,
                         null,
                         null,
                         null));
                 }
 
-                currentLocation?.AddItemToLocation(_saveGameData, _param);
+                currentLocation?.AddItemToLocation(_saveGameData, resolvedParam);
 
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "You drop the " + _param + ".",
+                    "You drop the " + displayName + ".",
                     _saveGameData,
                     null,
                     null,
@@ -109,7 +113,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             else
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    "You don't have a " + _param + " in your inventory.",
+                    "You don't have a " + displayName + " in your inventory.",
                     _saveGameData,
                     null,
                     null,
@@ -137,7 +141,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             foreach (var item in itemsToRemove)
             {
                 _saveGameData.Inventory.Remove(item);
-                droppedItems.Add(item);
+                droppedItems.Add(WorldData.Instance?.GetItemDisplayName(item) ?? item);
 
                 if (isBalcony && backyard != null)
                 {
@@ -170,13 +174,14 @@ namespace Erwin.Games.TreasureIsland.Commands
         private Task<ProcessCommandResponse?> HandleTreasureDrop(Location currentLocation, Item itemDetails)
         {
             var treasureEventName = $"scored_{itemDetails.Name}";
+            var treasureDisplayName = itemDetails.GetDisplayName();
 
             // Check if this treasure has already been scored
             if (_saveGameData!.GetEvent(treasureEventName) != null)
             {
                 currentLocation.AddItemToLocation(_saveGameData, _param!);
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                    $"You drop the {itemDetails.Name}. You've already received points for this treasure.",
+                    $"You drop the {treasureDisplayName}. You've already received points for this treasure.",
                     _saveGameData,
                     null,
                     null,
@@ -188,12 +193,12 @@ namespace Erwin.Games.TreasureIsland.Commands
             _saveGameData.Score += pointsAwarded;
 
             // Mark this treasure as scored
-            _saveGameData.AddEvent(treasureEventName, $"Scored {pointsAwarded} points for {itemDetails.Name}", _saveGameData.CurrentDateTime);
+            _saveGameData.AddEvent(treasureEventName, $"Scored {pointsAwarded} points for {treasureDisplayName}", _saveGameData.CurrentDateTime);
 
             // Add item to location
             currentLocation.AddItemToLocation(_saveGameData, _param!);
 
-            var message = $"You carefully place the {itemDetails.Name} on the beach. " +
+            var message = $"You carefully place the {treasureDisplayName} on the beach. " +
                 $"This treasure is worth {pointsAwarded} points!\n\n" +
                 $"Your score is now {_saveGameData.Score} out of {MaxScore} points.";
 

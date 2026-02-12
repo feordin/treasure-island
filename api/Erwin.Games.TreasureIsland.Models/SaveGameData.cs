@@ -15,6 +15,10 @@ namespace Erwin.Games.TreasureIsland.Models
         public string? CurrentLocationDisplayName { get; set; }
         public DateTime CurrentDateTime { get; set; }
         public List<string>? Inventory { get; set; }
+        /// <summary>
+        /// Maps system item names to display names for the frontend. Computed on the fly, not persisted.
+        /// </summary>
+        public Dictionary<string, string>? InventoryDisplayNames { get; set; }
         public int Health { get; set; }
         public List<LocationChange>? LocationChanges { get; set; }
         public bool AiEmbelleshedDescriptions { get; set; } = false;

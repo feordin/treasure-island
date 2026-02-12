@@ -36,24 +36,27 @@ namespace Erwin.Games.TreasureIsland.Commands
             if (_param == null)
             {
                 return new ProcessCommandResponse(
-                    "What do you want to take?",
+                    "What do you want to buy?",
                     _saveGameData,
                     null,
                     null,
                     null);
             }
 
+            // Resolve fuzzy item name to system name
             var currentItems = currentLocation?.GetCurrentItems(_saveGameData);
-            var itemDetails = WorldData.Instance?.GetItem(_param);
+            var resolvedParam = WorldData.Instance?.ResolveItemName(_param, currentItems) ?? _param;
+            var displayName = WorldData.Instance?.GetItemDisplayName(resolvedParam) ?? resolvedParam;
+            var itemDetails = WorldData.Instance?.GetItem(resolvedParam);
 
-            if (currentItems?.Contains(_param + " pawned", StringComparer.OrdinalIgnoreCase) == true)
+            if (currentItems?.Contains(resolvedParam + " pawned", StringComparer.OrdinalIgnoreCase) == true)
             {
-                itemDetails = new Item() { Cost = 2, Description = "You pawned this off, but you can buy it back.", MustBuy = true, Name = _param + " pawned" };
+                itemDetails = new Item() { Cost = 2, Description = "You pawned this off, but you can buy it back.", MustBuy = true, Name = resolvedParam + " pawned" };
             }
-            else if (currentItems?.Contains(_param, StringComparer.OrdinalIgnoreCase) == false)
+            else if (currentItems?.Contains(resolvedParam, StringComparer.OrdinalIgnoreCase) == false)
             {
                 return new ProcessCommandResponse(
-                    "The " + _param + " is not here.",
+                    "The " + displayName + " is not here.",
                     _saveGameData,
                     null,
                     null,
@@ -67,14 +70,14 @@ namespace Erwin.Games.TreasureIsland.Commands
             {
                 if (_saveGameData.Money >= itemDetails.Cost)
                 {
-                    _saveGameData.Inventory?.Add(_param);
+                    _saveGameData.Inventory?.Add(resolvedParam);
                     _saveGameData.Money -= itemDetails.Cost;
                     // check if the saved game already has any changes to this location
                     if (itemDetails.Name?.Contains("ticket", StringComparison.OrdinalIgnoreCase) == false)
                         currentLocation.RemoveItemFromLocation(_saveGameData, itemDetails.Name);
 
                     return new ProcessCommandResponse(
-                        "You buy the " + _param + ".",
+                        "You buy the " + displayName + ".",
                         _saveGameData,
                         null,
                         null,
@@ -113,7 +116,7 @@ namespace Erwin.Games.TreasureIsland.Commands
                 else
                 {
                     return new ProcessCommandResponse(
-                                "You don't have enough money to buy the " + _param + ".  You'll need to get some more.",
+                                "You don't have enough money to buy the " + displayName + ".  You'll need to get some more.",
                                 _saveGameData,
                                 null,
                                 null,
@@ -123,7 +126,7 @@ namespace Erwin.Games.TreasureIsland.Commands
             else
             {
                 return new ProcessCommandResponse(
-                    "The " + itemDetails?.Name + "isn't for sale.",
+                    "The " + displayName + " isn't for sale.",
                     _saveGameData,
                     null,
                     null,

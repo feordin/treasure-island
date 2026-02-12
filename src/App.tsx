@@ -19,6 +19,7 @@ interface Message {
 }
 
 var inventory: string[] = [];
+var inventoryDisplayNames: { [key: string]: string } = {};
 var score: number | undefined = 100;
 var location = 'Foo';
 var date = new Date().toLocaleDateString();
@@ -162,6 +163,7 @@ function App() {
       }
       if (currentGameRef.current.inventory) {
         inventory = currentGameRef.current.inventory;
+        inventoryDisplayNames = currentGameRef.current.inventoryDisplayNames || {};
       }
       if (currentGameRef.current) {
         score = currentGameRef.current.score;
@@ -247,6 +249,7 @@ function App() {
         {currentGameRef.current && (
           <GameStatus
             inventory={inventory}
+            inventoryDisplayNames={inventoryDisplayNames}
             score={score}
             location={location}
             date={date}
@@ -270,6 +273,7 @@ function App() {
         {currentGameRef.current && (
           <GameStatus
             inventory={inventory}
+            inventoryDisplayNames={inventoryDisplayNames}
             score={score}
             location={location}
             date={date}

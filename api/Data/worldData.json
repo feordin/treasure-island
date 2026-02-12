@@ -3521,74 +3521,88 @@
   "Items": [
     {
       "Name": "bushes",
+      "DisplayName": "Bushes",
       "Description": "A clump of bushes is growing in the alley.  You think you see something under them.",
       "Takeable": false
     },
     {
       "Name": "GoblinTower",
+      "DisplayName": "Goblin Tower",
       "Description": "A tall, oddly formed structure. You think you see something shiny behind it.",
       "Takeable": false
     },
     {
       "Name": "letter",
+      "DisplayName": "Letter",
       "Description": "This is a letter from your uncle:\n\"Please help me!  I am being held captive on treasure island by a tribe of cannibals and they are planning to eat me!  You can save if you come quickly.  There is also treasure!  Plenty for both of us.  Uncle Herman\""
     },
     {
       "Name": "money",
+      "DisplayName": "Money",
       "Description": "This is a lot of money.  You could use it to buy a ticket to a boat and go to treasure island to find your uncle."
     },
     {
       "Name": "wallet",
+      "DisplayName": "Wallet",
       "Description": "This wallet has a letter of identification and several gold coins.  Be careful using money from a wallet that is not yours."
     },
     {
       "Name": "chest",
+      "DisplayName": "Chest",
       "Description": "It is old and broken, but seems it was once of good quality.  You think you see something inside.",
       "Takeable": false
     },
     {
       "Name": "danish",
+      "DisplayName": "Danish Pastry",
       "Description": "A tasty cream tart with berries.",
       "MustBuy": true,
       "Cost": 1
     },
     {
       "Name": "donuts",
+      "DisplayName": "Donuts",
       "Description": "Nature's perfect food.",
       "MustBuy": true,
       "Cost": 1
     },
     {
       "Name": "coffee",
+      "DisplayName": "Coffee",
       "Description": "Nothing fresher than this.",
       "MustBuy": true,
       "Cost": 1
     },
     {
       "Name": "ticket",
+      "DisplayName": "Boat Ticket",
       "Description": "This will get you on the boat so you can go searching for Uncle Herman and treasure.",
       "MustBuy": true,
       "Cost": 5
     },
     {
       "Name": "StageTicket",
+      "DisplayName": "Stagecoach Ticket",
       "Description": "This will get you on the stage coach to the interior of the island.",
       "MustBuy": true,
       "Cost": 5
     },
     {
       "Name": "notices",
+      "DisplayName": "Notices",
       "Description": "One notice in particular catches your eye.  There is a reward offered for a lost wallet.",
       "Takeable": false
     },
     {
       "Name": "therepublic pawned",
+      "DisplayName": "The Republic (Pawned)",
       "Description": "You pawned this off, but can buy it back.",
       "MustBuy": true,
       "Cost": 10
     },
     {
       "Name": "monkeysPaw",
+      "DisplayName": "Monkey's Paw",
       "Description": "A withered, mummified monkey's paw with one curled finger remaining. Madame Isadora warns that it grants but a single wish, and even that comes at a price. 'Choose wisely,' she whispers, 'for you only get one chance.'",
       "ExamineText": "You examine the withered monkey's paw closely. Its leathery skin is stretched tight over ancient bones, and one gnarled finger remains curled, as if waiting.\n\nYou recall Madame Isadora's words: 'The paw grants wishes, but each comes at a price. You may wish for MONEY, TREASURE, FOOD, or HELP...'\n\nShe paused, then added in a hushed tone: '...or if you find yourself truly lost and desperate, wish for RESCUE. The paw can spirit you away to safety - but you will leave behind whatever treasures you carry in that forsaken place.'\n\nThe paw seems to pulse slightly in your hand. Choose wisely - you only get one wish.",
       "MustBuy": true,
@@ -3596,23 +3610,27 @@
     },
     {
       "Name": "BalloonTicket",
+      "DisplayName": "Balloon Ticket",
       "Description": "You need this to fly.",
       "MustBuy": true,
       "Cost": 4
     },
     {
       "Name": "PromissoryNote",
+      "DisplayName": "Promissory Note",
       "Description": "You have to pay back a loan to the bank.  Once you get back from treasure island, they may take a bit of treasure.",
       "MustBuy": false
     },
     {
       "Name": "pearl",
+      "DisplayName": "Pearl",
       "Description": "A giant pearl.  You could sell this for a lot of money. Did Uncle Herman know this was here?",
       "MustBuy": false,
       "Value": 150
     },
     {
       "Name": "BrokenSeaChest",
+      "DisplayName": "Broken Sea Chest",
       "Description": "This is the remains of a sea chest.  It is broken but there are some matches inside.",
       "MustBuy": false,
       "Takeable": false,
@@ -3620,6 +3638,7 @@
     },
     {
       "Name": "TreasureChest",
+      "DisplayName": "Treasure Chest",
       "Description": "The mother load!  Gold, silver and jewels.",
       "MustBuy": false,
       "Takeable": true,
@@ -3627,169 +3646,200 @@
     },
     {
       "Name": "matches",
+      "DisplayName": "Matches",
       "Description": "A box of wooden matches. These could be useful in dark places.",
       "Takeable": true
     },
     {
       "Name": "flashlight",
+      "DisplayName": "Flashlight",
       "Description": "A battery powered flashlight. Perfect for exploring dark caves.",
       "Takeable": true
     },
     {
       "Name": "woodenStake",
+      "DisplayName": "Wooden Stake",
       "Description": "A sharp wooden stake. Looks like it could kill a vampire.",
       "Takeable": true
     },
     {
       "Name": "hammer",
+      "DisplayName": "Hammer",
       "Description": "A heavy hammer. Useful for driving stakes.",
       "Takeable": true
     },
     {
       "Name": "shovel",
+      "DisplayName": "Shovel",
       "Description": "A sturdy shovel. Perfect for digging.",
       "Takeable": true
     },
     {
       "Name": "deadBlackCat",
+      "DisplayName": "Dead Black Cat",
       "Description": "A stuffed dead black cat. The natives are terrified of this.",
       "Takeable": true
     },
     {
       "Name": "rustyRifle",
+      "DisplayName": "Rusty Rifle",
       "Description": "An old rusty rifle. It probably doesn't work anymore.",
       "Takeable": true
     },
     {
       "Name": "bundleOfBills",
+      "DisplayName": "Bundle of Bills",
       "Description": "A bundle of old bills from the safe. Worth 100 points.",
       "Takeable": true,
       "Value": 100
     },
     {
       "Name": "coins",
+      "DisplayName": "Coins",
       "Description": "Old coins from the 19th century. Worth 50 points.",
       "Takeable": true,
       "Value": 50
     },
     {
       "Name": "stocksAndBonds",
+      "DisplayName": "Stocks and Bonds",
       "Description": "Valuable stocks and bonds. Worth 100 points.",
       "Takeable": true,
       "Value": 100
     },
     {
       "Name": "pricelessPainting",
+      "DisplayName": "Priceless Painting",
       "Description": "A painting of Whistler's Father. While worth millions, it will bring you 400 points in this game.",
       "Takeable": true,
       "Value": 400
     },
     {
       "Name": "rubyRing",
+      "DisplayName": "Ruby Ring",
       "Description": "Uncle Herman's ruby ring. Worth 150 points.",
       "Takeable": true,
       "Value": 150
     },
     {
       "Name": "emeraldNecklace",
+      "DisplayName": "Emerald Necklace",
       "Description": "An emerald necklace from the stone idol. Worth 150 points.",
       "Takeable": true,
       "Value": 150
     },
     {
       "Name": "potOfGold",
+      "DisplayName": "Pot of Gold",
       "Description": "A pot of gold buried at rescue beach. Worth 300 points.",
       "Takeable": true,
       "Value": 300
     },
     {
       "Name": "jungleVine",
+      "DisplayName": "Jungle Vine",
       "Description": "A strong jungle vine hanging across the creek. You can grab it to swing across.",
       "Takeable": false
     },
     {
       "Name": "safe",
+      "DisplayName": "Safe",
       "Description": "A locked safe. You need the combination to open it.",
       "Takeable": false
     },
     {
       "Name": "coffin",
+      "DisplayName": "Coffin",
       "Description": "An open coffin containing Count Dracula.",
       "Takeable": false
     },
     {
       "Name": "bookshelf",
+      "DisplayName": "Bookshelf",
       "Description": "An old broken bookshelf in the trash pit. You think you see something inside.",
       "Takeable": false,
       "Reveals": "wallet"
     },
     {
       "Name": "canteen",
+      "DisplayName": "Canteen",
       "Description": "An empty canteen. You will need to fill it with water.",
       "Takeable": true
     },
     {
       "Name": "dynamite",
+      "DisplayName": "Dynamite",
       "Description": "Dangerous dynamite. Do not touch!",
       "Takeable": false
     },
     {
       "Name": "mushrooms",
+      "DisplayName": "Mushrooms",
       "Description": "Colorful mushrooms growing in the cavern. They look tempting but could be poisonous.",
       "Takeable": false
     },
     {
       "Name": "diamonds",
+      "DisplayName": "Diamonds",
       "Description": "A treasure from goblin valley. Worth 300 points at rescue beach.",
       "Takeable": true,
       "Value": 300
     },
     {
       "Name": "deadmansTreasure",
+      "DisplayName": "Deadman's Treasure",
       "Description": "A treasure from deadmans gulch. Worth 200 points at rescue beach.",
       "Takeable": true,
       "Value": 200
     },
     {
       "Name": "aladdinsLamp",
+      "DisplayName": "Aladdin's Lamp",
       "Description": "A very old and curious lamp that may have belonged to Aladdin. Worth 300 points at rescue beach. Can only be used once.",
       "Takeable": true,
       "Value": 300
     },
     {
       "Name": "kingsTutTreasure",
+      "DisplayName": "King Tut's Treasure",
       "Description": "The legendary golden sarcophagus mask of King Tutankhamun, encrusted with lapis lazuli and turquoise. Its hollow eyes seem to stare into eternity. Worth 400 points at rescue beach.",
       "Takeable": true,
       "Value": 400
     },
     {
       "Name": "caveShovel",
+      "DisplayName": "Cave Shovel",
       "Description": "A shovel found in the chimney room. Too large to fit through the low crawl.",
       "Takeable": true
     },
     {
       "Name": "coal",
+      "DisplayName": "Coal",
       "Description": "A piece of coal from the coal mine. Burns hot and long - perfect for a signal fire.",
       "Takeable": true
     },
     {
       "Name": "driftwood",
+      "DisplayName": "Driftwood",
       "Description": "Sun-bleached driftwood from the beach. Dry and perfect for starting a fire.",
       "Takeable": true
     },
     {
       "Name": "lumber",
+      "DisplayName": "Lumber",
       "Description": "Salvaged lumber from the shipwreck. Could be used to build a signal fire.",
       "Takeable": true
     },
     {
       "Name": "parchmentMap",
+      "DisplayName": "Parchment Map",
       "Description": "A very old parchment map from the tomb room. It contains valuable information about treasure locations.",
       "ExamineText": "You carefully unfold the ancient parchment and study its faded markings...\n\nThe map reveals several secrets:\n\n• ALADDIN'S LAMP: 'In the Arabian Room, deep within the ice caves, lies a lamp of legend. But beware - the lamp grants only ONE wish. Use it wisely to cross the great fissure.'\n\n• THE GREAT FISSURE: 'To safely return from beyond the fissure, first melt the ice to fill the chasm with water. Only then can you swim back after using the lamp.'\n\n• KING TUT'S TREASURE: 'The pharaoh's greatest treasure lies beyond the western fissure. Take it before you wish yourself back!'\n\n• THE LAGOON'S SECRET: 'Dive deep in the lagoon waters to find a pearl of great value. But beware the shark that guards these waters.'\n\n• GOBLIN VALLEY: 'Treasure awaits in Goblin Valley, but only those who bring light shall find it.'",
       "Takeable": true
     },
     {
       "Name": "librarybookshelf",
+      "DisplayName": "Library Bookshelf",
       "Description": "A large bookshelf filled with dusty old books. One book looks different from the others.",
       "ExamineText": "Looking closely at the bookshelf, you notice one book that stands out - it appears to be a fake book, perhaps hiding something.",
       "Takeable": false,
@@ -3797,6 +3847,7 @@
     },
     {
       "Name": "fakeBook",
+      "DisplayName": "Fake Book",
       "Description": "A hollow fake book that serves as a hidden lever.",
       "Takeable": true
     }

@@ -41,10 +41,14 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
+            // Resolve fuzzy item name against inventory
+            var resolvedTarget = WorldData.Instance?.ResolveItemName(_target, _saveGameData.Inventory) ?? _target;
+            var displayName = WorldData.Instance?.GetItemDisplayName(resolvedTarget) ?? resolvedTarget;
+
             // If target is a fuel item and player is at Rescue Beach, redirect to signal command
             var fuelItems = new[] { "driftwood", "lumber", "coal" };
-            if (fuelItems.Any(f => _target.Equals(f, StringComparison.OrdinalIgnoreCase) ||
-                    _target.StartsWith(f, StringComparison.OrdinalIgnoreCase)) &&
+            if (fuelItems.Any(f => resolvedTarget.Equals(f, StringComparison.OrdinalIgnoreCase) ||
+                    resolvedTarget.StartsWith(f, StringComparison.OrdinalIgnoreCase)) &&
                 _saveGameData.CurrentLocation?.Equals("RescueBeach", StringComparison.OrdinalIgnoreCase) == true)
             {
                 var signalCommand = new SignalCommand(_saveGameData, _repository, "signal");
@@ -52,26 +56,26 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
 
             // Handle lighting coal
-            if (_target.Equals("coal", StringComparison.OrdinalIgnoreCase))
+            if (resolvedTarget.Equals("coal", StringComparison.OrdinalIgnoreCase))
             {
                 return LightCoal();
             }
 
             // Handle lighting matches
-            if (_target.Equals("matches", StringComparison.OrdinalIgnoreCase) ||
-                _target.Equals("match", StringComparison.OrdinalIgnoreCase))
+            if (resolvedTarget.Equals("matches", StringComparison.OrdinalIgnoreCase) ||
+                resolvedTarget.Equals("match", StringComparison.OrdinalIgnoreCase))
             {
                 return LightMatches();
             }
 
             // Handle "light fire" / "build fire" etc.
-            if (_target.Equals("fire", StringComparison.OrdinalIgnoreCase))
+            if (resolvedTarget.Equals("fire", StringComparison.OrdinalIgnoreCase))
             {
                 return LightFire();
             }
 
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                message: $"You can't light the {_target}.",
+                message: $"You can't light the {displayName}.",
                 saveGameData: _saveGameData,
                 imageFilename: null,
                 locationDescription: null,

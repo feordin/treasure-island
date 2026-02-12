@@ -41,6 +41,10 @@ namespace Erwin.Games.TreasureIsland.Commands
             { "dig", "dig" }, { "dig hole", "dig" }, { "excavate", "dig" },
             { "pray", "pray" }, { "worship", "pray" },
             { "fortune", "fortune" }, { "tell fortune", "fortune" }, { "read fortune", "fortune" },
+            { "tell my fortune", "fortune" }, { "read my fortune", "fortune" }, { "my fortune", "fortune" },
+            { "get my fortune", "fortune" }, { "get my fortune told", "fortune" }, { "get fortune", "fortune" },
+            { "ask for my fortune", "fortune" }, { "ask for fortune", "fortune" }, { "fortune teller", "fortune" },
+            { "see the fortune teller", "fortune" }, { "visit fortune teller", "fortune" },
             { "swim", "swim" }, { "swim across", "swim" },
             { "swing", "swing" }, { "swing vine", "swing" }, { "swing across", "swing" }, { "use vine", "swing" }, { "grab vine", "swing" },
             { "build fire", "light fire" }, { "build a fire", "light fire" }, { "start fire", "light fire" }, { "start a fire", "light fire" },
@@ -186,6 +190,10 @@ namespace Erwin.Games.TreasureIsland.Commands
                     break;
                 }
             }
+
+            // Strip apostrophes and other punctuation before camelCase conversion
+            // e.g., "monkey's paw" → "monkeys paw" → "monkeysPaw"
+            parameter = new string(parameter.Where(c => char.IsLetterOrDigit(c) || c == ' ').ToArray());
 
             // Convert to camelCase for multi-word items
             if (parameter.Contains(' '))

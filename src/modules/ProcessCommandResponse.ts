@@ -7,6 +7,7 @@ export interface SaveGameData {
     currentLocationDisplayName?: string; // User-friendly location name for display
     currentDateTime?: string; // ISO 8601 date string
     inventory?: string[];
+    inventoryDisplayNames?: { [key: string]: string }; // Maps system item names to display names
     health?: number;
     commandHistory?: CommandHistory;
     locationChanges?: LocationChange[];

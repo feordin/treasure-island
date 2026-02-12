@@ -48,6 +48,8 @@ COMMANDS: north,south,east,west,up,down,left,right,ahead,behind,look,take,drop,e
 RULES:
 - Movement: forward/onward=ahead, back/return=behind
 - With items: take/get/grab X=take X, look at/read/inspect X=examine X
+- Items: [LOCATION CONTEXT] lists items with system names and display names. Use the SYSTEM NAME (camelCase) in output. E.g., player says ""take the treasure"", items show ""kingsTutTreasure (King Tut's Treasure)"" → output ""take kingsTutTreasure""
+- For drop/examine/use: check both location items and player inventory
 - Save/load/delete need slot number if given: ""save to slot 2""=save 2
 - Location context [LOCATION CONTEXT] shows exits, description, and current location
 - ""enter X""/""go to X"": find direction leading to X from exits, return that direction
@@ -58,6 +60,8 @@ RULES:
 - Wish: ""wish for X""/""make a wish""=wish X (valid: money,treasure,food,help,rescue,escape,safety)
 - Signal: ""light fire""/""build fire""/""signal fire""/""wait for rescue""/""hope for rescue""/""call for help""=signal
 - Swing: ""swing vine""/""swing across""/""use vine""/""grab vine""=swing
+- Fortune: ""tell my fortune""/""get my fortune""/""ask for fortune""/""fortune teller""/""see fortune teller""/""get fortune told""=fortune
+- Pray: ""pray""/""worship""/""say a prayer""=pray
 - Open: ""open safe 7-23-42""=open safe 7-23-42, normalize combination numbers to dash-separated format
 - Unknown input: respond ""unknown_command"" with brief hint"
             ;
@@ -219,6 +223,29 @@ RULES:
                 if (exits.Count > 0)
                 {
                     contextParts.Add($"Available exits: {string.Join("; ", exits)}");
+                }
+
+                // Add items at location with display names
+                var currentItems = currentLocation.GetCurrentItems(saveGame);
+                if (currentItems != null && currentItems.Count > 0)
+                {
+                    var itemDescriptions = currentItems.Select(item =>
+                    {
+                        var displayName = WorldData.Instance?.GetItemDisplayName(item) ?? item;
+                        return $"{item} ({displayName})";
+                    });
+                    contextParts.Add($"Items here: {string.Join(", ", itemDescriptions)}");
+                }
+
+                // Add player inventory with display names
+                if (saveGame.Inventory != null && saveGame.Inventory.Count > 0)
+                {
+                    var inventoryDescriptions = saveGame.Inventory.Select(item =>
+                    {
+                        var displayName = WorldData.Instance?.GetItemDisplayName(item) ?? item;
+                        return $"{item} ({displayName})";
+                    });
+                    contextParts.Add($"Player inventory: {string.Join(", ", inventoryDescriptions)}");
                 }
 
                 contextualInput = $@"[LOCATION CONTEXT]

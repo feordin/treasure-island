@@ -116,6 +116,17 @@ namespace Erwin.Games.TreasureIsland
             {
                 var location = WorldData.Instance?.GetLocation(result.saveGameData.CurrentLocation);
                 result.saveGameData.CurrentLocationDisplayName = location?.GetDisplayName();
+
+                // Populate display names for inventory items
+                if (result.saveGameData.Inventory != null && WorldData.Instance != null)
+                {
+                    result.saveGameData.InventoryDisplayNames = new Dictionary<string, string>();
+                    foreach (var item in result.saveGameData.Inventory)
+                    {
+                        result.saveGameData.InventoryDisplayNames[item] =
+                            WorldData.Instance.GetItemDisplayName(item);
+                    }
+                }
             }
 
             return new OkObjectResult(result);

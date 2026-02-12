@@ -28,9 +28,14 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
+            // Resolve fuzzy item name against inventory
+            var resolvedTarget = !string.IsNullOrEmpty(_target)
+                ? (WorldData.Instance?.ResolveItemName(_target, _saveGameData.Inventory) ?? _target)
+                : _target;
+
             // Check what we're trying to fill
-            if (string.IsNullOrEmpty(_target) ||
-                !_target.Equals("canteen", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(resolvedTarget) ||
+                !resolvedTarget.Equals("canteen", StringComparison.OrdinalIgnoreCase))
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                     message: "What do you want to fill? Try 'fill canteen'.",

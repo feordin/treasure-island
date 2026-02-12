@@ -26,18 +26,33 @@ namespace Erwin.Games.TreasureIsland.Commands
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("What would you like to examine?", _saveGameData, null, null, null));
             }
 
-            // First, find the matching item at current location or inventory
+            // First, find the matching item at current location or inventory using fuzzy resolution
             var itemsAtLocation = currentLocation?.GetCurrentItems(_saveGameData);
-            var matchingItemName = itemsAtLocation?.FirstOrDefault(i =>
-                i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
-                i.Contains(_param, StringComparison.OrdinalIgnoreCase));
+            var matchingItemName = WorldData.Instance?.ResolveItemName(_param, itemsAtLocation);
 
-            // If not found at location, check inventory
-            if (matchingItemName == null)
+            // Check if resolution actually found a match in location items
+            if (matchingItemName != null && itemsAtLocation?.Contains(matchingItemName, StringComparer.OrdinalIgnoreCase) != true)
             {
-                matchingItemName = _saveGameData?.Inventory?.FirstOrDefault(i =>
-                    i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
-                    i.Contains(_param, StringComparison.OrdinalIgnoreCase));
+                // Try inventory
+                var inventoryMatch = WorldData.Instance?.ResolveItemName(_param, _saveGameData?.Inventory);
+                if (inventoryMatch != null && _saveGameData?.Inventory?.Contains(inventoryMatch, StringComparer.OrdinalIgnoreCase) == true)
+                {
+                    matchingItemName = inventoryMatch;
+                }
+                else
+                {
+                    // Fall back to original substring matching for special cases
+                    matchingItemName = itemsAtLocation?.FirstOrDefault(i =>
+                        i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
+                        i.Contains(_param, StringComparison.OrdinalIgnoreCase));
+
+                    if (matchingItemName == null)
+                    {
+                        matchingItemName = _saveGameData?.Inventory?.FirstOrDefault(i =>
+                            i.Equals(_param, StringComparison.OrdinalIgnoreCase) ||
+                            i.Contains(_param, StringComparison.OrdinalIgnoreCase));
+                    }
+                }
             }
 
             // Get the actual item using the matched name (or fall back to param for special cases)
@@ -109,9 +124,11 @@ namespace Erwin.Games.TreasureIsland.Commands
                 var itemEvent = _saveGameData?.GetEvent(matchingItemName);
                 if (itemEvent == null)
                 {
+                    var revealedDisplayName = WorldData.Instance?.GetItemDisplayName(item.Reveals) ?? item.Reveals;
+                    var matchDisplayName = item.GetDisplayName();
                     currentLocation?.AddItemToLocation(_saveGameData, item.Reveals);
-                    _saveGameData?.AddEvent(matchingItemName, "You take a look at the " + matchingItemName + " and find: " + item.Reveals + ".", _saveGameData.CurrentDateTime);
-                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a look at the " + matchingItemName + " and find: " + item.Reveals + ".", _saveGameData, null, null, null));
+                    _saveGameData?.AddEvent(matchingItemName, "You take a look at the " + matchDisplayName + " and find: " + revealedDisplayName + ".", _saveGameData.CurrentDateTime);
+                    return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("You take a look at the " + matchDisplayName + " and find: " + revealedDisplayName + ".", _saveGameData, null, null, null));
                 }
             }
 
@@ -122,12 +139,13 @@ namespace Erwin.Games.TreasureIsland.Commands
                     new ProcessCommandResponse("There is no " + _param + " here to examine.", _saveGameData, null, null, null));
             }
 
+            var displayName = item?.GetDisplayName() ?? matchingItemName ?? _param;
             var examineText = !string.IsNullOrEmpty(item?.ExamineText)
                 ? item.ExamineText
                 : item?.Description;
 
             return Task.FromResult<ProcessCommandResponse?>(
-                new ProcessCommandResponse("You take a look at the " + (matchingItemName ?? _param) + ".\n\n" + examineText, _saveGameData, null, null, null));
+                new ProcessCommandResponse("You take a look at the " + displayName + ".\n\n" + examineText, _saveGameData, null, null, null));
         }
     }
 }

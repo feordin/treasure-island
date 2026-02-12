@@ -5,6 +5,7 @@ import { getUserInfo, User } from '../services/userService';
 
 interface GameStatusProps {
   inventory: string[] | undefined;
+  inventoryDisplayNames: { [key: string]: string } | undefined;
   score: number | undefined;
   location: string | undefined;
   date: string | undefined;
@@ -15,7 +16,7 @@ interface GameStatusProps {
   facing: string | undefined
 }
 
-const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, date, time, currentLocationDescription, AiEmbelleshedDescriptions, money, facing }) => {
+const GameStatus: React.FC<GameStatusProps> = ({ inventory, inventoryDisplayNames, score, location, date, time, currentLocationDescription, AiEmbelleshedDescriptions, money, facing }) => {
     const [user, setUser] = React.useState<User | null>(null);
 
     React.useEffect(() => {
@@ -55,7 +56,7 @@ const GameStatus: React.FC<GameStatusProps> = ({ inventory, score, location, dat
         <div className="inventory-list-container">
             <ul>
                 {(inventory || []).map((item, index) => (
-                <li key={index}>{item}</li>
+                <li key={index}>{inventoryDisplayNames?.[item] || item}</li>
                 ))}
             </ul>
         </div>

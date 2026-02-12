@@ -29,11 +29,17 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
+            // Resolve fuzzy item name against inventory
+            var resolvedTarget = !string.IsNullOrEmpty(_target)
+                ? (WorldData.Instance?.ResolveItemName(_target, _saveGameData.Inventory) ?? _target)
+                : _target;
+
             // Check what we're trying to rub
-            if (string.IsNullOrEmpty(_target) ||
-                (!_target.Equals("lamp", StringComparison.OrdinalIgnoreCase) &&
-                 !_target.Equals("aladdins", StringComparison.OrdinalIgnoreCase) &&
-                 !_target.Equals("aladdinslamp", StringComparison.OrdinalIgnoreCase)))
+            if (string.IsNullOrEmpty(resolvedTarget) ||
+                (!resolvedTarget.Equals("lamp", StringComparison.OrdinalIgnoreCase) &&
+                 !resolvedTarget.Equals("aladdins", StringComparison.OrdinalIgnoreCase) &&
+                 !resolvedTarget.Equals("aladdinslamp", StringComparison.OrdinalIgnoreCase) &&
+                 !resolvedTarget.Equals("aladdinsLamp", StringComparison.OrdinalIgnoreCase)))
             {
                 return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
                     message: "What do you want to rub?",

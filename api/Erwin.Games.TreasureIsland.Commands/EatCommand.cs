@@ -41,20 +41,27 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
+            // Resolve fuzzy item name against inventory and location items
+            var currentLocation = WorldData.Instance?.GetLocation(_saveGameData.CurrentLocation);
+            var locationItems = currentLocation?.GetCurrentItems(_saveGameData);
+            var allItems = new List<string>(_saveGameData.Inventory ?? new List<string>());
+            if (locationItems != null) allItems.AddRange(locationItems);
+            var resolvedTarget = WorldData.Instance?.ResolveItemName(_target, allItems) ?? _target;
+
             // Check for mushrooms (eat in-place at MushroomRoom)
-            if (_target.Equals("mushrooms", StringComparison.OrdinalIgnoreCase))
+            if (resolvedTarget.Equals("mushrooms", StringComparison.OrdinalIgnoreCase))
             {
                 return HandleEatMushrooms();
             }
 
             // Check for donuts (two-bite mechanic)
-            if (_target.Equals("donuts", StringComparison.OrdinalIgnoreCase))
+            if (resolvedTarget.Equals("donuts", StringComparison.OrdinalIgnoreCase))
             {
                 return HandleEatDonuts();
             }
 
             // Check for other food items in inventory
-            return HandleEatGenericItem();
+            return HandleEatGenericItem(resolvedTarget);
         }
 
         private Task<ProcessCommandResponse?> HandleEatMushrooms()
@@ -160,11 +167,11 @@ namespace Erwin.Games.TreasureIsland.Commands
             }
         }
 
-        private Task<ProcessCommandResponse?> HandleEatGenericItem()
+        private Task<ProcessCommandResponse?> HandleEatGenericItem(string resolvedTarget)
         {
             // Check if item is in inventory
             bool hasItem = _saveGameData!.Inventory?.Any(item =>
-                item.Equals(_target, StringComparison.OrdinalIgnoreCase)) ?? false;
+                item.Equals(resolvedTarget, StringComparison.OrdinalIgnoreCase)) ?? false;
 
             if (!hasItem)
             {
@@ -176,12 +183,14 @@ namespace Erwin.Games.TreasureIsland.Commands
                     commandHistory: null));
             }
 
+            var displayName = WorldData.Instance?.GetItemDisplayName(resolvedTarget) ?? resolvedTarget;
+
             // Remove item from inventory
             _saveGameData.Inventory?.RemoveAll(item =>
-                item.Equals(_target, StringComparison.OrdinalIgnoreCase));
+                item.Equals(resolvedTarget, StringComparison.OrdinalIgnoreCase));
 
             return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
-                message: $"You eat the {_target}. Not bad!",
+                message: $"You eat the {displayName}. Not bad!",
                 saveGameData: _saveGameData,
                 imageFilename: null,
                 locationDescription: null,

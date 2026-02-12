@@ -190,7 +190,7 @@ namespace Erwin.Games.TreasureIsland.Models
                 description += "\n\nYou see the following items:\n\n";
                 foreach (var item in finalItemsHashSet)
                 {
-                    description += item + "\n";
+                    description += (WorldData.Instance?.GetItemDisplayName(item) ?? item) + "\n";
                 }
             }
 
