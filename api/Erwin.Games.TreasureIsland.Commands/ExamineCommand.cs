@@ -83,12 +83,22 @@ namespace Erwin.Games.TreasureIsland.Commands
             {
                 if (currentLocation?.Name?.Contains("GoblinValley", StringComparison.OrdinalIgnoreCase) == true)
                 {
+                    // Check if flashlight is on
+                    if (_saveGameData?.GetEvent("flashlight_on") == null)
+                    {
+                        return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                            "It's too dark to see anything behind the goblin tower. You need a light source.",
+                            _saveGameData, null, null, null));
+                    }
+
                     var diamondsEvent = _saveGameData?.GetEvent("diamonds");
                     if (diamondsEvent == null)
                     {
                         currentLocation?.AddItemToLocation(_saveGameData, "diamonds");
                         _saveGameData?.AddEvent("diamonds", "Found the diamonds behind the goblin tower.", _saveGameData.CurrentDateTime);
-                        return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse("Even covered in dust, it is unmistakable, diamonds in the rough!", _saveGameData, null, null, null));
+                        return Task.FromResult<ProcessCommandResponse?>(new ProcessCommandResponse(
+                            "You shine your flashlight behind the goblin tower. Even covered in dust, it is unmistakable - diamonds in the rough!",
+                            _saveGameData, null, null, null));
                     }
                 }
             }

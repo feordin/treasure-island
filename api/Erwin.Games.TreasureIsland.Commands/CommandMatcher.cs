@@ -55,6 +55,14 @@ namespace Erwin.Games.TreasureIsland.Commands
             // All commands
             { "drop all", "drop all" },
             { "take all", "take all" }, { "get all", "take all" }, { "pick up all", "take all" },
+
+            // Turn on/off commands
+            { "turn on flashlight", "turn on flashlight" }, { "turn flashlight on", "turn on flashlight" },
+            { "turn off flashlight", "turn off flashlight" }, { "turn flashlight off", "turn off flashlight" },
+            { "switch on flashlight", "turn on flashlight" }, { "switch flashlight on", "turn on flashlight" },
+            { "switch off flashlight", "turn off flashlight" }, { "switch flashlight off", "turn off flashlight" },
+            { "turn on light", "turn on flashlight" }, { "turn on torch", "turn on flashlight" },
+            { "turn off light", "turn off flashlight" }, { "turn off torch", "turn off flashlight" },
         };
 
         // Commands that take a parameter (used for pattern matching)

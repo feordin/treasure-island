@@ -103,6 +103,9 @@ namespace Erwin.Games.TreasureIsland.Commands
                         combinationParam = string.Join("-", commandTokens.Skip(2));
                     }
                     return new OpenCommand(saveGameData, repository, commandParam, combinationParam);
+                case "turn":
+                    // "turn on flashlight" → action="on", target="flashlight"
+                    return new TurnCommand(saveGameData, commandParam, nextParam);
                 default:
                     return new UnknownCommand(saveGameData, repository, commandRemainder);
             }
