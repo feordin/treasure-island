@@ -67,7 +67,8 @@ namespace Erwin.Games.TreasureIsland
             var result = await cmd.Execute();
 
             // now check any required actions based on our current location
-            var actions = WorldData.Instance?.GetLocation(result?.saveGameData?.CurrentLocation)?.Actions;
+            var locationBeforeActions = result?.saveGameData?.CurrentLocation;
+            var actions = WorldData.Instance?.GetLocation(locationBeforeActions)?.Actions;
             if (actions != null && result != null)
             {
                 foreach (var action in actions)
@@ -81,7 +82,9 @@ namespace Erwin.Games.TreasureIsland
             }
 
             // Global Dracula action - runs on every command
-            if (result != null && result.saveGameData?.GetEvent("GameOver") == null)
+            // Skip if player was just saved by a last-chance escape (location changed by death action)
+            var wasJustSaved = result?.saveGameData?.CurrentLocation != locationBeforeActions;
+            if (result != null && result.saveGameData?.GetEvent("GameOver") == null && !wasJustSaved)
             {
                 var draculaAction = new DraculaAction(result);
                 draculaAction.Execute();

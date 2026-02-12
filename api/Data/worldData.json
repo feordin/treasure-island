@@ -3338,7 +3338,7 @@
       "Items": [
         "kingsTutTreasure"
       ],
-      "image": "fissureroom.png",
+      "image": "fissureledge.png",
       "Help": "You can swim back across the fissure if it is filled with water, but not while carrying heavy treasure. Aladdin's lamp can teleport you back.",
       "AllowedMovements": [],
       "DisplayName": "Fissure Ledge"

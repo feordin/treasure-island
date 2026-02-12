@@ -64,12 +64,16 @@ namespace Erwin.Games.TreasureIsland.Actions
                 "Used monkey's paw to escape certain death",
                 saveData.CurrentDateTime);
 
+            // Remove the monkey's paw from inventory - its power is spent
+            var pawIndex = saveData.Inventory?.FindIndex(i => i.Equals("monkeysPaw", StringComparison.OrdinalIgnoreCase)) ?? -1;
+            if (pawIndex >= 0) saveData.Inventory!.RemoveAt(pawIndex);
+
             saveData.CurrentLocation = previousLocation;
 
             response.Message = "Just as death seems certain, the monkey's paw in your pocket begins to tremble violently! " +
                 "Its last curled finger suddenly straightens, and reality warps around you...\n\n" +
                 "In a flash of eldritch light, you find yourself back where you were moments ago. " +
-                "The paw lies still in your pocket, its power now spent. You've cheated death, but at what cost?\n\n" +
+                "The paw crumbles to dust in your pocket, its dark power fully spent. You've cheated death, but at what cost?\n\n" +
                 (prevLocationData?.Description ?? $"You are at {previousLocation}.");
 
             response.ImageFilename = prevLocationData?.Image;
@@ -102,13 +106,19 @@ namespace Erwin.Games.TreasureIsland.Actions
                 "Used Aladdin's lamp to escape certain death",
                 saveData.CurrentDateTime);
 
+            // Remove the lamp from inventory - its magic is spent
+            var lampIndex = saveData.Inventory?.FindIndex(i =>
+                i.Equals("aladdinsLamp", StringComparison.OrdinalIgnoreCase) ||
+                i.Equals("lamp", StringComparison.OrdinalIgnoreCase)) ?? -1;
+            if (lampIndex >= 0) saveData.Inventory!.RemoveAt(lampIndex);
+
             saveData.CurrentLocation = previousLocation;
 
             response.Message = "In your moment of peril, you instinctively rub Aladdin's lamp! " +
                 "A genie materializes in a swirl of smoke and booms: 'YOUR WISH IS MY COMMAND!'\n\n" +
                 "Before you can even speak, the genie sees your predicament and whisks you away to safety. " +
                 "When the smoke clears, you find yourself back where you started. " +
-                "The lamp grows cold in your hands - its one wish has been granted.\n\n" +
+                "The lamp vanishes in a puff of smoke - its one wish has been granted.\n\n" +
                 (prevLocationData?.Description ?? $"You are at {previousLocation}.");
 
             response.ImageFilename = prevLocationData?.Image;
