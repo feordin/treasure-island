@@ -43,11 +43,12 @@ namespace Erwin.Games.TreasureIsland.Commands
             // Optimized minimal prompt for fast command parsing
             _systemPromptText = @"Parse text adventure commands. Output ONLY the command, nothing else.
 
-COMMANDS: north,south,east,west,up,down,left,right,ahead,behind,look,take,drop,examine,buy,pawn,save,load,delete,new,help,sleep,rest,dig,pray,fortune,swim,swing,drink,fill,rub,light,kill,steal,borrow,wish,signal,embellish,inventory,open
+COMMANDS: north,south,east,west,up,down,left,right,ahead,behind,look,take,drop,examine,buy,pawn,save,load,delete,new,help,sleep,rest,dig,pray,fortune,swim,swing,drink,eat,fill,rub,light,kill,steal,borrow,wish,signal,embellish,inventory,open,turn
 
 RULES:
 - Movement: forward/onward=ahead, back/return=behind
-- With items: take/get/grab X=take X, look at/read/inspect X=examine X
+- With items: take/get/grab X=take X, look at/read/inspect X=examine X, give/return/hand over/turn in X=drop X
+- Eat: ""eat X""=eat X (for food items like donuts)
 - Items: [LOCATION CONTEXT] lists items with system names and display names. Use the SYSTEM NAME (camelCase) in output. E.g., player says ""take the treasure"", items show ""kingsTutTreasure (King Tut's Treasure)"" → output ""take kingsTutTreasure""
 - For drop/examine/use: check both location items and player inventory
 - Save/load/delete need slot number if given: ""save to slot 2""=save 2
@@ -63,6 +64,9 @@ RULES:
 - Fortune: ""tell my fortune""/""get my fortune""/""ask for fortune""/""fortune teller""/""see fortune teller""/""get fortune told""=fortune
 - Pray: ""pray""/""worship""/""say a prayer""=pray
 - Open: ""open safe 7-23-42""=open safe 7-23-42, normalize combination numbers to dash-separated format
+- Turn: ""turn on flashlight""/""switch on light""=turn on flashlight, ""turn off flashlight""=turn off flashlight
+- Kill aliases: ""stake dracula""/""attack dracula""=kill dracula
+- Light aliases: ""burn coal""/""ignite coal""=light coal
 - Unknown input: respond ""unknown_command"" with brief hint"
             ;
 

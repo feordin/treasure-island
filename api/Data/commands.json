@@ -124,7 +124,7 @@
     },
     {
       "command": "drop",
-      "aliases": ["put down", "leave", "discard"],
+      "aliases": ["put down", "leave", "discard", "give", "return", "hand over", "turn in", "hand in"],
       "parameters": [
         {
           "name": "item",
@@ -134,7 +134,7 @@
         }
       ],
       "description": "Drop an item from your inventory at the current location.",
-      "examples": ["drop letter", "put down matches", "leave coal"],
+      "examples": ["drop letter", "put down matches", "leave coal", "return wallet", "give wallet", "hand over wallet", "turn in wallet"],
       "category": "inventory"
     },
     {
@@ -504,7 +504,11 @@
       {"input": "turn off the flashlight", "output": "turn off flashlight"},
       {"input": "switch on the light", "output": "turn on flashlight"},
       {"input": "turn the flashlight on", "output": "turn on flashlight"},
-      {"input": "turn the flashlight off", "output": "turn off flashlight"}
+      {"input": "turn the flashlight off", "output": "turn off flashlight"},
+      {"input": "return wallet", "output": "drop wallet"},
+      {"input": "give the wallet to the constable", "output": "drop wallet"},
+      {"input": "hand over the wallet", "output": "drop wallet"},
+      {"input": "turn in the wallet", "output": "drop wallet"}
     ],
     "naturalLanguagePatterns": [
       {
